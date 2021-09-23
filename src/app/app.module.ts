@@ -1,33 +1,26 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+/** Modulos */
 import { AppRoutingModule } from './app-routing.module';
+import { PagesModule } from './pages/pages.module';
+import { AuthModule } from './auth/auth.module';
 
 import { AppComponent } from './app.component';
-import { LoginComponent } from './auth/login/login.component';
-import { ResgisterComponent } from './auth/resgister/resgister.component';
-import { NopagefoundComponent } from './pages/nopagefound/nopagefound.component';
-import { DashboardComponent } from './pages/dashboard/dashboard.component';
-import { BreadcrumbsComponent } from './share/breadcrumbs/breadcrumbs.component';
-import { SidebarComponent } from './share/sidebar/sidebar.component';
-import { HeaderComponent } from './share/header/header.component';
-import { PagesComponent } from './pages/pages.component';
+import { NopagefoundComponent } from './nopagefound/nopagefound.component';
+
+
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
-    ResgisterComponent,
-    NopagefoundComponent,
-    DashboardComponent,
-    BreadcrumbsComponent,
-    SidebarComponent,
-    HeaderComponent,
-    PagesComponent
+    NopagefoundComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    PagesModule,
+    AuthModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
