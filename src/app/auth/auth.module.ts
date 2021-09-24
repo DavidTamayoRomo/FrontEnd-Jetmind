@@ -1,7 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
 import { ResgisterComponent } from './resgister/resgister.component';
+import { RouterModule } from '@angular/router';
 
 
 
@@ -15,7 +17,9 @@ import { ResgisterComponent } from './resgister/resgister.component';
     ResgisterComponent,
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    RouterModule,
+    FormsModule
   ]
 })
 export class AuthModule { }
