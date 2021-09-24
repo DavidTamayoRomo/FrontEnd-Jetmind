@@ -12,7 +12,7 @@ export class SidebarService {
       icono:'mdi mdi-gauge',
       submenu:[
         { titulo: 'Main',url: '/' },
-        { titulo: 'Progress',url: '/NNDSASD' },
+        { titulo: 'Rxjs',url: 'rxjs' },
       ]
     }
   ]
