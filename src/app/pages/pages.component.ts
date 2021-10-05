@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 // @ts-ignore
-declare function customInitFunction();
+declare function init_pugings();
 
 @Component({
   selector: 'app-pages',
@@ -14,7 +14,7 @@ export class PagesComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    customInitFunction();
+    init_pugings();
   }
 
 }

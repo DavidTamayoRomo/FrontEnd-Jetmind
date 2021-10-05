@@ -16,9 +16,9 @@ export class BreadcrumbsComponent {
   public tituloSubs$: Subscription;
   constructor(private router:Router, private route:ActivatedRoute) { 
     this.tituloSubs$ = this.getArgumentRoute().subscribe(data => {
-      this.titulo = data.titulo;
-      document.title = `JETMIND - ${this.titulo}`;
-    });
+                                    this.titulo = data.titulo;
+                                    document.title = `JETMIND - ${this.titulo}`;
+                                  });
   }
 
   ngOnDestroy(): void {

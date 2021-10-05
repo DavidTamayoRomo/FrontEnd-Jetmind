@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { PagesComponent } from './pages.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
+import { PersonaComponent } from './persona/persona.component';
 
 
 const routes: Routes = [
@@ -14,6 +15,7 @@ const routes: Routes = [
         children: [
             /**Rutas que necesitan autenticacion */
             { path: 'dashboard', component: DashboardComponent, data:{titulo:'Home'} },
+            { path: 'persona', component: PersonaComponent, data:{titulo:'Persona'} },
             { path: 'rxjs', component: RxjsComponent, data:{titulo:'Rxjs'} },
             { path: '', redirectTo: '/dashboard', pathMatch: 'full'},
         ]

@@ -1,0 +1,68 @@
+<div class="card">
+
+    <div class="card-body">
+        <h4 class="card-title">Agregar Personas</h4>
+        <h6 class="card-subtitle">Ingrese todos los datos solicitados</h6>
+
+        <ng-multiselect-dropdown [placeholder]="'Seleccione Ciudades'" [settings]="dropdownSettings"
+                [data]="dropdownList"  (onSelect)="onItemSelect($event)"
+                (onSelectAll)="onSelectAll($event)" (onDeSelect)="onDeSelect($event)" (onDeSelectAll)="onDeSelectAll($event)" >
+        </ng-multiselect-dropdown>
+
+        <form class="form p-t-20">
+            
+
+            <div class="form-group">
+                <label for="exampleInputuname">Ciudad</label>
+                <div class="input-group">
+                    <div class="input-group-addon"><i class="ti-user"></i></div>
+                    <input type="text" class="form-control" id="exampleInputuname" placeholder="Username">
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="exampleInputuname">Sucursal</label>
+                <div class="input-group">
+                    <div class="input-group-addon"><i class="ti-user"></i></div>
+                    <input type="text" class="form-control" id="exampleInputuname" placeholder="Username">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputuname">Marca</label>
+                <div class="input-group">
+                    <div class="input-group-addon"><i class="ti-user"></i></div>
+                    <input type="text" class="form-control" id="exampleInputuname" placeholder="Username">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputEmail1">Email address</label>
+                <div class="input-group">
+                    <div class="input-group-addon"><i class="ti-email"></i></div>
+                    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="pwd1">Password</label>
+                <div class="input-group">
+                    <div class="input-group-addon"><i class="ti-lock"></i></div>
+                    <input type="password" class="form-control" id="pwd1" placeholder="Enter email">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="pwd2">Confirm Password</label>
+                <div class="input-group">
+                    <div class="input-group-addon"><i class="ti-lock"></i></div>
+                    <input type="password" class="form-control" id="pwd2" placeholder="Enter email">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="checkbox checkbox-success">
+                    <input id="checkbox1" type="checkbox">
+                    <label for="checkbox1"> Remember me </label>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-success waves-effect waves-light m-r-10">Submit</button>
+            <button type="submit" class="btn btn-inverse waves-effect waves-light">Cancel</button>
+        </form>
+    </div>
+</div>
