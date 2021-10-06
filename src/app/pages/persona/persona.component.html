@@ -4,43 +4,129 @@
         <h4 class="card-title">Agregar Personas</h4>
         <h6 class="card-subtitle">Ingrese todos los datos solicitados</h6>
 
-        <ng-multiselect-dropdown [placeholder]="'Seleccione Ciudades'" [settings]="dropdownSettings"
-                [data]="dropdownList"  (onSelect)="onItemSelect($event)"
-                (onSelectAll)="onSelectAll($event)" (onDeSelect)="onDeSelect($event)" (onDeSelectAll)="onDeSelectAll($event)" >
-        </ng-multiselect-dropdown>
+        <div class="form-group">
+            <div class="demo-switch-title">Estado</div>
+            <div class="switch">
+                <label>
+                    <input type="checkbox" checked=""><span class="lever switch-col-cyan"></span>
+                </label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="exampleInputuname">Ciudades</label>
+            <ng-multiselect-dropdown [placeholder]="'Seleccione Ciudades'" [settings]="dropdownSettings"
+                [data]="dropdownListCiudades" (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)"
+                (onDeSelect)="onDeSelect($event)" (onDeSelectAll)="onDeSelectAll($event)">
+            </ng-multiselect-dropdown>
+        </div>
+        <div class="form-group">
+            <label for="exampleInputuname">Sucursales</label>
+            <ng-multiselect-dropdown [placeholder]="'Seleccione Sucursal'" [settings]="dropdownSettings"
+                [data]="dropdownListSucursales" (onSelect)="onItemSelectsucursal($event)"
+                (onSelectAll)="onSelectAllsucursal($event)" (onDeSelect)="onDeSelectsucursal($event)"
+                (onDeSelectAll)="onDeSelectAllsucursal($event)">
+            </ng-multiselect-dropdown>
+        </div>
+
+        <div class="form-group">
+            <label for="exampleInputuname">Marcas</label>
+            <ng-multiselect-dropdown [placeholder]="'Seleccione Marca'" [settings]="dropdownSettings"
+                [data]="dropdownListMarcas" (onSelect)="onItemSelectmarca($event)"
+                (onSelectAll)="onSelectAllmarca($event)" (onDeSelect)="onDeSelectmarca($event)"
+                (onDeSelectAll)="onDeSelectAllmarca($event)">
+            </ng-multiselect-dropdown>
+        </div>
+
+        <div class="form-group">
+            <label for="exampleInputuname">Nombres y Apellidos</label>
+            <div class="input-group">
+                <div class="input-group-addon"><i class="ti-user"></i></div>
+                <input type="text" class="form-control" id="exampleInputuname" placeholder="Nombres">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="exampleInputEmail1">Email address</label>
+            <div class="input-group">
+                <div class="input-group-addon"><i class="ti-email"></i></div>
+                <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Ingrese email">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="pwd1">Password / Contraseña</label>
+            <div class="input-group">
+                <div class="input-group-addon"><i class="ti-lock"></i></div>
+                <input type="password" class="form-control" id="pwd1" placeholder="Ingrese password">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="cedula">Cedula</label>
+            <div class="input-group">
+                <div class="input-group-addon"><i class=" ti-id-badge"></i></div>
+                <input type="number" class="form-control" id="cedula" placeholder="Ingrese cedula">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="telefono">Telefono</label>
+            <div class="input-group">
+                <div class="input-group-addon"><i class="fa fa-phone"></i></div>
+                <input type="number" class="form-control" id="telefono" placeholder="Ingrese telefono">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="telefonodomicilio">Telefono Domicilio</label>
+            <div class="input-group">
+                <div class="input-group-addon"><i class="fa fa-phone"></i></div>
+                <input type="number" class="form-control" id="telefonodomicilio"
+                    placeholder="Ingrese telefono domicilio">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="fechaNacimiento">Fecha Nacimiento</label>
+            <div class="input-group">
+                <div class="input-group-addon"><i class="fa fa-clock-o"></i></div>
+                <input type="date" class="form-control" id="fechaNacimiento" placeholder="Ingrese fecha Nacimiento">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="direccion">Direccion</label>
+            <div class="input-group">
+                <div class="input-group-addon"><i class=" ti-location-pin"></i></div>
+                <input type="text" class="form-control" id="direccion" placeholder="Ingrese direccion">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label">Genero</label>
+            <select class="form-control custom-select">
+                <option value="Femenino">Femenino</option>
+                <option value="Masculino">Masculino</option>
+            </select>
+            <small class="form-control-feedback"> Seleccione el genero </small>
+        </div>
+
+        <div class="form-group">
+            <label>Foto de perfil</label>
+            <input type="file" class="form-control" id="exampleInputFile" aria-describedby="fileHelp">
+        </div>
+
+
+
 
         <form class="form p-t-20">
-            
 
-            <div class="form-group">
-                <label for="exampleInputuname">Ciudad</label>
-                <div class="input-group">
-                    <div class="input-group-addon"><i class="ti-user"></i></div>
-                    <input type="text" class="form-control" id="exampleInputuname" placeholder="Username">
-                </div>
-            </div>
-            
-            <div class="form-group">
-                <label for="exampleInputuname">Sucursal</label>
-                <div class="input-group">
-                    <div class="input-group-addon"><i class="ti-user"></i></div>
-                    <input type="text" class="form-control" id="exampleInputuname" placeholder="Username">
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="exampleInputuname">Marca</label>
-                <div class="input-group">
-                    <div class="input-group-addon"><i class="ti-user"></i></div>
-                    <input type="text" class="form-control" id="exampleInputuname" placeholder="Username">
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="exampleInputEmail1">Email address</label>
-                <div class="input-group">
-                    <div class="input-group-addon"><i class="ti-email"></i></div>
-                    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
-                </div>
-            </div>
+
+
+
+
+
+
             <div class="form-group">
                 <label for="pwd1">Password</label>
                 <div class="input-group">
@@ -66,3 +152,6 @@
         </form>
     </div>
 </div>
+
+
+   

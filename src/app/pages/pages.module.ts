@@ -27,7 +27,9 @@ import { FormsModule } from '@angular/forms';
     ShareModule,
     AppRoutingModule,
     NgMultiSelectDropDownModule.forRoot(),
-    FormsModule
+   
+    FormsModule,
+    
   ]
 })
 export class PagesModule { }

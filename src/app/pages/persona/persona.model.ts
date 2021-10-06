@@ -1,9 +1,9 @@
 export class Persona {
     constructor(
         public tipo?: string,
-        public idMarca:string,
         public idCiudad:string,
         public idSucursal:string,
+        public idMarca:string,
         public nombresApellidos:string,
         public email:string,
         public password?:string,
