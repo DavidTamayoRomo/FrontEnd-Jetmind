@@ -11,7 +11,7 @@
             <div class="demo-switch-title">Estado</div>
             <div class="switch">
                 <label>
-                    <input type="checkbox" checked="" [(ngModel)]="PersonaModel.estado" name="estado">  <span class="lever switch-col-cyan"></span>
+                    <input type="checkbox"  [(ngModel)]="PersonaModel.estado" name="estado" checked >  <span class="lever switch-col-cyan"></span>
                 </label>
             </div>
         </div>
@@ -149,13 +149,7 @@
             </div>
         </div>
 
-        <div class="row">
-            <div class="col text-danger">
-                <p *ngIf="campoNoValido('nombresApellidos')">El es Nombre es obligatorio</p>
-                <p *ngIf="campoNoValido('idCiudad')">Seleccione al menos una ciudad</p>
-                <p *ngIf="campoNoValido('email')">El email es obligatorio / El email no es correcto</p>
-            </div>
-        </div>
+        
 
 
         <button type="submit" class="btn btn-success waves-effect waves-light m-r-10">Guardar</button>

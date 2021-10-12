@@ -7,11 +7,12 @@ const base_url = environment.base_url;
 @Injectable({
   providedIn: 'root'
 })
-export class PersonaService {
+export class MarcaService {
 
   constructor(private http:HttpClient) { }
 
-  crearPersona(formData :any){
-    return this.http.post(`${base_url}/persona`, formData);
-  }
+   /** Get MArcas */
+   getAllMarcas(){
+    return this.http.get(`${base_url}/marca`);
+   }
 }

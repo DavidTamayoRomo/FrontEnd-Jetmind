@@ -4,6 +4,10 @@ import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { PersonaService } from './persona.service';
 import Swal from 'sweetalert2'
 import { Persona } from '../../models/persona.model';
+import { CiudadService } from '../services/ciudad.service';
+import { async } from '@angular/core/testing';
+import { SucursalService } from '../services/sucursal.service';
+import { MarcaService } from '../services/marca.service';
 
 
 
@@ -13,8 +17,6 @@ import { Persona } from '../../models/persona.model';
   styles: []
 })
 export class PersonaComponent implements OnInit {
-
-
 
   dropdownListCiudades: any = [];
   dropdownListSucursales: any = [];
@@ -26,40 +28,66 @@ export class PersonaComponent implements OnInit {
   marca: any = [];
 
 
-  public registerForm = this.fb.group({
-    estado: [true, Validators.required],
-    idCiudad: [['612f9f1d43f77418a0b889d1'], Validators.required],
-    idSucursal: [['6131343124e34827ac19792c']],
-    idMarca: [['6131076e86f44c1c4c26ca10']],
-    nombresApellidos: ['David Tamayo', Validators.required],
-    email: ['d1916@gmail.com', [Validators.required, Validators.email]],
-    password: ['123'],
-    cedula: ['1804778023'],
-    telefono: ['0987284902'],
-    telefonoDomicilio: ['0954854945'],
-    fechaNacimiento: ['04/10/2021'],
-    direccion: ['Quito'],
-    genero: ['Masculino'],
-    fotoPerfil: [''],
-    fotoCedula1: [''],
-    fotoCedula2: [''],
-    fechaIngresoEmpresa: ['04/10/2021'],
-    numeroCuenta: ['123456789']
-  });
+  constructor(private fb: FormBuilder,
+    private personaService: PersonaService,
+    private ciudadService: CiudadService,
+    private sucursalService: SucursalService,
+    private marcaService: MarcaService
+  ) {
+
+  }
 
 
+  /*
+    public registerForm = this.fb.group({
+      estado: [true, Validators.required],
+      idCiudad: [['612f9f1d43f77418a0b889d1'], Validators.required],
+      idSucursal: [['6131343124e34827ac19792c']],
+      idMarca: [['6131076e86f44c1c4c26ca10']],
+      nombresApellidos: ['David Tamayo', Validators.required],
+      email: ['d1916@gmail.com', [Validators.required, Validators.email]],
+      password: ['123'],
+      cedula: ['1804778023'],
+      telefono: ['0987284902'],
+      telefonoDomicilio: ['0954854945'],
+      fechaNacimiento: ['04/10/2021'],
+      direccion: ['Quito'],
+      genero: ['Masculino'],
+      fotoPerfil: [''],
+      fotoCedula1: [''],
+      fotoCedula2: [''],
+      fechaIngresoEmpresa: ['04/10/2021'],
+      numeroCuenta: ['123456789']
+    });
+  */
 
-  constructor(private fb: FormBuilder, private personaService:PersonaService) { }
 
+  PersonaModel = new Persona('Marketing', [], [], [], '', '', '', '', '', '', new Date(), '', '', true, '', '', '', new Date(), 0);
 
-  /**Prueba para ver si funciona en el celular */
-  PersonaModel = new Persona('Marketing','','','','','','','','','',new Date(),'','','','','','',new Date(),13);
-  
-  onSubmit(f: NgForm){
-    this.personaService.crearPersona(this.PersonaModel).subscribe((resp) =>{
+  onSubmit(f: NgForm) {
+    
+    //ID de las ciudades
+    let ciudadLista:any = [];
+    this.ciudad.forEach((element:any) => {
+      ciudadLista.push(element.item_id);
+    });
+    this.PersonaModel.idCiudad=ciudadLista;
+    //ID de las Sucursales
+    let sucursalLista:any = [];
+    this.sucursal.forEach((element:any) => {
+      sucursalLista.push(element.item_id);
+    });
+    this.PersonaModel.idSucursal=sucursalLista;
+    //ID de las Marcas
+    let marcaLista:any = [];
+    this.marca.forEach((element:any) => {
+      marcaLista.push(element.item_id);
+    });
+    this.PersonaModel.idMarca=marcaLista;
+
+    console.log(this.PersonaModel);
+    this.personaService.crearPersona(this.PersonaModel).subscribe((resp) => {
       console.log("Persona creada");
-      console.log(resp);
-      
       const Toast = Swal.mixin({
         toast: true,
         position: 'top-end',
@@ -71,15 +99,14 @@ export class PersonaComponent implements OnInit {
           toast.addEventListener('mouseleave', Swal.resumeTimer)
         }
       })
-      
       Toast.fire({
         icon: 'success',
         title: 'Guardado correctamente'
       })
-    }, (err:any)=> {
+    }, (err: any) => {
 
       console.warn(err.error.message);
-      
+
       const Toast = Swal.mixin({
         toast: true,
         position: 'top-end',
@@ -91,109 +118,120 @@ export class PersonaComponent implements OnInit {
           toast.addEventListener('mouseleave', Swal.resumeTimer)
         }
       })
-      
+
       Toast.fire({
         icon: 'error',
-        title: 'ERROR: '+err.error
+        title: 'ERROR: ' + err.error
       })
     });
   }
-
-  crearPersona() {
-    console.log(this.registerForm.value);
-    if (this.registerForm.invalid) {
-      return;
+  /*
+    crearPersona() {
+      console.log(this.registerForm.value);
+      if (this.registerForm.invalid) {
+        return;
+      }
+      //Guardar los datos con el servicio
+      this.personaService.crearPersona(this.registerForm.value)
+        .subscribe((resp) =>{
+          console.log("Persona creada");
+          console.log(resp);
+          
+          const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+              toast.addEventListener('mouseenter', Swal.stopTimer)
+              toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+          })
+          
+          Toast.fire({
+            icon: 'success',
+            title: 'Guardado correctamente'
+          })
+        }, (err:any)=> {
+          console.warn(err.error.message);
+          
+          const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+              toast.addEventListener('mouseenter', Swal.stopTimer)
+              toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+          })
+          
+          Toast.fire({
+            icon: 'error',
+            title: 'ERROR: '+err.error
+          })
+        });
     }
-    //Guardar los datos con el servicio
-    this.personaService.crearPersona(this.registerForm.value)
-      .subscribe((resp) =>{
-        console.log("Persona creada");
-        console.log(resp);
-        
-        const Toast = Swal.mixin({
-          toast: true,
-          position: 'top-end',
-          showConfirmButton: false,
-          timer: 3000,
-          timerProgressBar: true,
-          didOpen: (toast) => {
-            toast.addEventListener('mouseenter', Swal.stopTimer)
-            toast.addEventListener('mouseleave', Swal.resumeTimer)
-          }
-        })
-        
-        Toast.fire({
-          icon: 'success',
-          title: 'Guardado correctamente'
-        })
-      }, (err:any)=> {
-        console.warn(err.error.message);
-        
-        const Toast = Swal.mixin({
-          toast: true,
-          position: 'top-end',
-          showConfirmButton: false,
-          timer: 3000,
-          timerProgressBar: true,
-          didOpen: (toast) => {
-            toast.addEventListener('mouseenter', Swal.stopTimer)
-            toast.addEventListener('mouseleave', Swal.resumeTimer)
-          }
-        })
-        
-        Toast.fire({
-          icon: 'error',
-          title: 'ERROR: '+err.error
-        })
+  
+    campoNoValido(campo:any):boolean{
+      if (this.registerForm.get(campo)?.invalid  ) {
+        return true;
+      }
+      else{
+        return false;
+      }
+    }
+  */
+
+  recuperarDatosCiudad() {
+    this.ciudadService.getAllCiudades().subscribe((resp: any) => {
+      let nombreciudades: any = [];
+      resp.data.forEach((element: any) => {
+        nombreciudades.push({ item_id: element._id, nombre: element.nombre });
       });
+      this.dropdownListCiudades = nombreciudades;
+    });
   }
-
-  campoNoValido(campo:any):boolean{
-    if (this.registerForm.get(campo)?.invalid  ) {
-      return true;
-    }
-    else{
-      return false;
-    }
+  recuperarDatosSucursales() {
+    this.sucursalService.getAllSucursales().subscribe((resp: any) => {
+      let nombreSucursal: any = [];
+      resp.data.forEach((element: any) => {
+        nombreSucursal.push({ item_id: element._id, nombre: element.nombre });
+      });
+      this.dropdownListSucursales = nombreSucursal;
+    });
   }
-
+  recuperarDatosMarcas() {
+    this.marcaService.getAllMarcas().subscribe((resp: any) => {
+      let nombremarcas: any = [];
+      resp.data.forEach((element: any) => {
+        nombremarcas.push({ item_id: element._id, nombre: element.nombre });
+      });
+      this.dropdownListMarcas = nombremarcas;
+      
+    });
+  }
 
   ngOnInit(): void {
-    //TODO: Servicio que me devuelva las CIUDADES de la base de datos
-    this.dropdownListCiudades = [
-      "Quito",
-      "Ambato",
-      "Cuenca",
-      "Latacunga",
-      "612f9f1d43f77418a0b889d1"
-    ];
-    //TODO: Servicio que me devuelva las SUCURSALES de la base de datos
-    this.dropdownListSucursales = [
-      "El bosque",
-      "Villaflora",
-      "Condado",
-      "San Rafael",
-      "6131343124e34827ac19792c"
-    ];
-    //TODO: Servicio que me devuelva las MARCAS de la base de datos
-    this.dropdownListMarcas = [
-      "Charlotte",
-      "Tomatis",
-      "Ilvem",
-      "UK",
-      "6131076e86f44c1c4c26ca10"
-    ];
+    /** Servicio que me devuelva las CIUDADES de la base de datos */
+    this.recuperarDatosCiudad();
+    /** Servicio que me devuelva las SUCURSALES de la base de datos */
+    this.recuperarDatosSucursales();
+    /** Servicio que me devuelva las MARCAS de la base de datos */
+    this.recuperarDatosMarcas();
 
     this.dropdownSettings = {
       singleSelection: false,
+      idField: 'item_id',
+      textField: 'nombre',
       selectAllText: 'Select All',
       unSelectAllText: 'UnSelect All',
       itemsShowLimit: 3,
       allowSearchFilter: true
     };
   }
-
-
 
 
 
@@ -217,9 +255,13 @@ export class PersonaComponent implements OnInit {
     console.log(this.ciudad);
   }
   /** Deselccionar item */
+  findByItemIdIndexCiudad(id:any){
+    return this.ciudad.findIndex((resp:any)=>{
+      return resp.item_id === id;
+    })
+  }
   onDeSelect(item: any) {
-    /** Borrar elemento del array  */
-    const index = this.ciudad.indexOf(item);
+    const index = this.findByItemIdIndexCiudad(item.item_id);
     const newArray = (index > -1) ? [
       ...this.ciudad.slice(0, index),
       ...this.ciudad.slice(index + 1)
@@ -245,9 +287,14 @@ export class PersonaComponent implements OnInit {
     console.log(this.sucursal);
   }
   /** Deselccionar item */
+  findByItemIdIndexSucursal(id:any){
+    return this.sucursal.findIndex((resp:any)=>{
+      return resp.item_id === id;
+    })
+  }
   onDeSelectsucursal(item: any) {
     /** Borrar elemento del array  */
-    const index = this.sucursal.indexOf(item);
+    const index = this.findByItemIdIndexSucursal(item.item_id);
     const newArray = (index > -1) ? [
       ...this.sucursal.slice(0, index),
       ...this.sucursal.slice(index + 1)
@@ -273,9 +320,14 @@ export class PersonaComponent implements OnInit {
     console.log(this.marca);
   }
   /** Deselccionar item */
+  findByItemIdIndexMarca(id:any){
+    return this.marca.findIndex((resp:any)=>{
+      return resp.item_id === id;
+    })
+  }
   onDeSelectmarca(item: any) {
     /** Borrar elemento del array  */
-    const index = this.marca.indexOf(item);
+    const index = this.findByItemIdIndexMarca(item.item_id);
     const newArray = (index > -1) ? [
       ...this.marca.slice(0, index),
       ...this.marca.slice(index + 1)

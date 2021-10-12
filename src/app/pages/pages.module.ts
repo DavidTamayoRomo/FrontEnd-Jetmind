@@ -11,6 +11,9 @@ import { RxjsComponent } from './rxjs/rxjs.component';
 import { PersonaComponent } from './persona/persona.component';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CiudadComponent } from './ciudad/ciudad.component';
+import { SucursalComponent } from './sucursal/sucursal.component';
+import { MarcaComponent } from './marca/marca.component';
 
 
 
@@ -21,6 +24,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     PagesComponent,
     RxjsComponent,
     PersonaComponent,
+    CiudadComponent,
+    SucursalComponent,
+    MarcaComponent,
   ],
   exports:[
     DashboardComponent,
