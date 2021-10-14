@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { PersonaService } from './persona.service';
-import Swal from 'sweetalert2'
+import Swal from 'sweetalert2';
 import { Persona } from '../../models/persona.model';
 import { CiudadService } from '../services/ciudad.service';
 import { async } from '@angular/core/testing';
@@ -18,76 +18,73 @@ import { MarcaService } from '../services/marca.service';
 })
 export class PersonaComponent implements OnInit {
 
-  dropdownListCiudades: any = [];
-  dropdownListSucursales: any = [];
-  dropdownListMarcas: any = [];
-  selectedItems: any = [];
-  dropdownSettings: IDropdownSettings = {};
-  ciudad: any = [];
-  sucursal: any = [];
-  marca: any = [];
+  public dropdownListCiudades: any = [];
+  public dropdownListSucursales: any = [];
+  public dropdownListMarcas: any = [];
+  public selectedItems: any = [];
+  public dropdownSettings: IDropdownSettings = {};
+  public ciudad: any = [];
+  public sucursal: any = [];
+  public marca: any = [];
 
+  
 
   constructor(private fb: FormBuilder,
     private personaService: PersonaService,
     private ciudadService: CiudadService,
     private sucursalService: SucursalService,
     private marcaService: MarcaService
-  ) {
+  ) {  }
 
+  ngOnInit(): void {
+    /** Servicio que me devuelva las CIUDADES de la base de datos */
+    this.recuperarDatosCiudad();
+    /** Servicio que me devuelva las SUCURSALES de la base de datos */
+    this.recuperarDatosSucursales();
+    /** Servicio que me devuelva las MARCAS de la base de datos */
+    this.recuperarDatosMarcas();
+
+    this.dropdownSettings = {
+      singleSelection: false,
+      idField: 'item_id',
+      textField: 'nombre',
+      selectAllText: 'Select All',
+      unSelectAllText: 'UnSelect All',
+      itemsShowLimit: 3,
+      allowSearchFilter: true
+    };
   }
-
-
-  /*
-    public registerForm = this.fb.group({
-      estado: [true, Validators.required],
-      idCiudad: [['612f9f1d43f77418a0b889d1'], Validators.required],
-      idSucursal: [['6131343124e34827ac19792c']],
-      idMarca: [['6131076e86f44c1c4c26ca10']],
-      nombresApellidos: ['David Tamayo', Validators.required],
-      email: ['d1916@gmail.com', [Validators.required, Validators.email]],
-      password: ['123'],
-      cedula: ['1804778023'],
-      telefono: ['0987284902'],
-      telefonoDomicilio: ['0954854945'],
-      fechaNacimiento: ['04/10/2021'],
-      direccion: ['Quito'],
-      genero: ['Masculino'],
-      fotoPerfil: [''],
-      fotoCedula1: [''],
-      fotoCedula2: [''],
-      fechaIngresoEmpresa: ['04/10/2021'],
-      numeroCuenta: ['123456789']
-    });
-  */
-
 
   PersonaModel = new Persona('Marketing', [], [], [], '', '', '', '', '', '', new Date(), '', '', true, '', '', '', new Date(), 0);
-
-  onSubmit(f: NgForm) {
-    
-    //ID de las ciudades
-    let ciudadLista:any = [];
-    this.ciudad.forEach((element:any) => {
-      ciudadLista.push(element.item_id);
-    });
-    this.PersonaModel.idCiudad=ciudadLista;
-    //ID de las Sucursales
-    let sucursalLista:any = [];
-    this.sucursal.forEach((element:any) => {
-      sucursalLista.push(element.item_id);
-    });
-    this.PersonaModel.idSucursal=sucursalLista;
-    //ID de las Marcas
-    let marcaLista:any = [];
-    this.marca.forEach((element:any) => {
-      marcaLista.push(element.item_id);
-    });
-    this.PersonaModel.idMarca=marcaLista;
-
-    console.log(this.PersonaModel);
-    this.personaService.crearPersona(this.PersonaModel).subscribe((resp) => {
-      console.log("Persona creada");
+  /** 
+   * ====================================================================
+   * Ractive form 
+   * ====================================================================
+   * */
+  public registerForm = this.fb.group({
+    estado: [true, Validators.required],
+    idCiudad: [null, Validators.required],
+    idSucursal: [null, Validators.required],
+    idMarca: [null, Validators.required],
+    nombresApellidos: [null, Validators.required],
+    email: [null, [Validators.required, Validators.email]],
+    password: [null],
+    cedula: [null],
+    telefono: [null],
+    telefonoDomicilio: [null],
+    fechaNacimiento: [null],
+    direccion: [null],
+    genero: [null],
+    fotoPerfil: [null],
+    fotoCedula1: [null],
+    fotoCedula2: [null],
+    fechaIngresoEmpresa: [null],
+    numeroCuenta: [null]
+  });
+  crearPersona() {
+    console.log(this.registerForm.value);
+    if (this.registerForm.invalid) {
+      //Formulario invalido
       const Toast = Swal.mixin({
         toast: true,
         position: 'top-end',
@@ -99,91 +96,94 @@ export class PersonaComponent implements OnInit {
           toast.addEventListener('mouseleave', Swal.resumeTimer)
         }
       })
-      Toast.fire({
-        icon: 'success',
-        title: 'Guardado correctamente'
-      })
-    }, (err: any) => {
-
-      console.warn(err.error.message);
-
-      const Toast = Swal.mixin({
-        toast: true,
-        position: 'top-end',
-        showConfirmButton: false,
-        timer: 3000,
-        timerProgressBar: true,
-        didOpen: (toast) => {
-          toast.addEventListener('mouseenter', Swal.stopTimer)
-          toast.addEventListener('mouseleave', Swal.resumeTimer)
-        }
-      })
-
       Toast.fire({
         icon: 'error',
-        title: 'ERROR: ' + err.error
+        title: 'Verificar campos invalidos \n Indicados con el color rojo'
       })
-    });
-  }
-  /*
-    crearPersona() {
-      console.log(this.registerForm.value);
-      if (this.registerForm.invalid) {
-        return;
-      }
+      return;
+    } else {
+
+      //Formulario VALIDO
       //Guardar los datos con el servicio
-      this.personaService.crearPersona(this.registerForm.value)
-        .subscribe((resp) =>{
-          console.log("Persona creada");
-          console.log(resp);
-          
-          const Toast = Swal.mixin({
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-              toast.addEventListener('mouseenter', Swal.stopTimer)
-              toast.addEventListener('mouseleave', Swal.resumeTimer)
-            }
-          })
-          
-          Toast.fire({
-            icon: 'success',
-            title: 'Guardado correctamente'
-          })
-        }, (err:any)=> {
-          console.warn(err.error.message);
-          
-          const Toast = Swal.mixin({
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-              toast.addEventListener('mouseenter', Swal.stopTimer)
-              toast.addEventListener('mouseleave', Swal.resumeTimer)
-            }
-          })
-          
-          Toast.fire({
-            icon: 'error',
-            title: 'ERROR: '+err.error
-          })
-        });
+      this.PersonaModel = this.registerForm.value;
+
+      //ID de las ciudades
+      let ciudadLista: any = [];
+      this.ciudad.forEach((element: any) => {
+        ciudadLista.push(element.item_id);
+      });
+      this.PersonaModel.idCiudad = ciudadLista;
+      //ID de las Sucursales
+      let sucursalLista: any = [];
+      this.sucursal.forEach((element: any) => {
+        sucursalLista.push(element.item_id);
+      });
+      this.PersonaModel.idSucursal = sucursalLista;
+      //ID de las Marcas
+      let marcaLista: any = [];
+      this.marca.forEach((element: any) => {
+        marcaLista.push(element.item_id);
+      });
+      this.PersonaModel.idMarca = marcaLista;
+
+      this.personaService.crearPersona(this.PersonaModel).subscribe((resp) => {
+        console.log("Persona creada");
+        const Toast = Swal.mixin({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+          }
+        })
+        Toast.fire({
+          icon: 'success',
+          title: 'Guardado correctamente'
+        })
+      }, (err: any) => {
+
+        console.warn(err.error.message);
+
+        const Toast = Swal.mixin({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+          }
+        })
+
+        //TODO: Mostrar error cuando es administrador. Dato que muestra el error completo=  err.error.message
+        Toast.fire({
+          icon: 'error',
+          title: 'ERROR: ' + err.error.statusCode + '\nContactese con su proveedor de software '
+        })
+      });
     }
-  
-    campoNoValido(campo:any):boolean{
-      if (this.registerForm.get(campo)?.invalid  ) {
-        return true;
-      }
-      else{
-        return false;
-      }
+
+
+  }
+
+  campoNoValido(campo: any): boolean {
+    if (this.registerForm.get(campo)?.invalid) {
+      return true;
     }
-  */
+    else {
+      return false;
+    }
+  }
+
+  /**
+   * ==========================================================
+   * Funciones para recuperar datos de la base de datos
+   * ==========================================================
+   */
 
   recuperarDatosCiudad() {
     this.ciudadService.getAllCiudades().subscribe((resp: any) => {
@@ -210,32 +210,9 @@ export class PersonaComponent implements OnInit {
         nombremarcas.push({ item_id: element._id, nombre: element.nombre });
       });
       this.dropdownListMarcas = nombremarcas;
-      
+
     });
   }
-
-  ngOnInit(): void {
-    /** Servicio que me devuelva las CIUDADES de la base de datos */
-    this.recuperarDatosCiudad();
-    /** Servicio que me devuelva las SUCURSALES de la base de datos */
-    this.recuperarDatosSucursales();
-    /** Servicio que me devuelva las MARCAS de la base de datos */
-    this.recuperarDatosMarcas();
-
-    this.dropdownSettings = {
-      singleSelection: false,
-      idField: 'item_id',
-      textField: 'nombre',
-      selectAllText: 'Select All',
-      unSelectAllText: 'UnSelect All',
-      itemsShowLimit: 3,
-      allowSearchFilter: true
-    };
-  }
-
-
-
-
 
 
   /**
@@ -255,8 +232,8 @@ export class PersonaComponent implements OnInit {
     console.log(this.ciudad);
   }
   /** Deselccionar item */
-  findByItemIdIndexCiudad(id:any){
-    return this.ciudad.findIndex((resp:any)=>{
+  findByItemIdIndexCiudad(id: any) {
+    return this.ciudad.findIndex((resp: any) => {
       return resp.item_id === id;
     })
   }
@@ -287,8 +264,8 @@ export class PersonaComponent implements OnInit {
     console.log(this.sucursal);
   }
   /** Deselccionar item */
-  findByItemIdIndexSucursal(id:any){
-    return this.sucursal.findIndex((resp:any)=>{
+  findByItemIdIndexSucursal(id: any) {
+    return this.sucursal.findIndex((resp: any) => {
       return resp.item_id === id;
     })
   }
@@ -320,8 +297,8 @@ export class PersonaComponent implements OnInit {
     console.log(this.marca);
   }
   /** Deselccionar item */
-  findByItemIdIndexMarca(id:any){
-    return this.marca.findIndex((resp:any)=>{
+  findByItemIdIndexMarca(id: any) {
+    return this.marca.findIndex((resp: any) => {
       return resp.item_id === id;
     })
   }

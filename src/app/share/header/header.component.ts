@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { PersonaService } from '../../pages/persona/persona.service';
 
 @Component({
   selector: 'app-header',
@@ -6,11 +7,12 @@ import { Component, OnInit } from '@angular/core';
   styles: [
   ]
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent{
 
-  constructor() { }
+  constructor(private personaService:PersonaService) { }
 
-  ngOnInit(): void {
+  logout(){
+    this.personaService.logout()
   }
 
 }

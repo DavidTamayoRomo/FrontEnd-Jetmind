@@ -144,3 +144,5 @@ $(function() {
 });
 
 }
+
+init_pugings();

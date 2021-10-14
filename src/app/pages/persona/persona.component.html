@@ -1,6 +1,6 @@
 <div class="card">
 
-    <form (ngSubmit)="onSubmit(personaForm)" #personaForm="ngForm">
+    <form (ngSubmit)="crearPersona()" autocomplete="off" [formGroup]="registerForm">
 
     
     <div class="card-body">
@@ -11,25 +11,27 @@
             <div class="demo-switch-title">Estado</div>
             <div class="switch">
                 <label>
-                    <input type="checkbox"  [(ngModel)]="PersonaModel.estado" name="estado" checked >  <span class="lever switch-col-cyan"></span>
+                    <input type="checkbox" checked="" formControlName="estado"><span class="lever switch-col-cyan"></span>
                 </label>
-            </div>
+            </div> 
         </div>
 
         <div class="form-group">
             <label for="exampleInputuname">Ciudades</label>
             <ng-multiselect-dropdown [placeholder]="'Seleccione Ciudades'" [settings]="dropdownSettings"
                 [data]="dropdownListCiudades" (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)"
-                (onDeSelect)="onDeSelect($event)" (onDeSelectAll)="onDeSelectAll($event)" [(ngModel)]="PersonaModel.idCiudad" name="idCiudad">
+                (onDeSelect)="onDeSelect($event)" (onDeSelectAll)="onDeSelectAll($event)" formControlName="idCiudad">
             </ng-multiselect-dropdown>
+            <div class="text-danger"><p *ngIf="campoNoValido('idCiudad')">Ingrese al menos una ciudad</p></div> 
         </div>
         <div class="form-group">
             <label for="exampleInputuname">Sucursales</label>
             <ng-multiselect-dropdown [placeholder]="'Seleccione Sucursal'" [settings]="dropdownSettings"
                 [data]="dropdownListSucursales" (onSelect)="onItemSelectsucursal($event)"
                 (onSelectAll)="onSelectAllsucursal($event)" (onDeSelect)="onDeSelectsucursal($event)"
-                (onDeSelectAll)="onDeSelectAllsucursal($event)" [(ngModel)]="PersonaModel.idSucursal" name="idSucursal">
+                (onDeSelectAll)="onDeSelectAllsucursal($event)" formControlName="idSucursal">
             </ng-multiselect-dropdown>
+            <div class="text-danger"><p *ngIf="campoNoValido('idSucursal')">Ingrese al menos una sucursal</p></div> 
         </div>
 
         <div class="form-group">
@@ -37,30 +39,34 @@
             <ng-multiselect-dropdown [placeholder]="'Seleccione Marca'" [settings]="dropdownSettings"
                 [data]="dropdownListMarcas" (onSelect)="onItemSelectmarca($event)"
                 (onSelectAll)="onSelectAllmarca($event)" (onDeSelect)="onDeSelectmarca($event)"
-                (onDeSelectAll)="onDeSelectAllmarca($event)" [(ngModel)]="PersonaModel.idMarca" name="idMarca">
+                (onDeSelectAll)="onDeSelectAllmarca($event)" formControlName="idMarca">
             </ng-multiselect-dropdown>
+            <div class="text-danger"><p *ngIf="campoNoValido('idMarca')">Ingrese al menos una marca</p></div> 
         </div>
 
         <div class="form-group">
             <label for="exampleInputuname">Nombres y Apellidos</label>
             <div class="input-group">
                 <div class="input-group-addon"><i class="ti-user"></i></div>
-                <input type="text" class="form-control" id="exampleInputuname" placeholder="Nombres"  [(ngModel)]="PersonaModel.nombresApellidos" name="nombresApellidos">
+                <input type="text" class="form-control" placeholder="Nombres" formControlName="nombresApellidos">
             </div>
+            <div class="text-danger"><p *ngIf="campoNoValido('nombresApellidos')">El Nombre y Apellido es obligatorio</p></div> 
         </div>
 
         <div class="form-group">
             <label for="exampleInputEmail1">Email address</label>
             <div class="input-group">
                 <div class="input-group-addon"><i class="ti-email"></i></div>
-                <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Ingrese email" [(ngModel)]="PersonaModel.email" name="email">
+                <input type="email" class="form-control" placeholder="Ingrese email" formControlName="email">
             </div>
+            <div class="text-danger"><p *ngIf="campoNoValido('email')">El email es obligatorio / Ingrese email valido</p></div> 
         </div>
         <div class="form-group">
             <label for="pwd1">Password / Contraseña</label>
             <div class="input-group">
                 <div class="input-group-addon"><i class="ti-lock"></i></div>
-                <input type="password" class="form-control" id="pwd1" placeholder="Ingrese password"  [(ngModel)]="PersonaModel.password" name="password">
+                <input type="password" class="form-control" id="pwd1" placeholder="Ingrese password" formControlName="password">
+                <div class="text-danger"><p *ngIf="campoNoValido('password')">La clave es obligatoria</p></div> 
             </div>
         </div>
 
@@ -68,7 +74,8 @@
             <label for="cedula">Cedula</label>
             <div class="input-group">
                 <div class="input-group-addon"><i class=" ti-id-badge"></i></div>
-                <input type="number" class="form-control" id="cedula" placeholder="Ingrese cedula" [(ngModel)]="PersonaModel.cedula" name="cedula">
+                <input type="number" class="form-control" id="cedula" placeholder="Ingrese cedula" formControlName="cedula">
+                <div class="text-danger"><p *ngIf="campoNoValido('cedula')">La cedula es obligatoria</p></div> 
             </div>
         </div>
 
@@ -76,7 +83,8 @@
             <label for="telefono">Telefono</label>
             <div class="input-group">
                 <div class="input-group-addon"><i class="fa fa-phone"></i></div>
-                <input type="number" class="form-control" id="telefono" placeholder="Ingrese telefono" [(ngModel)]="PersonaModel.telefono" name="telefono">
+                <input type="number" class="form-control" id="telefono" placeholder="Ingrese telefono" formControlName="telefono">
+                <div class="text-danger"><p *ngIf="campoNoValido('telefono')">El numero de telefono es obligatorio</p></div> 
             </div>
         </div>
 
@@ -85,7 +93,7 @@
             <div class="input-group">
                 <div class="input-group-addon"><i class="fa fa-phone"></i></div>
                 <input type="number" class="form-control" id="telefonodomicilio"
-                    placeholder="Ingrese telefono domicilio"  [(ngModel)]="PersonaModel.telefonoDomicilio" name="telefonoDomicilio">
+                    placeholder="Ingrese telefono domicilio" formControlName="telefonoDomicilio">
             </div>
         </div>
 
@@ -93,7 +101,7 @@
             <label for="fechaNacimiento">Fecha Nacimiento</label>
             <div class="input-group">
                 <div class="input-group-addon"><i class="fa fa-clock-o"></i></div>
-                <input type="date" class="form-control" id="fechaNacimiento" placeholder="Ingrese fecha Nacimiento"[(ngModel)]="PersonaModel.fechaNacimiento" name="fechaNacimiento">
+                <input type="date" class="form-control" id="fechaNacimiento" placeholder="Ingrese fecha Nacimiento" formControlName="fechaNacimiento">
             </div>
         </div>
 
@@ -101,13 +109,13 @@
             <label for="direccion">Direccion</label>
             <div class="input-group">
                 <div class="input-group-addon"><i class=" ti-location-pin"></i></div>
-                <input type="text" class="form-control" id="direccion" placeholder="Ingrese direccion"  [(ngModel)]="PersonaModel.direccion" name="direccion">
+                <input type="text" class="form-control" id="direccion" placeholder="Ingrese direccion" formControlName="direccion">
             </div>
         </div>
 
         <div class="form-group">
             <label class="control-label">Genero</label>
-            <select class="form-control custom-select" [(ngModel)]="PersonaModel.genero" name="genero">
+            <select class="form-control custom-select" formControlName="genero">
                 <option value="Femenino">Femenino</option>
                 <option value="Masculino">Masculino</option>
             </select>
@@ -116,16 +124,16 @@
 
         <div class="form-group">
             <label>Foto de perfil</label>
-            <input type="file" class="form-control" id="exampleInputFile" aria-describedby="fileHelp" [(ngModel)]="PersonaModel.fotoPerfil" name="fotoPerfil">
+            <input type="file" class="form-control" id="exampleInputFile" aria-describedby="fileHelp" formControlName="fotoPerfil">
         </div>
 
         <div class="form-group">
             <label>Foto de Cedula 1</label>
-            <input type="file" class="form-control" id="exampleInputFile" aria-describedby="fileHelp" [(ngModel)]="PersonaModel.fotoCedula1" name="fotoCedula1">
+            <input type="file" class="form-control" id="exampleInputFile" aria-describedby="fileHelp" formControlName="fotoCedula1">
         </div>
         <div class="form-group">
             <label>Foto de Cedula 2</label>
-            <input type="file" class="form-control" id="exampleInputFile" aria-describedby="fileHelp" [(ngModel)]="PersonaModel.fotoCedula2" name="fotoCedula2">
+            <input type="file" class="form-control" id="exampleInputFile" aria-describedby="fileHelp" formControlName="fotoCedula2">
         </div>
 
 
@@ -134,7 +142,7 @@
             <label for="fechaIngreso">Fecha Ingreso a la empresa</label>
             <div class="input-group">
                 <div class="input-group-addon"><i class="fa fa-clock-o"></i></div>
-                <input type="date" class="form-control" id="fechaIngreso" placeholder="Fecha Ingreso a la empresa"  [(ngModel)]="PersonaModel.fechaIngresoEmpresa" name="fechaIngresoEmpresa">
+                <input type="date" class="form-control" id="fechaIngreso" placeholder="Fecha Ingreso a la empresa" formControlName="fechaIngresoEmpresa">
             </div>
         </div>
 
@@ -145,12 +153,11 @@
             <div class="input-group">
                 <div class="input-group-addon"><i class=" ti-wallet"></i></div>
                 <input type="number" class="form-control" id="NumeroCuenta"
-                    placeholder="Ingrese Numero Cuenta"[(ngModel)]="PersonaModel.numeroCuenta" name="numeroCuenta">
+                    placeholder="Ingrese Numero Cuenta" formControlName="numeroCuenta">
             </div>
         </div>
 
         
-
 
         <button type="submit" class="btn btn-success waves-effect waves-light m-r-10">Guardar</button>
         <button  class="btn btn-inverse waves-effect waves-light">Cancelar</button>
@@ -158,6 +165,7 @@
     </form>
     
 </div>
+
 
 
    
