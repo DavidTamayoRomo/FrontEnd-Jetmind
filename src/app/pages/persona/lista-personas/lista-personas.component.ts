@@ -39,9 +39,6 @@ export class ListaPersonasComponent implements OnInit {
       this.personas1 = resp.data;
       this.personasTemporales = resp.data;
       console.log(resp.data);
-      for (let index = 0; index <  resp.data.length; index++) {
-        this.personas[index].fotoPerfil= environment.base_url+'/utils/uploads/personas/'+resp.data[index].fotoPerfil;
-      }
       this.totalUsuarios = resp.totalUsuarios;
     });
   }
@@ -66,9 +63,6 @@ export class ListaPersonasComponent implements OnInit {
       (resp:any)=>{
         console.log(resp);
         this.personas = resp;
-        for (let index = 0; index <  resp.length; index++) {
-          this.personas[index].fotoPerfil= environment.base_url+'/utils/uploads/personas/'+resp[index].fotoPerfil;
-        }
       }
     );
   }

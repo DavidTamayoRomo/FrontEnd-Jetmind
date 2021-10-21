@@ -40,7 +40,7 @@
                         </thead>
                         <tbody>
                             <tr *ngFor="let usuario of personas">
-                                <td class="text-center"><img [src]="usuario.fotoPerfil" class="avatar" (click)="abrirModal(usuario)">
+                                <td class="text-center"><img [src]="usuario.fotoPerfil | imagen:'personas'" class="avatar" (click)="abrirModal(usuario)">
                                 </td>
                                 <td>
                                     <div *ngFor="let ciudad1 of usuario.idCiudad">{{ciudad1.nombre}}</div>
