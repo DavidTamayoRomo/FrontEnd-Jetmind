@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Persona } from 'src/app/models/persona.model';
 import { PersonaService } from '../../pages/persona/persona.service';
 
 @Component({
@@ -9,7 +10,12 @@ import { PersonaService } from '../../pages/persona/persona.service';
 })
 export class HeaderComponent{
 
-  constructor(private personaService:PersonaService) { }
+
+  public persona:Persona = new Persona();
+
+  constructor(private personaService:PersonaService) {
+    this.persona = personaService.persona;
+  }
 
   logout(){
     this.personaService.logout()

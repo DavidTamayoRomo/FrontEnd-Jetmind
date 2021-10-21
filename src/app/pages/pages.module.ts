@@ -14,6 +14,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CiudadComponent } from './ciudad/ciudad.component';
 import { SucursalComponent } from './sucursal/sucursal.component';
 import { MarcaComponent } from './marca/marca.component';
+import { PerfilComponent } from './perfil/perfil.component';
+import { ListaPersonasComponent } from './persona/lista-personas/lista-personas.component';
+import { ComponentsModule } from '../components/components.module';
 
 
 
@@ -27,6 +30,9 @@ import { MarcaComponent } from './marca/marca.component';
     CiudadComponent,
     SucursalComponent,
     MarcaComponent,
+    PerfilComponent,
+    ListaPersonasComponent,
+    
   ],
   exports:[
     DashboardComponent,
@@ -39,7 +45,8 @@ import { MarcaComponent } from './marca/marca.component';
     NgMultiSelectDropDownModule.forRoot(),
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    ComponentsModule,
   ],
   
 })

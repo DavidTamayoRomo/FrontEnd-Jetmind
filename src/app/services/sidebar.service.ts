@@ -13,7 +13,8 @@ export class SidebarService {
       submenu:[
         { titulo: 'Main',url: '/' },
         { titulo: 'Persona',url: '/persona' },
-        { titulo: 'Rxjs',url: 'rxjs' },
+        { titulo: 'Perfil',url: '/perfil' },
+        { titulo: 'Lista Personas',url: '/listapersonas' },
       ]
     }
   ]

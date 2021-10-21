@@ -6,6 +6,8 @@ import { PagesComponent } from './pages.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
 import { PersonaComponent } from './persona/persona.component';
+import { PerfilComponent } from './perfil/perfil.component';
+import { ListaPersonasComponent } from './persona/lista-personas/lista-personas.component';
 
 
 
@@ -19,7 +21,8 @@ const routes: Routes = [
             /**Rutas que necesitan autenticacion */
             { path: 'dashboard', component: DashboardComponent, data:{titulo:'Home'} },
             { path: 'persona', component: PersonaComponent, data:{titulo:'Persona'} },
-            { path: 'rxjs', component: RxjsComponent, data:{titulo:'Rxjs'} },
+            { path: 'perfil', component: PerfilComponent, data:{titulo:'Perfil'} },
+            { path: 'listapersonas', component: ListaPersonasComponent, data:{titulo:'Lista Personas'} },
             { path: '', redirectTo: '/dashboard', pathMatch: 'full'},
         ]
     },

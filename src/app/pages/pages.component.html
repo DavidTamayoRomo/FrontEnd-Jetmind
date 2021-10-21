@@ -1,26 +1,16 @@
 <div id="main-wrapper">
-    <app-header></app-header>
-    <app-sidebar></app-sidebar>
-  
-    <div class="page-wrapper">
-      <div class="container-fluid">
-        <!--Breadcrumbs-->
-        <app-breadcrumbs></app-breadcrumbs>
-  
-        <!--Sistema de rutas-->
-        <div class="row">
-          <div class="col-12">
-            <div class="card">
-              <div class="card-body">
-                <router-outlet></router-outlet>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-  
-  
-  
+  <app-header></app-header>
+  <app-sidebar></app-sidebar>
+
+  <div class="page-wrapper">
+    <div class="container-fluid">
+      <!--Breadcrumbs-->
+      <app-breadcrumbs></app-breadcrumbs>
+
+      <!--Sistema de rutas-->
+
+      <router-outlet></router-outlet>
+
       <!-- ============================================================== -->
       <!-- footer -->
       <!-- ============================================================== -->
@@ -30,7 +20,9 @@
       <!-- ============================================================== -->
       <!-- End footer -->
       <!-- ============================================================== -->
-  
-  
+
+
     </div>
   </div>
+
+<app-modal-imagen></app-modal-imagen>
