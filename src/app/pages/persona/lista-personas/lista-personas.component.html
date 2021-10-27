@@ -55,7 +55,7 @@
                                 <td>{{usuario.email}}</td>
                                 <td>May 15, 2015</td>
                                 <td class="text-nowrap">
-                                    <a data-toggle="tooltip" data-original-title="Editar"> <i
+                                    <a [routerLink]="['/persona',usuario._id]" data-toggle="tooltip" data-original-title="Editar"> <i
                                             class="ti-pencil"></i> </a>
                                     <a data-toggle="tooltip" data-original-title="Borrar"
                                         (click)="borrarUsuario(usuario)">

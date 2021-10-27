@@ -12,8 +12,8 @@ export class SidebarService {
       icono:'mdi mdi-gauge',
       submenu:[
         { titulo: 'Main',url: '/' },
-        { titulo: 'Persona',url: '/persona' },
         { titulo: 'Perfil',url: '/perfil' },
+        { titulo: 'Persona',url: '/persona/nuevo' },
         { titulo: 'Lista Personas',url: '/listapersonas' },
       ]
     }

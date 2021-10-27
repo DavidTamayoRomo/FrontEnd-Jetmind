@@ -8,6 +8,9 @@ import { CiudadService } from '../services/ciudad.service';
 import { async } from '@angular/core/testing';
 import { SucursalService } from '../services/sucursal.service';
 import { MarcaService } from '../services/marca.service';
+import { ActivatedRoute } from '@angular/router';
+import { map } from 'rxjs/operators';
+import { pipe } from 'rxjs';
 
 
 
@@ -26,17 +29,23 @@ export class PersonaComponent implements OnInit {
   public ciudad: any = [];
   public sucursal: any = [];
   public marca: any = [];
+  public personaSeleccionada: any;
 
-  
+
 
   constructor(private fb: FormBuilder,
     private personaService: PersonaService,
     private ciudadService: CiudadService,
     private sucursalService: SucursalService,
-    private marcaService: MarcaService
-  ) {  }
+    private marcaService: MarcaService,
+    private activatedRoute: ActivatedRoute
+  ) { }
 
   ngOnInit(): void {
+
+    this.activatedRoute.params.subscribe(({ id }) => {
+      this.cargarPersonabyId(id);
+    });
     /** Servicio que me devuelva las CIUDADES de la base de datos */
     this.recuperarDatosCiudad();
     /** Servicio que me devuelva las SUCURSALES de la base de datos */
@@ -53,6 +62,7 @@ export class PersonaComponent implements OnInit {
       itemsShowLimit: 3,
       allowSearchFilter: true
     };
+
   }
 
   PersonaModel = new Persona('Marketing', [], [], [], '', '', '', '', '', '', new Date(), '', '', true, '', '', '', new Date(), 0);
@@ -75,59 +85,20 @@ export class PersonaComponent implements OnInit {
     fechaNacimiento: [null],
     direccion: [null],
     genero: [null],
-    fotoPerfil: [null],
-    fotoCedula1: [null],
-    fotoCedula2: [null],
     fechaIngresoEmpresa: [null],
     numeroCuenta: [null]
   });
   crearPersona() {
-    console.log(this.registerForm.value);
-    if (this.registerForm.invalid) {
-      //Formulario invalido
-      const Toast = Swal.mixin({
-        toast: true,
-        position: 'top-end',
-        showConfirmButton: false,
-        timer: 3000,
-        timerProgressBar: true,
-        didOpen: (toast) => {
-          toast.addEventListener('mouseenter', Swal.stopTimer)
-          toast.addEventListener('mouseleave', Swal.resumeTimer)
-        }
-      })
-      Toast.fire({
-        icon: 'error',
-        title: 'Verificar campos invalidos \n Indicados con el color rojo'
-      })
-      return;
+
+    if (this.personaSeleccionada) {
+      //Acutalizar
+      console.log('Actualizar');
     } else {
 
-      //Formulario VALIDO
-      //Guardar los datos con el servicio
-      this.PersonaModel = this.registerForm.value;
-
-      //ID de las ciudades
-      let ciudadLista: any = [];
-      this.ciudad.forEach((element: any) => {
-        ciudadLista.push(element.item_id);
-      });
-      this.PersonaModel.idCiudad = ciudadLista;
-      //ID de las Sucursales
-      let sucursalLista: any = [];
-      this.sucursal.forEach((element: any) => {
-        sucursalLista.push(element.item_id);
-      });
-      this.PersonaModel.idSucursal = sucursalLista;
-      //ID de las Marcas
-      let marcaLista: any = [];
-      this.marca.forEach((element: any) => {
-        marcaLista.push(element.item_id);
-      });
-      this.PersonaModel.idMarca = marcaLista;
-
-      this.personaService.crearPersona(this.PersonaModel).subscribe((resp) => {
-        console.log("Persona creada");
+      //Crear
+      console.log(this.registerForm.value);
+      if (this.registerForm.invalid) {
+        //Formulario invalido
         const Toast = Swal.mixin({
           toast: true,
           position: 'top-end',
@@ -139,33 +110,80 @@ export class PersonaComponent implements OnInit {
             toast.addEventListener('mouseleave', Swal.resumeTimer)
           }
         })
-        Toast.fire({
-          icon: 'success',
-          title: 'Guardado correctamente'
-        })
-      }, (err: any) => {
-
-        console.warn(err.error.message);
-
-        const Toast = Swal.mixin({
-          toast: true,
-          position: 'top-end',
-          showConfirmButton: false,
-          timer: 3000,
-          timerProgressBar: true,
-          didOpen: (toast) => {
-            toast.addEventListener('mouseenter', Swal.stopTimer)
-            toast.addEventListener('mouseleave', Swal.resumeTimer)
-          }
-        })
-
-        //TODO: Mostrar error cuando es administrador. Dato que muestra el error completo=  err.error.message
         Toast.fire({
           icon: 'error',
-          title: 'ERROR: ' + err.error.statusCode + '\nContactese con su proveedor de software '
+          title: 'Verificar campos invalidos \n Indicados con el color rojo'
         })
-      });
+        return;
+      } else {
+
+        //Formulario VALIDO
+        //Guardar los datos con el servicio
+        this.PersonaModel = this.registerForm.value;
+
+        //ID de las ciudades
+        let ciudadLista: any = [];
+        this.ciudad.forEach((element: any) => {
+          ciudadLista.push(element.item_id);
+        });
+        this.PersonaModel.idCiudad = ciudadLista;
+        //ID de las Sucursales
+        let sucursalLista: any = [];
+        this.sucursal.forEach((element: any) => {
+          sucursalLista.push(element.item_id);
+        });
+        this.PersonaModel.idSucursal = sucursalLista;
+        //ID de las Marcas
+        let marcaLista: any = [];
+        this.marca.forEach((element: any) => {
+          marcaLista.push(element.item_id);
+        });
+        this.PersonaModel.idMarca = marcaLista;
+
+        this.personaService.crearPersona(this.PersonaModel).subscribe((resp) => {
+          console.log("Persona creada");
+          const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+              toast.addEventListener('mouseenter', Swal.stopTimer)
+              toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+          })
+          Toast.fire({
+            icon: 'success',
+            title: 'Guardado correctamente'
+          })
+        }, (err: any) => {
+
+          console.warn(err.error.message);
+
+          const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+              toast.addEventListener('mouseenter', Swal.stopTimer)
+              toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+          })
+
+          //TODO: Mostrar error cuando es administrador. Dato que muestra el error completo=  err.error.message
+          Toast.fire({
+            icon: 'error',
+            title: 'ERROR: ' + err.error.statusCode + '\nContactese con su proveedor de software '
+          })
+        });
+      }
+
     }
+
+
 
 
   }
@@ -177,6 +195,123 @@ export class PersonaComponent implements OnInit {
     else {
       return false;
     }
+  }
+
+  cargarPersonabyId(id: string) {
+    if (id === 'nuevo') {
+      return;
+    }
+    /* this.personaService.obtenerPersonaById(id).subscribe((resp: any) => {
+      
+      const nombreciudades: any[] = [];
+      
+      resp.data.idCiudad.forEach((id: any) => {
+
+        this.ciudadService.obtenerCiudadById(id).subscribe((resp: any) => {
+          nombreciudades.push({ "item_id": resp.data._id, "nombre": resp.data.nombre });
+        });
+
+      });
+      
+      resp.data.idCiudad = nombreciudades;
+      
+      const { 
+        estado,
+        idCiudad,
+        idSucursal,
+        idMarca,
+        nombresApellidos,
+        email,
+        password,
+        cedula,
+        telefono,
+        telefonoDomicilio,
+        fechaNacimiento,
+        direccion,
+        genero,
+        fotoPerfil,
+        fotoCedula1,
+        fotoCedula2,
+        fechaIngresoEmpresa,
+        numeroCuenta 
+      } = resp.data;
+
+      this.registerForm.setValue({
+        estado,
+        idCiudad,
+        idSucursal,
+        idMarca,
+        nombresApellidos,
+        email,
+        password,
+        cedula,
+        telefono,
+        telefonoDomicilio,
+        fechaNacimiento,
+        direccion,
+        genero,
+        fechaIngresoEmpresa,
+        numeroCuenta
+      }); 
+    }); */
+
+
+
+    this.personaService.obtenerPersonaById(id).pipe(
+      map((resp: any) => {
+        console.log(resp);
+        const nombreciudades: any[] = [];
+
+        resp.data.idCiudad.forEach((id: any) => {
+
+          this.ciudadService.obtenerCiudadById(id).subscribe((resp: any) => {
+            nombreciudades.push({ "item_id": resp.data._id, "nombre": resp.data.nombre });
+          });
+        });
+
+        //resp.data.idCiudad = nombreciudades;
+
+        const {
+          estado,
+          idCiudad,
+          idSucursal,
+          idMarca,
+          nombresApellidos,
+          email,
+          password,
+          cedula,
+          telefono,
+          telefonoDomicilio,
+          fechaNacimiento,
+          direccion,
+          genero,
+          fotoPerfil,
+          fotoCedula1,
+          fotoCedula2,
+          fechaIngresoEmpresa,
+          numeroCuenta
+        } = resp.data;
+        this.personaSeleccionada = resp.data;
+        this.registerForm.setValue({
+          estado,
+          idCiudad,
+          idSucursal,
+          idMarca,
+          nombresApellidos,
+          email,
+          password,
+          cedula,
+          telefono,
+          telefonoDomicilio,
+          fechaNacimiento,
+          direccion,
+          genero,
+          fechaIngresoEmpresa,
+          numeroCuenta
+        });
+      })
+    ).subscribe();
+
   }
 
   /**
@@ -317,6 +452,7 @@ export class PersonaComponent implements OnInit {
     this.marca = items;
     console.log(this.marca);
   }
+
 
 
 }

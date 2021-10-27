@@ -131,6 +131,11 @@ export class PersonaService {
     return this.http.delete(`${base_url}/persona/${persona._id}`);
   }
 
+  obtenerPersonaById(id:string){
+    return this.http.get(`${base_url}/persona/${id}`)
+    
+  }
+
 }
 
 

@@ -16,4 +16,8 @@ export class CiudadService {
     return this.http.get(`${base_url}/ciudad`);
   }
 
+  obtenerCiudadById(id:string){
+    return this.http.get(`${base_url}/ciudad/${id}`)
+  }
+
 }

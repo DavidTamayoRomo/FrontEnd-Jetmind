@@ -20,9 +20,12 @@ const routes: Routes = [
         children: [
             /**Rutas que necesitan autenticacion */
             { path: 'dashboard', component: DashboardComponent, data:{titulo:'Home'} },
-            { path: 'persona', component: PersonaComponent, data:{titulo:'Persona'} },
-            { path: 'perfil', component: PerfilComponent, data:{titulo:'Perfil'} },
+            // Rutas persona 
+            //{ path: 'persona', component: PersonaComponent, data:{titulo:'Persona'} },
+            { path: 'persona/:id', component: PersonaComponent, data:{titulo:'Actualizar Persona'} },
             { path: 'listapersonas', component: ListaPersonasComponent, data:{titulo:'Lista Personas'} },
+
+            { path: 'perfil', component: PerfilComponent, data:{titulo:'Perfil'} },
             { path: '', redirectTo: '/dashboard', pathMatch: 'full'},
         ]
     },
