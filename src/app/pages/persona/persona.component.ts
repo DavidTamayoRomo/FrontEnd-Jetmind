@@ -345,11 +345,6 @@ export class PersonaComponent implements OnInit {
         this.LlenarForm(resp);
       });
 
-    if (this.personaSeleccionada != null) {
-      console.log("No hay datos");
-    } else {
-      console.log(this.personaSeleccionada);
-    }
 
   }
 
