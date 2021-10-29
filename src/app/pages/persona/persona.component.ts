@@ -52,6 +52,7 @@ export class PersonaComponent implements OnInit {
     this.recuperarDatosSucursales();
     /** Servicio que me devuelva las MARCAS de la base de datos */
     this.recuperarDatosMarcas();
+    //prueba si sube
 
     this.dropdownSettings = {
       singleSelection: false,
