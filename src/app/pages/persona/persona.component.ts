@@ -88,11 +88,106 @@ export class PersonaComponent implements OnInit {
     fechaIngresoEmpresa: [null],
     numeroCuenta: [null]
   });
-  crearPersona() {
+  async crearPersona() {
 
     if (this.personaSeleccionada) {
-      //Acutalizar
+      //Actualizar
+
+      this.PersonaModel = this.registerForm.value;
+      //ID de las Marcas
+      let marcaLista: any = [];
+      const marcaEspera = await this.marca.forEach((element: any) => {
+        if (element.item_id) {
+          marcaLista.push(element.item_id);
+        } else {
+          marcaLista.push(element);
+        }
+      });
+      this.PersonaModel.idMarca = marcaLista;
+      //ID de las Sucursales
+      let sucursalLista: any = [];
+      const sucursalEspera = await this.sucursal.forEach((element: any) => {
+        if (element.item_id) {
+          sucursalLista.push(element.item_id);
+        } else {
+          sucursalLista.push(element);
+        }
+      });
+      this.PersonaModel.idSucursal = sucursalLista;
+      //ID de las ciudades
+      let ciudadLista: any = [];
+      const ciudadEspera = await this.ciudad.forEach((element: any) => {
+        if (element.item_id) {
+          ciudadLista.push(element.item_id);
+        } else {
+          ciudadLista.push(element);
+        }
+      });
+      this.PersonaModel.idCiudad = ciudadLista;
+
+
       console.log('Actualizar');
+      if (this.registerForm.invalid) {
+        //Formulario invalido
+        const Toast = Swal.mixin({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+          }
+        })
+        Toast.fire({
+          icon: 'error',
+          title: 'Verificar campos invalidos \n Indicados con el color rojo'
+        })
+        return;
+      } else {
+        this.personaService.updatePersona(this.personaSeleccionada._id, this.PersonaModel).subscribe((resp: any) => {
+          const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+              toast.addEventListener('mouseenter', Swal.stopTimer)
+              toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+          })
+          Toast.fire({
+            icon: 'success',
+            title: 'Se actualizo correctamente'
+          })
+        }, (err: any) => {
+
+          console.warn(err.error.message);
+
+          const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+              toast.addEventListener('mouseenter', Swal.stopTimer)
+              toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+          })
+
+          //TODO: Mostrar error cuando es administrador. Dato que muestra el error completo=  err.error.message
+          Toast.fire({
+            icon: 'error',
+            title: 'ERROR: ' + err.error.statusCode + '\nContactese con su proveedor de software '
+          })
+        });
+      }
+
+
+
     } else {
 
       //Crear
@@ -197,120 +292,64 @@ export class PersonaComponent implements OnInit {
     }
   }
 
-  cargarPersonabyId(id: string) {
+
+  LlenarForm(resp:any){
+    const {
+      estado,
+      idCiudad,
+      idSucursal,
+      idMarca,
+      nombresApellidos,
+      email,
+      password,
+      cedula,
+      telefono,
+      telefonoDomicilio,
+      fechaNacimiento,
+      direccion,
+      genero,
+      fotoPerfil,
+      fotoCedula1,
+      fotoCedula2,
+      fechaIngresoEmpresa,
+      numeroCuenta
+    } = resp.data;
+    this.personaSeleccionada = resp.data;
+    this.registerForm.setValue({
+      estado,
+      idCiudad,
+      idSucursal,
+      idMarca,
+      nombresApellidos,
+      email,
+      password,
+      cedula,
+      telefono,
+      telefonoDomicilio,
+      fechaNacimiento,
+      direccion,
+      genero,
+      fechaIngresoEmpresa,
+      numeroCuenta
+    });
+  }
+
+  async cargarPersonabyId(id: string) {
     if (id === 'nuevo') {
       return;
     }
-    /* this.personaService.obtenerPersonaById(id).subscribe((resp: any) => {
-      
-      const nombreciudades: any[] = [];
-      
-      resp.data.idCiudad.forEach((id: any) => {
 
-        this.ciudadService.obtenerCiudadById(id).subscribe((resp: any) => {
-          nombreciudades.push({ "item_id": resp.data._id, "nombre": resp.data.nombre });
-        });
-
-      });
-      
-      resp.data.idCiudad = nombreciudades;
-      
-      const { 
-        estado,
-        idCiudad,
-        idSucursal,
-        idMarca,
-        nombresApellidos,
-        email,
-        password,
-        cedula,
-        telefono,
-        telefonoDomicilio,
-        fechaNacimiento,
-        direccion,
-        genero,
-        fotoPerfil,
-        fotoCedula1,
-        fotoCedula2,
-        fechaIngresoEmpresa,
-        numeroCuenta 
-      } = resp.data;
-
-      this.registerForm.setValue({
-        estado,
-        idCiudad,
-        idSucursal,
-        idMarca,
-        nombresApellidos,
-        email,
-        password,
-        cedula,
-        telefono,
-        telefonoDomicilio,
-        fechaNacimiento,
-        direccion,
-        genero,
-        fechaIngresoEmpresa,
-        numeroCuenta
-      }); 
-    }); */
-
-
-
-    this.personaService.obtenerPersonaById(id).pipe(
-      map((resp: any) => {
-        console.log(resp);
-        const nombreciudades: any[] = [];
-
-        resp.data.idCiudad.forEach((id: any) => {
-
-          this.ciudadService.obtenerCiudadById(id).subscribe((resp: any) => {
-            nombreciudades.push({ "item_id": resp.data._id, "nombre": resp.data.nombre });
-          });
-        });
-
-        //resp.data.idCiudad = nombreciudades;
-
-        const {
-          estado,
-          idCiudad,
-          idSucursal,
-          idMarca,
-          nombresApellidos,
-          email,
-          password,
-          cedula,
-          telefono,
-          telefonoDomicilio,
-          fechaNacimiento,
-          direccion,
-          genero,
-          fotoPerfil,
-          fotoCedula1,
-          fotoCedula2,
-          fechaIngresoEmpresa,
-          numeroCuenta
-        } = resp.data;
+    this.personaService.obtenerPersonaById(id)
+      .subscribe((resp: any) => {
         this.personaSeleccionada = resp.data;
-        this.registerForm.setValue({
-          estado,
-          idCiudad,
-          idSucursal,
-          idMarca,
-          nombresApellidos,
-          email,
-          password,
-          cedula,
-          telefono,
-          telefonoDomicilio,
-          fechaNacimiento,
-          direccion,
-          genero,
-          fechaIngresoEmpresa,
-          numeroCuenta
-        });
-      })
-    ).subscribe();
+        this.LlenarForm(resp);
+      });
+
+    if (this.personaSeleccionada != null) {
+      console.log("No hay datos");
+    } else {
+      console.log(this.personaSeleccionada);
+    }
 
   }
 
@@ -373,14 +412,31 @@ export class PersonaComponent implements OnInit {
     })
   }
   onDeSelect(item: any) {
-    const index = this.findByItemIdIndexCiudad(item.item_id);
-    const newArray = (index > -1) ? [
-      ...this.ciudad.slice(0, index),
-      ...this.ciudad.slice(index + 1)
-    ] : this.ciudad;
-    this.ciudad = newArray;
-    console.log(this.ciudad);
+    //verificar esto no se queda asi
+    console.log(item);
+    console.log("entre");
+    if (item.item_id) {
+      console.log("entre 1");
+      const index = this.findByItemIdIndexCiudad(item.item_id);
+      const newArray = (index > -1) ? [
+        ...this.ciudad.slice(0, index),
+        ...this.ciudad.slice(index + 1)
+      ] : this.ciudad;
+      this.ciudad = newArray;
+      console.log(this.ciudad);
+    } else {
+      console.log("entre 2");
+      const index = this.ciudad.indexOf(item);
+      const newArray = (index > -1) ? [
+        ...this.ciudad.slice(0, index),
+        ...this.ciudad.slice(index + 1)
+      ] : this.ciudad;
+      this.ciudad = newArray;
+      console.log(this.ciudad);
+    }
   }
+
+
   /** Deselccionar todos los items */
   onDeSelectAll(items: any) {
     this.ciudad = items;

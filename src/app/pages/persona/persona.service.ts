@@ -136,6 +136,10 @@ export class PersonaService {
     
   }
 
+  updatePersona(id:string, persona:Persona){
+    return this.http.put(`${base_url}/persona/${id}`, persona);
+  }
+
 }
 
 
