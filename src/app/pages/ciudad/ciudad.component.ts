@@ -217,4 +217,9 @@ export class CiudadComponent implements OnInit {
     
   }
 
+
+  cancelarGuardado(){
+    this.router.navigateByUrl('/listaciudades')
+  }
+
 }

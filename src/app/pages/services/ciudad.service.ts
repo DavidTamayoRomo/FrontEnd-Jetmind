@@ -46,7 +46,10 @@ export class CiudadService {
         const ciudades = resp.data.map((ciudad:any) => new Ciudad(ciudad._id, ciudad.nombre, ciudad.email, ciudad.estado, 'S/N')
         );
         
-        return;
+        return{
+          total:resp.totalCiudades,
+          ciudades
+        };
       })
     )
     

@@ -17,6 +17,8 @@ export class SidebarService {
         { titulo: 'Lista Personas',url: '/listapersonas' },
         { titulo: 'Ciudad',url: '/ciudad/nuevo' },
         { titulo: 'Lista Ciudades',url: '/listaciudades' },
+        { titulo: 'Marca',url: '/marca/nuevo' },
+        { titulo: 'Lista Marcas',url: '/listamarcas' },
       ]
     }
   ]

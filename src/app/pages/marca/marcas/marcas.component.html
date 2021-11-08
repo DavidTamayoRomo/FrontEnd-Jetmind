@@ -7,13 +7,13 @@
         <div class="card">
             <div class="card-body">
                 <div class="text-right">
-                    <a class="btn btn-primary" routerLink="/ciudad/nuevo">
+                    <a class="btn btn-primary" routerLink="/marca/nuevo">
                         <i class="mdi mdi-account-plus"></i>
-                        Crear Ciudad
+                        Crear Marca
                     </a>
                 </div>
                 <div style="height: 10px;"></div>
-                <input type="text" class="form-control" placeholder="Buscar ciudad" (keyup)="buscar(txtBusqueda.value)"
+                <input type="text" class="form-control" placeholder="Buscar marca" (keyup)="buscar(txtBusqueda.value)"
                     #txtBusqueda>
 
             </div>
@@ -34,32 +34,30 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Ciudades registrados</h4>
-                <h6 class="card-subtitle">Lista de todos los usuarios existentes en el sistema</h6>
-                <h6 class="card-subtitle">Total de ciudades: {{totalCiudades}}</h6>
+                <h4 class="card-title">Marcas registradas</h4>
+                <h6 class="card-subtitle">Lista de todas las marcas existentes en el sistema</h6>
+                <h6 class="card-subtitle">Total de marcas: {{totalMarcas}}</h6>
                 <div class="table-responsive">
                     <table class="table table-bordered">
                         <thead>
                             <tr>
+                                <th class="w100">Logo</th>
                                 <th class="w100">Nombre</th>
-                                <th class="w100">Email</th>
-                                <th class="w100">Estado</th>
 
                                 <th class="text-nowrap w100">Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let ciudad of ciudades">
+                            <tr *ngFor="let marca of marcas">
 
-                                <td>{{ciudad.nombre}}</td>
-                                <td>{{ciudad.email}}</td>
-                                <td>{{ciudad.estado}}</td>
+                                <td><img [src]="marca.logo | imagen:'marcas'" class="avatar" ></td>
+                                <td>{{marca.nombre}}</td>
 
                                 <td class="text-nowrap">
-                                    <a [routerLink]="['/ciudad',ciudad._id]" data-toggle="tooltip"
+                                    <a [routerLink]="['/marca',marca._id]" data-toggle="tooltip"
                                         data-original-title="Editar"> <i class="ti-pencil"></i> </a>
                                     <a data-toggle="tooltip" data-original-title="Borrar"
-                                        (click)="borrarCiudad(ciudad)">
+                                        (click)="borrarMarca(marca)">
                                         <i class=" ti-trash"></i>
                                     </a>
                                 </td>

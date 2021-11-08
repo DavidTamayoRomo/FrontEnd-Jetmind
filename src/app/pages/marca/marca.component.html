@@ -1,1 +1,51 @@
-<p>marca works!</p>
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+
+            <form (ngSubmit)="crearCiudad()" autocomplete="off" [formGroup]="registerForm">
+
+                <div class="card-body">
+
+
+                    <div class="form-group">
+                        <label for="exampleInputuname">Nombre de la marca *</label>
+                        <div class="input-group">
+                            <div class="input-group-addon"><i class="ti-user"></i></div>
+                            <input type="text" class="form-control" placeholder="Nombre marca" formControlName="nombre">
+                        </div>
+                        <div class="text-danger">
+                            <p *ngIf="campoNoValido('nombre')">El Nombre de la marca es obligatorio</p>
+                        </div>
+                    </div>
+
+
+
+                    <div>
+                        <button type="submit" class="btn btn-success waves-effect waves-light m-r-10">Guardar</button>
+                        <a (click)="cancelarGuardado()" class="btn btn-inverse waves-effect waves-light">Cancelar</a>
+                    </div>
+
+                </div>
+            </form>
+
+        </div>
+    </div>
+
+
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-body">Logo</h4>
+                    <img [src]="marcaSeleccionada?.logo | imagen:'marcas'">
+                    <input type="file" name="" id="">
+                    <br>
+                    <br>
+                    <div>
+                        <button type="button" class="btn btn-success waves-effect waves-light m-r-10">Cambiar imagen</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

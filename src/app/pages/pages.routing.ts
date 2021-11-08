@@ -10,6 +10,8 @@ import { PerfilComponent } from './perfil/perfil.component';
 import { ListaPersonasComponent } from './persona/lista-personas/lista-personas.component';
 import { CiudadComponent } from './ciudad/ciudad.component';
 import { CiudadesComponent } from './ciudad/ciudades/ciudades.component';
+import { MarcaComponent } from './marca/marca.component';
+import { MarcasComponent } from './marca/marcas/marcas.component';
 
 
 
@@ -29,6 +31,9 @@ const routes: Routes = [
 
             { path: 'ciudad/:id', component: CiudadComponent, data:{titulo:'Ciudad'} },
             { path: 'listaciudades', component: CiudadesComponent, data:{titulo:'Lista de ciudades'} },
+
+            { path: 'marca/:id', component: MarcaComponent, data:{titulo:'Marca'} },
+            { path: 'listamarcas', component: MarcasComponent, data:{titulo:'Lista de marcas'} },
 
             { path: 'perfil', component: PerfilComponent, data:{titulo:'Perfil'} },
             { path: '', redirectTo: '/dashboard', pathMatch: 'full'},
