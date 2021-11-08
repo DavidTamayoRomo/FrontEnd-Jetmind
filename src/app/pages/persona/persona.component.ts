@@ -61,6 +61,7 @@ export class PersonaComponent implements OnInit {
     this.recuperarDatosMarcas();
     /** Servicio que me devuelva las ROLE de la base de datos */
     this.recuperarDatosRole();
+  
 
     this.dropdownSettings = {
       singleSelection: false,
