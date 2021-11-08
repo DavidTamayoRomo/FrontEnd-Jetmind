@@ -7,6 +7,11 @@ export const environment = {
   base_url: "http://localhost:3000/api"
 };
 
+
+export const claves = {
+  clavePersonaPrimeraVez:'DavidHack1'
+}
+
 /*
  * For easier debugging in development mode, you can import the following file
  * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.

@@ -1,1 +1,44 @@
-<p>ciudad works!</p>
+<div class="card">
+
+    <form (ngSubmit)="crearCiudad()" autocomplete="off" [formGroup]="registerForm">
+
+        <div class="card-body">
+            <div class="form-group">
+                <div class="demo-switch-title">Estado</div>
+                <div class="switch">
+                    <label>
+                        <input type="checkbox" checked="" formControlName="estado"><span
+                            class="lever switch-col-cyan"></span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="exampleInputuname">Nombre de la ciudad *</label>
+                <div class="input-group">
+                    <div class="input-group-addon"><i class="ti-user"></i></div>
+                    <input type="text" class="form-control" placeholder="Nombre ciudad" formControlName="nombre">
+                </div>
+                <div class="text-danger">
+                    <p *ngIf="campoNoValido('nombre')">El Nombre de la ciudad es obligatorio</p>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="exampleInputEmail1">Email address *</label>
+                <div class="input-group">
+                    <div class="input-group-addon"><i class="ti-email"></i></div>
+                    <input type="email" class="form-control" placeholder="Ingrese email" formControlName="email">
+                </div>
+                <div class="text-danger"><p *ngIf="campoNoValido('email')">El email es obligatorio / Ingrese email valido</p></div> 
+            </div>
+
+            <div>
+                <button type="submit" class="btn btn-success waves-effect waves-light m-r-10">Guardar</button>
+                <a class="btn btn-inverse waves-effect waves-light">Cancelar</a>
+            </div>
+
+        </div>
+    </form>
+
+</div>

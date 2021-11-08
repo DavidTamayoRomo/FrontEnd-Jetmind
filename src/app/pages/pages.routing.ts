@@ -8,6 +8,8 @@ import { RxjsComponent } from './rxjs/rxjs.component';
 import { PersonaComponent } from './persona/persona.component';
 import { PerfilComponent } from './perfil/perfil.component';
 import { ListaPersonasComponent } from './persona/lista-personas/lista-personas.component';
+import { CiudadComponent } from './ciudad/ciudad.component';
+import { CiudadesComponent } from './ciudad/ciudades/ciudades.component';
 
 
 
@@ -24,6 +26,9 @@ const routes: Routes = [
             //{ path: 'persona', component: PersonaComponent, data:{titulo:'Persona'} },
             { path: 'persona/:id', component: PersonaComponent, data:{titulo:'Actualizar Persona'} },
             { path: 'listapersonas', component: ListaPersonasComponent, data:{titulo:'Lista Personas'} },
+
+            { path: 'ciudad/:id', component: CiudadComponent, data:{titulo:'Ciudad'} },
+            { path: 'listaciudades', component: CiudadesComponent, data:{titulo:'Lista de ciudades'} },
 
             { path: 'perfil', component: PerfilComponent, data:{titulo:'Perfil'} },
             { path: '', redirectTo: '/dashboard', pathMatch: 'full'},

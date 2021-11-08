@@ -18,6 +18,7 @@ import { PerfilComponent } from './perfil/perfil.component';
 import { ListaPersonasComponent } from './persona/lista-personas/lista-personas.component';
 import { ComponentsModule } from '../components/components.module';
 import { PipesModule } from '../pipes/pipes.module';
+import { CiudadesComponent } from './ciudad/ciudades/ciudades.component';
 
 
 
@@ -33,6 +34,7 @@ import { PipesModule } from '../pipes/pipes.module';
     MarcaComponent,
     PerfilComponent,
     ListaPersonasComponent,
+    CiudadesComponent,
     
   ],
   exports:[

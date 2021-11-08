@@ -15,6 +15,8 @@ export class SidebarService {
         { titulo: 'Perfil',url: '/perfil' },
         { titulo: 'Persona',url: '/persona/nuevo' },
         { titulo: 'Lista Personas',url: '/listapersonas' },
+        { titulo: 'Ciudad',url: '/ciudad/nuevo' },
+        { titulo: 'Lista Ciudades',url: '/listaciudades' },
       ]
     }
   ]

@@ -17,7 +17,16 @@
         </div>
 
         <div class="form-group">
-            <label for="exampleInputuname">Ciudades</label>
+            <label for="exampleInputuname">Role *</label>
+            <ng-multiselect-dropdown [placeholder]="'Seleccione Role'" [settings]="dropdownSettings"
+                [data]="dropdownListRole" (onSelect)="onItemSelectRole($event)" (onSelectAll)="onSelectAllRole($event)"
+                (onDeSelect)="onDeSelectRole($event)" (onDeSelectAll)="onDeSelectAllRole($event)" formControlName="tipo">
+            </ng-multiselect-dropdown>
+            <div class="text-danger"><p *ngIf="campoNoValido('tipo')">Ingrese un role</p></div> 
+        </div>
+
+        <div class="form-group">
+            <label for="exampleInputuname">Ciudades *</label>
             <ng-multiselect-dropdown [placeholder]="'Seleccione Ciudades'" [settings]="dropdownSettings"
                 [data]="dropdownListCiudades" (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)"
                 (onDeSelect)="onDeSelect($event)" (onDeSelectAll)="onDeSelectAll($event)" formControlName="idCiudad">
@@ -25,7 +34,7 @@
             <div class="text-danger"><p *ngIf="campoNoValido('idCiudad')">Ingrese al menos una ciudad</p></div> 
         </div>
         <div class="form-group">
-            <label for="exampleInputuname">Sucursales</label>
+            <label for="exampleInputuname">Sucursales *</label>
             <ng-multiselect-dropdown [placeholder]="'Seleccione Sucursal'" [settings]="dropdownSettings"
                 [data]="dropdownListSucursales" (onSelect)="onItemSelectsucursal($event)"
                 (onSelectAll)="onSelectAllsucursal($event)" (onDeSelect)="onDeSelectsucursal($event)"
@@ -35,7 +44,7 @@
         </div>
 
         <div class="form-group">
-            <label for="exampleInputuname">Marcas</label>
+            <label for="exampleInputuname">Marcas *</label>
             <ng-multiselect-dropdown [placeholder]="'Seleccione Marca'" [settings]="dropdownSettings"
                 [data]="dropdownListMarcas" (onSelect)="onItemSelectmarca($event)"
                 (onSelectAll)="onSelectAllmarca($event)" (onDeSelect)="onDeSelectmarca($event)"
@@ -45,7 +54,7 @@
         </div>
 
         <div class="form-group">
-            <label for="exampleInputuname">Nombres y Apellidos</label>
+            <label for="exampleInputuname">Nombres y Apellidos *</label>
             <div class="input-group">
                 <div class="input-group-addon"><i class="ti-user"></i></div>
                 <input type="text" class="form-control" placeholder="Nombres" formControlName="nombresApellidos">
@@ -54,7 +63,7 @@
         </div>
 
         <div class="form-group">
-            <label for="exampleInputEmail1">Email address</label>
+            <label for="exampleInputEmail1">Email address *</label>
             <div class="input-group">
                 <div class="input-group-addon"><i class="ti-email"></i></div>
                 <input type="email" class="form-control" placeholder="Ingrese email" formControlName="email">
@@ -65,18 +74,18 @@
             <label for="pwd1">Password / Contraseña</label>
             <div class="input-group">
                 <div class="input-group-addon"><i class="ti-lock"></i></div>
-                <input type="password" class="form-control" id="pwd1" placeholder="Ingrese password" formControlName="password">
+                <input type="password" class="form-control" id="pwd1" placeholder="Ingrese password" formControlName="password" >
                 <div class="text-danger"><p *ngIf="campoNoValido('password')">La clave es obligatoria</p></div> 
             </div>
         </div>
 
         <div class="form-group">
-            <label for="cedula">Cedula</label>
+            <label for="cedula">Cedula *</label>
             <div class="input-group">
                 <div class="input-group-addon"><i class=" ti-id-badge"></i></div>
                 <input type="number" class="form-control" id="cedula" placeholder="Ingrese cedula" formControlName="cedula">
-                <div class="text-danger"><p *ngIf="campoNoValido('cedula')">La cedula es obligatoria</p></div> 
             </div>
+            <div class="text-danger"><p *ngIf="campoNoValido('cedula')">La cedula es obligatoria</p></div> 
         </div>
 
         <div class="form-group">
@@ -98,11 +107,12 @@
         </div>
 
         <div class="form-group">
-            <label for="fechaNacimiento">Fecha Nacimiento</label>
+            <label for="fechaNacimiento">Fecha Nacimiento *</label>
             <div class="input-group">
                 <div class="input-group-addon"><i class="fa fa-clock-o"></i></div>
                 <input type="date" class="form-control" id="fechaNacimiento" placeholder="Ingrese fecha Nacimiento" formControlName="fechaNacimiento" >
             </div>
+            <div class="text-danger"><p *ngIf="campoNoValido('fechaNacimiento')">La fecha de nacimiento es obligatoria</p></div>
         </div>
 
         <div class="form-group">
@@ -124,12 +134,13 @@
 
         
         <div class="form-group">
-            <label for="fechaIngreso">Fecha Ingreso a la empresa</label>
+            <label for="fechaIngreso">Fecha Ingreso a la empresa *</label>
             <div class="input-group">
                 <div class="input-group-addon"><i class="fa fa-clock-o"></i></div>
                 <input type="date" class="form-control" id="fechaIngresoEmpresa" placeholder="Fecha Ingreso a la empresa" 
                        formControlName="fechaIngresoEmpresa" [value]="registerForm.get('fechaIngresoEmpresa')?.value"  >
-            </div>
+                </div>
+                <div class="text-danger"><p *ngIf="campoNoValido('fechaIngresoEmpresa')">La fecha de ingreso a la empresa es obligatoria</p></div>
         </div>
 
 
@@ -145,7 +156,7 @@
         
 
         <button type="submit" class="btn btn-success waves-effect waves-light m-r-10">Guardar</button>
-        <button  class="btn btn-inverse waves-effect waves-light">Cancelar</button>
+        <a (click)="cancelarGuardado()"   class="btn btn-inverse waves-effect waves-light">Cancelar</a>
     </div>
     </form>
     

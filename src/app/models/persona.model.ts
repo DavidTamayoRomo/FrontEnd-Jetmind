@@ -4,7 +4,7 @@ const base_url = environment.base_url;
 
 export class Persona {
     constructor(
-        public tipo?: string,
+        public tipo?: Array<string>,
         public idMarca?:Array<string>,
         public idCiudad?:Array<string>,
         public idSucursal?:Array<string>,
@@ -22,7 +22,7 @@ export class Persona {
         public fotoCedula1?:string,
         public fotoCedula2?:string,
         public fechaIngresoEmpresa?:Date,
-        public numeroCuenta?:Number,
+        public numeroCuenta?:string,
         public addedUser?:string,
         public modifiedUser?:string,
         public _id?:string

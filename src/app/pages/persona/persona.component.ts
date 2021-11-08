@@ -8,11 +8,13 @@ import { CiudadService } from '../services/ciudad.service';
 import { async } from '@angular/core/testing';
 import { SucursalService } from '../services/sucursal.service';
 import { MarcaService } from '../services/marca.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { pipe } from 'rxjs';
+import { RoleService } from '../services/role.service';
+import { claves } from 'src/environments/environment';
 
-
+const clave = claves.clavePersonaPrimeraVez;
 
 @Component({
   selector: 'app-persona',
@@ -24,11 +26,14 @@ export class PersonaComponent implements OnInit {
   public dropdownListCiudades: any = [];
   public dropdownListSucursales: any = [];
   public dropdownListMarcas: any = [];
+  public dropdownListRole: any = [];
+
   public selectedItems: any = [];
   public dropdownSettings: IDropdownSettings = {};
   public ciudad: any = [];
   public sucursal: any = [];
   public marca: any = [];
+  public role: any = [];
   public personaSeleccionada: any;
 
 
@@ -38,7 +43,9 @@ export class PersonaComponent implements OnInit {
     private ciudadService: CiudadService,
     private sucursalService: SucursalService,
     private marcaService: MarcaService,
-    private activatedRoute: ActivatedRoute
+    private roleService: RoleService,
+    private activatedRoute: ActivatedRoute,
+    private router:Router
   ) { }
 
   ngOnInit(): void {
@@ -52,6 +59,8 @@ export class PersonaComponent implements OnInit {
     this.recuperarDatosSucursales();
     /** Servicio que me devuelva las MARCAS de la base de datos */
     this.recuperarDatosMarcas();
+    /** Servicio que me devuelva las ROLE de la base de datos */
+    this.recuperarDatosRole();
 
     this.dropdownSettings = {
       singleSelection: false,
@@ -65,27 +74,28 @@ export class PersonaComponent implements OnInit {
 
   }
 
-  PersonaModel = new Persona('Marketing', [], [], [], '', '', '', '', '', '', new Date(), '', '', true, '', '', '', new Date(), 0);
+  PersonaModel = new Persona();
   /** 
    * ====================================================================
    * Ractive form 
    * ====================================================================
    * */
   public registerForm = this.fb.group({
+    tipo: [null, Validators.required],
     estado: [true, Validators.required],
     idCiudad: [null, Validators.required],
     idSucursal: [null, Validators.required],
     idMarca: [null, Validators.required],
     nombresApellidos: [null, Validators.required],
     email: [null, [Validators.required, Validators.email]],
-    password: [null],
-    cedula: [null],
+    password: {value: clave, disabled: true},
+    cedula: [null, Validators.required],
     telefono: [null],
     telefonoDomicilio: [null],
-    fechaNacimiento: [null],
+    fechaNacimiento: [null, Validators.required],
     direccion: [null],
     genero: [null],
-    fechaIngresoEmpresa: [null],
+    fechaIngresoEmpresa: [null, Validators.required],
     numeroCuenta: [null]
   });
   async crearPersona() {
@@ -125,6 +135,18 @@ export class PersonaComponent implements OnInit {
       });
       this.PersonaModel.idCiudad = ciudadLista;
 
+      //ID de las ciudades
+      let roleLista: any = [];
+      const roleEspera = await this.role.forEach((element: any) => {
+        if (element.item_id) {
+          roleLista.push(element.item_id);
+        } else {
+          roleLista.push(element);
+        }
+      });
+      this.PersonaModel.tipo = roleLista;
+
+      console.log(this.PersonaModel);
 
       console.log('Actualizar');
       if (this.registerForm.invalid) {
@@ -146,6 +168,7 @@ export class PersonaComponent implements OnInit {
         })
         return;
       } else {
+        
         this.personaService.updatePersona(this.personaSeleccionada._id, this.PersonaModel).subscribe((resp: any) => {
           const Toast = Swal.mixin({
             toast: true,
@@ -162,6 +185,7 @@ export class PersonaComponent implements OnInit {
             icon: 'success',
             title: 'Se actualizo correctamente'
           })
+          this.router.navigateByUrl('/listapersonas');
         }, (err: any) => {
 
           console.warn(err.error.message);
@@ -194,11 +218,15 @@ export class PersonaComponent implements OnInit {
       console.log(this.registerForm.value);
       if (this.registerForm.invalid) {
         //Formulario invalido
+
+        
+        this.registerForm.get('tipo')?.invalid;
+
         const Toast = Swal.mixin({
           toast: true,
           position: 'top-end',
           showConfirmButton: false,
-          timer: 3000,
+          timer: 6000,
           timerProgressBar: true,
           didOpen: (toast) => {
             toast.addEventListener('mouseenter', Swal.stopTimer)
@@ -207,7 +235,7 @@ export class PersonaComponent implements OnInit {
         })
         Toast.fire({
           icon: 'error',
-          title: 'Verificar campos invalidos \n Indicados con el color rojo'
+          title: '- Campos con asterisco son obligatorios\n - Verificar campos invalidos, \n indicados con el color rojo  '
         })
         return;
       } else {
@@ -235,6 +263,15 @@ export class PersonaComponent implements OnInit {
         });
         this.PersonaModel.idMarca = marcaLista;
 
+        //ID de las Role
+        let roleLista: any = [];
+        this.role.forEach((element: any) => {
+          roleLista.push(element.item_id);
+        });
+        this.PersonaModel.tipo = roleLista;
+        this.PersonaModel.password=clave;
+
+        console.log(this.PersonaModel.tipo);
         this.personaService.crearPersona(this.PersonaModel).subscribe((resp) => {
           console.log("Persona creada");
           const Toast = Swal.mixin({
@@ -252,6 +289,8 @@ export class PersonaComponent implements OnInit {
             icon: 'success',
             title: 'Guardado correctamente'
           })
+
+          this.router.navigateByUrl('/listapersonas');
         }, (err: any) => {
 
           console.warn(err.error.message);
@@ -284,7 +323,7 @@ export class PersonaComponent implements OnInit {
   }
 
   campoNoValido(campo: any): boolean {
-    if (this.registerForm.get(campo)?.invalid) {
+    if (this.registerForm.get(campo)?.invalid  && (this.registerForm.get(campo)?.dirty || this.registerForm.get(campo)?.touched)) {
       return true;
     }
     else {
@@ -295,6 +334,7 @@ export class PersonaComponent implements OnInit {
 
   LlenarForm(resp:any){
     const {
+      tipo,
       estado,
       idCiudad,
       idSucursal,
@@ -315,7 +355,9 @@ export class PersonaComponent implements OnInit {
       numeroCuenta
     } = resp.data;
     this.personaSeleccionada = resp.data;
+    
     this.registerForm.setValue({
+      tipo,
       estado,
       idCiudad,
       idSucursal,
@@ -345,7 +387,6 @@ export class PersonaComponent implements OnInit {
         this.LlenarForm(resp);
       });
 
-      //esto debe aparecer en el branch principal
   }
 
   /**
@@ -381,6 +422,21 @@ export class PersonaComponent implements OnInit {
       this.dropdownListMarcas = nombremarcas;
 
     });
+  }
+  recuperarDatosRole() {
+    this.roleService.getAllRole().subscribe((resp: any) => {
+      let nombreRole: any = [];
+      resp.data.forEach((element: any) => {
+        nombreRole.push({ item_id: element._id, nombre: element.nombre });
+      });
+      this.dropdownListRole = nombreRole;
+
+    });
+  }
+
+
+  cancelarGuardado(){
+    this.router.navigateByUrl('/listapersonas')
   }
 
 
@@ -504,6 +560,39 @@ export class PersonaComponent implements OnInit {
     console.log(this.marca);
   }
 
+
+  /** ROLE */
+  /** Item Seleccionado */
+  onItemSelectRole(item: any) {
+    this.role.push(item);
+    console.log(this.role);
+  }
+  /** Todos los items Seleccionados */
+  onSelectAllRole(items: any) {
+    this.role = items;
+    console.log(this.role);
+  }
+  /** Deselccionar item */
+  findByItemIdIndexRole(id: any) {
+    return this.role.findIndex((resp: any) => {
+      return resp.item_id === id;
+    })
+  }
+  onDeSelectRole(item: any) {
+    /** Borrar elemento del array  */
+    const index = this.findByItemIdIndexRole(item.item_id);
+    const newArray = (index > -1) ? [
+      ...this.role.slice(0, index),
+      ...this.role.slice(index + 1)
+    ] : this.role;
+    this.role = newArray;
+    console.log(this.role);
+  }
+  /** Deselccionar todos los items */
+  onDeSelectAllRole(items: any) {
+    this.role = items;
+    console.log(this.role);
+  }
 
 
 }
