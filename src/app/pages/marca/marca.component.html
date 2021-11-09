@@ -37,12 +37,15 @@
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-body">Logo</h4>
-                    <img [src]="marcaSeleccionada?.logo | imagen:'marcas'">
-                    <input type="file" name="" id="">
+                    <img *ngIf="!imgTemp" [src]="marcaSeleccionada?.logo | imagen:'marcas'" height="100px" width="130px">
+                    <img *ngIf="imgTemp" [src]="imgTemp" height="130px" width="130px">
+                    <input  type="file" (change)="cambiarImagen($event)">
                     <br>
                     <br>
                     <div>
-                        <button type="button" class="btn btn-success waves-effect waves-light m-r-10">Cambiar imagen</button>
+                        <button type="button" class="btn btn-success waves-effect waves-light m-r-10" 
+                        [disabled]="!imagenSubir"
+                        (click)="subirImagen()">Cambiar imagen</button>
                     </div>
                 </div>
             </div>

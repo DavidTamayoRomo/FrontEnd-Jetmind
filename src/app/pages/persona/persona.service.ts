@@ -24,12 +24,17 @@ export class PersonaService {
 
   public persona:Persona = new Persona();
 
-  validarToken(): Observable<boolean> {
+  retornarHeader(){
     const token = localStorage.getItem('token') || '';
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`
     });
+    return headers;
+  }
+
+  validarToken(): Observable<boolean> {
+    const headers = this.retornarHeader();
 
     return this.http.get(`${base_url}/persona/renew`, { headers: headers }).pipe(
       tap((resp: any) => {
@@ -90,7 +95,8 @@ export class PersonaService {
   }
 
   crearPersona(formData: any) {
-    return this.http.post(`${base_url}/persona`, formData);
+    const headers = this.retornarHeader();
+    return this.http.post(`${base_url}/persona`, formData, { headers: headers });
   }
 
   loginPersona(formData: any) {
@@ -108,7 +114,8 @@ export class PersonaService {
   }
 
   cargarPersonas (skip: number = 0){
-    return this.http.get(`${base_url}/persona?skip=${skip}`)
+    const headers = this.retornarHeader();
+    return this.http.get(`${base_url}/persona?skip=${skip}`, { headers: headers })
     .pipe(
       tap( (resp:any) => {
         
@@ -123,21 +130,22 @@ export class PersonaService {
       })
     )
     
-     
   }
 
   eliminarPersonas( persona:Persona){
+    const headers = this.retornarHeader();
     console.log(persona._id);
-    return this.http.delete(`${base_url}/persona/${persona._id}`);
+    return this.http.delete(`${base_url}/persona/${persona._id}`, { headers: headers });
   }
 
   obtenerPersonaById(id:string){
-    return this.http.get(`${base_url}/persona/${id}`)
-    
+    const headers = this.retornarHeader();
+    return this.http.get(`${base_url}/persona/${id}`, { headers: headers })
   }
 
   updatePersona(id:string, persona:Persona){
-    return this.http.put(`${base_url}/persona/${id}`, persona);
+    const headers = this.retornarHeader();
+    return this.http.put(`${base_url}/persona/${id}`, persona, { headers: headers });
   }
 
 }

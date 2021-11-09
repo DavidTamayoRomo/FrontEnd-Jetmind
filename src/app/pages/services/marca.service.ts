@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { Marca } from '../marca/marca.model';
@@ -12,31 +12,46 @@ export class MarcaService {
 
   constructor(private http: HttpClient) { }
 
+  retornarHeader(){
+    const token = localStorage.getItem('token') || '';
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    });
+    return headers;
+  }
+
   /** Get MArcas */
   getAllMarcas() {
-    return this.http.get(`${base_url}/marca`);
+    const headers = this.retornarHeader();
+    return this.http.get(`${base_url}/marca`, { headers: headers });
   }
 
 
   obtenerMarcaById(id: string) {
-    return this.http.get(`${base_url}/marca/${id}`)
+    const headers = this.retornarHeader();
+    return this.http.get(`${base_url}/marca/${id}`, { headers: headers })
   }
 
   crearMarca(formData: any) {
-    return this.http.post(`${base_url}/marca`, formData);
+    const headers = this.retornarHeader();
+    return this.http.post(`${base_url}/marca`, formData, { headers: headers });
   }
 
   updateMarca(id: string, marca: Marca) {
-    return this.http.put(`${base_url}/marca/${id}`, marca);
+    const headers = this.retornarHeader();
+    return this.http.put(`${base_url}/marca/${id}`, marca, { headers: headers });
   }
 
   eliminarMarca(marca: Marca) {
-    return this.http.delete(`${base_url}/marca/${marca._id}`);
+    const headers = this.retornarHeader();
+    return this.http.delete(`${base_url}/marca/${marca._id}`, { headers: headers });
   }
 
 
   cargarMarcas(skip: number = 0) {
-    return this.http.get(`${base_url}/marca?skip=${skip}`)
+    const headers = this.retornarHeader();
+    return this.http.get(`${base_url}/marca?skip=${skip}`, { headers: headers })
       .pipe(
         tap((resp: any) => {
 

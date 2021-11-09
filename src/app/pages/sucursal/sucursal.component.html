@@ -1,1 +1,62 @@
-<p>sucursal works!</p>
+<div class="card">
+
+    <form (ngSubmit)="crearSucursal()" autocomplete="off" [formGroup]="registerForm">
+
+    
+    <div class="card-body">
+        <h4 class="card-title">Agregar Sucursales</h4>
+        <h6 class="card-subtitle">Ingrese todos los datos solicitados</h6>
+
+        <div class="form-group">
+            <div class="demo-switch-title">Estado</div>
+            <div class="switch">
+                <label>
+                    <input type="checkbox" checked="" formControlName="estado"><span class="lever switch-col-cyan"></span>
+                </label>
+            </div> 
+        </div>
+
+        <div class="form-group">
+            <label for="exampleInputuname">Marcas *</label>
+            <ng-multiselect-dropdown [placeholder]="'Seleccione Marca'" [settings]="dropdownSettings"
+                [data]="dropdownListMarcas" (onSelect)="onItemSelectmarca($event)"
+                (onSelectAll)="onSelectAllmarca($event)" (onDeSelect)="onDeSelectmarca($event)"
+                (onDeSelectAll)="onDeSelectAllmarca($event)" formControlName="idMarca">
+            </ng-multiselect-dropdown>
+            <div class="text-danger"><p *ngIf="campoNoValido('idMarca')">Ingrese al menos una marca</p></div> 
+        </div>
+        
+        <div class="form-group">
+            <label for="exampleInputuname">Nombre *</label>
+            <div class="input-group">
+                <div class="input-group-addon"><i class="ti-user"></i></div>
+                <input type="text" class="form-control" placeholder="Nombre" formControlName="nombre">
+            </div>
+            <div class="text-danger"><p *ngIf="campoNoValido('nombre')">El Nombre es obligatorio</p></div> 
+        </div>
+
+        <div class="form-group">
+            <label for="exampleInputEmail1">Sector *</label>
+            <div class="input-group">
+                <div class="input-group-addon"><i class="ti-email"></i></div>
+                <input type="email" class="form-control" placeholder="Ingrese sector" formControlName="sector">
+            </div>
+            <div class="text-danger"><p *ngIf="campoNoValido('sector')">El sector es obligatorio</p></div> 
+        </div>
+       
+        <div class="form-group">
+            <label for="descripcion">Descripción *</label>
+            <div class="input-group">
+                <div class="input-group-addon"><i class=" ti-id-badge"></i></div>
+                <input type="text" class="form-control" id="descripcion" placeholder="Ingrese descripcion" formControlName="descripcion">
+            </div>
+            <div class="text-danger"><p *ngIf="campoNoValido('descripcion')">La descripcion es obligatoria</p></div> 
+        </div>
+  
+
+        <button type="submit" class="btn btn-success waves-effect waves-light m-r-10">Guardar</button>
+        <a (click)="cancelarGuardado()"   class="btn btn-inverse waves-effect waves-light">Cancelar</a>
+    </div>
+    </form>
+    
+</div>
