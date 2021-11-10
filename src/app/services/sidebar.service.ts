@@ -20,7 +20,7 @@ export class SidebarService {
         { titulo: 'Marca',url: '/marca/nuevo' },
         { titulo: 'Lista Marcas',url: '/listamarcas' },
         { titulo: 'Sucursal',url: '/sucursal/nuevo' },
-        //{ titulo: 'Lista sucursales',url: '/listasucursales' },
+        { titulo: 'Lista sucursales',url: '/listasucursales' },
       ]
     }
   ]

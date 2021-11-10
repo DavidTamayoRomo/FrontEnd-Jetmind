@@ -1,0 +1,85 @@
+<div class="col">
+
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="text-right">
+                    <a class="btn btn-primary" routerLink="/sucursal/nuevo">
+                        <i class="mdi mdi-account-plus"></i>
+                        Crear Sucursal
+                    </a>
+                </div>
+                <div style="height: 10px;"></div>
+                <input type="text" class="form-control" placeholder="Buscar sucursal" (keyup)="buscar(txtBusqueda.value)"
+                    #txtBusqueda>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" *ngIf="cargando">
+    <div class="col-12">
+        <div class="alert alert-info text-center">
+            <h4 class="alert-heading">Cargando</h4>
+            <i class="fa fa-spin fa-refresh fa-2x"></i>
+            <p class="mb-0">Por favor espere...</p>
+        </div>
+    </div>
+</div>
+<div class="row" *ngIf="!cargando">
+
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Sucursales registradas</h4>
+                <h6 class="card-subtitle">Lista de todas las sucursales existentes en el sistema</h6>
+                <h6 class="card-subtitle">Total de sucursales: {{totalSucursales}}</h6>
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th class="w100">Nombre</th>
+                                <th class="w100">Marcas</th>
+                                <th class="w100">Sector</th>
+                                <th class="w100">Descripcion</th>
+
+                                <th class="text-nowrap w100">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let sursal of sucursales">
+
+                                
+                                <td>{{sursal.nombre}}</td>
+                                <td><div *ngFor="let marca of sursal.idMarcas">{{marca.nombre}}</div></td>
+                                <td>{{sursal.sector}}</td>
+                                <td>{{sursal.descripcion}}</td>
+
+                                <td class="text-nowrap">
+                                    <a [routerLink]="['/sucursal',sursal._id]" data-toggle="tooltip"
+                                        data-original-title="Editar"> <i class="ti-pencil"></i> </a>
+                                    <a data-toggle="tooltip" data-original-title="Borrar"
+                                        (click)="borrarSucursal(sursal)">
+                                        <i class=" ti-trash"></i>
+                                    </a>
+                                </td>
+                            </tr>
+
+
+                        </tbody>
+                    </table>
+                    <div *ngIf="txtBusqueda.value.length === 0">
+                        <button (click)="paginar(-5)" class="btn btn-secondary">Anterio</button>
+                        &nbsp;
+                        <button (click)="paginar(5)" class="btn btn-secondary">Siguiente</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

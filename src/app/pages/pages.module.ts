@@ -20,6 +20,8 @@ import { ComponentsModule } from '../components/components.module';
 import { PipesModule } from '../pipes/pipes.module';
 import { CiudadesComponent } from './ciudad/ciudades/ciudades.component';
 import { MarcasComponent } from './marca/marcas/marcas.component';
+import { SucursalesComponent } from './sucursal/sucursales/sucursales.component';
+import { RepresentanteComponent } from './representante/representante.component';
 
 
 
@@ -37,6 +39,8 @@ import { MarcasComponent } from './marca/marcas/marcas.component';
     ListaPersonasComponent,
     CiudadesComponent,
     MarcasComponent,
+    SucursalesComponent,
+    RepresentanteComponent,
     
   ],
   exports:[

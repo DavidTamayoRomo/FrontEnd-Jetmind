@@ -7,6 +7,7 @@ import { IDropdownSettings } from 'ng-multiselect-dropdown';
 
 import Swal from 'sweetalert2';
 import { MarcaService } from '../services/marca.service';
+import { Marca } from '../marca/marca.model';
 
 
 @Component({
@@ -23,6 +24,7 @@ export class SucursalComponent implements OnInit {
 
   public dropdownListMarcas: any = [];
   public marca: any = [];
+  public Marca:Marca = new Marca();
 
   public dropdownSettings: IDropdownSettings = {};
 
@@ -109,7 +111,15 @@ export class SucursalComponent implements OnInit {
 
     if (this.sucursalSeleccionada) {
       //actualizar
+
+      let marcaLista: any = [];
+      this.marca.forEach((element: any) => {
+        marcaLista.push(element.item_id);
+      }); 
+      
       this.SucursalModel = this.registerForm.value;
+      this.SucursalModel.idMarcas= marcaLista;
+
       if (this.registerForm.invalid) {
         //Formulario invalido
         const Toast = Swal.mixin({
@@ -171,7 +181,18 @@ export class SucursalComponent implements OnInit {
         });
       }
     }else{
+
+      this.Marca = this.registerForm.value;
+
       //crear
+      //ID de las Marcas
+      let marcaLista: any = [];
+      this.marca.forEach((element: any) => {
+        marcaLista.push(element.item_id);
+      }); 
+
+      this.Marca.idMarcas= marcaLista;
+
       if (this.registerForm.invalid) {
         const Toast = Swal.mixin({
           toast: true,
@@ -190,7 +211,7 @@ export class SucursalComponent implements OnInit {
         })
         return;
       }else{
-        this.sucursalService.crearSucursal(this.registerForm.value).subscribe((resp) => {
+        this.sucursalService.crearSucursal(this.Marca).subscribe((resp) => {
           
           const Toast = Swal.mixin({
             toast: true,
