@@ -16,9 +16,10 @@ import { FileUploadService } from '../../services/file-upload.service';
 })
 export class MarcaComponent implements OnInit {
 
-  public marcaSeleccionada : any;
+  
   public imagenSubir: any;
   public imgTemp: any;
+  public marcaSeleccionada:any;
 
   MarcaModel = new Marca();
 

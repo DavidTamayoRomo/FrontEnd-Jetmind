@@ -22,6 +22,7 @@ import { CiudadesComponent } from './ciudad/ciudades/ciudades.component';
 import { MarcasComponent } from './marca/marcas/marcas.component';
 import { SucursalesComponent } from './sucursal/sucursales/sucursales.component';
 import { RepresentanteComponent } from './representante/representante.component';
+import { RepresentantesComponent } from './representante/representantes/representantes.component';
 
 
 
@@ -41,6 +42,7 @@ import { RepresentanteComponent } from './representante/representante.component'
     MarcasComponent,
     SucursalesComponent,
     RepresentanteComponent,
+    RepresentantesComponent,
     
   ],
   exports:[

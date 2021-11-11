@@ -1,1 +1,140 @@
-<p>representante works!</p>
+<div class="card">
+
+    <form (ngSubmit)="crearRepresentante()" autocomplete="off" [formGroup]="registerForm">
+
+
+        <div class="card-body">
+            <h4 class="card-title">Agregar Personas</h4>
+            <h6 class="card-subtitle">Ingrese todos los datos solicitados</h6>
+
+            <div class="form-group">
+                <div class="demo-switch-title">Estado</div>
+                <select class="form-control custom-select" formControlName="genero">
+                    <option value="Femenino">Activo</option>
+                    <option value="Masculino">Inactivo</option>
+                </select>
+                <small class="form-control-feedback"> Seleccione el genero </small>
+            </div>
+
+
+            <div class="form-group">
+                <label for="exampleInputuname">Nombres y Apellidos *</label>
+                <div class="input-group">
+                    <div class="input-group-addon"><i class="ti-user"></i></div>
+                    <input type="text" class="form-control" placeholder="Nombres" formControlName="nombresApellidos">
+                </div>
+                <div class="text-danger">
+                    <p *ngIf="campoNoValido('nombresApellidos')">El Nombre y Apellido es obligatorio</p>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="exampleInputEmail1">Email address *</label>
+                <div class="input-group">
+                    <div class="input-group-addon"><i class="ti-email"></i></div>
+                    <input type="email" class="form-control" placeholder="Ingrese email" formControlName="email">
+                </div>
+                <div class="text-danger">
+                    <p *ngIf="campoNoValido('email')">El email es obligatorio / Ingrese email valido</p>
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <label for="cedula">Cedula *</label>
+                <div class="input-group">
+                    <div class="input-group-addon"><i class=" ti-id-badge"></i></div>
+                    <input type="number" class="form-control" id="cedula" placeholder="Ingrese cedula"
+                        formControlName="cedula">
+                </div>
+                <div class="text-danger">
+                    <p *ngIf="campoNoValido('cedula')">La cedula es obligatoria</p>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="telefono">Telefono</label>
+                <div class="input-group">
+                    <div class="input-group-addon"><i class="fa fa-phone"></i></div>
+                    <input type="number" class="form-control" id="telefono" placeholder="Ingrese telefono"
+                        formControlName="telefono">
+                    <div class="text-danger">
+                        <p *ngIf="campoNoValido('telefono')">El numero de telefono es obligatorio</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="telefonodomicilio">Telefono Domicilio</label>
+                <div class="input-group">
+                    <div class="input-group-addon"><i class="fa fa-phone"></i></div>
+                    <input type="number" class="form-control" id="telefonodomicilio"
+                        placeholder="Ingrese telefono domicilio" formControlName="telefonoDomicilio">
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="numeroEmergencia">Telefono de emergencia</label>
+                <div class="input-group">
+                    <div class="input-group-addon"><i class="fa fa-phone"></i></div>
+                    <input type="number" class="form-control" id="numeroEmergencia"
+                        placeholder="Ingrese telefono domicilio" formControlName="numeroEmergencia">
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="telefonoOficina">Telefono de oficina</label>
+                <div class="input-group">
+                    <div class="input-group-addon"><i class="fa fa-phone"></i></div>
+                    <input type="number" class="form-control" id="telefonoOficina"
+                        placeholder="Ingrese telefono domicilio" formControlName="telefonoOficina">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="fechaNacimiento">Fecha Nacimiento *</label>
+                <div class="input-group">
+                    <div class="input-group-addon"><i class="fa fa-clock-o"></i></div>
+                    <input type="date" class="form-control" id="fechaNacimiento" placeholder="Ingrese fecha Nacimiento"
+                        formControlName="fechaNacimiento">
+                </div>
+                <div class="text-danger">
+                    <p *ngIf="campoNoValido('fechaNacimiento')">La fecha de nacimiento es obligatoria</p>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="direccion">Direccion</label>
+                <div class="input-group">
+                    <div class="input-group-addon"><i class=" ti-location-pin"></i></div>
+                    <input type="text" class="form-control" id="direccion" placeholder="Ingrese direccion"
+                        formControlName="direccion">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label">Genero</label>
+                <select class="form-control custom-select" formControlName="genero">
+                    <option value="Femenino">Femenino</option>
+                    <option value="Masculino">Masculino</option>
+                </select>
+                <small class="form-control-feedback"> Seleccione el genero </small>
+            </div>
+
+
+            <div class="form-group">
+                <label for="lugarTrabajo">Lugar de trabajo</label>
+                <div class="input-group">
+                    <div class="input-group-addon"><i class=" ti-location-pin"></i></div>
+                    <input type="text" class="form-control" id="lugarTrabajo" placeholder="Ingrese lugar de trabajo"
+                        formControlName="lugarTrabajo">
+                </div>
+            </div>
+
+
+            <button type="submit" class="btn btn-success waves-effect waves-light m-r-10">Guardar</button>
+            <a (click)="cancelarGuardado()" class="btn btn-inverse waves-effect waves-light">Cancelar</a>
+        </div>
+    </form>
+
+</div>

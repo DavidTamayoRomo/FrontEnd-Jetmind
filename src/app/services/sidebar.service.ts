@@ -21,6 +21,8 @@ export class SidebarService {
         { titulo: 'Lista Marcas',url: '/listamarcas' },
         { titulo: 'Sucursal',url: '/sucursal/nuevo' },
         { titulo: 'Lista sucursales',url: '/listasucursales' },
+        { titulo: 'Representante',url: '/representante/nuevo' },
+        { titulo: 'Lista Representantes',url: '/listarepresentantes' }
       ]
     }
   ]

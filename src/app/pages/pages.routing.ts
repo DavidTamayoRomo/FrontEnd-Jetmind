@@ -14,6 +14,8 @@ import { MarcaComponent } from './marca/marca.component';
 import { MarcasComponent } from './marca/marcas/marcas.component';
 import { SucursalComponent } from './sucursal/sucursal.component';
 import { SucursalesComponent } from './sucursal/sucursales/sucursales.component';
+import { RepresentanteComponent } from './representante/representante.component';
+import { RepresentantesComponent } from './representante/representantes/representantes.component';
 
 
 
@@ -39,6 +41,9 @@ const routes: Routes = [
             
             { path: 'sucursal/:id', component: SucursalComponent, data:{titulo:'Sucursal'} },
             { path: 'listasucursales', component: SucursalesComponent, data:{titulo:'Lista de sucursales'} },
+            
+            { path: 'representante/:id', component: RepresentanteComponent, data:{titulo:'Representante'} },
+            { path: 'listarepresentantes', component: RepresentantesComponent, data:{titulo:'Lista de representantes'} },
 
             { path: 'perfil', component: PerfilComponent, data:{titulo:'Perfil'} },
             { path: '', redirectTo: '/dashboard', pathMatch: 'full'},
