@@ -16,6 +16,12 @@ import { SucursalComponent } from './sucursal/sucursal.component';
 import { SucursalesComponent } from './sucursal/sucursales/sucursales.component';
 import { RepresentanteComponent } from './representante/representante.component';
 import { RepresentantesComponent } from './representante/representantes/representantes.component';
+import { EstudianteComponent } from './estudiante/estudiante.component';
+import { EstudiantesComponent } from './estudiante/estudiantes/estudiantes.component';
+import { NombreProgramaComponent } from './nombre-programa/nombre-programa.component';
+import { NombreProgramasComponent } from './nombrePrograma/nombre-programas/nombre-programas.component';
+import { ContratoComponent } from './contrato/contrato.component';
+
 
 
 
@@ -44,6 +50,15 @@ const routes: Routes = [
             
             { path: 'representante/:id', component: RepresentanteComponent, data:{titulo:'Representante'} },
             { path: 'listarepresentantes', component: RepresentantesComponent, data:{titulo:'Lista de representantes'} },
+            
+            { path: 'estudiante/:id', component: EstudianteComponent, data:{titulo:'Estudiante'} },
+            { path: 'listaestudiantes', component:EstudiantesComponent , data:{titulo:'Lista de estudiantes'} },
+            
+            { path: 'nombrePrograma/:id', component: NombreProgramaComponent, data:{titulo:'Nombre Programa'} },
+            { path: 'listanombreprogramas', component:NombreProgramasComponent , data:{titulo:'Lista de los programas'} },
+
+            { path: 'contrato/:id', component: ContratoComponent, data:{titulo:'Contrato'} },
+            //{ path: 'listanombreprogramas', component:NombreProgramasComponent , data:{titulo:'Lista de los programas'} },
 
             { path: 'perfil', component: PerfilComponent, data:{titulo:'Perfil'} },
             { path: '', redirectTo: '/dashboard', pathMatch: 'full'},

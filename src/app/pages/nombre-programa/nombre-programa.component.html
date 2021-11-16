@@ -1,0 +1,67 @@
+<div class="card">
+
+    <form (ngSubmit)="crearnombrePrograma()" autocomplete="off" [formGroup]="registerForm">
+
+        <div class="card-body">
+            <div class="form-group">
+                <div class="demo-switch-title">Estado</div>
+                <div class="switch">
+                    <label>
+                        <input type="checkbox" checked="" formControlName="estado"><span
+                            class="lever switch-col-cyan"></span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="exampleInputuname">Ciudades *</label>
+                <ng-multiselect-dropdown [placeholder]="'Seleccione Ciudades'" [settings]="dropdownSettings"
+                    [data]="dropdownListCiudades" (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)"
+                    (onDeSelect)="onDeSelect($event)" (onDeSelectAll)="onDeSelectAll($event)" formControlName="idCiudad">
+                </ng-multiselect-dropdown>
+                <div class="text-danger"><p *ngIf="campoNoValido('idCiudad')">Ingrese al menos una ciudad</p></div> 
+            </div>
+
+            <div class="form-group">
+                <label for="exampleInputuname">Marca *</label>
+                <ng-multiselect-dropdown [placeholder]="'Seleccione Marca'" [settings]="dropdownSettings1"
+                    [data]="dropdownListMarcas" (onSelect)="onItemSelectmarca($event)"
+                    (onSelectAll)="onSelectAllmarca($event)" (onDeSelect)="onDeSelectmarca($event)"
+                    (onDeSelectAll)="onDeSelectAllmarca($event)" formControlName="idMarca">
+                </ng-multiselect-dropdown>
+                <div class="text-danger"><p *ngIf="campoNoValido('idMarca')">Ingrese al menos una marca</p></div> 
+            </div>
+
+            <div class="form-group">
+                <label for="exampleInputuname">Nombre del Programa *</label>
+                <div class="input-group">
+                    <div class="input-group-addon"><i class="mdi mdi-arrange-bring-forward"></i></div>
+                    <input type="text" class="form-control" placeholder="Nombre del programa" formControlName="nombre">
+                </div>
+                <div class="text-danger">
+                    <p *ngIf="campoNoValido('nombre')">El Nombre del programa es obligatorio</p>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="exampleInputuname">Observaciones </label>
+                <div class="input-group">
+                    <div class="input-group-addon"><i class="mdi mdi-comment-processing-outline"></i></div>
+                    <input type="text" class="form-control" placeholder="Observaciones" formControlName="observaciones">
+                </div>
+                <div class="text-danger">
+                    <p *ngIf="campoNoValido('observaciones')"> es obligatorio</p>
+                </div>
+            </div>
+
+            
+
+            <div>
+                <button type="submit" class="btn btn-success waves-effect waves-light m-r-10">Guardar</button>
+                <a (click)="cancelarGuardado()"  class="btn btn-inverse waves-effect waves-light">Cancelar</a>
+            </div>
+
+        </div>
+    </form>
+
+</div>

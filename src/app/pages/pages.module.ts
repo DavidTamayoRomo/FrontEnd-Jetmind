@@ -23,6 +23,12 @@ import { MarcasComponent } from './marca/marcas/marcas.component';
 import { SucursalesComponent } from './sucursal/sucursales/sucursales.component';
 import { RepresentanteComponent } from './representante/representante.component';
 import { RepresentantesComponent } from './representante/representantes/representantes.component';
+import { EstudianteComponent } from './estudiante/estudiante.component';
+import { EstudiantesComponent } from './estudiante/estudiantes/estudiantes.component';
+import { NombreProgramaComponent } from './nombre-programa/nombre-programa.component';
+import { NombreProgramasComponent } from './nombrePrograma/nombre-programas/nombre-programas.component';
+import { ContratoComponent } from './contrato/contrato.component';
+
 
 
 
@@ -43,6 +49,11 @@ import { RepresentantesComponent } from './representante/representantes/represen
     SucursalesComponent,
     RepresentanteComponent,
     RepresentantesComponent,
+    EstudianteComponent,
+    EstudiantesComponent,
+    NombreProgramaComponent,
+    NombreProgramasComponent,
+    ContratoComponent,
     
   ],
   exports:[

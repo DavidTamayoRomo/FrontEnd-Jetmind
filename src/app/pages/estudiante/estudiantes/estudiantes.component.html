@@ -1,0 +1,97 @@
+<p>estudiantes works!</p>
+
+
+<div class="col">
+    
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="text-right">
+                    <a class="btn btn-primary"
+                       routerLink="/estudiante/nuevo">
+                        <i class="mdi mdi-account-plus"></i> 
+                        Crear Estudiante
+                    </a>
+                </div>
+                <div style="height: 10px;"></div>
+                <input type="text" class="form-control" placeholder="Buscar usuario" (keyup)="buscar(txtBusqueda.value)"
+                    #txtBusqueda>
+                    
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" *ngIf="cargando">
+    <div class="col-12">
+        <div class="alert alert-info text-center">
+            <h4 class="alert-heading">Cargando</h4>
+            <i class="fa fa-spin fa-refresh fa-2x"></i>
+            <p class="mb-0">Por favor espere...</p>
+        </div>
+    </div>
+</div>
+<div class="row" *ngIf="!cargando">
+    
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Estudiantes registrados</h4>
+                <h6 class="card-subtitle">Lista de todos los estudiantes existentes en el sistema</h6>
+                <h6 class="card-subtitle">Total de usuarios: {{totalEstudiantes}}</h6>
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th class="w100">Representante</th>
+                                <th class="w100">Nombres y apellidos</th>
+                                <th class="w100">Email</th>
+                                <th class="w100">Cedula</th>
+                                <th class="w100">Telefono</th>
+                                <th class="w100">Fecha de nacimiento</th>
+                                <th class="w100">Dirección</th>
+                                <th class="w100">Genero</th>
+                                <th class="w100">Estado</th>
+                                <th class="text-nowrap w100">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let estudiante of estudiantes">
+                        
+                                <td>{{estudiante.idRepresentante[0].nombresApellidos}}</td>
+                                <td>{{estudiante.nombresApellidos}}</td>
+                                <td>{{estudiante.email}}</td>
+                                <td>{{estudiante.cedula}}</td>
+                                <td>{{estudiante.telefono}}</td>
+                                <td>{{estudiante.fechaNacimiento}}</td>
+                                <td>{{estudiante.direccion}}</td>
+                                <td>{{estudiante.genero}}</td>
+                                <td>{{estudiante.estado}}</td>
+                                
+                                
+                                <td class="text-nowrap">
+                                    <a [routerLink]="['/estudiante',estudiante._id]" data-toggle="tooltip" data-original-title="Editar"> <i
+                                            class="ti-pencil"></i> </a>
+                                    <a data-toggle="tooltip" data-original-title="Borrar"
+                                        (click)="borrarEstudiante(estudiante)">
+                                        <i class=" ti-trash"></i>
+                                    </a>
+                                </td>
+                            </tr>
+
+
+                        </tbody>
+                    </table>
+                    <div *ngIf="txtBusqueda.value.length === 0">
+                        <button (click)="paginar(-5)" class="btn btn-secondary">Anterio</button>
+                        &nbsp;
+                        <button (click)="paginar(5)" class="btn btn-secondary">Siguiente</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

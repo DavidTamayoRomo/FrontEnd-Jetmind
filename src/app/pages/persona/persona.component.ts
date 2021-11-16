@@ -69,10 +69,11 @@ export class PersonaComponent implements OnInit {
       textField: 'nombre',
       selectAllText: 'Select All',
       unSelectAllText: 'UnSelect All',
-      itemsShowLimit: 3,
+      //itemsShowLimit: 3,
       allowSearchFilter: true
     };
 
+    
   }
 
   PersonaModel = new Persona();
@@ -356,7 +357,6 @@ export class PersonaComponent implements OnInit {
       numeroCuenta
     } = resp.data;
     this.personaSeleccionada = resp.data;
-    
     this.registerForm.setValue({
       tipo,
       estado,

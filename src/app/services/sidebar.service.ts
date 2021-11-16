@@ -22,7 +22,12 @@ export class SidebarService {
         { titulo: 'Sucursal',url: '/sucursal/nuevo' },
         { titulo: 'Lista sucursales',url: '/listasucursales' },
         { titulo: 'Representante',url: '/representante/nuevo' },
-        { titulo: 'Lista Representantes',url: '/listarepresentantes' }
+        { titulo: 'Lista Representantes',url: '/listarepresentantes' },
+        { titulo: 'Estudiante',url: '/estudiante/nuevo' },
+        { titulo: 'Lista estudiantes',url: '/listaestudiantes' },
+        { titulo: 'Programas',url: '/nombrePrograma/nuevo' },
+        { titulo: 'Lista programas',url: '/listanombreprogramas' },
+        { titulo: 'Contrato',url: '/contrato/nuevo' },
       ]
     }
   ]
