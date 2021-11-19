@@ -28,10 +28,13 @@ import { EstudiantesComponent } from './estudiante/estudiantes/estudiantes.compo
 import { NombreProgramaComponent } from './nombre-programa/nombre-programa.component';
 import { NombreProgramasComponent } from './nombrePrograma/nombre-programas/nombre-programas.component';
 import { ContratoComponent } from './contrato/contrato.component';
+import { NgWizardConfig, NgWizardModule, THEME } from 'ng-wizard';
 
 
 
-
+const ngWizardConfig: NgWizardConfig = {
+  theme: THEME.default
+};
 
 @NgModule({
   declarations: [
@@ -69,8 +72,9 @@ import { ContratoComponent } from './contrato/contrato.component';
     ReactiveFormsModule,
     HttpClientModule,
     ComponentsModule,
-    PipesModule
+    PipesModule,
+    NgWizardModule.forRoot(ngWizardConfig)
   ],
-  
+ 
 })
 export class PagesModule { }

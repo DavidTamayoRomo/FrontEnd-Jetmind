@@ -17,6 +17,8 @@ export class RepresentanteComponent implements OnInit {
 
   public representanteSeleccionada: any;
 
+  public mostrarBoton:boolean = false;
+
   RepresenteModel = new Representante();
 
   constructor(
@@ -31,7 +33,11 @@ export class RepresentanteComponent implements OnInit {
     this.activatedRoute.params.subscribe(({ id }) => {
       this.cargarRepresentantebyId(id);
     });
+    if(this.router.url == '/representante/nuevo'){
+      this.mostrarBoton = true;
+    }
   }
+
 
 
   

@@ -31,6 +31,11 @@ export class EstudianteService {
     return this.http.get(`${base_url}/estudiante`, { headers: headers });
   }
 
+  getAllEstudiantesByIdRepresentante(idEstudiante: string,idRepresentante: string) {
+    const headers = this.retornarHeader();
+    return this.http.get(`${base_url}/estudiante/${idEstudiante}/${idRepresentante}`, { headers: headers });
+  }
+
 
   obtenerEstudianteById(id: string) {
     const headers = this.retornarHeader();
@@ -69,8 +74,23 @@ export class EstudianteService {
           };
         })
       )
+  }
 
+  cargarEstudiantes2(idEstudiante: string,idRepresentante: string) {
+    const headers = this.retornarHeader();
+    return this.http.get(`${base_url}/estudiante/${idEstudiante}/${idRepresentante}`, { headers: headers })
+      .pipe(
+        tap((resp: any) => {
 
+          const estudiantes = resp.data.map((estudiante: any) => new Estudiante(estudiante._id, estudiante.nombresApellidos, estudiante.email, estudiante.cedula, estudiante.telefono, estudiante.fechaNaciemiento, estudiante.direccion
+            , estudiante.genero, estudiante.estado, estudiante.fotoCedula1, estudiante.fotoCedula2, estudiante.idRepresentante, estudiante.addedUser, estudiante.modifiedUser)
+          );
+
+          return{
+            estudiantes
+          };
+        })
+      )
   }
 
 }

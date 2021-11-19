@@ -1,173 +1,154 @@
 
-<div class="row">
-    <div class="col-12">
-        <div class="card">
-            <div class="card-body wizard-content">
-                <h4 class="card-title">Step wizard</h4>
-                <h6 class="card-subtitle">You can find the <a href="http://www.jquery-steps.com" target="_blank">offical website</a></h6>
-                <form action="#" class="tab-wizard wizard-circle wizard clearfix" role="application" id="steps-uid-0"><div class="steps clearfix"><ul role="tablist"><li role="tab" class="first current" aria-disabled="false" aria-selected="true"><a id="steps-uid-0-t-0" href="#steps-uid-0-h-0" aria-controls="steps-uid-0-p-0"><span class="current-info audible">current step: </span><span class="step">1</span> Personal Info</a></li><li role="tab" class="done" aria-disabled="false" aria-selected="false"><a id="steps-uid-0-t-1" href="#steps-uid-0-h-1" aria-controls="steps-uid-0-p-1"><span class="step">2</span> Job Status</a></li><li role="tab" class="done" aria-disabled="false" aria-selected="false"><a id="steps-uid-0-t-2" href="#steps-uid-0-h-2" aria-controls="steps-uid-0-p-2"><span class="step">3</span> Interview</a></li><li role="tab" class="last done" aria-disabled="false" aria-selected="false"><a id="steps-uid-0-t-3" href="#steps-uid-0-h-3" aria-controls="steps-uid-0-p-3"><span class="step">4</span> Remark</a></li></ul></div><div class="content clearfix">
-                    <!-- Step 1 -->
-                    <h6 id="steps-uid-0-h-0" tabindex="-1" class="title current">Personal Info</h6>
-                    <section id="steps-uid-0-p-0" role="tabpanel" aria-labelledby="steps-uid-0-h-0" class="body current" aria-hidden="false" style="">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="firstName1">First Name :</label>
-                                    <input type="text" class="form-control" id="firstName1"> </div>
+<ng-wizard [config]="config" (stepChanged)="stepChanged($event)">
+
+    <ng-wizard-step [title]="'Representante'" [description]="'Datos Representante'">
+        <app-representante></app-representante>
+    </ng-wizard-step>
+
+    <ng-wizard-step [title]="'Estudiante'" [description]="'Datos Estudiante'" >
+        <app-estudiante></app-estudiante>
+    </ng-wizard-step>
+
+    <ng-wizard-step [title]="'Estudiantes'" [description]="'Estudiantes ingresados al contrato'" >
+        <app-estudiantes [idRepresentante]="'613a7e02700f76389cc8065d'" [idEstudiante]="'618f01b25ac5463de84661f2'"></app-estudiantes>
+    </ng-wizard-step>
+
+    <ng-wizard-step [title]="'Precio'" [description]="'Datos economicos'">
+
+        <form (ngSubmit)="crearContrato()" autocomplete="off" [formGroup]="registerForm">
+            <div class="card-body">
+                <h4 class="card-title">Contrato</h4>
+                <h6 class="card-subtitle">Ingrese todos los datos solicitados</h6>
+    
+                <div class="row p-t-20">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="fechaNacimiento">Fecha *</label>
+                            <div class="input-group">
+                                <div class="input-group-addon"><i class="fa fa-clock-o"></i></div>
+                                <input type="date" class="form-control" id="fechaNacimiento" placeholder="Ingrese fecha Nacimiento"
+                                    formControlName="fechaNacimiento">
                             </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="lastName1">Last Name :</label>
-                                    <input type="text" class="form-control" id="lastName1"> </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="emailAddress1">Email Address :</label>
-                                    <input type="email" class="form-control" id="emailAddress1"> </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="phoneNumber1">Phone Number :</label>
-                                    <input type="tel" class="form-control" id="phoneNumber1"> </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="location1">Select City :</label>
-                                    <select class="custom-select form-control" id="location1" name="location">
-                                        <option value="">Select City</option>
-                                        <option value="Amsterdam">India</option>
-                                        <option value="Berlin">USA</option>
-                                        <option value="Frankfurt">Dubai</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="date1">Date of Birth :</label>
-                                    <input type="date" class="form-control" id="date1"> </div>
+                            <div class="text-danger">
+                                <!-- <p *ngIf="campoNoValido('fechaNacimiento')">La fecha de nacimiento es obligatoria</p> -->
                             </div>
                         </div>
-                    </section>
-                    <!-- Step 2 -->
-                    <h6 id="steps-uid-0-h-1" tabindex="-1" class="title">Job Status</h6>
-                    <section id="steps-uid-0-p-1" role="tabpanel" aria-labelledby="steps-uid-0-h-1" class="body" aria-hidden="true" style="display: none;">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="jobTitle1">Job Title :</label>
-                                    <input type="text" class="form-control" id="jobTitle1"> </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <div class="demo-switch-title">Estado</div>
+                            <select class="form-control custom-select" formControlName="estado">
+                                <option value="Activo">Activo</option>
+                                <option value="Inactivo">Inactivo</option>
+                            </select>
+                            <small class="form-control-feedback"> Seleccione el estado </small>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row p-t-20">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <div class="demo-switch-title">Tipo de pago</div>
+                            <select class="form-control custom-select" formControlName="tipoPago">
+                                <option value="Plan">Plan</option>
+                                <option value="Contado">Contado</option>
+                                <option value="OK">OK</option>
+                            </select>
+                            <small class="form-control-feedback"> Seleccione el tipo de Pago </small>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        
+
+                    </div>
+                </div>
+                <div class="row p-t-20">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="exampleInputuname">Valor Total *</label>
+                            <div class="input-group">
+                                <div class="input-group-addon"><i class="ti-user"></i></div>
+                                <input type="number" class="form-control" placeholder="Nombres" formControlName="valorTotal">
                             </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="videoUrl1">Company Name :</label>
-                                    <input type="text" class="form-control" id="videoUrl1">
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label for="shortDescription1">Job Description :</label>
-                                    <textarea name="shortDescription" id="shortDescription1" rows="6" class="form-control"></textarea>
-                                </div>
+                            <div class="text-danger">
+                                <!-- <p *ngIf="campoNoValido('valorTotal')">El Nombre y Apellido es obligatorio</p> -->
                             </div>
                         </div>
-                    </section>
-                    <!-- Step 3 -->
-                    <h6 id="steps-uid-0-h-2" tabindex="-1" class="title">Interview</h6>
-                    <section id="steps-uid-0-p-2" role="tabpanel" aria-labelledby="steps-uid-0-h-2" class="body" aria-hidden="true" style="display: none;">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="int1">Interview For :</label>
-                                    <input type="text" class="form-control" id="int1"> </div>
-                                <div class="form-group">
-                                    <label for="intType1">Interview Type :</label>
-                                    <select class="custom-select form-control" id="intType1" data-placeholder="Type to search cities" name="intType1">
-                                        <option value="Banquet">Normal</option>
-                                        <option value="Fund Raiser">Difficult</option>
-                                        <option value="Dinner Party">Hard</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label for="Location1">Location :</label>
-                                    <select class="custom-select form-control" id="Location1" name="location">
-                                        <option value="">Select City</option>
-                                        <option value="India">India</option>
-                                        <option value="USA">USA</option>
-                                        <option value="Dubai">Dubai</option>
-                                    </select>
-                                </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Valor Matricula *</label>
+                            <div class="input-group">
+                                <div class="input-group-addon"><i class="ti-email"></i></div>
+                                <input type="number" class="form-control" placeholder="Ingrese email" formControlName="valorMatricula">
                             </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="jobTitle2">Interview Date :</label>
-                                    <input type="date" class="form-control" id="jobTitle2">
-                                </div>
-                                <div class="form-group">
-                                    <label>Requirements :</label>
-                                    <div class="c-inputs-stacked">
-                                        <label class="inline custom-control custom-checkbox block">
-                                            <input type="checkbox" class="custom-control-input"> <span class="custom-control-indicator"></span> <span class="custom-control-description ml-0">Employee</span> </label>
-                                        <label class="inline custom-control custom-checkbox block">
-                                            <input type="checkbox" class="custom-control-input"> <span class="custom-control-indicator"></span> <span class="custom-control-description ml-0">Contract</span> </label>
-                                    </div>
-                                </div>
+                            <div class="text-danger">
+                                <!-- <p *ngIf="campoNoValido('valorMatricula')">El email es obligatorio / Ingrese email valido</p> -->
                             </div>
                         </div>
-                    </section>
-                    <!-- Step 4 -->
-                    <h6 id="steps-uid-0-h-3" tabindex="-1" class="title">Remark</h6>
-                    <section id="steps-uid-0-p-3" role="tabpanel" aria-labelledby="steps-uid-0-h-3" class="body" aria-hidden="true" style="display: none;">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="behName1">Behaviour :</label>
-                                    <input type="text" class="form-control" id="behName1">
-                                </div>
-                                <div class="form-group">
-                                    <label for="participants1">Confidance</label>
-                                    <input type="text" class="form-control" id="participants1">
-                                </div>
-                                <div class="form-group">
-                                    <label for="participants1">Result</label>
-                                    <select class="custom-select form-control" id="participants1" name="location">
-                                        <option value="">Select Result</option>
-                                        <option value="Selected">Selected</option>
-                                        <option value="Rejected">Rejected</option>
-                                        <option value="Call Second-time">Call Second-time</option>
-                                    </select>
-                                </div>
+                    </div>
+                </div>
+                <div class="row p-t-20">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="cedula">Abono *</label>
+                            <div class="input-group">
+                                <div class="input-group-addon"><i class=" ti-id-badge"></i></div>
+                                <input type="number" class="form-control" id="abono" placeholder="Ingrese Abono"
+                                    formControlName="abono">
                             </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="decisions1">Comments</label>
-                                    <textarea name="decisions" id="decisions1" rows="4" class="form-control"></textarea>
-                                </div>
-                                <div class="form-group">
-                                    <label>Rate Interviwer :</label>
-                                    <div class="c-inputs-stacked">
-                                        <label class="inline custom-control custom-checkbox block">
-                                            <input type="checkbox" class="custom-control-input"> <span class="custom-control-indicator"></span> <span class="custom-control-description ml-0">1 star</span> </label>
-                                        <label class="inline custom-control custom-checkbox block">
-                                            <input type="checkbox" class="custom-control-input"> <span class="custom-control-indicator"></span> <span class="custom-control-description ml-0">2 star</span> </label>
-                                        <label class="inline custom-control custom-checkbox block">
-                                            <input type="checkbox" class="custom-control-input"> <span class="custom-control-indicator"></span> <span class="custom-control-description ml-0">3 star</span> </label>
-                                        <label class="inline custom-control custom-checkbox block">
-                                            <input type="checkbox" class="custom-control-input"> <span class="custom-control-indicator"></span> <span class="custom-control-description ml-0">4 star</span> </label>
-                                        <label class="inline custom-control custom-checkbox block">
-                                            <input type="checkbox" class="custom-control-input"> <span class="custom-control-indicator"></span> <span class="custom-control-description ml-0">5 star</span> </label>
-                                    </div>
+                            <div class="text-danger">
+                                <!-- <p *ngIf="campoNoValido('abono')">La cedula es obligatoria</p> -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="telefono">Numero Cuotas</label>
+                            <div class="input-group">
+                                <div class="input-group-addon"><i class="fa fa-phone"></i></div>
+                                <input type="number" class="form-control" id="numeroCuotas" placeholder="Numero Cuotas"
+                                    formControlName="numeroCuotas">
+                                <div class="text-danger">
+                                    <!-- <p *ngIf="campoNoValido('telefono')">El numero de telefono es obligatorio</p> -->
                                 </div>
                             </div>
                         </div>
-                    </section>
-                </div><div class="actions clearfix"><ul role="menu" aria-label="Pagination"><li class="disabled" aria-disabled="true"><a href="#previous" role="menuitem">Previous</a></li><li aria-hidden="false" aria-disabled="false" class="" ><a href="#next" role="menuitem">Next</a></li><li aria-hidden="true" style="display: none;"><a href="#finish" role="menuitem">Submit</a></li></ul></div></form>
+                    </div>
+                </div>
+                <div class="row p-t-20">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <div class="demo-switch-title">Forma de pago</div>
+                            <select class="form-control custom-select" formControlName="formaPago">
+                                <option value="Tarjeta">Tarjeta</option>
+                                <option value="Credito">Credito</option>
+                            </select>
+                            <small class="form-control-feedback"> Seleccione el forma pago </small>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="comentario">Comentario</label>
+                            <div class="input-group">
+                                <div class="input-group-addon"><i class=" ti-location-pin"></i></div>
+                                <input type="text" class="form-control" id="comentario" placeholder="Ingrese comentario"
+                                    formControlName="comentario">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                
+                <button type="submit" class="btn btn-success waves-effect waves-light m-r-10">Guardar</button>
+                <a  class="btn btn-inverse waves-effect waves-light">Cancelar</a>
             </div>
-        </div>
-    </div>
-</div>
+        </form>
+    </ng-wizard-step>
 
-
+    <ng-wizard-step [title]="'Facturacion'" [description]="'Datos facturacion'">
+        <span>Facturacion</span>
+    </ng-wizard-step>
+</ng-wizard>
