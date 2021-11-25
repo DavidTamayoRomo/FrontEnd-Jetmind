@@ -78,7 +78,6 @@ export class ContratoComponent implements OnInit {
  
   stepChanged(args: StepChangedArgs) {
     console.log(args.step);
-    //console.log(args);
   }
  
   isValidTypeBoolean: boolean = true;

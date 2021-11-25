@@ -21,6 +21,9 @@ import { EstudiantesComponent } from './estudiante/estudiantes/estudiantes.compo
 import { NombreProgramaComponent } from './nombre-programa/nombre-programa.component';
 import { NombreProgramasComponent } from './nombrePrograma/nombre-programas/nombre-programas.component';
 import { ContratoComponent } from './contrato/contrato.component';
+import { FacturarComponent } from './facturar/facturar.component';
+import { FacturasComponent } from './facturar/facturas/facturas.component';
+import { ContratoFormComponent } from './contrato-form/contrato-form.component';
 
 
 
@@ -59,6 +62,12 @@ const routes: Routes = [
 
             { path: 'contrato/:id', component: ContratoComponent, data:{titulo:'Contrato'} },
             //{ path: 'listanombreprogramas', component:NombreProgramasComponent , data:{titulo:'Lista de los programas'} },
+            
+            { path: 'contrato1/:id', component: ContratoFormComponent, data:{titulo:'Contrato'} },
+            //{ path: 'listacontratos', component: , data:{titulo:'Lista de contratos'} },
+            
+            { path: 'facturar/:id', component: FacturarComponent, data:{titulo:'Facturar'} },
+            { path: 'listafacturar', component:FacturasComponent , data:{titulo:'Lista de las facturas'} },
 
             { path: 'perfil', component: PerfilComponent, data:{titulo:'Perfil'} },
             { path: '', redirectTo: '/dashboard', pathMatch: 'full'},

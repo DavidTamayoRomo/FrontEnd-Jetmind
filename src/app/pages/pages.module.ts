@@ -29,6 +29,14 @@ import { NombreProgramaComponent } from './nombre-programa/nombre-programa.compo
 import { NombreProgramasComponent } from './nombrePrograma/nombre-programas/nombre-programas.component';
 import { ContratoComponent } from './contrato/contrato.component';
 import { NgWizardConfig, NgWizardModule, THEME } from 'ng-wizard';
+import { FacturarComponent } from './facturar/facturar.component';
+import { FacturasComponent } from './facturar/facturas/facturas.component';
+import { UploadsComponent } from './uploads/uploads.component';
+import { ContratoFormComponent } from './contrato-form/contrato-form.component';
+import { NgxFileDropModule } from 'ngx-file-drop';
+import { NgxDropzoneModule } from 'ngx-dropzone';
+
+
 
 
 
@@ -57,6 +65,10 @@ const ngWizardConfig: NgWizardConfig = {
     NombreProgramaComponent,
     NombreProgramasComponent,
     ContratoComponent,
+    FacturarComponent,
+    FacturasComponent,
+    UploadsComponent,
+    ContratoFormComponent,
     
   ],
   exports:[
@@ -64,6 +76,8 @@ const ngWizardConfig: NgWizardConfig = {
     PagesComponent
   ],
   imports: [
+    NgxFileDropModule,
+    NgxDropzoneModule,
     CommonModule,
     ShareModule,
     AppRoutingModule,
@@ -73,7 +87,8 @@ const ngWizardConfig: NgWizardConfig = {
     HttpClientModule,
     ComponentsModule,
     PipesModule,
-    NgWizardModule.forRoot(ngWizardConfig)
+    NgWizardModule.forRoot(ngWizardConfig),
+    
   ],
  
 })

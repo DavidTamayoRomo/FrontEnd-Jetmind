@@ -1,0 +1,55 @@
+<!-- <div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-body">Logo</h4>
+                    <img *ngIf="!imgTemp" [src]="contratoSeleccionada?.logo | imagen:'marcas'" height="100px" width="130px">
+                    <img *ngIf="imgTemp" [src]="imgTemp" height="130px" width="130px">
+                    <input  type="file" (change)="cambiarImagen($event)">
+                    <br>
+                    <br>
+                    <div>
+                        <button type="button" class="btn btn-success waves-effect waves-light m-r-10" 
+                        [disabled]="!imagenSubir"
+                        (click)="subirImagen()">Cambiar imagen</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>  -->
+
+<div class="center">
+    <ngx-file-drop dropZoneLabel="Drop files here" (onFileDrop)="dropped($event)" 
+    (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)">
+        <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+          Optional custom content that replaces the the entire default content.
+          <button type="button" (click)="openFileSelector()" multiple>Browse Files</button>
+        </ng-template>
+    </ngx-file-drop>
+    <div class="upload-table">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                </tr>
+            </thead>
+            <tbody class="upload-name-style">
+                <tr *ngFor="let item of files; let i=index">
+                    <td><strong>{{ item.relativePath }}</strong></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<ngx-dropzone (change)="onSelect($event)">
+	<ngx-dropzone-label>Drop it, baby!</ngx-dropzone-label>
+	<ngx-dropzone-preview *ngFor="let f of files1" [removable]="true" (removed)="onRemove(f)">
+		<ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+	</ngx-dropzone-preview>
+	
+</ngx-dropzone>
+
+

@@ -14,141 +14,14 @@
     </ng-wizard-step>
 
     <ng-wizard-step [title]="'Precio'" [description]="'Datos economicos'">
-
-        <form (ngSubmit)="crearContrato()" autocomplete="off" [formGroup]="registerForm">
-            <div class="card-body">
-                <h4 class="card-title">Contrato</h4>
-                <h6 class="card-subtitle">Ingrese todos los datos solicitados</h6>
-    
-                <div class="row p-t-20">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="fechaNacimiento">Fecha *</label>
-                            <div class="input-group">
-                                <div class="input-group-addon"><i class="fa fa-clock-o"></i></div>
-                                <input type="date" class="form-control" id="fechaNacimiento" placeholder="Ingrese fecha Nacimiento"
-                                    formControlName="fechaNacimiento">
-                            </div>
-                            <div class="text-danger">
-                                <!-- <p *ngIf="campoNoValido('fechaNacimiento')">La fecha de nacimiento es obligatoria</p> -->
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <div class="demo-switch-title">Estado</div>
-                            <select class="form-control custom-select" formControlName="estado">
-                                <option value="Activo">Activo</option>
-                                <option value="Inactivo">Inactivo</option>
-                            </select>
-                            <small class="form-control-feedback"> Seleccione el estado </small>
-                        </div>
-                    </div>
-                </div>
-
-
-                <div class="row p-t-20">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <div class="demo-switch-title">Tipo de pago</div>
-                            <select class="form-control custom-select" formControlName="tipoPago">
-                                <option value="Plan">Plan</option>
-                                <option value="Contado">Contado</option>
-                                <option value="OK">OK</option>
-                            </select>
-                            <small class="form-control-feedback"> Seleccione el tipo de Pago </small>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        
-
-                    </div>
-                </div>
-                <div class="row p-t-20">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="exampleInputuname">Valor Total *</label>
-                            <div class="input-group">
-                                <div class="input-group-addon"><i class="ti-user"></i></div>
-                                <input type="number" class="form-control" placeholder="Nombres" formControlName="valorTotal">
-                            </div>
-                            <div class="text-danger">
-                                <!-- <p *ngIf="campoNoValido('valorTotal')">El Nombre y Apellido es obligatorio</p> -->
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Valor Matricula *</label>
-                            <div class="input-group">
-                                <div class="input-group-addon"><i class="ti-email"></i></div>
-                                <input type="number" class="form-control" placeholder="Ingrese email" formControlName="valorMatricula">
-                            </div>
-                            <div class="text-danger">
-                                <!-- <p *ngIf="campoNoValido('valorMatricula')">El email es obligatorio / Ingrese email valido</p> -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row p-t-20">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="cedula">Abono *</label>
-                            <div class="input-group">
-                                <div class="input-group-addon"><i class=" ti-id-badge"></i></div>
-                                <input type="number" class="form-control" id="abono" placeholder="Ingrese Abono"
-                                    formControlName="abono">
-                            </div>
-                            <div class="text-danger">
-                                <!-- <p *ngIf="campoNoValido('abono')">La cedula es obligatoria</p> -->
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="telefono">Numero Cuotas</label>
-                            <div class="input-group">
-                                <div class="input-group-addon"><i class="fa fa-phone"></i></div>
-                                <input type="number" class="form-control" id="numeroCuotas" placeholder="Numero Cuotas"
-                                    formControlName="numeroCuotas">
-                                <div class="text-danger">
-                                    <!-- <p *ngIf="campoNoValido('telefono')">El numero de telefono es obligatorio</p> -->
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row p-t-20">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <div class="demo-switch-title">Forma de pago</div>
-                            <select class="form-control custom-select" formControlName="formaPago">
-                                <option value="Tarjeta">Tarjeta</option>
-                                <option value="Credito">Credito</option>
-                            </select>
-                            <small class="form-control-feedback"> Seleccione el forma pago </small>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="comentario">Comentario</label>
-                            <div class="input-group">
-                                <div class="input-group-addon"><i class=" ti-location-pin"></i></div>
-                                <input type="text" class="form-control" id="comentario" placeholder="Ingrese comentario"
-                                    formControlName="comentario">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                
-                <button type="submit" class="btn btn-success waves-effect waves-light m-r-10">Guardar</button>
-                <a  class="btn btn-inverse waves-effect waves-light">Cancelar</a>
-            </div>
-        </form>
+        <app-contrato-form></app-contrato-form>
     </ng-wizard-step>
 
     <ng-wizard-step [title]="'Facturacion'" [description]="'Datos facturacion'">
-        <span>Facturacion</span>
+        <app-facturar></app-facturar>
+    </ng-wizard-step>
+    
+    <ng-wizard-step [title]="'Voucher'" [description]="'Fotos del vaucher'">
+        <app-uploads></app-uploads>
     </ng-wizard-step>
 </ng-wizard>
