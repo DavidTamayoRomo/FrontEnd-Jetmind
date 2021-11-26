@@ -28,7 +28,6 @@ export class RepresentanteComponent implements OnInit, OnChanges {
 
   @Input() executeNext: any;
   @Output() sendFormData: EventEmitter<any> = new EventEmitter();
-  @Output() sendFormValid: EventEmitter<any> = new EventEmitter();
 
   constructor(
     private fb: FormBuilder,
@@ -45,9 +44,6 @@ export class RepresentanteComponent implements OnInit, OnChanges {
     if (this.router.url == '/representante/nuevo') {
       this.mostrarBoton = true;
     }
-    this.registerForm.valueChanges.subscribe((res) => {
-      this.sendFormValid.emit(this.registerForm.valid);
-    });
   }
 
   ngOnChanges(): void {

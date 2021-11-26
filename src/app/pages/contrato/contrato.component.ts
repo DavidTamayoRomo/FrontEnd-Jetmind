@@ -132,8 +132,4 @@ export class ContratoComponent implements OnInit {
     this.dataEstudiante = event;
     localStorage.setItem('estudiante', JSON.stringify(this.dataEstudiante));
   }
-
-  sendFormValidRepresentante(event: any) {
-    this.config.keyNavigation = event;
-  }
 }
