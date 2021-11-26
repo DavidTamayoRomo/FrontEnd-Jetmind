@@ -1,0 +1,106 @@
+
+<div class="card">
+
+    <form (ngSubmit)="crearFactura()" autocomplete="off" [formGroup]="registerForm">
+
+
+        <div class="card-body">
+            <h4 class="card-title">Agregar Factura</h4>
+            <h6 class="card-subtitle">Ingrese todos los datos solicitados</h6>
+
+            <div class="row p-t-20">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="exampleInputuname">Marcas *</label>
+                        <ng-multiselect-dropdown [placeholder]="'Seleccione Marca'" [settings]="dropdownSettings"
+                            [data]="dropdownListMarcas" (onSelect)="onItemSelectmarca($event)"
+                            (onSelectAll)="onSelectAllmarca($event)" (onDeSelect)="onDeSelectmarca($event)"
+                            (onDeSelectAll)="onDeSelectAllmarca($event)" formControlName="programa">
+                        </ng-multiselect-dropdown>
+                        <div class="text-danger"><p *ngIf="campoNoValido('programa')">Ingrese al menos una marca</p></div> 
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    
+                </div>
+            </div>
+            <div class="row p-t-20">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="exampleInputuname">Nombres y Apellidos / Razon social*</label>
+                        <div class="input-group">
+                            <div class="input-group-addon"><i class="ti-user"></i></div>
+                            <input type="text" class="form-control" placeholder="Nombres" formControlName="nombre">
+                        </div>
+                        <div class="text-danger"><p *ngIf="campoNoValido('nombre')">El Nombre y Apellido es obligatorio</p></div> 
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="cedula">Cedula / Ruc *</label>
+                        <div class="input-group">
+                            <div class="input-group-addon"><i class=" ti-id-badge"></i></div>
+                            <input type="number" class="form-control" id="cedula_ruc" placeholder="Ingrese cedula" formControlName="cedula_ruc">
+                        </div>
+                        <div class="text-danger"><p *ngIf="campoNoValido('cedula_ruc')">La cedula es obligatoria</p></div> 
+                    </div>
+                </div>
+            </div>
+            <div class="row p-t-20">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="telefono">Telefono</label>
+                        <div class="input-group">
+                            <div class="input-group-addon"><i class="fa fa-phone"></i></div>
+                            <input type="number" class="form-control" id="telefono" placeholder="Ingrese telefono"
+                                formControlName="telefono">
+                            <div class="text-danger">
+                                <p *ngIf="campoNoValido('telefono')">El numero de telefono es obligatorio</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Email address *</label>
+                        <div class="input-group">
+                            <div class="input-group-addon"><i class="ti-email"></i></div>
+                            <input type="email" class="form-control" placeholder="Ingrese email" formControlName="correo">
+                        </div>
+                        <div class="text-danger"><p *ngIf="campoNoValido('correo')">El email es obligatorio / Ingrese email valido</p></div> 
+                    </div>
+                </div>
+            </div>
+            <div class="row p-t-20">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="direccion">Direccion</label>
+                        <div class="input-group">
+                            <div class="input-group-addon"><i class=" ti-location-pin"></i></div>
+                            <input type="text" class="form-control" id="direccion" placeholder="Ingrese direccion"
+                                formControlName="direccion">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="total">Total</label>
+                        <div class="input-group">
+                            <div class="input-group-addon"><i class="fa fa-phone"></i></div>
+                            <input type="number" class="form-control" id="total"
+                                placeholder="Ingrese Total" formControlName="total">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            
+            
+
+
+            <button  type="submit" class="btn btn-success waves-effect waves-light m-r-10">Guardar</button>
+            <a  (click)="cancelarGuardado()" class="btn btn-inverse waves-effect waves-light">Cancelar</a>
+        </div>
+    </form>
+
+</div>

@@ -94,7 +94,6 @@ export class ContratoComponent implements OnInit {
   }
 
   stepChanged(args: StepChangedArgs) {
-    // console.log(args.step);
     this.step = args.step;
   }
 

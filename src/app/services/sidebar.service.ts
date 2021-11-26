@@ -28,6 +28,10 @@ export class SidebarService {
         { titulo: 'Programas',url: '/nombrePrograma/nuevo' },
         { titulo: 'Lista programas',url: '/listanombreprogramas' },
         { titulo: 'Contrato',url: '/contrato/nuevo' },
+        { titulo: 'Facturar',url: '/facturar/nuevo' },
+        { titulo: 'Lista Facturar',url: '/listafacturar' },
+        { titulo: 'Contratos 1',url: '/contrato1/nuevo' },
+        { titulo: 'Programa',url: '/programa/nuevo' },
       ]
     }
   ]
