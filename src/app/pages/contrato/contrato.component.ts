@@ -40,7 +40,9 @@ export class ContratoComponent implements OnInit {
   };
 
   public executeNextRepresentante: boolean | any;
+  public executeBackRepresentante: boolean | any;
   public executeNextEstudiante: boolean | any;
+  public executeBackEstudiante: boolean | any;
 
   step: any;
   dataRepresentante: any;
@@ -98,10 +100,25 @@ export class ContratoComponent implements OnInit {
 
   isValidTypeBoolean: boolean = true;
 
+  isValidEnterStepRepresentante(args: StepValidationArgs) {
+    this.executeBackRepresentante = true;
+    setTimeout(() => {
+      this.executeBackRepresentante = false;
+    }, 1000);
+    return true;
+  }
+
   isValidExitStepRepresentante(args: StepValidationArgs) {
     this.executeNextRepresentante = true;
     setTimeout(() => {
       this.executeNextRepresentante = false;
+    }, 1000);
+    return true;
+  }
+  isValidEnterStepEstudiante(args: StepValidationArgs) {
+    this.executeBackEstudiante = true;
+    setTimeout(() => {
+      this.executeBackEstudiante = false;
     }, 1000);
     return true;
   }
@@ -122,7 +139,7 @@ export class ContratoComponent implements OnInit {
   setDataFormRepresentante(event: any) {
     this.dataRepresentante = event;
     localStorage.setItem(
-      'representante',
+      'representanteContrato',
       JSON.stringify(this.dataRepresentante)
     );
     // Para obtenerlo es JSON.parse
@@ -130,6 +147,52 @@ export class ContratoComponent implements OnInit {
 
   setDataFormEstudiante(event: any) {
     this.dataEstudiante = event;
-    localStorage.setItem('estudiante', JSON.stringify(this.dataEstudiante));
+    localStorage.setItem(
+      'estudianteContrato',
+      JSON.stringify(this.dataEstudiante)
+    );
+  }
+
+  validFormRepresentante(event: any) {
+    if (event) {
+      setTimeout(() => {
+        const buttonNext: any =
+          document.getElementsByClassName('ng-wizard-btn-next')[0];
+        if (buttonNext) {
+          buttonNext.classList.remove('disabled');
+          buttonNext.disabled = false;
+        }
+      }, 1000);
+    } else {
+      setTimeout(() => {
+        const buttonNext: any =
+          document.getElementsByClassName('ng-wizard-btn-next')[0];
+        if (buttonNext) {
+          buttonNext.classList.add('disabled');
+          buttonNext.disabled = true;
+        }
+      }, 1000);
+    }
+  }
+  validFormEstudiante(event: any) {
+    if (event) {
+      setTimeout(() => {
+        const buttonNext: any =
+          document.getElementsByClassName('ng-wizard-btn-next')[0];
+        if (buttonNext) {
+          buttonNext.classList.remove('disabled');
+          buttonNext.disabled = false;
+        }
+      }, 1000);
+    } else {
+      setTimeout(() => {
+        const buttonNext: any =
+          document.getElementsByClassName('ng-wizard-btn-next')[0];
+        if (buttonNext) {
+          buttonNext.classList.add('disabled');
+          buttonNext.disabled = true;
+        }
+      }, 1000);
+    }
   }
 }

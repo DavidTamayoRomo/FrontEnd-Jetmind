@@ -34,7 +34,9 @@ export class EstudianteComponent implements OnInit, OnChanges {
   EstudianteModel = new Estudiante();
 
   @Input() executeNext: any;
+  @Input() executeEnter: any;
   @Output() sendFormData: EventEmitter<any> = new EventEmitter();
+  @Output() validForm: EventEmitter<boolean> = new EventEmitter();
 
   constructor(
     private fb: FormBuilder,
@@ -62,11 +64,21 @@ export class EstudianteComponent implements OnInit, OnChanges {
       //itemsShowLimit: 3,
       allowSearchFilter: true,
     };
+    this.registerForm.statusChanges.subscribe((res) => {
+      if (res === 'INVALID') {
+        this.validForm.emit(false);
+      } else {
+        this.validForm.emit(true);
+      }
+    });
   }
 
   ngOnChanges(): void {
     if (this.executeNext) {
       this.sendFormData.emit(this.registerForm.value);
+    }
+    if (this.executeEnter) {
+      this.validForm.emit(this.registerForm.valid);
     }
   }
 
