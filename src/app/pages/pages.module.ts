@@ -35,6 +35,7 @@ import { UploadsComponent } from './uploads/uploads.component';
 import { ContratoFormComponent } from './contrato-form/contrato-form.component';
 import { NgxFileDropModule } from 'ngx-file-drop';
 import { NgxDropzoneModule } from 'ngx-dropzone';
+import { ProgramaComponent } from './programa/programa.component';
 
 
 
@@ -69,6 +70,7 @@ const ngWizardConfig: NgWizardConfig = {
     FacturasComponent,
     UploadsComponent,
     ContratoFormComponent,
+    ProgramaComponent,
     
   ],
   exports:[

@@ -1,0 +1,56 @@
+<div class="card">
+
+    <form (ngSubmit)="crearPrograma()" autocomplete="off" [formGroup]="registerForm">
+
+    
+    <div class="card-body">
+        <h4 class="card-title">Agregar Programa</h4>
+        <h6 class="card-subtitle">Ingrese todos los datos solicitados</h6>
+        
+
+        <div class="form-group">
+            <label for="exampleInputuname">Ciudades *</label>
+            <ng-multiselect-dropdown [placeholder]="'Seleccione Ciudades'" [settings]="dropdownSettings"
+                [data]="dropdownListCiudades" (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)"
+                (onDeSelect)="onDeSelect($event)" (onDeSelectAll)="onDeSelectAll($event)" formControlName="idCiudad">
+            </ng-multiselect-dropdown>
+            <div class="text-danger"><p *ngIf="campoNoValido('idCiudad')">Ingrese al menos una ciudad</p></div> 
+        </div>
+        <div class="form-group">
+            <label for="exampleInputuname">Sucursales *</label>
+            <ng-multiselect-dropdown [placeholder]="'Seleccione Sucursal'" [settings]="dropdownSettings"
+                [data]="dropdownListSucursales" (onSelect)="onItemSelectsucursal($event)"
+                (onSelectAll)="onSelectAllsucursal($event)" (onDeSelect)="onDeSelectsucursal($event)"
+                (onDeSelectAll)="onDeSelectAllsucursal($event)" formControlName="idSucursal">
+            </ng-multiselect-dropdown>
+            <div class="text-danger"><p *ngIf="campoNoValido('idSucursal')">Ingrese al menos una sucursal</p></div> 
+        </div>
+
+        <div class="form-group">
+            <label for="exampleInputuname">Marcas *</label>
+            <ng-multiselect-dropdown [placeholder]="'Seleccione Marca'" [settings]="dropdownSettings"
+                [data]="dropdownListMarcas" (onSelect)="onItemSelectmarca($event)"
+                (onSelectAll)="onSelectAllmarca($event)" (onDeSelect)="onDeSelectmarca($event)"
+                (onDeSelectAll)="onDeSelectAllmarca($event)" formControlName="idMarca">
+            </ng-multiselect-dropdown>
+            <div class="text-danger"><p *ngIf="campoNoValido('idMarca')">Ingrese al menos una marca</p></div> 
+        </div>
+        <div class="form-group">
+            <label for="exampleInputuname">Nombre Programa *</label>
+            <ng-multiselect-dropdown [placeholder]="'Nombre Programa'" [settings]="dropdownSettings"
+                [data]="dropdownListNombreProgramas" (onSelect)="onItemSelectNombrePrograma($event)"
+                (onSelectAll)="onSelectAllNombrePrograma($event)" (onDeSelect)="onDeSelectNombrePrograma($event)"
+                (onDeSelectAll)="onDeSelectAllNombrePrograma($event)" formControlName="idNombrePrograma">
+            </ng-multiselect-dropdown>
+            <div class="text-danger"><p *ngIf="campoNoValido('idNombrePrograma')">Ingrese al menos una marca</p></div> 
+        </div>
+
+        
+      
+        <button type="submit" class="btn btn-success waves-effect waves-light m-r-10">Guardar</button>
+        <a (click)="cancelarGuardado()"   class="btn btn-inverse waves-effect waves-light">Cancelar</a>
+    </div>
+    </form>
+    
+</div>
+

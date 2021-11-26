@@ -31,6 +31,7 @@ export class SidebarService {
         { titulo: 'Facturar',url: '/facturar/nuevo' },
         { titulo: 'Lista Facturar',url: '/listafacturar' },
         { titulo: 'Contratos 1',url: '/contrato1/nuevo' },
+        { titulo: 'Programa',url: '/programa/nuevo' },
       ]
     }
   ]
