@@ -5,20 +5,17 @@ import { PersonaService } from '../../pages/persona/persona.service';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styles: [
-  ]
+  styles: [],
 })
-export class HeaderComponent{
+export class HeaderComponent {
+  public persona: Persona = new Persona();
 
-
-  public persona:Persona = new Persona();
-
-  constructor(private personaService:PersonaService) {
+  constructor(private personaService: PersonaService) {
     this.persona = personaService.persona;
   }
 
-  logout(){
-    this.personaService.logout()
+  logout() {
+    this.personaService.logout();
+    localStorage.clear();
   }
-
 }
