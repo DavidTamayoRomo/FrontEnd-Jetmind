@@ -97,11 +97,12 @@ export class ContratoComponent implements OnInit {
   isValidTypeBoolean: boolean = true;
 
   isValidFunctionReturnsBoolean(args: StepValidationArgs) {
-    // console.log('QE', args);
-    this.executeNextRepresentante = true;
-    setTimeout(() => {
-      this.executeNextRepresentante = false;
-    }, 1000);
+    if (args.fromStep.title === 'Representante') {
+      this.executeNextRepresentante = true;
+      setTimeout(() => {
+        this.executeNextRepresentante = false;
+      }, 1000);
+    }
     return true;
   }
 
