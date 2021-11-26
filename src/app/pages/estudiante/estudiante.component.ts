@@ -1,4 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { Estudiante } from './estudiante.model';
 import { FormBuilder, Validators } from '@angular/forms';
 import { RepresentanteService } from '../services/representante.service';
@@ -12,11 +19,9 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-estudiante',
   templateUrl: './estudiante.component.html',
-  styles: [
-  ]
+  styles: [],
 })
-export class EstudianteComponent implements OnInit {
-
+export class EstudianteComponent implements OnInit, OnChanges {
   public dropdownListRepresentantes: any = [];
   public selectedItems: any = [];
   public dropdownSettings: IDropdownSettings = {};
@@ -28,6 +33,9 @@ export class EstudianteComponent implements OnInit {
 
   EstudianteModel = new Estudiante();
 
+  @Input() executeNext: any;
+  @Output() sendFormData: EventEmitter<any> = new EventEmitter();
+
   constructor(
     private fb: FormBuilder,
     private estudianteService: EstudianteService,
@@ -35,7 +43,7 @@ export class EstudianteComponent implements OnInit {
     private fileUploadService: FileUploadService,
     private activatedRoute: ActivatedRoute,
     private router: Router
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(({ id }) => {
@@ -52,15 +60,24 @@ export class EstudianteComponent implements OnInit {
       selectAllText: 'Select All',
       unSelectAllText: 'UnSelect All',
       //itemsShowLimit: 3,
-      allowSearchFilter: true
+      allowSearchFilter: true,
     };
+  }
+
+  ngOnChanges(): void {
+    if (this.executeNext) {
+      this.sendFormData.emit(this.registerForm.value);
+    }
   }
 
   recuperarDatosRepresentantes() {
     this.representanteService.getAllRepresentantes().subscribe((resp: any) => {
       let nombrerepresentantes: any = [];
       resp.data.forEach((element: any) => {
-        nombrerepresentantes.push({ item_id: element._id, nombre: element.nombresApellidos });
+        nombrerepresentantes.push({
+          item_id: element._id,
+          nombre: element.nombresApellidos,
+        });
       });
       console.log(nombrerepresentantes);
       this.dropdownListRepresentantes = nombrerepresentantes;
@@ -78,7 +95,7 @@ export class EstudianteComponent implements OnInit {
       direccion,
       genero,
       estado,
-      idRepresentante
+      idRepresentante,
     } = resp.data;
 
     console.log(resp.data);
@@ -91,11 +108,9 @@ export class EstudianteComponent implements OnInit {
       direccion,
       genero,
       estado,
-      idRepresentante
-    })
-
+      idRepresentante,
+    });
   }
-
 
   public registerForm = this.fb.group({
     nombresApellidos: [null, Validators.required],
@@ -106,39 +121,38 @@ export class EstudianteComponent implements OnInit {
     direccion: [null],
     genero: [null],
     estado: [null],
-    idRepresentante: [null]
+    idRepresentante: [null],
   });
-
 
   async cargarEstudiantebyId(id: string) {
     if (id === 'nuevo') {
       return;
     }
 
-    this.estudianteService.obtenerEstudianteById(id)
-      .subscribe((resp: any) => {
-        console.log(resp);
-        this.estudianteSeleccionada = resp.data;
-        this.LlenarForm(resp);
-      });
-
+    this.estudianteService.obtenerEstudianteById(id).subscribe((resp: any) => {
+      console.log(resp);
+      this.estudianteSeleccionada = resp.data;
+      this.LlenarForm(resp);
+    });
   }
 
   cancelarGuardado() {
-    this.router.navigateByUrl('/listapersonas')
+    this.router.navigateByUrl('/listapersonas');
   }
 
   campoNoValido(campo: any): boolean {
-    if (this.registerForm.get(campo)?.invalid && (this.registerForm.get(campo)?.dirty || this.registerForm.get(campo)?.touched)) {
+    if (
+      this.registerForm.get(campo)?.invalid &&
+      (this.registerForm.get(campo)?.dirty ||
+        this.registerForm.get(campo)?.touched)
+    ) {
       return true;
-    }
-    else {
+    } else {
       return false;
     }
   }
 
   crearEstudiante() {
-
     if (this.estudianteSeleccionada) {
       //actualizar
       this.EstudianteModel = this.registerForm.value;
@@ -162,56 +176,65 @@ export class EstudianteComponent implements OnInit {
           timer: 3000,
           timerProgressBar: true,
           didOpen: (toast) => {
-            toast.addEventListener('mouseenter', Swal.stopTimer)
-            toast.addEventListener('mouseleave', Swal.resumeTimer)
-          }
-        })
+            toast.addEventListener('mouseenter', Swal.stopTimer);
+            toast.addEventListener('mouseleave', Swal.resumeTimer);
+          },
+        });
         Toast.fire({
           icon: 'error',
-          title: 'Verificar campos invalidos \n Indicados con el color rojo'
-        })
+          title: 'Verificar campos invalidos \n Indicados con el color rojo',
+        });
         return;
       } else {
+        this.estudianteService
+          .updateEstudiante(
+            this.estudianteSeleccionada._id,
+            this.EstudianteModel
+          )
+          .subscribe(
+            (resp: any) => {
+              const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                  toast.addEventListener('mouseenter', Swal.stopTimer);
+                  toast.addEventListener('mouseleave', Swal.resumeTimer);
+                },
+              });
+              Toast.fire({
+                icon: 'success',
+                title: 'Se actualizo correctamente',
+              });
+              this.router.navigateByUrl('/listaestudiantes');
+            },
+            (err: any) => {
+              console.warn(err.error.message);
 
-        this.estudianteService.updateEstudiante(this.estudianteSeleccionada._id, this.EstudianteModel).subscribe((resp: any) => {
-          const Toast = Swal.mixin({
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-              toast.addEventListener('mouseenter', Swal.stopTimer)
-              toast.addEventListener('mouseleave', Swal.resumeTimer)
+              const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                  toast.addEventListener('mouseenter', Swal.stopTimer);
+                  toast.addEventListener('mouseleave', Swal.resumeTimer);
+                },
+              });
+
+              //TODO: Mostrar error cuando es administrador. Dato que muestra el error completo=  err.error.message
+              Toast.fire({
+                icon: 'error',
+                title:
+                  'ERROR: ' +
+                  err.error.statusCode +
+                  '\nContactese con su proveedor de software ',
+              });
             }
-          })
-          Toast.fire({
-            icon: 'success',
-            title: 'Se actualizo correctamente'
-          })
-          this.router.navigateByUrl('/listaestudiantes');
-        }, (err: any) => {
-
-          console.warn(err.error.message);
-
-          const Toast = Swal.mixin({
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-              toast.addEventListener('mouseenter', Swal.stopTimer)
-              toast.addEventListener('mouseleave', Swal.resumeTimer)
-            }
-          })
-
-          //TODO: Mostrar error cuando es administrador. Dato que muestra el error completo=  err.error.message
-          Toast.fire({
-            icon: 'error',
-            title: 'ERROR: ' + err.error.statusCode + '\nContactese con su proveedor de software '
-          })
-        });
+          );
       }
     } else {
       //crear
@@ -236,64 +259,65 @@ export class EstudianteComponent implements OnInit {
           timer: 6000,
           timerProgressBar: true,
           didOpen: (toast) => {
-            toast.addEventListener('mouseenter', Swal.stopTimer)
-            toast.addEventListener('mouseleave', Swal.resumeTimer)
-          }
-        })
+            toast.addEventListener('mouseenter', Swal.stopTimer);
+            toast.addEventListener('mouseleave', Swal.resumeTimer);
+          },
+        });
         Toast.fire({
           icon: 'error',
-          title: '- Campos con asterisco son obligatorios\n - Verificar campos invalidos, \n indicados con el color rojo  '
-        })
+          title:
+            '- Campos con asterisco son obligatorios\n - Verificar campos invalidos, \n indicados con el color rojo  ',
+        });
         return;
       } else {
-        this.estudianteService.crearEstudiante(this.EstudianteModel).subscribe((resp) => {
+        this.estudianteService.crearEstudiante(this.EstudianteModel).subscribe(
+          (resp) => {
+            const Toast = Swal.mixin({
+              toast: true,
+              position: 'top-end',
+              showConfirmButton: false,
+              timer: 3000,
+              timerProgressBar: true,
+              didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer);
+                toast.addEventListener('mouseleave', Swal.resumeTimer);
+              },
+            });
+            Toast.fire({
+              icon: 'success',
+              title: 'Guardado correctamente',
+            });
 
-          const Toast = Swal.mixin({
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-              toast.addEventListener('mouseenter', Swal.stopTimer)
-              toast.addEventListener('mouseleave', Swal.resumeTimer)
-            }
-          })
-          Toast.fire({
-            icon: 'success',
-            title: 'Guardado correctamente'
-          })
+            this.router.navigateByUrl('/listaestudiantes');
+          },
+          (err: any) => {
+            console.warn(err.error.message);
 
-          this.router.navigateByUrl('/listaestudiantes');
-        }, (err: any) => {
+            const Toast = Swal.mixin({
+              toast: true,
+              position: 'top-end',
+              showConfirmButton: false,
+              timer: 3000,
+              timerProgressBar: true,
+              didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer);
+                toast.addEventListener('mouseleave', Swal.resumeTimer);
+              },
+            });
 
-          console.warn(err.error.message);
-
-          const Toast = Swal.mixin({
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-              toast.addEventListener('mouseenter', Swal.stopTimer)
-              toast.addEventListener('mouseleave', Swal.resumeTimer)
-            }
-          })
-
-          //TODO: Mostrar error cuando es administrador. Dato que muestra el error completo=  err.error.message
-          Toast.fire({
-            icon: 'error',
-            title: 'ERROR: ' + err.error.statusCode + '\nContactese con su proveedor de software '
-          })
-        });
+            //TODO: Mostrar error cuando es administrador. Dato que muestra el error completo=  err.error.message
+            Toast.fire({
+              icon: 'error',
+              title:
+                'ERROR: ' +
+                err.error.statusCode +
+                '\nContactese con su proveedor de software ',
+            });
+          }
+        );
       }
-
     }
-
-
   }
-
 
   /** REPRESENTANTE */
   /** Item Seleccionado */
@@ -308,23 +332,22 @@ export class EstudianteComponent implements OnInit {
   findByItemIdIndexRepresentante(id: any) {
     return this.representante.findIndex((resp: any) => {
       return resp.item_id === id;
-    })
+    });
   }
   onDeSelectRepresentante(item: any) {
     /** Borrar elemento del array  */
     const index = this.findByItemIdIndexRepresentante(item.item_id);
-    const newArray = (index > -1) ? [
-      ...this.representante.slice(0, index),
-      ...this.representante.slice(index + 1)
-    ] : this.representante;
+    const newArray =
+      index > -1
+        ? [
+            ...this.representante.slice(0, index),
+            ...this.representante.slice(index + 1),
+          ]
+        : this.representante;
     this.representante = newArray;
   }
   /** Deselccionar todos los items */
   onDeSelectAllRepresentante(items: any) {
     this.representante = items;
   }
-
-
-
-
 }

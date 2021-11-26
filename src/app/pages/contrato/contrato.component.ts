@@ -40,9 +40,11 @@ export class ContratoComponent implements OnInit {
   };
 
   public executeNextRepresentante: boolean | any;
+  public executeNextEstudiante: boolean | any;
 
   step: any;
   dataRepresentante: any;
+  dataEstudiante: any;
 
   constructor(
     private ngWizardService: NgWizardService,
@@ -96,13 +98,19 @@ export class ContratoComponent implements OnInit {
 
   isValidTypeBoolean: boolean = true;
 
-  isValidFunctionReturnsBoolean(args: StepValidationArgs) {
-    if (args.fromStep.title === 'Representante') {
-      this.executeNextRepresentante = true;
-      setTimeout(() => {
-        this.executeNextRepresentante = false;
-      }, 1000);
-    }
+  isValidExitStepRepresentante(args: StepValidationArgs) {
+    this.executeNextRepresentante = true;
+    setTimeout(() => {
+      this.executeNextRepresentante = false;
+    }, 1000);
+    return true;
+  }
+  isValidExitStepEstudiante(args: StepValidationArgs) {
+    this.executeNextEstudiante = true;
+    setTimeout(() => {
+      this.executeNextEstudiante = false;
+    }, 1000);
+
     return true;
   }
 
@@ -114,6 +122,11 @@ export class ContratoComponent implements OnInit {
   setDataFormRepresentante(event: any) {
     this.dataRepresentante = event;
     console.log(this.dataRepresentante);
+  }
+
+  setDataFormEstudiante(event: any) {
+    this.dataEstudiante = event;
+    console.log(this.dataEstudiante);
   }
 
   sendFormValidRepresentante(event: any) {

@@ -50,7 +50,7 @@ export class RepresentanteComponent implements OnInit, OnChanges {
     });
   }
 
-  ngOnChanges() {
+  ngOnChanges(): void {
     if (this.executeNext) {
       this.sendFormData.emit(this.registerForm.value);
     }

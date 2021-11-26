@@ -1,12 +1,12 @@
 
 <ng-wizard [config]="config" (stepChanged)="stepChanged($event)">
 
-    <ng-wizard-step [title]="'Representante'" [description]="'Datos Representante'" [canExit]="isValidFunctionReturnsBoolean.bind(this)">
+    <ng-wizard-step [title]="'Representante'" [description]="'Datos Representante'" [canExit]="isValidExitStepRepresentante.bind(this)">
         <app-representante [executeNext]="executeNextRepresentante" (sendFormData)="setDataFormRepresentante($event)" (sendFormValid)="sendFormValidRepresentante($event)"></app-representante>
     </ng-wizard-step>
 
-    <ng-wizard-step [title]="'Estudiante'" [description]="'Datos Estudiante'" >
-        <app-estudiante></app-estudiante>
+    <ng-wizard-step [title]="'Estudiante'" [description]="'Datos Estudiante'" [canExit]="isValidExitStepEstudiante.bind(this)">
+        <app-estudiante [executeNext]="executeNextEstudiante" (sendFormData)="setDataFormEstudiante($event)"></app-estudiante>
     </ng-wizard-step>
 
     <ng-wizard-step [title]="'Estudiantes'" [description]="'Estudiantes ingresados al contrato'" >
