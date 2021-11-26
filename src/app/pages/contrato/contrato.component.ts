@@ -121,16 +121,19 @@ export class ContratoComponent implements OnInit {
 
   setDataFormRepresentante(event: any) {
     this.dataRepresentante = event;
-    console.log(this.dataRepresentante);
+    localStorage.setItem(
+      'representante',
+      JSON.stringify(this.dataRepresentante)
+    );
+    // Para obtenerlo es JSON.parse
   }
 
   setDataFormEstudiante(event: any) {
     this.dataEstudiante = event;
-    console.log(this.dataEstudiante);
+    localStorage.setItem('estudiante', JSON.stringify(this.dataEstudiante));
   }
 
   sendFormValidRepresentante(event: any) {
-    // console.log('Hola', event);
     this.config.keyNavigation = event;
   }
 }
