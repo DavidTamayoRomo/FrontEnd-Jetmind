@@ -41,23 +41,6 @@ export class ContratoComponent implements OnInit {
           event: () => {
             //construir JSON para enviar al BackEnd
             this.crearObjeto();
-
-            const Toast = Swal.mixin({
-              toast: true,
-              position: 'top-end',
-              showConfirmButton: false,
-              timer: 3000,
-              timerProgressBar: true,
-              didOpen: (toast) => {
-                toast.addEventListener('mouseenter', Swal.stopTimer)
-                toast.addEventListener('mouseleave', Swal.resumeTimer)
-              }
-            })
-            Toast.fire({
-              icon: 'success',
-              title: 'Guardado correctamente'
-            })
-
             //Para limpiar local storage
             //this.limpiarLocalStorage();
             
@@ -100,8 +83,6 @@ export class ContratoComponent implements OnInit {
    
   }
   ngOnChanges(changes: SimpleChanges): void {
-    //Called before any other lifecycle hook. Use it to inject dependencies, but avoid any serious work here.
-    //Add '${implements OnChanges}' to the class.
     console.log(changes);
   }
 
@@ -139,6 +120,8 @@ export class ContratoComponent implements OnInit {
     }
 
 
+    //Este metodo esta creado para guardar el objecto creado en el local storage
+    //de las tablas representante, estudiante, contrato y facturacion
     //crea representante
     this.representanteService.crearRepresentante(representante).subscribe((resp:any)=>{
       console.log(resp);
@@ -169,8 +152,11 @@ export class ContratoComponent implements OnInit {
               sucursal.push(element.item_id);
             });
 
-            Object.assign(objetoEstudiantePrograma.programa, {idEstudiante: [resp.data._id],idCiudad:ciudad, idMarca:marca, idNombrePrograma:nombrePrograma, idSucursal:sucursal});
+            Object.assign(objetoEstudiantePrograma.programa, 
+              {idEstudiante: [resp.data._id],idCiudad:ciudad, idMarca:marca, idNombrePrograma:nombrePrograma, idSucursal:sucursal});
+
             setTimeout(() => {
+              //Crear el programa
               this.programaSercice.crearPrograma(objetoEstudiantePrograma.programa).subscribe((resp:any)=>{
                   console.log(resp);
                   console.log("Programa creado");
@@ -181,6 +167,23 @@ export class ContratoComponent implements OnInit {
         }, 900);
         
       });
+
+      //Crear contrato
+      Object.assign(contrato, {idRepresentante: resp.data._id});
+      this.contratoService.crearContrato(contrato).subscribe((resp:any)=>{
+        console.log(resp);
+        console.log("Contrato creado");
+        //Crear facturacion
+        Object.assign(facturacion, {idContrato: resp.data._id});
+        this.facturacionService.crearFacturar(facturacion).subscribe((resp:any)=>{
+          console.log(resp);
+          console.log("Contrato facturacion");
+        });
+      });
+
+      
+
+
     });
 
 
@@ -304,6 +307,7 @@ export class ContratoComponent implements OnInit {
   }
 
   setDataFormContrato(event: any) {
+    //TODO> Revizar el guardado de esta funcion
     this.dataContrato = event;
     localStorage.setItem(
       'contrato',
