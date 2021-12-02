@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { Facturar } from './facturar.model';
 import { FormBuilder, Validators } from '@angular/forms';
 import { FacturarService } from '../services/facturar.service';
@@ -13,7 +13,9 @@ import { MarcaService } from '../services/marca.service';
   styles: [
   ]
 })
-export class FacturarComponent implements OnInit {
+export class FacturarComponent implements OnInit, OnChanges {
+
+  public mostrarBoton: boolean = false;
 
   public dropdownListMarcas: any = [];
   public selectedItems: any = [];
@@ -23,6 +25,11 @@ export class FacturarComponent implements OnInit {
   FacturarModel = new Facturar();
 
   public facturaSeleccionada: any;
+
+  @Input() executeNext: any;
+  @Input() executeEnter: any;
+  @Output() sendFormData: EventEmitter<any> = new EventEmitter();
+  @Output() validForm: EventEmitter<boolean> = new EventEmitter();
 
   constructor(
     private fb: FormBuilder,
@@ -36,6 +43,11 @@ export class FacturarComponent implements OnInit {
     this.activatedRoute.params.subscribe(({ id }) => {
       this.cargarFacturabyId(id);
     });
+
+    if (this.router.url == '/facturar/nuevo') {
+      this.mostrarBoton = true;
+    }
+
      /** Servicio que me devuelva las MARCAS de la base de datos */
      this.recuperarDatosMarcas();
 
@@ -48,6 +60,15 @@ export class FacturarComponent implements OnInit {
       //itemsShowLimit: 3,
       allowSearchFilter: true
     };
+  }
+
+  ngOnChanges(): void {
+    if (this.executeNext) {
+      this.sendFormData.emit(this.registerForm.value);
+    }
+    if (this.executeEnter) {
+      this.validForm.emit(this.registerForm.valid);
+    }
   }
 
   recuperarDatosMarcas() {

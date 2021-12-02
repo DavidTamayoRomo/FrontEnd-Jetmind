@@ -11,7 +11,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <div class="demo-switch-title">Estado</div>
-                        <select class="form-control custom-select" formControlName="genero">
+                        <select class="form-control custom-select" formControlName="estado">
                             <option value="Activo">Activo</option>
                             <option value="Inactivo">Inactivo</option>
                         </select>
@@ -65,10 +65,10 @@
                         <div class="input-group">
                             <div class="input-group-addon"><i class="fa fa-phone"></i></div>
                             <input type="number" class="form-control" id="telefono" placeholder="Ingrese telefono"
-                                formControlName="telefono">
-                            <div class="text-danger">
-                                <p *ngIf="campoNoValido('telefono')">El numero de telefono es obligatorio</p>
-                            </div>
+                                formControlName="telefono">  
+                        </div>
+                        <div class="text-danger">
+                            <p *ngIf="campoNoValido('telefono')">El numero de telefono es obligatorio</p>
                         </div>
                     </div>
                 </div>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter } from '@angular/core';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { PersonaService } from '../persona/persona.service';
 import { CiudadService } from '../services/ciudad.service';
@@ -19,6 +19,8 @@ import Swal from 'sweetalert2';
 })
 export class ProgramaComponent implements OnInit {
 
+  public mostrarBoton: boolean = false;
+
   public dropdownListCiudades: any = [];
   public dropdownListSucursales: any = [];
   public dropdownListMarcas: any = [];
@@ -31,6 +33,8 @@ export class ProgramaComponent implements OnInit {
   public marca: any = [];
   public nombrePrograma: any = [];
   public programaSeleccionada: any;
+
+  
 
   constructor(
     private fb: FormBuilder,
@@ -48,6 +52,11 @@ export class ProgramaComponent implements OnInit {
     this.activatedRoute.params.subscribe(({ id }) => {
       this.cargarProgramabyId(id);
     });
+
+    if (this.router.url == '/programa/nuevo') {
+      this.mostrarBoton = true;
+    }
+
     /** Servicio que me devuelva las CIUDADES de la base de datos */
     this.recuperarDatosCiudad();
     /** Servicio que me devuelva las SUCURSALES de la base de datos */

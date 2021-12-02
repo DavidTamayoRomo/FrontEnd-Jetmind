@@ -25,7 +25,9 @@ export class ListaPersonasComponent implements OnInit {
 
   constructor(private personaService:PersonaService, 
     private busquedaService:BusquedasService, 
-    private modalImagenServices: ModalUploadService ) { }
+    private modalImagenServices: ModalUploadService,
+    
+    ) { }
 
   ngOnInit(): void {
     this.cargarUsuarios();

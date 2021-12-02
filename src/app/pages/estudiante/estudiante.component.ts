@@ -22,6 +22,9 @@ import Swal from 'sweetalert2';
   styles: [],
 })
 export class EstudianteComponent implements OnInit, OnChanges {
+
+  public mostrarBoton: boolean = false;
+
   public dropdownListRepresentantes: any = [];
   public selectedItems: any = [];
   public dropdownSettings: IDropdownSettings = {};
@@ -38,6 +41,9 @@ export class EstudianteComponent implements OnInit, OnChanges {
   @Output() sendFormData: EventEmitter<any> = new EventEmitter();
   @Output() validForm: EventEmitter<boolean> = new EventEmitter();
 
+
+  @Input() representateInput:any;
+
   constructor(
     private fb: FormBuilder,
     private estudianteService: EstudianteService,
@@ -51,6 +57,11 @@ export class EstudianteComponent implements OnInit, OnChanges {
     this.activatedRoute.params.subscribe(({ id }) => {
       this.cargarEstudiantebyId(id);
     });
+
+    if (this.router.url == '/estudiante/nuevo') {
+      this.mostrarBoton = true;
+    }
+    
 
     /** Servicio que me devuelva las REPRESENTANTES de la base de datos */
     this.recuperarDatosRepresentantes();
@@ -74,12 +85,14 @@ export class EstudianteComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(): void {
+    console.log(this.executeNext);
     if (this.executeNext) {
       this.sendFormData.emit(this.registerForm.value);
     }
     if (this.executeEnter) {
       this.validForm.emit(this.registerForm.valid);
     }
+    
   }
 
   recuperarDatosRepresentantes() {

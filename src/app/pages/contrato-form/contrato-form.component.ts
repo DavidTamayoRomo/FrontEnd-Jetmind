@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Contrato } from './contrato.model';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -12,10 +12,18 @@ import Swal from 'sweetalert2';
   styles: [
   ]
 })
-export class ContratoFormComponent implements OnInit {
+export class ContratoFormComponent implements OnInit, OnChanges {
+
+  public mostrarBoton: boolean = false;
 
   public contratoSeleccionado: any;
   ContratoModel = new Contrato();
+
+
+  @Input() executeNext: any;
+  @Input() executeEnter: any;
+  @Output() sendFormData: EventEmitter<any> = new EventEmitter();
+  @Output() validForm: EventEmitter<boolean> = new EventEmitter();
 
   constructor(
     private fb: FormBuilder,
@@ -28,6 +36,19 @@ export class ContratoFormComponent implements OnInit {
     this.activatedRoute.params.subscribe(({ id }) => {
       this.cargarContratobyId(id);
     });
+
+    if (this.router.url == '/contrato1/nuevo') {
+      this.mostrarBoton = true;
+    }
+  }
+
+  ngOnChanges(): void {
+    if (this.executeNext) {
+      this.sendFormData.emit(this.registerForm.value);
+    }
+    if (this.executeEnter) {
+      this.validForm.emit(this.registerForm.valid);
+    }
   }
 
   async cargarContratobyId(id: string) {
@@ -84,7 +105,7 @@ export class ContratoFormComponent implements OnInit {
 
   public registerForm = this.fb.group({
     fecha:[null, Validators.required],
-    estado:[null],
+    estado:['Activo'],
     idRepresentante:[null],
     tipoPago:[null],
     estadoVenta:[null],

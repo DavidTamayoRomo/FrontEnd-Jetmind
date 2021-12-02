@@ -77,9 +77,9 @@
                             <div class="input-group-addon"><i class="fa fa-phone"></i></div>
                             <input type="number" class="form-control" id="telefono" placeholder="Ingrese telefono"
                                 formControlName="telefono">
-                            <div class="text-danger">
-                                <p *ngIf="campoNoValido('telefono')">El numero de telefono es obligatorio</p>
-                            </div>
+                        </div>
+                        <div class="text-danger">
+                            <p *ngIf="campoNoValido('telefono')">El numero de telefono es obligatorio</p>
                         </div>
                     </div>
                 </div>
@@ -125,8 +125,8 @@
                 </div>
             </div>
             
-            <button type="submit" class="btn btn-success waves-effect waves-light m-r-10">Guardar</button>
-            <a (click)="cancelarGuardado()" class="btn btn-inverse waves-effect waves-light">Cancelar</a>
+            <button *ngIf="mostrarBoton" type="submit" class="btn btn-success waves-effect waves-light m-r-10">Guardar</button>
+            <a  (click)="cancelarGuardado()" *ngIf="mostrarBoton" class="btn btn-inverse waves-effect waves-light">Cancelar</a>
         </div>
     </form>
 

@@ -6,14 +6,14 @@
         <div class="row p-t-20">
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="fechaAprobacion">Fecha *</label>
+                    <label for="fecha">Fecha *</label>
                     <div class="input-group">
                         <div class="input-group-addon"><i class="fa fa-clock-o"></i></div>
-                        <input type="date" class="form-control" id="fechaAprobacion"
-                            placeholder="Ingrese fecha Nacimiento" formControlName="fechaAprobacion">
+                        <input type="date" class="form-control" id="fecha"
+                            placeholder="Ingrese fecha" formControlName="fecha">
                     </div>
                     <div class="text-danger">
-                        <!-- <p *ngIf="campoNoValido('fechaAprobacion')">La fecha de nacimiento es obligatoria</p> -->
+                        <!-- <p *ngIf="campoNoValido('fecha')">La fecha de nacimiento es obligatoria</p> -->
                     </div>
                 </div>
             </div>
@@ -124,7 +124,7 @@
                 </div>
             </div>
         </div>
-        <button type="submit" class="btn btn-success waves-effect waves-light m-r-10">Guardar</button>
-        <a class="btn btn-inverse waves-effect waves-light">Cancelar</a>
+        <button *ngIf="mostrarBoton" type="submit" class="btn btn-success waves-effect waves-light m-r-10">Guardar</button>
+        <a *ngIf="mostrarBoton" class="btn btn-inverse waves-effect waves-light">Cancelar</a>
     </div>
 </form>

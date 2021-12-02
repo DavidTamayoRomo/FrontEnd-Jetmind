@@ -20,7 +20,7 @@ import { ModalImagenComponent } from './components/modal-imagen/modal-imagen.com
     BrowserModule,
     AppRoutingModule,
     PagesModule,
-    AuthModule
+    AuthModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

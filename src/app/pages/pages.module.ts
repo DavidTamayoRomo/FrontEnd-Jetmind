@@ -38,9 +38,6 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
 import { ProgramaComponent } from './programa/programa.component';
 
 
-
-
-
 const ngWizardConfig: NgWizardConfig = {
   theme: THEME.default
 };
@@ -71,11 +68,10 @@ const ngWizardConfig: NgWizardConfig = {
     UploadsComponent,
     ContratoFormComponent,
     ProgramaComponent,
-    
   ],
   exports:[
     DashboardComponent,
-    PagesComponent
+    PagesComponent,
   ],
   imports: [
     NgxFileDropModule,
@@ -90,7 +86,6 @@ const ngWizardConfig: NgWizardConfig = {
     ComponentsModule,
     PipesModule,
     NgWizardModule.forRoot(ngWizardConfig),
-    
   ],
  
 })

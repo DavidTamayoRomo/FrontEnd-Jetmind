@@ -98,8 +98,8 @@
             
 
 
-            <button  type="submit" class="btn btn-success waves-effect waves-light m-r-10">Guardar</button>
-            <a  (click)="cancelarGuardado()" class="btn btn-inverse waves-effect waves-light">Cancelar</a>
+            <button *ngIf="mostrarBoton" type="submit" class="btn btn-success waves-effect waves-light m-r-10">Guardar</button>
+            <a *ngIf="mostrarBoton" (click)="cancelarGuardado()" class="btn btn-inverse waves-effect waves-light">Cancelar</a>
         </div>
     </form>
 

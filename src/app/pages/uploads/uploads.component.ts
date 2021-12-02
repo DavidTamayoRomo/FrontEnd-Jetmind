@@ -80,18 +80,38 @@ export class UploadsComponent implements OnInit {
   }
 
 
- /**
-  * DropZone
-  */
+  guardarImagen(imagenes: any) {
+    let imagenesTemp:any = [];
+    let imgTemp;
+    imagenes.forEach((element: any) => {
+      if (!element) {
+        imgTemp = null;
+        return;
+      }
+      const reader = new FileReader();
+      const url64 = reader.readAsDataURL(element);
+      reader.onloadend = () => {
+        imgTemp = reader.result;
+        imagenesTemp.push(imgTemp);
+        localStorage.setItem('files', JSON.stringify(imagenesTemp) );
+      }
+    });
 
-  onSelect(event:any) {
-    console.log(event);
-    this.files1.push(...event.addedFiles);
   }
 
-  onRemove(event:any) {
-    console.log(event);
+
+  /**
+   * DropZone
+   */
+
+  onSelect(event: any) {
+    this.files1.push(...event.addedFiles);
+    this.guardarImagen(this.files1);
+  }
+
+  onRemove(event: any) {
     this.files1.splice(this.files1.indexOf(event), 1);
+    this.guardarImagen(this.files1);
   }
 
 }
