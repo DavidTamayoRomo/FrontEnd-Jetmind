@@ -20,26 +20,43 @@
                             </a>
                         </div>
                         <div style="height: 10px;"></div>
-                        <table class="table table-bordered table-striped">
-                            <thead>
-                                <tr>
-                                    <th>Nombre</th>
-                                    <th>Cedula</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr *ngFor="let estudiante of tablaEstudiantes">
-                                    <td>{{estudiante.estudiante.nombresApellidos}}</td>
-                                    <td>{{estudiante.estudiante.cedula}}</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Nombre</th>
+                                        <th>Cedula</th>
+                                        <th>Editar</th>
+                                        <th>Eliminar</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let estudiante of tablaEstudiantes;let indice=index">
+                                        <td>{{estudiante.estudiante.nombresApellidos}}</td>
+                                        <td>{{estudiante.estudiante.cedula}}</td>
+                                        <td class="text-nowrap">
+                                            <a data-toggle="tooltip" data-original-title="Editar"
+                                            (click)="editarEstudiante(indice)" > 
+                                                <i class="ti-pencil"></i>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a data-toggle="tooltip" data-original-title="Borrar"
+                                                (click)="borrarEstudiante(indice)">
+                                                <i class=" ti-trash"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
                             
                     </div>
                 </div>
             </div>
         </div>
-        <app-modal-imagen (emitirEstudianteNuevo)="eventoCargarEstudiante($event)"></app-modal-imagen>
+        <app-modal-imagen (emitirEstudianteNuevo)="eventoCargarEstudiante($event)"  ></app-modal-imagen>
     </ng-wizard-step>
 
     <ng-wizard-step [title]="'Contrato'" [description]="'Datos economicos'" [canEnter]="isValidEnterStepContrato.bind(this)" 

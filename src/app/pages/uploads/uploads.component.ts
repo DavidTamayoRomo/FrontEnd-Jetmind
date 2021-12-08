@@ -88,6 +88,7 @@ export class UploadsComponent implements OnInit {
         imgTemp = null;
         return;
       }
+
       const reader = new FileReader();
       const url64 = reader.readAsDataURL(element);
       reader.onloadend = () => {
@@ -96,7 +97,6 @@ export class UploadsComponent implements OnInit {
         localStorage.setItem('files', JSON.stringify(imagenesTemp) );
       }
     });
-
   }
 
 

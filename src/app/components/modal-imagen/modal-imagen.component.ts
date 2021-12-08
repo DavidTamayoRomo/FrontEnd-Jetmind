@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild, Input } from '@angular/core';
 import { ModalUploadService } from '../../services/modal-upload.service';
 import { FormBuilder, Validators } from '@angular/forms';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
@@ -9,6 +9,7 @@ import { NombreProgramaService } from '../../pages/services/nombre-programa.serv
 import { ProgramaService } from '../../pages/services/programa.service';
 import { Estudiante } from '../../pages/estudiante/estudiante.model';
 import { Programa } from '../../pages/programa/programa.model';
+
 
 
 
@@ -39,6 +40,8 @@ export class ModalImagenComponent implements OnInit {
   public objetosEstudiatePrograma: any = []; 
 
   @Output() emitirEstudianteNuevo = new EventEmitter();
+  
+  @ViewChild("nombresApellidos1", {static:true}) nombresApellidos1: ElementRef;
 
   constructor(
     public modalImagenServices: ModalUploadService,
@@ -47,7 +50,7 @@ export class ModalImagenComponent implements OnInit {
     private sucursalService: SucursalService,
     private marcaService: MarcaService,
     private nombreProgramaService: NombreProgramaService,
-    private programaService: ProgramaService,
+    private programaService: ProgramaService
      ) { }
 
   ngOnInit(): void {
@@ -61,6 +64,8 @@ export class ModalImagenComponent implements OnInit {
     /** Servicio que me devuelva las ROLE de la base de datos */
     this.recuperarDatosnombreProgramas();
 
+    
+    
 
     this.dropdownSettings = {
       singleSelection: false,
@@ -71,6 +76,11 @@ export class ModalImagenComponent implements OnInit {
       //itemsShowLimit: 3,
       allowSearchFilter: true
     };
+
+  }
+
+  public setRegisterForm(nombre:any) {
+    this.registerForm.controls.nombresApellidos.setValue(nombre)
   }
 
   public registerForm = this.fb.group({
@@ -81,7 +91,7 @@ export class ModalImagenComponent implements OnInit {
     fechaNacimiento: [null, Validators.required],
     direccion: [null],
     genero: [null],
-    estado: [null],
+    estado: ['Inactivo'],
     idMarca: [null, Validators.required],
     idCiudad: [null, Validators.required],
     idSucursal: [null, Validators.required],
@@ -126,6 +136,8 @@ export class ModalImagenComponent implements OnInit {
     this.emitirEstudianteNuevo.emit(this.objetoEstudiatePrograma);
     
   }
+
+  
 
   campoNoValido(campo: any): boolean {
     if (this.registerForm.get(campo)?.invalid && (this.registerForm.get(campo)?.dirty || this.registerForm.get(campo)?.touched)) {

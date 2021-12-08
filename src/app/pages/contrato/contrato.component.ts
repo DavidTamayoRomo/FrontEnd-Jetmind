@@ -16,6 +16,10 @@ import { EstudianteService } from '../services/estudiante.service';
 import { ContratoService } from '../services/contrato.service';
 import { FacturarService } from '../services/facturar.service';
 import { ProgramaService } from '../services/programa.service';
+import { FileUploadService } from '../../services/file-upload.service';
+import { ModalImagenComponent } from '../../components/modal-imagen/modal-imagen.component';
+
+
 
 @Component({
   selector: 'app-contrato',
@@ -23,6 +27,9 @@ import { ProgramaService } from '../services/programa.service';
   styles: [],
 })
 export class ContratoComponent implements OnInit {
+  
+  
+  
   stepStates = {
     normal: STEP_STATE.normal,
     disabled: STEP_STATE.disabled,
@@ -43,7 +50,7 @@ export class ContratoComponent implements OnInit {
             this.crearObjeto();
             //Para limpiar local storage
             //this.limpiarLocalStorage();
-            
+
           },
         },
       ],
@@ -65,25 +72,30 @@ export class ContratoComponent implements OnInit {
   dataContrato: any;
   dataFacturacion: any;
 
-  public tablaEstudiantes:any;
+  public tablaEstudiantes: any;
 
   constructor(
     private ngWizardService: NgWizardService,
     private fb: FormBuilder,
-    private representanteService:RepresentanteService,
-    private estudianteService:EstudianteService,
-    private contratoService:ContratoService,
-    private programaSercice:ProgramaService,
-    private facturacionService:FacturarService,
-    private modalImagenServices: ModalUploadService
-  ) {}
+    private representanteService: RepresentanteService,
+    private estudianteService: EstudianteService,
+    private contratoService: ContratoService,
+    private programaSercice: ProgramaService,
+    private facturacionService: FacturarService,
+    private modalImagenServices: ModalUploadService,
+    private fileuploadService: FileUploadService
+  ) {
+
+    }
 
   ngOnInit(): void {
     this.llenarTablaEstudiantes();
-   
+
   }
   ngOnChanges(changes: SimpleChanges): void {
     console.log(changes);
+    
+      
   }
 
   public registerForm = this.fb.group({
@@ -103,13 +115,13 @@ export class ContratoComponent implements OnInit {
     fechaAprobacion: [null],
   });
 
-  crearObjeto(){
-    
-    let representante = JSON.parse(   localStorage.getItem('representanteContrato') as string );
+  crearObjeto() {
+
+    let representante = JSON.parse(localStorage.getItem('representanteContrato') as string);
     let estudiantes = JSON.parse(localStorage.getItem('objetosEstudiatePrograma') as string);
-    let facturacion =JSON.parse( localStorage.getItem('facturacionContrato') as string);
-    let contrato =JSON.parse( localStorage.getItem('contrato') as string);
-    let voucher =JSON.parse( localStorage.getItem('files') as string);
+    let facturacion = JSON.parse(localStorage.getItem('facturacionContrato') as string);
+    let contrato = JSON.parse(localStorage.getItem('contrato') as string);
+    let voucher = JSON.parse(localStorage.getItem('files') as string);
 
     let objeto = {
       representante,
@@ -120,77 +132,136 @@ export class ContratoComponent implements OnInit {
     }
 
 
+
     //Este metodo esta creado para guardar el objecto creado en el local storage
     //de las tablas representante, estudiante, contrato y facturacion
     //crea representante
-    this.representanteService.crearRepresentante(representante).subscribe((resp:any)=>{
+
+    //TODO: Controlar cuando el representante ya exista en la base de datos (Porque si existe va a dar error)
+    this.representanteService.crearRepresentante(representante).subscribe((resp: any) => {
       console.log(resp);
       console.log("Representante creado creado");
-      estudiantes.forEach((objetoEstudiantePrograma:any) => {
-        Object.assign(objetoEstudiantePrograma.estudiante, {idRepresentante: [resp.data._id]});
+      estudiantes.forEach((objetoEstudiantePrograma: any) => {
+        Object.assign(objetoEstudiantePrograma.estudiante, { idRepresentante: [resp.data._id] });
         setTimeout(() => {
           //crea estudiate
-          this.estudianteService.crearEstudiante(objetoEstudiantePrograma.estudiante).subscribe((resp:any)=>{
+          this.estudianteService.crearEstudiante(objetoEstudiantePrograma.estudiante).subscribe((resp: any) => {
             console.log(resp);
             console.log("Estudiante creado");
             //crear el Programa del estudiante
 
-            let ciudad:any = [];
-            objetoEstudiantePrograma.programa.idCiudad.forEach((element:any) => {
+            let ciudad: any = [];
+            objetoEstudiantePrograma.programa.idCiudad.forEach((element: any) => {
               ciudad.push(element.item_id);
             });
-            let marca:any = [];
-            objetoEstudiantePrograma.programa.idMarca.forEach((element:any) => {
+            let marca: any = [];
+            objetoEstudiantePrograma.programa.idMarca.forEach((element: any) => {
               marca.push(element.item_id);
             });
-            let nombrePrograma :any= [];
-            objetoEstudiantePrograma.programa.idNombrePrograma.forEach((element:any) => {
+            let nombrePrograma: any = [];
+            objetoEstudiantePrograma.programa.idNombrePrograma.forEach((element: any) => {
               nombrePrograma.push(element.item_id);
             });
-            let sucursal:any = [];
-            objetoEstudiantePrograma.programa.idSucursal.forEach((element:any) => {
+            let sucursal: any = [];
+            objetoEstudiantePrograma.programa.idSucursal.forEach((element: any) => {
               sucursal.push(element.item_id);
             });
 
-            Object.assign(objetoEstudiantePrograma.programa, 
-              {idEstudiante: [resp.data._id],idCiudad:ciudad, idMarca:marca, idNombrePrograma:nombrePrograma, idSucursal:sucursal});
+            Object.assign(objetoEstudiantePrograma.programa,
+              { idEstudiante: [resp.data._id], idCiudad: ciudad, idMarca: marca, idNombrePrograma: nombrePrograma, idSucursal: sucursal });
 
             setTimeout(() => {
               //Crear el programa
-              this.programaSercice.crearPrograma(objetoEstudiantePrograma.programa).subscribe((resp:any)=>{
-                  console.log(resp);
-                  console.log("Programa creado");
+              this.programaSercice.crearPrograma(objetoEstudiantePrograma.programa).subscribe((resp: any) => {
+                console.log(resp);
+                console.log("Programa creado");
               });
             }, 900);
-            
+
           });
         }, 900);
-        
+
       });
 
       //Crear contrato
-      Object.assign(contrato, {idRepresentante: resp.data._id});
-      this.contratoService.crearContrato(contrato).subscribe((resp:any)=>{
+      Object.assign(contrato, { idRepresentante: resp.data._id });
+      this.contratoService.crearContrato(contrato).subscribe((resp: any) => {
         console.log(resp);
         console.log("Contrato creado");
+        //subir imagenes al contrato
+        this.fileuploadService.actualizarFoto(voucher, 'contratos', 'voucher', resp.data._id).then((resp: any) => {
+          console.log(resp);
+        });
         //Crear facturacion
-        Object.assign(facturacion, {idContrato: resp.data._id});
-        this.facturacionService.crearFacturar(facturacion).subscribe((resp:any)=>{
+        Object.assign(facturacion, { idContrato: resp.data._id });
+        this.facturacionService.crearFacturar(facturacion).subscribe((resp: any) => {
           console.log(resp);
           console.log("Contrato facturacion");
         });
       });
 
-      
-
-
     });
-
 
     console.log(objeto);
   }
 
-  crearContrato() {}
+  //this.ngWizardService.navigateTo('estudiante');//informacion importante --navigateTo-- es para navegar entre los pasos
+
+
+
+
+  editarEstudiante(index: any) {
+    console.log(index);
+    let objetosEstudiateProgramaCopia = JSON.parse(localStorage.getItem('objetosEstudiatePrograma') as string);
+    let estudiante = objetosEstudiateProgramaCopia[index].estudiante;
+    let programa = objetosEstudiateProgramaCopia[index].programa;
+
+    //abrir modal
+    this.abrirModal();
+
+
+    
+    //this.registerForm.controls.nombresApellidos.setValue('David');
+    //this.modalImagenComponent.setRegisterForm(estudiante.nombresApellidos);
+
+
+    /* this.modalImagenServices.llenarCampos(estudiante.nombresApellidos,estudiante.email,estudiante.cedula,estudiante.telefono,estudiante.fechaNacimiento
+      ,estudiante.direccion,estudiante.genero,estudiante.estado,programa.idMarca,programa.idCiudad,programa.idSucursal,programa.idNombrePrograma);  */
+  }
+
+  borrarEstudiante(index: any) {
+
+    let objetosEstudiateProgramaCopia = JSON.parse(localStorage.getItem('objetosEstudiatePrograma') as string);
+
+    Swal.fire({
+      title: 'Desea eliminar el/la estudiante ?',
+      text: `Esta a punto de borrar a ${objetosEstudiateProgramaCopia[index].estudiante.nombresApellidos}`,
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'Si, borrar este estudiante'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        //Borrar elemento de un array
+        objetosEstudiateProgramaCopia.splice(index, 1);
+
+        localStorage.setItem('objetosEstudiatePrograma', JSON.stringify(objetosEstudiateProgramaCopia));
+
+        Swal.fire(
+          'Borrado!',
+          `El estudiante a sido eliminada con éxito.`,
+          'success'
+        )
+        this.llenarTablaEstudiantes();
+      }
+    })
+
+
+
+  }
+
+
+
+  crearContrato() { }
 
   showPreviousStep(event?: Event) {
     // console.log(event);
@@ -246,7 +317,7 @@ export class ContratoComponent implements OnInit {
     }, 1000);
     return true;
   }
-  
+
   isValidEnterStepContrato(args: StepValidationArgs) {
     this.executeBackContrato = true;
     setTimeout(() => {
@@ -314,7 +385,7 @@ export class ContratoComponent implements OnInit {
       JSON.stringify(this.dataContrato)
     );
   }
-  
+
   setDataFormFacturacion(event: any) {
     this.dataFacturacion = event;
     localStorage.setItem(
@@ -326,7 +397,7 @@ export class ContratoComponent implements OnInit {
   validFormRepresentante(event: any) {
     if (event) {
       setTimeout(() => {
-        const buttonNext: any =document.getElementsByClassName('ng-wizard-btn-next')[0];
+        const buttonNext: any = document.getElementsByClassName('ng-wizard-btn-next')[0];
         if (buttonNext) {
           buttonNext.classList.remove('disabled');
           buttonNext.disabled = false;
@@ -334,7 +405,7 @@ export class ContratoComponent implements OnInit {
       }, 1000);
     } else {
       setTimeout(() => {
-        const buttonNext: any =document.getElementsByClassName('ng-wizard-btn-next')[0];
+        const buttonNext: any = document.getElementsByClassName('ng-wizard-btn-next')[0];
         if (buttonNext) {
           //buttonNext.classList.add('disabled');
           //buttonNext.disabled = true;
@@ -367,7 +438,7 @@ export class ContratoComponent implements OnInit {
   validFormContrato(event: any) {
     if (event) {
       setTimeout(() => {
-        const buttonNext: any =document.getElementsByClassName('ng-wizard-btn-next')[0];
+        const buttonNext: any = document.getElementsByClassName('ng-wizard-btn-next')[0];
         if (buttonNext) {
           buttonNext.classList.remove('disabled');
           buttonNext.disabled = false;
@@ -375,7 +446,7 @@ export class ContratoComponent implements OnInit {
       }, 1000);
     } else {
       setTimeout(() => {
-        const buttonNext: any =document.getElementsByClassName('ng-wizard-btn-next')[0];
+        const buttonNext: any = document.getElementsByClassName('ng-wizard-btn-next')[0];
         if (buttonNext) {
           //buttonNext.classList.add('disabled');
           //buttonNext.disabled = true;
@@ -387,7 +458,7 @@ export class ContratoComponent implements OnInit {
   validFormFacturacion(event: any) {
     if (event) {
       setTimeout(() => {
-        const buttonNext: any =document.getElementsByClassName('ng-wizard-btn-next')[0];
+        const buttonNext: any = document.getElementsByClassName('ng-wizard-btn-next')[0];
         if (buttonNext) {
           buttonNext.classList.remove('disabled');
           buttonNext.disabled = false;
@@ -395,7 +466,7 @@ export class ContratoComponent implements OnInit {
       }, 1000);
     } else {
       setTimeout(() => {
-        const buttonNext: any =document.getElementsByClassName('ng-wizard-btn-next')[0];
+        const buttonNext: any = document.getElementsByClassName('ng-wizard-btn-next')[0];
         if (buttonNext) {
           //buttonNext.classList.add('disabled');
           //buttonNext.disabled = true;
@@ -410,23 +481,23 @@ export class ContratoComponent implements OnInit {
     ocultarForm.hidden = false;
     console.log(ocultarForm);
   } */
-  abrirModal(){
-   
+  abrirModal() {
+
     this.modalImagenServices.abrirModal();
   }
 
-  llenarTablaEstudiantes(){
+  llenarTablaEstudiantes() {
     console.log('llenar tabla');
     let data = localStorage.getItem("objetosEstudiatePrograma") as string;
     this.tablaEstudiantes = JSON.parse(data);
 
   }
 
-  eventoCargarEstudiante(event: any){
+  eventoCargarEstudiante(event: any) {
     if (event) {
       this.llenarTablaEstudiantes();
     }
-    
+
   }
 
 }
