@@ -14,8 +14,10 @@ export class Contrato {
         public comentario?:string,
         public directorAsignado?:string,
         public estadoPrograma?:string,
-        public fechaAprobacion?:string,
+        public fechaAprobacion?:Date,
         public voucher?:Array<string>,
+        public personaAprueba?:string,
+        public codigo?:string,
         public addedUser?:string,
         public modifiedUser?:string
     ){}

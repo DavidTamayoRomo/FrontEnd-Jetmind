@@ -1,0 +1,187 @@
+<div class="col">
+
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div style="height: 10px;"></div>
+                <input type="text" class="form-control" placeholder="Buscar contrato"
+                    (keyup)="buscar(txtBusqueda.value)" #txtBusqueda>
+            </div>
+            <div class="card-body">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="exampleInputuname">Campos de busqueda </label>
+                        <ng-multiselect-dropdown [placeholder]="'Seleccione Contrato'" [settings]="dropdownSettings"
+                            [data]="dropdownListContratos" (onSelect)="onItemSelectContrato($event)"
+                            (onSelectAll)="onSelectAllContrato($event)" (onDeSelect)="onDeSelectContrato($event)"
+                            (onDeSelectAll)="onDeSelectAllContrato($event)">
+                        </ng-multiselect-dropdown>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" *ngIf="cargando">
+    <div class="col-12">
+        <div class="alert alert-info text-center">
+            <h4 class="alert-heading">Cargando</h4>
+            <i class="fa fa-spin fa-refresh fa-2x"></i>
+            <p class="mb-0">Por favor espere...</p>
+        </div>
+    </div>
+</div>
+<div class="row" *ngIf="!cargando">
+
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Contratos Digitales</h4>
+                <h6 class="card-subtitle">Lista de todos los contratos existentes en el sistema</h6>
+                <h6 class="card-subtitle">Total de contratos: {{totalcontratos}}</h6>
+                <div class="table-responsive">
+                    <table class="table full-color-table full-inverse-table hover-table">
+                        <thead>
+                            <tr>
+                                <th class="w100">Estado</th>
+                                <th class="w100">Persona Responsable</th>
+                                <th class="w100">Fecha contrato</th>
+                                <th class="w100">Codigo</th>
+                                <th class="w100">Representante</th>
+                                <th class="w100">Cedula Representante</th>
+                                <th class="w100">Asesor</th>
+                                <th class="w100">Valor Ingresado</th>
+                                <th class="w100">Valor Total</th>
+                                <th class="w100">Forma de pago</th>
+                                <th class="w100">Vouchers</th>
+                                <th class="w100">Observaciones</th>
+                                <th class="w100">Fecha Aprobacion</th>
+
+                                <th class="text-nowrap w100">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let contrato of contratos">
+                                <td >
+                                    <button type="button"
+                                        [ngClass]="{'btn-warning': contrato.estado == 'Espera', 'btn-success': contrato.estado == 'Aprobado', 'btn-danger':contrato.estado == 'Rechazado'}"
+                                        class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                                        aria-expanded="false">
+                                        {{contrato.estado}}
+                                    </button>
+                                    <div class="dropdown-menu animated slideInUp" x-placement="top-start"
+                                        style="position: absolute; transform: translate3d(0px, -2px, 0px); top: 0px; left: 0px; will-change: transform;">
+                                        <a class="dropdown-item"
+                                            (click)="actualizarEstado(contrato,'Espera')">Espera</a>
+                                        <a class="dropdown-item"
+                                            (click)="actualizarEstado(contrato,'Aprobado')">Aprobado</a>
+                                        <a class="dropdown-item"
+                                            (click)="actualizarEstado(contrato,'Rechazado')">Rechazado</a>
+                                    </div>
+                                </td>
+
+                                <td (click)="mostrarDatosModal(contrato)">{{contrato.personaAprueba?.nombresApellidos}}</td>
+                                <td (click)="mostrarDatosModal(contrato)">{{contrato.createdAt}}</td>
+                                <td (click)="mostrarDatosModal(contrato)">{{contrato.codigo}}</td>
+                                <td (click)="mostrarDatosModal(contrato)">{{contrato.idRepresentante.nombresApellidos}}</td>
+                                <td (click)="mostrarDatosModal(contrato)">{{contrato.idRepresentante.cedula}}</td>
+                                <td (click)="mostrarDatosModal(contrato)">{{contrato.addedUser.nombresApellidos}}</td>
+                                <td (click)="mostrarDatosModal(contrato)">{{contrato.valorMatricula}}</td>
+                                <td (click)="mostrarDatosModal(contrato)">{{contrato.valorTotal}}</td>
+                                <td (click)="mostrarDatosModal(contrato)">{{contrato.formaPago}}</td>
+                                <td (click)="mostrarDatosModal(contrato)">{{contrato.voucher}}</td>
+                                <td (click)="mostrarDatosModal(contrato)">{{contrato.comentario}}</td>
+                                <td (click)="mostrarDatosModal(contrato)">{{contrato.fechaAprobacion}}</td>
+
+                                <td class="text-nowrap">
+                                    <a [routerLink]="['/contrato',contrato._id]" data-toggle="tooltip"
+                                        data-original-title="Editar"> <i class="ti-pencil"></i> </a>
+                                    <a data-toggle="tooltip" data-original-title="Borrar"
+                                        (click)="cambiarEstadoContrato(contrato)">
+                                        <i class=" ti-trash"></i>
+                                    </a>
+                                </td>
+                            </tr>
+
+
+                        </tbody>
+                    </table>
+                    <div *ngIf="txtBusqueda.value.length === 0">
+                        <button (click)="paginar(-5)" class="btn btn-secondary">Anterio</button>
+                        &nbsp;
+                        <button (click)="paginar(5)" class="btn btn-secondary">Siguiente</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="fondo-modal-imagen animated fadeIn fast"  [class.oculto]="mostraModal">
+    <div id="responsive-modal" class="modal fade show" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+        style="display: block;padding-right: 17px; overflow-y: initial">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Datos Contrato</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="cerrarModal()">×</button>
+                </div>
+
+                <div class="card-body">
+                    <h4 class="card-title">Acciones</h4>
+                    <h6 class="card-subtitle">Datos del contrato</h6>
+                    <div class="row button-group">
+                        <div class="col-md-4">
+                            <button type="button" class="btn btn-block btn-outline-info"><i class="fa fa-edit"></i>
+                                Editar</button>
+                        </div>
+                        <div class="col-md-4">
+                            <button type="button" class="btn btn-block btn-outline-danger"><i class="fa fa-trash-o"></i>
+                                Elimiar</button>
+                        </div>
+                        <div class="col-md-4">
+                            <button type="button" class="btn btn-block btn-outline-success"><i
+                                    class="fa fa-file-pdf-o"></i> PDF</button>
+                        </div>
+                        <div class="col-md-4">
+                            <button type="button" class="btn btn-block btn-outline-primary"><i
+                                    class="fa fa-check-square"></i> Verificar</button>
+                        </div>
+                    </div>
+
+                    <div class="row p-t-20">
+                        <div class="col-md-6">
+                            <table class="table .color-table .dark-table">
+                        
+                                <tr *ngFor="let nombreatributo of atributostablaContrato.nombreAtributos">
+                                    <td>{{nombreatributo}}</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="col-md-6">
+                            <table class="table .color-table .dark-table">
+                        
+                                <tr *ngFor="let idatributo of atributostablaContrato.idAtributos ">
+                                    <td>{{idatributo }}</td> 
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    
+
+                    
+
+
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+</div>

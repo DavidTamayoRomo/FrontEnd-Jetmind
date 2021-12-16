@@ -105,7 +105,7 @@ export class RepresentanteComponent implements OnInit, OnChanges {
     fechaNacimiento: [null, Validators.required],
     direccion: [null],
     genero: [null],
-    estado: [null],
+    estado: ['Espera'],
     lugarTrabajo: [null],
     numeroEmergencia: [null],
     telefonoOficina: [null],

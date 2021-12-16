@@ -1,4 +1,4 @@
-import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, OnChanges, OnInit, SimpleChanges, ViewChild, ElementRef } from '@angular/core';
 import { of } from 'rxjs';
 import {
   NgWizardConfig,
@@ -18,6 +18,11 @@ import { FacturarService } from '../services/facturar.service';
 import { ProgramaService } from '../services/programa.service';
 import { FileUploadService } from '../../services/file-upload.service';
 import { ModalImagenComponent } from '../../components/modal-imagen/modal-imagen.component';
+import { IDropdownSettings } from 'ng-multiselect-dropdown';
+import { CiudadService } from '../services/ciudad.service';
+import { SucursalService } from '../services/sucursal.service';
+import { MarcaService } from '../services/marca.service';
+import { NombreProgramaService } from '../services/nombre-programa.service';
 
 
 
@@ -28,7 +33,21 @@ import { ModalImagenComponent } from '../../components/modal-imagen/modal-imagen
 })
 export class ContratoComponent implements OnInit {
   
-  
+ 
+  public dropdownListCiudades: any = [];
+  public dropdownListSucursales: any = [];
+  public dropdownListMarcas: any = [];
+  public dropdownListNombreProgramas: any = [];
+
+  public selectedItemsCiudades: any = [];
+
+  public selectedItems: any = [];
+  public dropdownSettings: IDropdownSettings = {};
+  public ciudad: any = [];
+  public sucursal: any = [];
+  public marca: any = [];
+  public nombrePrograma: any = [];
+  public programaSeleccionada: any;
   
   stepStates = {
     normal: STEP_STATE.normal,
@@ -73,6 +92,7 @@ export class ContratoComponent implements OnInit {
   dataFacturacion: any;
 
   public tablaEstudiantes: any;
+  public mostraModal:boolean = true;
 
   constructor(
     private ngWizardService: NgWizardService,
@@ -83,7 +103,11 @@ export class ContratoComponent implements OnInit {
     private programaSercice: ProgramaService,
     private facturacionService: FacturarService,
     private modalImagenServices: ModalUploadService,
-    private fileuploadService: FileUploadService
+    private fileuploadService: FileUploadService,
+    private ciudadService: CiudadService,
+    private sucursalService: SucursalService,
+    private marcaService: MarcaService,
+    private nombreProgramaService: NombreProgramaService
   ) {
 
     }
@@ -91,11 +115,33 @@ export class ContratoComponent implements OnInit {
   ngOnInit(): void {
     this.llenarTablaEstudiantes();
 
+    /** Servicio que me devuelva las CIUDADES de la base de datos */
+    this.recuperarDatosCiudad();
+    /** Servicio que me devuelva las SUCURSALES de la base de datos */
+    this.recuperarDatosSucursales();
+    /** Servicio que me devuelva las MARCAS de la base de datos */
+    this.recuperarDatosMarcas();
+    /** Servicio que me devuelva las ROLE de la base de datos */
+    this.recuperarDatosnombreProgramas();
+
+    this.dropdownSettings = {
+      singleSelection: false,
+      idField: 'item_id',
+      textField: 'nombre',
+      selectAllText: 'Select All',
+      unSelectAllText: 'UnSelect All',
+      //itemsShowLimit: 3,
+      allowSearchFilter: true
+    };
+
+    /* this.selectedItemsCiudades = {
+      "item_id": "613a389282cbc52ac8a87a13",
+      "nombre": "Quito"
+    }; */
+
   }
   ngOnChanges(changes: SimpleChanges): void {
     console.log(changes);
-    
-      
   }
 
   public registerForm = this.fb.group({
@@ -189,9 +235,9 @@ export class ContratoComponent implements OnInit {
         console.log(resp);
         console.log("Contrato creado");
         //subir imagenes al contrato
-        this.fileuploadService.actualizarFoto(voucher, 'contratos', 'voucher', resp.data._id).then((resp: any) => {
+        /* this.fileuploadService.actualizarVoucher(voucher, resp.data._id).subscribe((resp: any) => {
           console.log(resp);
-        });
+        }); */
         //Crear facturacion
         Object.assign(facturacion, { idContrato: resp.data._id });
         this.facturacionService.crearFacturar(facturacion).subscribe((resp: any) => {
@@ -208,7 +254,17 @@ export class ContratoComponent implements OnInit {
   //this.ngWizardService.navigateTo('estudiante');//informacion importante --navigateTo-- es para navegar entre los pasos
 
 
-
+  @ViewChild('nombresApellidos') nombresApellidos1: ElementRef;
+  @ViewChild('email') email1: ElementRef;
+  @ViewChild('cedula') cedula1: ElementRef;
+  @ViewChild('telefono') telefono1: ElementRef;
+  @ViewChild('fechaNacimiento') fechaNacimiento1: ElementRef;
+  @ViewChild('direccion') direccion1: ElementRef;
+  @ViewChild('genero') genero1: ElementRef;
+  @ViewChild('idCiudad') idCiudad1: ElementRef;
+  @ViewChild('idSucursal') idSucursal1: ElementRef;
+  @ViewChild('idMarca') idMarca1: ElementRef;
+  @ViewChild('idNombrePrograma') idNombrePrograma1: ElementRef;
 
   editarEstudiante(index: any) {
     console.log(index);
@@ -217,16 +273,47 @@ export class ContratoComponent implements OnInit {
     let programa = objetosEstudiateProgramaCopia[index].programa;
 
     //abrir modal
-    this.abrirModal();
+    this.abrirModalEstudiante();
+    this.nombresApellidos1.nativeElement.value=estudiante.nombresApellidos;
+    this.email1.nativeElement.value=estudiante.email;
+    this.cedula1.nativeElement.value=estudiante.cedula;
+    this.telefono1.nativeElement.value=estudiante.telefono;
+    this.fechaNacimiento1.nativeElement.value=estudiante.fechaNacimiento;
+    this.direccion1.nativeElement.value=estudiante.direccion;
+    this.genero1.nativeElement.value=estudiante.genero;
 
-
+    //Guardar en el local storage
+    objetosEstudiateProgramaCopia[index]
     
+    this.llenarTablaEstudiantes();
     //this.registerForm.controls.nombresApellidos.setValue('David');
     //this.modalImagenComponent.setRegisterForm(estudiante.nombresApellidos);
 
+    localStorage.setItem('indexEdit', index);
 
-    /* this.modalImagenServices.llenarCampos(estudiante.nombresApellidos,estudiante.email,estudiante.cedula,estudiante.telefono,estudiante.fechaNacimiento
-      ,estudiante.direccion,estudiante.genero,estudiante.estado,programa.idMarca,programa.idCiudad,programa.idSucursal,programa.idNombrePrograma);  */
+  }
+
+  editarEstudianteModal() {
+    
+    if (localStorage.getItem('indexEdit')) {
+      let objetoEstudiante = {nombresApellidos:this.nombresApellidos1.nativeElement.value,email:this.email1.nativeElement.value,
+        cedula:this.cedula1.nativeElement.value,telefono:this.telefono1.nativeElement.value,fechaNacimiento:this.fechaNacimiento1.nativeElement.value,direccion:this.direccion1.nativeElement.value,
+        genero:this.genero1.nativeElement.value,estado:"Inactivo"};
+      
+      //TODO: Guardar  el programa  
+      
+      /* let objetoPrograma = {idMarca:this.idMarca1.nativeElement.value,idCiudad:this.idCiudad1.nativeElement.value,idSucursal:this.idSucursal1.nativeElement.value,
+        idNombrePrograma:this.idNombrePrograma1.nativeElement.value}; */
+      
+      let objetosEstudiateProgramaCopia = JSON.parse(localStorage.getItem('objetosEstudiatePrograma') as string);
+      
+      objetosEstudiateProgramaCopia[Number(localStorage.getItem('indexEdit'))].estudiante = objetoEstudiante;
+
+      localStorage.setItem('objetosEstudiatePrograma', JSON.stringify(objetosEstudiateProgramaCopia));
+      this.llenarTablaEstudiantes();
+
+    }
+ 
   }
 
   borrarEstudiante(index: any) {
@@ -499,5 +586,216 @@ export class ContratoComponent implements OnInit {
     }
 
   }
+
+
+  cerrarModalEstudiante(){
+    this.mostraModal = true;
+  }
+  abrirModalEstudiante(){
+    this.mostraModal = false;
+  }
+
+
+
+  /**
+   * ===================================================
+   *  Multi select dropDown
+   * ===================================================
+   */
+  /** CIUDAD */
+  /** Item Seleccionado */
+  onItemSelect(item: any) {
+    this.ciudad.push(item);
+    console.log(this.ciudad);
+  }
+  /** Todos los items Seleccionados */
+  onSelectAll(items: any) {
+    this.ciudad = items;
+    console.log(this.ciudad);
+  }
+  /** Deselccionar item */
+  findByItemIdIndexCiudad(id: any) {
+    return this.ciudad.findIndex((resp: any) => {
+      return resp.item_id === id;
+    })
+  }
+  onDeSelect(item: any) {
+    //verificar esto no se queda asi
+    console.log(item);
+    console.log("entre");
+    if (item.item_id) {
+      console.log("entre 1");
+      const index = this.findByItemIdIndexCiudad(item.item_id);
+      const newArray = (index > -1) ? [
+        ...this.ciudad.slice(0, index),
+        ...this.ciudad.slice(index + 1)
+      ] : this.ciudad;
+      this.ciudad = newArray;
+      console.log(this.ciudad);
+    } else {
+      console.log("entre 2");
+      const index = this.ciudad.indexOf(item);
+      const newArray = (index > -1) ? [
+        ...this.ciudad.slice(0, index),
+        ...this.ciudad.slice(index + 1)
+      ] : this.ciudad;
+      this.ciudad = newArray;
+      console.log(this.ciudad);
+    }
+  }
+
+
+  /**
+   * ==========================================================
+   * Funciones para recuperar datos de la base de datos
+   * ==========================================================
+   */
+
+   recuperarDatosCiudad() {
+    this.ciudadService.getAllCiudades().subscribe((resp: any) => {
+      let nombreciudades: any = [];
+      resp.data.forEach((element: any) => {
+        nombreciudades.push({ item_id: element._id, nombre: element.nombre });
+      });
+      this.dropdownListCiudades = nombreciudades;
+    });
+  }
+  recuperarDatosSucursales() {
+    this.sucursalService.getAllSucursales().subscribe((resp: any) => {
+      let nombreSucursal: any = [];
+      resp.data.forEach((element: any) => {
+        nombreSucursal.push({ item_id: element._id, nombre: element.nombre });
+      });
+      this.dropdownListSucursales = nombreSucursal;
+    });
+  }
+  recuperarDatosMarcas() {
+    this.marcaService.getAllMarcas().subscribe((resp: any) => {
+      let nombremarcas: any = [];
+      resp.data.forEach((element: any) => {
+        nombremarcas.push({ item_id: element._id, nombre: element.nombre });
+      });
+      this.dropdownListMarcas = nombremarcas;
+
+    });
+  }
+  recuperarDatosnombreProgramas() {
+    this.nombreProgramaService.getAllnombrePrograma().subscribe((resp: any) => {
+      let nombrePrograma: any = [];
+      resp.data.forEach((element: any) => {
+        nombrePrograma.push({ item_id: element._id, nombre: element.nombre });
+      });
+      this.dropdownListNombreProgramas = nombrePrograma;
+
+    });
+  }
+
+
+  /** Deselccionar todos los items */
+  onDeSelectAll(items: any) {
+    this.ciudad = items;
+    console.log(this.ciudad);
+  }
+
+  /** SUCRUSAL */
+  /** Item Seleccionado */
+  onItemSelectsucursal(item: any) {
+    this.sucursal.push(item);
+    console.log(this.sucursal);
+  }
+  /** Todos los items Seleccionados */
+  onSelectAllsucursal(items: any) {
+    this.sucursal = items;
+    console.log(this.sucursal);
+  }
+  /** Deselccionar item */
+  findByItemIdIndexSucursal(id: any) {
+    return this.sucursal.findIndex((resp: any) => {
+      return resp.item_id === id;
+    })
+  }
+  onDeSelectsucursal(item: any) {
+    /** Borrar elemento del array  */
+    const index = this.findByItemIdIndexSucursal(item.item_id);
+    const newArray = (index > -1) ? [
+      ...this.sucursal.slice(0, index),
+      ...this.sucursal.slice(index + 1)
+    ] : this.sucursal;
+    this.sucursal = newArray;
+    console.log(this.sucursal);
+  }
+  /** Deselccionar todos los items */
+  onDeSelectAllsucursal(items: any) {
+    this.sucursal = items;
+    console.log(this.sucursal);
+  }
+
+  /** MARCA */
+  /** Item Seleccionado */
+  onItemSelectmarca(item: any) {
+    this.marca.push(item);
+    console.log(this.marca);
+  }
+  /** Todos los items Seleccionados */
+  onSelectAllmarca(items: any) {
+    this.marca = items;
+    console.log(this.marca);
+  }
+  /** Deselccionar item */
+  findByItemIdIndexMarca(id: any) {
+    return this.marca.findIndex((resp: any) => {
+      return resp.item_id === id;
+    })
+  }
+  onDeSelectmarca(item: any) {
+    /** Borrar elemento del array  */
+    const index = this.findByItemIdIndexMarca(item.item_id);
+    const newArray = (index > -1) ? [
+      ...this.marca.slice(0, index),
+      ...this.marca.slice(index + 1)
+    ] : this.marca;
+    this.marca = newArray;
+    console.log(this.marca);
+  }
+  /** Deselccionar todos los items */
+  onDeSelectAllmarca(items: any) {
+    this.marca = items;
+    console.log(this.marca);
+  }
+
+
+  /** Nombre Programa */
+  /** Item Seleccionado */
+  onItemSelectNombrePrograma(item: any) {
+    this.nombrePrograma.push(item);
+    console.log(this.nombrePrograma);
+  }
+  /** Todos los items Seleccionados */
+  onSelectAllNombrePrograma(items: any) {
+    this.nombrePrograma = items;
+    console.log(this.nombrePrograma);
+  }
+  /** Deselccionar item */
+  findByItemIdIndexNombrePrograma(id: any) {
+    return this.nombrePrograma.findIndex((resp: any) => {
+      return resp.item_id === id;
+    })
+  }
+  onDeSelectNombrePrograma(item: any) {
+    /** Borrar elemento del array  */
+    const index = this.findByItemIdIndexNombrePrograma(item.item_id);
+    const newArray = (index > -1) ? [
+      ...this.nombrePrograma.slice(0, index),
+      ...this.nombrePrograma.slice(index + 1)
+    ] : this.nombrePrograma;
+    this.nombrePrograma = newArray;
+    console.log(this.nombrePrograma);
+  }
+  /** Deselccionar todos los items */
+  onDeSelectAllNombrePrograma(items: any) {
+    this.nombrePrograma = items;
+    console.log(this.nombrePrograma);
+  }
+
 
 }

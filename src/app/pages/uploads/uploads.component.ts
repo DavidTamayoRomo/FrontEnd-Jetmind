@@ -90,7 +90,9 @@ export class UploadsComponent implements OnInit {
       }
 
       const reader = new FileReader();
+      console.log(reader);
       const url64 = reader.readAsDataURL(element);
+      console.log(url64);
       reader.onloadend = () => {
         imgTemp = reader.result;
         imagenesTemp.push(imgTemp);

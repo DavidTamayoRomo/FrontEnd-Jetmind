@@ -105,7 +105,7 @@ export class ContratoFormComponent implements OnInit, OnChanges {
 
   public registerForm = this.fb.group({
     fecha:[null, Validators.required],
-    estado:['Activo'],
+    estado:['Espera'],
     idRepresentante:[null],
     tipoPago:[null],
     estadoVenta:[null],

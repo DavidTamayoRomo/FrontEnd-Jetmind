@@ -1,21 +1,20 @@
-
 <ng-wizard [config]="config" (stepChanged)="stepChanged($event)">
 
-    <ng-wizard-step [title]="'Representante'" [description]="'Datos Representante'" [canEnter]="isValidEnterStepRepresentante.bind(this)" 
-    [canExit]="isValidExitStepRepresentante.bind(this)">
-        <app-representante [executeNext]="executeNextRepresentante" [executeEnter]="executeBackRepresentante" 
-         (sendFormData)="setDataFormRepresentante($event)" (validForm)="validFormRepresentante($event)" >
+    <ng-wizard-step [title]="'Representante'" [description]="'Datos Representante'"
+        [canEnter]="isValidEnterStepRepresentante.bind(this)" [canExit]="isValidExitStepRepresentante.bind(this)">
+        <app-representante [executeNext]="executeNextRepresentante" [executeEnter]="executeBackRepresentante"
+            (sendFormData)="setDataFormRepresentante($event)" (validForm)="validFormRepresentante($event)">
         </app-representante>
     </ng-wizard-step>
 
-    <ng-wizard-step [title]="'Estudiante'" [description]="'Ingresar estudiantes al contrato'" > 
+    <ng-wizard-step [title]="'Estudiante'" [description]="'Ingresar estudiantes al contrato'">
         <div class="row">
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
                         <div class="text-right">
-                            <a class="btn btn-primary"(click)="abrirModal()" >
-                                <i class="mdi mdi-account-plus" ></i> 
+                            <a class="btn btn-primary" (click)="abrirModal()">
+                                <i class="mdi mdi-account-plus"></i>
                                 Agregar otro Estudiante
                             </a>
                         </div>
@@ -36,7 +35,7 @@
                                         <td>{{estudiante.estudiante.cedula}}</td>
                                         <td class="text-nowrap">
                                             <a data-toggle="tooltip" data-original-title="Editar"
-                                            (click)="editarEstudiante(indice)" > 
+                                                (click)="editarEstudiante(indice)">
                                                 <i class="ti-pencil"></i>
                                             </a>
                                         </td>
@@ -50,28 +49,209 @@
                                 </tbody>
                             </table>
                         </div>
-                        
-                            
+
+
                     </div>
                 </div>
             </div>
         </div>
-        <app-modal-imagen (emitirEstudianteNuevo)="eventoCargarEstudiante($event)"  ></app-modal-imagen>
+        <app-modal-imagen (emitirEstudianteNuevo)="eventoCargarEstudiante($event)"></app-modal-imagen>
     </ng-wizard-step>
 
-    <ng-wizard-step [title]="'Contrato'" [description]="'Datos economicos'" [canEnter]="isValidEnterStepContrato.bind(this)" 
-    [canExit]="isValidExitStepContrato.bind(this)">
-        <app-contrato-form [executeNext]="executeNextContrato" [executeEnter]="executeBackContrato" 
-        (sendFormData)="setDataFormContrato($event)" (validForm)="validFormContrato($event)" ></app-contrato-form>
+    <ng-wizard-step [title]="'Contrato'" [description]="'Datos economicos'"
+        [canEnter]="isValidEnterStepContrato.bind(this)" [canExit]="isValidExitStepContrato.bind(this)">
+        <app-contrato-form [executeNext]="executeNextContrato" [executeEnter]="executeBackContrato"
+            (sendFormData)="setDataFormContrato($event)" (validForm)="validFormContrato($event)"></app-contrato-form>
     </ng-wizard-step>
 
-    <ng-wizard-step [title]="'Facturacion'" [description]="'Datos facturacion'" [canEnter]="isValidEnterStepFacturacion.bind(this)" 
-    [canExit]="isValidExitStepFacturacion.bind(this)">
-        <app-facturar [executeNext]="executeNextFacturacion" [executeEnter]="executeBackFacturacion" 
-        (sendFormData)="setDataFormFacturacion($event)" (validForm)="validFormFacturacion($event)" ></app-facturar>
+    <ng-wizard-step [title]="'Facturacion'" [description]="'Datos facturacion'"
+        [canEnter]="isValidEnterStepFacturacion.bind(this)" [canExit]="isValidExitStepFacturacion.bind(this)">
+        <app-facturar [executeNext]="executeNextFacturacion" [executeEnter]="executeBackFacturacion"
+            (sendFormData)="setDataFormFacturacion($event)" (validForm)="validFormFacturacion($event)"></app-facturar>
     </ng-wizard-step>
-    
+
     <ng-wizard-step [title]="'Voucher'" [description]="'Fotos del vaucher'">
         <app-uploads></app-uploads>
     </ng-wizard-step>
 </ng-wizard>
+
+
+
+
+<div class="fondo-modal-imagen animated fadeIn fast" [class.oculto]="mostraModal">
+    <div id="responsive-modal" class="modal fade show" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+        style="display: block;padding-right: 17px; overflow-y: initial">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Estudiante</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                        (click)="cerrarModalEstudiante()">×</button>
+                </div>
+
+                <div class="card-body">
+
+                    <div class="card-body">
+                        <h4 class="card-title">Editar Estudiante</h4>
+  
+                        <div class="row p-t-20">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="exampleInputuname">Nombres y Apellidos *</label>
+                                    <div class="input-group">
+                                        <div class="input-group-addon"><i class="ti-user"></i></div>
+                                        <input  type="text" class="form-control" placeholder="Nombres"
+                                            id="nombresApellidos" #nombresApellidos>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Email address *</label>
+                                    <div class="input-group">
+                                        <div class="input-group-addon"><i class="ti-email"></i></div>
+                                        <input type="email" class="form-control" placeholder="Ingrese email"
+                                            id="email" #email>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row p-t-20">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="cedula">Cedula *</label>
+                                    <div class="input-group">
+                                        <div class="input-group-addon"><i class=" ti-id-badge"></i></div>
+                                        <input type="number" class="form-control" id="cedula"
+                                            placeholder="Ingrese cedula" id="cedula" #cedula>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="telefono">Telefono</label>
+                                    <div class="input-group">
+                                        <div class="input-group-addon"><i class="fa fa-phone"></i></div>
+                                        <input type="number" class="form-control" id="telefono"
+                                            placeholder="Ingrese telefono" id="telefono" #telefono>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row p-t-20">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="fechaNacimiento">Fecha Nacimiento *</label>
+                                    <div class="input-group">
+                                        <div class="input-group-addon"><i class="fa fa-clock-o"></i></div>
+                                        <input type="date" class="form-control" id="fechaNacimiento"
+                                            placeholder="Ingrese fecha Nacimiento"
+                                            id="fechaNacimiento" #fechaNacimiento>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="direccion">Direccion</label>
+                                    <div class="input-group">
+                                        <div class="input-group-addon"><i class=" ti-location-pin"></i></div>
+                                        <input type="text" class="form-control" id="direccion"
+                                            placeholder="Ingrese direccion" id="direccion" #direccion>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row p-t-20">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">Genero</label>
+                                    <select class="form-control custom-select" id="genero" #genero>
+                                        <option value="Femenino">Femenino</option>
+                                        <option value="Masculino">Masculino</option>
+                                    </select>
+                                    <small class="form-control-feedback"> Seleccione el genero </small>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+
+                            </div>
+                        </div>
+
+                        <div class="row p-t-20">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="exampleInputuname">Ciudades *</label>
+                                    <ng-multiselect-dropdown [placeholder]="'Seleccione Ciudades'"
+                                        [settings]="dropdownSettings" [data]="dropdownListCiudades" [(ngModel)]="selectedItemsCiudades"
+                                        (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)"
+                                        (onDeSelect)="onDeSelect($event)" (onDeSelectAll)="onDeSelectAll($event)">
+                                    </ng-multiselect-dropdown>
+                                    
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="exampleInputuname">Sucursales *</label>
+                                    <ng-multiselect-dropdown [placeholder]="'Seleccione Sucursal'"
+                                        [settings]="dropdownSettings" [data]="dropdownListSucursales"
+                                        (onSelect)="onItemSelectsucursal($event)"
+                                        (onSelectAll)="onSelectAllsucursal($event)"
+                                        (onDeSelect)="onDeSelectsucursal($event)"
+                                        (onDeSelectAll)="onDeSelectAllsucursal($event)"
+                                        id="idSucursal" #idSucursal>
+                                    </ng-multiselect-dropdown>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row p-t-20">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="exampleInputuname">Marcas *</label>
+                                    <ng-multiselect-dropdown [placeholder]="'Seleccione Marca'"
+                                        [settings]="dropdownSettings" [data]="dropdownListMarcas"
+                                        (onSelect)="onItemSelectmarca($event)"
+                                        (onSelectAll)="onSelectAllmarca($event)"
+                                        (onDeSelect)="onDeSelectmarca($event)"
+                                        (onDeSelectAll)="onDeSelectAllmarca($event)" id="idMarca" #idMarca>
+                                    </ng-multiselect-dropdown>
+                                    
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="exampleInputuname">Nombre Programa *</label>
+                                    <ng-multiselect-dropdown [placeholder]="'Nombre Programa'"
+                                        [settings]="dropdownSettings" [data]="dropdownListNombreProgramas"
+                                        (onSelect)="onItemSelectNombrePrograma($event)"
+                                        (onSelectAll)="onSelectAllNombrePrograma($event)"
+                                        (onDeSelect)="onDeSelectNombrePrograma($event)"
+                                        (onDeSelectAll)="onDeSelectAllNombrePrograma($event)"
+                                        id="idNombrePrograma" #idNombrePrograma>
+                                    </ng-multiselect-dropdown>
+                                    
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default waves-effect" data-dismiss="modal"
+                                (click)="cerrarModalEstudiante()">Close</button>
+                            <button type="button" (click)="editarEstudianteModal()" class="btn btn-danger waves-effect waves-light">Editar</button>
+                        </div>
+
+                    </div>
+
+
+
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+</div>

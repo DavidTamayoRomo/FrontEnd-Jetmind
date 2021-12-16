@@ -28,4 +28,14 @@ export class BusquedasService {
     )
   }
 
+  buscar2(tabla:string, busqueda:string, campos:Array<string>){
+    const url = `${base_url}/utils/busquedaespecifica/coleccion/${tabla}/${busqueda}/${campos}`;
+    return this.http.get(url).pipe(
+      map( (resp:any) => {
+        return resp.data;
+        console.log(resp.data);
+      })
+    )
+  }
+
 }

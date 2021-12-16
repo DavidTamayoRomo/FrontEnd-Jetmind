@@ -91,7 +91,7 @@ export class ModalImagenComponent implements OnInit {
     fechaNacimiento: [null, Validators.required],
     direccion: [null],
     genero: [null],
-    estado: ['Inactivo'],
+    estado: ['Espera'],
     idMarca: [null, Validators.required],
     idCiudad: [null, Validators.required],
     idSucursal: [null, Validators.required],

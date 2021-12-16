@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
+import { HttpClient } from '@angular/common/http';
 
 const base_url = environment.base_url;
 
@@ -8,7 +9,7 @@ const base_url = environment.base_url;
 })
 export class FileUploadService {
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   async actualizarFoto(
     archivo: File,
@@ -30,4 +31,12 @@ export class FileUploadService {
       return false;
     }
   }
+
+
+  /* actualizarVoucher(files:any,id:string){
+    const url = `${base_url}/utils/uploadsVoucher/${id}/${files}`;
+    
+    return this.http.put(url);
+    
+  } */
 }

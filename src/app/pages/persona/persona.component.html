@@ -29,7 +29,7 @@
             <label for="exampleInputuname">Ciudades *</label>
             <ng-multiselect-dropdown [placeholder]="'Seleccione Ciudades'" [settings]="dropdownSettings"
                 [data]="dropdownListCiudades" (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)"
-                (onDeSelect)="onDeSelect($event)" (onDeSelectAll)="onDeSelectAll($event)" formControlName="idCiudad">
+                (onDeSelect)="onDeSelect($event)" (onDeSelectAll)="onDeSelectAll($event)" formControlName="idCiudad" >
             </ng-multiselect-dropdown>
             <div class="text-danger"><p *ngIf="campoNoValido('idCiudad')">Ingrese al menos una ciudad</p></div> 
         </div>
