@@ -1,3 +1,5 @@
+
+
 <form (ngSubmit)="crearContrato()" autocomplete="off" [formGroup]="registerForm">
     <div class="card-body">
         <h4 class="card-title">Contrato</h4>
@@ -9,8 +11,8 @@
                     <label for="fecha">Fecha *</label>
                     <div class="input-group">
                         <div class="input-group-addon"><i class="fa fa-clock-o"></i></div>
-                        <input type="date" class="form-control" id="fecha"
-                            placeholder="Ingrese fecha" formControlName="fecha">
+                        <input type="date" class="form-control" id="fecha" placeholder="Ingrese fecha"
+                            formControlName="fecha">
                     </div>
                     <div class="text-danger">
                         <!-- <p *ngIf="campoNoValido('fecha')">La fecha de nacimiento es obligatoria</p> -->
@@ -35,16 +37,24 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <div class="demo-switch-title">Tipo de pago</div>
-                    <select class="form-control custom-select" formControlName="tipoPago">
+                    <select class="form-control custom-select" formControlName="tipoPago" (click)="habilitarCampos();calculadora()">
                         <option value="Plan">Plan</option>
                         <option value="Contado">Contado</option>
-                        <option value="OK">OK</option>
                     </select>
                     <small class="form-control-feedback"> Seleccione el tipo de Pago </small>
                 </div>
             </div>
             <div class="col-md-6">
-
+                <div class="form-group">
+                    <div class="demo-switch-title">Estado de la venta</div>
+                    <select class="form-control custom-select" formControlName="estadoVenta"
+                        (click)="habilitarCampos();calculadora()">
+                        <option value="OK">OK</option>
+                        <option value="Abono">Abono</option>
+                        <option value="Saldo">Saldo</option>
+                    </select>
+                    <small class="form-control-feedback"> Seleccione estado de la venta </small>
+                </div>
 
             </div>
         </div>
@@ -53,8 +63,9 @@
                 <div class="form-group">
                     <label for="exampleInputuname">Valor Total *</label>
                     <div class="input-group">
-                        <div class="input-group-addon"><i class="ti-user"></i></div>
-                        <input type="number" class="form-control" placeholder="Nombres" formControlName="valorTotal">
+                        <div class="input-group-addon"><i class=" ti-money"></i></div>
+                        <input type="number" class="form-control" placeholder="Ingrese Valor Total"
+                            formControlName="valorTotal"  (keyup)="calculadora()">
                     </div>
                     <div class="text-danger">
                         <!-- <p *ngIf="campoNoValido('valorTotal')">El Nombre y Apellido es obligatorio</p> -->
@@ -65,9 +76,9 @@
                 <div class="form-group">
                     <label for="exampleInputEmail1">Valor Matricula *</label>
                     <div class="input-group">
-                        <div class="input-group-addon"><i class="ti-email"></i></div>
-                        <input type="number" class="form-control" placeholder="Ingrese email"
-                            formControlName="valorMatricula">
+                        <div class="input-group-addon"><i class="ti-money"></i></div>
+                        <input type="number" class="form-control" placeholder="Ingrese Valor Matricula"
+                            formControlName="valorMatricula" (keyup)="calculadora()">
                     </div>
                     <div class="text-danger">
                         <!-- <p *ngIf="campoNoValido('valorMatricula')">El email es obligatorio / Ingrese email valido</p> -->
@@ -78,11 +89,11 @@
         <div class="row p-t-20">
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="cedula">Abono *</label>
+                    <label for="cedula">Abono/Saldo *</label>
                     <div class="input-group">
-                        <div class="input-group-addon"><i class=" ti-id-badge"></i></div>
+                        <div class="input-group-addon"><i class=" ti-money "></i></div>
                         <input type="number" class="form-control" id="abono" placeholder="Ingrese Abono"
-                            formControlName="abono">
+                            formControlName="abono" (keyup)="calculadora()">
                     </div>
                     <div class="text-danger">
                         <!-- <p *ngIf="campoNoValido('abono')">La cedula es obligatoria</p> -->
@@ -93,12 +104,33 @@
                 <div class="form-group">
                     <label for="telefono">Numero Cuotas</label>
                     <div class="input-group">
-                        <div class="input-group-addon"><i class="fa fa-phone"></i></div>
+                        <div class="input-group-addon"><i class=" ti-layout-menu-v"></i></div>
                         <input type="number" class="form-control" id="numeroCuotas" placeholder="Numero Cuotas"
-                            formControlName="numeroCuotas">
+                            formControlName="numeroCuotas" (keyup)="calculadora()">
                         <div class="text-danger">
                             <!-- <p *ngIf="campoNoValido('telefono')">El numero de telefono es obligatorio</p> -->
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TOAST
+            <div class="alert alert-info"> 
+            
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"> 
+                <span aria-hidden="true">×</span> 
+            </button>
+        </div> -->
+        <div *ngIf="mostrarCalculadora" class="card">
+            <div class="card-body">
+                <div class="d-flex no-block">
+                    <div class="m-r-20 align-self-center">
+                        <span class="lstick "></span>
+                    </div>
+                    <div class="align-self-center">
+                        <h6 class="text-muted m-t-10 m-b-0">Calculadora</h6>
+                        <h2 class="m-t-0">{{deuda}}</h2>
                     </div>
                 </div>
             </div>
@@ -108,6 +140,7 @@
                 <div class="form-group">
                     <div class="demo-switch-title">Forma de pago</div>
                     <select class="form-control custom-select" formControlName="formaPago">
+                        <option value="Tarjeta">Efectivo</option>
                         <option value="Tarjeta">Tarjeta</option>
                         <option value="Credito">Credito</option>
                     </select>
@@ -118,14 +151,15 @@
                 <div class="form-group">
                     <label for="comentario">Comentario</label>
                     <div class="input-group">
-                        <div class="input-group-addon"><i class=" ti-location-pin"></i></div>
-                        <input type="text" class="form-control" id="comentario" placeholder="Ingrese comentario"
-                            formControlName="comentario">
+                        <div class="input-group-addon"><i class=" ti-comment "></i></div>
+                        <textarea type="text" class="form-control" id="comentario" placeholder="Ingrese comentario"
+                            formControlName="comentario"></textarea>
                     </div>
                 </div>
             </div>
         </div>
-        <button *ngIf="mostrarBoton" type="submit" class="btn btn-success waves-effect waves-light m-r-10">Guardar</button>
+        <button *ngIf="mostrarBoton" type="submit"
+            class="btn btn-success waves-effect waves-light m-r-10">Guardar</button>
         <a *ngIf="mostrarBoton" class="btn btn-inverse waves-effect waves-light">Cancelar</a>
     </div>
 </form>

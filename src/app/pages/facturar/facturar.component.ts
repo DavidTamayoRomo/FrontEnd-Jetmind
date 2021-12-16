@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, ViewChild, ElementRef } from '@angular/core';
 import { Facturar } from './facturar.model';
 import { FormBuilder, Validators } from '@angular/forms';
 import { FacturarService } from '../services/facturar.service';
@@ -30,6 +30,8 @@ export class FacturarComponent implements OnInit, OnChanges {
   @Input() executeEnter: any;
   @Output() sendFormData: EventEmitter<any> = new EventEmitter();
   @Output() validForm: EventEmitter<boolean> = new EventEmitter();
+
+  @ViewChild('flexCheckDefault') flexCheckDefault:ElementRef;
 
   constructor(
     private fb: FormBuilder,
@@ -93,6 +95,35 @@ export class FacturarComponent implements OnInit, OnChanges {
         this.LlenarForm(resp);
       });
 
+  }
+
+  copiardatosRepresentante(){
+    //obtener el valor del checkbox flexCheckDefault
+    
+    const check = this.flexCheckDefault.nativeElement.checked;
+    if(check == false){
+      const copia = JSON.parse(localStorage.getItem('representanteContrato')as string);
+      const contra = JSON.parse(localStorage.getItem('contrato')as string);
+      //Enviar datos al formulario
+      this.registerForm.patchValue({
+        nombre: copia?.nombresApellidos,
+        cedula_ruc: copia?.cedula,
+        telefono: copia?.telefono,
+        direccion: copia?.direccion,
+        correo: copia?.email,
+        total:contra.valorTotal
+      });
+    }
+    if(check == true){
+      this.registerForm.patchValue({
+        nombre: "",
+        cedula_ruc: "",
+        telefono: "",
+        direccion: "",
+        correo: ""
+      });
+    }
+    
   }
 
 
