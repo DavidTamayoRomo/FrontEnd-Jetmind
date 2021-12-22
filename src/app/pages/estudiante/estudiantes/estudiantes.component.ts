@@ -78,7 +78,7 @@ export class EstudiantesComponent implements OnInit {
     if (busqueda.length === 0) {
       return this.estudiantes = this.estudiantesTemporales;
     }
-    return this.busquedaService.buscar('estudiantes',busqueda).subscribe(
+    return this.busquedaService.buscar2('estudiantes',busqueda,['nombresApellidos']).subscribe(
       (resp:any)=>{
         console.log(resp);
         this.estudiantes = resp;

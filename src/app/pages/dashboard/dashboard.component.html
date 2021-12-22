@@ -1,1 +1,94 @@
-<p>dashboard works!</p>
+<div class="container-fluid r-aside">
+    
+ 
+    <!-- ============================================================== -->
+    <!-- Stats box -->
+    <!-- ============================================================== -->
+    <div class="row">
+        <div class="col-lg-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex no-block">
+                        <div class="m-r-20 align-self-center"><span class="lstick m-r-20"></span><img src="../assets/images/icon/income.png" alt="Income"></div>
+                        <div class="align-self-center">
+                            <h6 class="text-muted m-t-10 m-b-0">Total Ciudades</h6>
+                            <h2 class="m-t-0">6</h2></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex no-block">
+                        <div class="m-r-20 align-self-center"><span class="lstick m-r-20"></span><img src="../assets/images/icon/expense.png" alt="Income"></div>
+                        <div class="align-self-center">
+                            <h6 class="text-muted m-t-10 m-b-0">Total Marcas</h6>
+                            <h2 class="m-t-0">4</h2></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex no-block">
+                        <div class="m-r-20 align-self-center"><span class="lstick m-r-20"></span><img src="../assets/images/icon/assets.png" alt="Income"></div>
+                        <div class="align-self-center">
+                            <h6 class="text-muted m-t-10 m-b-0">Total Sucursales</h6>
+                            <h2 class="m-t-0">987,563</h2></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- ============================================================== -->
+    <!-- Activity widget find scss into widget folder-->
+    <!-- ============================================================== -->
+    <div class="row">
+        <div class="col-lg-7 col-xlg-8">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex no-block">
+                        <h4 class="card-title"><span class="lstick"></span>Estudiantes</h4>
+                        
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        <!--Little Profile widget-->
+        <div class="col-lg-5 col-xlg-4">
+            <div class="card">
+                <div class="card-body little-profile text-center">
+                    <div class="pro-img m-t-20"><img [src]="persona.getURLImagenfotoPerfil()" alt="user"></div>
+                    <h3 class="m-b-0">{{persona.nombresApellidos}}</h3>
+                    <ul class="list-inline soc-pro m-t-30">
+                        <li><a href="javascript:void(0)"><i class="fa fa-twitter"></i></a></li>
+                        <li><a href="javascript:void(0)"><i class="fa fa-facebook-square"></i></a></li>
+                        <li><a href="javascript:void(0)"><i class="fa fa-google-plus"></i></a></li>
+                        <li><a href="javascript:void(0)"><i class="fa fa-youtube-play"></i></a></li>
+                        <li><a href="javascript:void(0)"><i class="fa fa-instagram"></i></a></li>
+                    </ul>
+                </div>
+                
+               
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex no-block">
+                        <h4 class="card-title"><span class="lstick"></span>Datos</h4>
+                        <div class="btn-group ml-auto m-t-10">
+                            
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+        <!--Little Profile widget-->
+    </div>
+ 
+   
+</div>

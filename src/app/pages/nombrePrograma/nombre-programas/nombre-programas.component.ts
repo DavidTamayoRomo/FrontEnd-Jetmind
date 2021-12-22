@@ -56,7 +56,7 @@ export class NombreProgramasComponent implements OnInit {
     if (busqueda.length === 0) {
       return this.nombreProgramas = this.nombreProgramasTemporales;
     }
-    return this.busquedaService.buscar('nombreProgramas', busqueda).subscribe(
+    return this.busquedaService.buscar2('nombreProgramas', busqueda,['nombre']).subscribe(
       (resp: any) => {
         this.nombreProgramas = resp;
       }

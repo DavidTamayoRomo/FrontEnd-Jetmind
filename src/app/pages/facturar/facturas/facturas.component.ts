@@ -56,7 +56,7 @@ export class FacturasComponent implements OnInit {
     if (busqueda.length === 0) {
       return this.facturas = this.facturasTemporales;
     }
-    return this.busquedaService.buscar('facturas',busqueda).subscribe(
+    return this.busquedaService.buscar2('facturas',busqueda,['nombre']).subscribe(
       (resp:any)=>{
         console.log(resp);
         this.facturas = resp;

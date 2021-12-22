@@ -6,6 +6,8 @@ import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import Swal from 'sweetalert2';
 import { PersonaService } from '../../persona/persona.service';
 import { ModalUploadService } from '../../../services/modal-upload.service';
+import { formatDate } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-contratos',
@@ -38,7 +40,8 @@ export class ContratosComponent implements OnInit {
     private contratoService: ContratoService,
     private busquedaService: BusquedasService,
     private personaService: PersonaService,
-    private modalImagenServices: ModalUploadService
+    private modalImagenServices: ModalUploadService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -183,16 +186,31 @@ export class ContratosComponent implements OnInit {
 
 
   mostrarDatosModal(contrato: any) {
+    console.log('Modal contrato ',contrato);
     this.mostraModal = false;
     this.contratoSeleccionado = contrato;
+    
+
     this.atributostablaContrato = {
       'nombreAtributos': ['Estado', 'Persona Responsable', 'Fecha contrato', 'Codigo', 'Representante'
-        , 'Cedula Representante', 'Asesor', 'Valor Ingresado', 'Valor Total', 'Forma de pago', 'Observaciones', 'Fecha Aprobacion'],
-      'idAtributos': [contrato.estado, contrato.personaAprueba.nombresApellidos, contrato.fecha, contrato.codigo
-        , contrato.idRepresentante.nombresApellidos, contrato.idRepresentante.cedula, contrato.addedUser.nombresApellidos, contrato.valorTotal
-        , contrato.valorTotal, contrato.formaPago, contrato.comentario
-        , contrato.fechaAprobacion]
+        , 'Cedula Representante', 'Asesor', 'Valor Ingresado', 'Valor Total', 'Forma de pago', 'Fecha Aprobacion', 'Observaciones'],
+
+      'idAtributos': [contrato.estado, contrato.personaAprueba?.nombresApellidos, contrato.fecha, contrato.codigo
+        , contrato.idRepresentante?.nombresApellidos, contrato.idRepresentante?.cedula, contrato.addedUser?.nombresApellidos, contrato.valorTotal
+        , contrato.valorTotal, contrato.formaPago,
+        , contrato.fechaAprobacion, contrato.comentario]
     };
+
+  }
+
+  editarContrato(){
+    //navegar a editar contrato
+    this.router.navigate(['/contrato1/', this.contratoSeleccionado._id]);
+    /* this.contratoService.updatecontrato(this.contratoSeleccionado).subscribe(
+      (resp: any) => {
+        this.cargarContratos();
+      }
+    ); */
   }
 
   cerrarModal() {
@@ -202,12 +220,12 @@ export class ContratosComponent implements OnInit {
   actualizarEstado(contrato: Contrato, estado: string) {
     contrato.estado = estado;
 
-    //TODO:Al APROBAR el contrato
-    //generar pdf y enviar a cada director de la marca involucrada y al representante
-    //Activar representante
-    //Activar Estudiantes
-
-    if (contrato.fechaAprobacion == null && estado == 'Aprobado') {
+    //Al APROBAR el contrato
+    //TODO: generar pdf y enviar a cada director de la marca involucrada y al representante
+    //Activar representante (Listo desde el backend)
+    //Activar Estudiantes (Listo desde el backend)
+    //Fecha 1989-12-31 es porque desde el backend creo con esa fecha 
+    if (contrato.fechaAprobacion?.toString() == '1989-12-31' && estado == 'Aprobado') {
       //Actualizar fecha fecha en la que se aprueba el contrato
       contrato.fechaAprobacion = new Date();
       //persona que aprueba el contrato

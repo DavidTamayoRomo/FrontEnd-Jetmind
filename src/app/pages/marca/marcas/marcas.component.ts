@@ -56,7 +56,7 @@ export class MarcasComponent implements OnInit {
     if (busqueda.length === 0) {
       return this.marcas = this.marcasTemporales;
     }
-    return this.busquedaService.buscar('marcas', busqueda).subscribe(
+    return this.busquedaService.buscar2('marcas', busqueda,['nombre']).subscribe(
       (resp: any) => {
         this.marcas = resp;
       }

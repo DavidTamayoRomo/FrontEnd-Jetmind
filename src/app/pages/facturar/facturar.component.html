@@ -104,6 +104,9 @@
                             <input type="number" class="form-control" id="total" placeholder="Ingrese Total"
                                 formControlName="total">
                         </div>
+                        <div class="text-danger">
+                            <p *ngIf="campoNoValido('total')">El total es obligatorio</p>
+                        </div>
                     </div>
                 </div>
             </div>

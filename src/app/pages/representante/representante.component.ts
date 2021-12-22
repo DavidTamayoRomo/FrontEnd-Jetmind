@@ -99,7 +99,7 @@ export class RepresentanteComponent implements OnInit, OnChanges {
 
   public registerForm = this.fb.group({
     nombresApellidos: [null, Validators.required],
-    email: [null, Validators.required],
+    email: [null, [Validators.required, Validators.email]],
     cedula: [null, Validators.required],
     telefono: [null, Validators.required],
     fechaNacimiento: [null, Validators.required],

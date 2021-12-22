@@ -23,6 +23,7 @@ import { CiudadService } from '../services/ciudad.service';
 import { SucursalService } from '../services/sucursal.service';
 import { MarcaService } from '../services/marca.service';
 import { NombreProgramaService } from '../services/nombre-programa.service';
+import { formatDate } from '@angular/common';
 
 
 
@@ -32,8 +33,8 @@ import { NombreProgramaService } from '../services/nombre-programa.service';
   styles: [],
 })
 export class ContratoComponent implements OnInit {
-  
- 
+
+
   public dropdownListCiudades: any = [];
   public dropdownListSucursales: any = [];
   public dropdownListMarcas: any = [];
@@ -48,7 +49,9 @@ export class ContratoComponent implements OnInit {
   public marca: any = [];
   public nombrePrograma: any = [];
   public programaSeleccionada: any;
+
   
+
   stepStates = {
     normal: STEP_STATE.normal,
     disabled: STEP_STATE.disabled,
@@ -92,7 +95,9 @@ export class ContratoComponent implements OnInit {
   dataFacturacion: any;
 
   public tablaEstudiantes: any;
-  public mostraModal:boolean = true;
+  public mostraModal: boolean = true;
+
+  public contadorEstudiantes: number = 0;
 
   constructor(
     private ngWizardService: NgWizardService,
@@ -110,7 +115,7 @@ export class ContratoComponent implements OnInit {
     private nombreProgramaService: NombreProgramaService
   ) {
 
-    }
+  }
 
   ngOnInit(): void {
     this.llenarTablaEstudiantes();
@@ -139,6 +144,8 @@ export class ContratoComponent implements OnInit {
       "nombre": "Quito"
     }; */
 
+    
+
   }
   ngOnChanges(changes: SimpleChanges): void {
     console.log(changes);
@@ -158,7 +165,7 @@ export class ContratoComponent implements OnInit {
     comentario: [null],
     directorAsignado: [null],
     estadoPrograma: [null],
-    fechaAprobacion: [null],
+
   });
 
   crearObjeto() {
@@ -229,21 +236,35 @@ export class ContratoComponent implements OnInit {
 
       });
 
+
       //Crear contrato
-      Object.assign(contrato, { idRepresentante: resp.data._id });
+      Object.assign(contrato, { idRepresentante: resp.data._id, fechaAprobacion: "" });
       this.contratoService.crearContrato(contrato).subscribe((resp: any) => {
         console.log(resp);
         console.log("Contrato creado");
+        //TODO: Falta subir las imagenes
         //subir imagenes al contrato
         /* this.fileuploadService.actualizarVoucher(voucher, resp.data._id).subscribe((resp: any) => {
           console.log(resp);
         }); */
+
         //Crear facturacion
-        Object.assign(facturacion, { idContrato: resp.data._id });
-        this.facturacionService.crearFacturar(facturacion).subscribe((resp: any) => {
-          console.log(resp);
-          console.log("Contrato facturacion");
+        let programaLista: any = [];
+        facturacion.programa.forEach((element: any) => {
+          if (element.item_id) {
+            programaLista.push(element.item_id);
+          } else {
+            programaLista.push(element);
+          }
         });
+        setTimeout(() => {
+          Object.assign(facturacion, { idContrato: resp.data._id, programa: programaLista });
+          this.facturacionService.crearFacturar(facturacion).subscribe((resp: any) => {
+            console.log(resp);
+            console.log("Contrato facturacion");
+          });
+        }, 1000);
+
       });
 
     });
@@ -274,17 +295,17 @@ export class ContratoComponent implements OnInit {
 
     //abrir modal
     this.abrirModalEstudiante();
-    this.nombresApellidos1.nativeElement.value=estudiante.nombresApellidos;
-    this.email1.nativeElement.value=estudiante.email;
-    this.cedula1.nativeElement.value=estudiante.cedula;
-    this.telefono1.nativeElement.value=estudiante.telefono;
-    this.fechaNacimiento1.nativeElement.value=estudiante.fechaNacimiento;
-    this.direccion1.nativeElement.value=estudiante.direccion;
-    this.genero1.nativeElement.value=estudiante.genero;
+    this.nombresApellidos1.nativeElement.value = estudiante.nombresApellidos;
+    this.email1.nativeElement.value = estudiante.email;
+    this.cedula1.nativeElement.value = estudiante.cedula;
+    this.telefono1.nativeElement.value = estudiante.telefono;
+    this.fechaNacimiento1.nativeElement.value = estudiante.fechaNacimiento;
+    this.direccion1.nativeElement.value = estudiante.direccion;
+    this.genero1.nativeElement.value = estudiante.genero;
 
     //Guardar en el local storage
     objetosEstudiateProgramaCopia[index]
-    
+
     this.llenarTablaEstudiantes();
     //this.registerForm.controls.nombresApellidos.setValue('David');
     //this.modalImagenComponent.setRegisterForm(estudiante.nombresApellidos);
@@ -293,27 +314,62 @@ export class ContratoComponent implements OnInit {
 
   }
 
+  limpiarCamposModalEstudiante() {
+    this.nombresApellidos1.nativeElement.value = "";
+    this.email1.nativeElement.value = "";
+    this.cedula1.nativeElement.value = "";
+    this.telefono1.nativeElement.value = "";
+    this.fechaNacimiento1.nativeElement.value = "";
+    this.direccion1.nativeElement.value = "";
+    this.genero1.nativeElement.value = "";
+    //TODO: Ver como borrar el texto del dropdown 
+    /* this.idCiudad1.nativeElement.value = null;
+    this.idSucursal1.nativeElement.value = null;
+    this.idMarca1.nativeElement.value = null;
+    this.idNombrePrograma1.nativeElement.value = null; */
+  }
+
   editarEstudianteModal() {
-    
+
     if (localStorage.getItem('indexEdit')) {
-      let objetoEstudiante = {nombresApellidos:this.nombresApellidos1.nativeElement.value,email:this.email1.nativeElement.value,
-        cedula:this.cedula1.nativeElement.value,telefono:this.telefono1.nativeElement.value,fechaNacimiento:this.fechaNacimiento1.nativeElement.value,direccion:this.direccion1.nativeElement.value,
-        genero:this.genero1.nativeElement.value,estado:"Inactivo"};
-      
+      let objetoEstudiante = {
+        nombresApellidos: this.nombresApellidos1.nativeElement.value, email: this.email1.nativeElement.value,
+        cedula: this.cedula1.nativeElement.value, telefono: this.telefono1.nativeElement.value, fechaNacimiento: this.fechaNacimiento1.nativeElement.value, direccion: this.direccion1.nativeElement.value,
+        genero: this.genero1.nativeElement.value, estado: "Inactivo"
+      };
+
       //TODO: Guardar  el programa  
-      
+
       /* let objetoPrograma = {idMarca:this.idMarca1.nativeElement.value,idCiudad:this.idCiudad1.nativeElement.value,idSucursal:this.idSucursal1.nativeElement.value,
         idNombrePrograma:this.idNombrePrograma1.nativeElement.value}; */
-      
+
       let objetosEstudiateProgramaCopia = JSON.parse(localStorage.getItem('objetosEstudiatePrograma') as string);
-      
+
       objetosEstudiateProgramaCopia[Number(localStorage.getItem('indexEdit'))].estudiante = objetoEstudiante;
 
       localStorage.setItem('objetosEstudiatePrograma', JSON.stringify(objetosEstudiateProgramaCopia));
       this.llenarTablaEstudiantes();
 
+      const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener('mouseenter', Swal.stopTimer);
+          toast.addEventListener('mouseleave', Swal.resumeTimer);
+        },
+      });
+      Toast.fire({
+        icon: 'success',
+        title: 'El estudiante se actualizo correctamente',
+      });
+
     }
- 
+    this.limpiarCamposModalEstudiante();
+    this.cerrarModalEstudiante();
+
   }
 
   borrarEstudiante(index: any) {
@@ -370,6 +426,7 @@ export class ContratoComponent implements OnInit {
   }
 
   stepChanged(args: StepChangedArgs) {
+    console.log(args.step);
     this.step = args.step;
   }
 
@@ -489,15 +546,15 @@ export class ContratoComponent implements OnInit {
           buttonNext.classList.remove('disabled');
           buttonNext.disabled = false;
         }
-      }, 1000);
+      }, 100);
     } else {
       setTimeout(() => {
         const buttonNext: any = document.getElementsByClassName('ng-wizard-btn-next')[0];
         if (buttonNext) {
-          //buttonNext.classList.add('disabled');
-          //buttonNext.disabled = true;
+          buttonNext.classList.add('disabled');
+          buttonNext.disabled = true;
         }
-      }, 1000);
+      }, 100);
     }
   }
   validFormEstudiante(event: any) {
@@ -509,7 +566,7 @@ export class ContratoComponent implements OnInit {
           buttonNext.classList.remove('disabled');
           buttonNext.disabled = false;
         }
-      }, 1000);
+      }, 100);
     } else {
       setTimeout(() => {
         const buttonNext: any =
@@ -518,7 +575,7 @@ export class ContratoComponent implements OnInit {
           //buttonNext.classList.add('disabled');
           //buttonNext.disabled = true;
         }
-      }, 1000);
+      }, 100);
     }
   }
 
@@ -530,15 +587,15 @@ export class ContratoComponent implements OnInit {
           buttonNext.classList.remove('disabled');
           buttonNext.disabled = false;
         }
-      }, 1000);
+      }, 100);
     } else {
       setTimeout(() => {
         const buttonNext: any = document.getElementsByClassName('ng-wizard-btn-next')[0];
         if (buttonNext) {
-          //buttonNext.classList.add('disabled');
-          //buttonNext.disabled = true;
+          buttonNext.classList.add('disabled');
+          buttonNext.disabled = true;
         }
-      }, 1000);
+      }, 100);
     }
   }
 
@@ -550,16 +607,47 @@ export class ContratoComponent implements OnInit {
           buttonNext.classList.remove('disabled');
           buttonNext.disabled = false;
         }
-      }, 1000);
+      }, 100);
     } else {
       setTimeout(() => {
         const buttonNext: any = document.getElementsByClassName('ng-wizard-btn-next')[0];
         if (buttonNext) {
-          //buttonNext.classList.add('disabled');
-          //buttonNext.disabled = true;
+          buttonNext.classList.add('disabled');
+          buttonNext.disabled = true;
         }
-      }, 1000);
+      }, 100);
     }
+  }
+
+  validFormEstudiantes() {
+
+    let contador = JSON.parse(localStorage.getItem('objetosEstudiatePrograma') as string);
+    console.log(contador);
+
+    if (contador == null) {
+      contador = 0;
+      console.log(contador);
+    }
+    setTimeout(() => {
+      if (contador > 0) {
+        setTimeout(() => {
+          const buttonNext: any = document.getElementsByClassName('ng-wizard-btn-next')[0];
+          if (buttonNext) {
+            buttonNext.classList.remove('disabled');
+            buttonNext.disabled = false;
+          }
+        }, 100);
+      } else {
+        setTimeout(() => {
+          const buttonNext: any = document.getElementsByClassName('ng-wizard-btn-next')[0];
+          if (buttonNext) {
+            buttonNext.classList.add('disabled');
+            buttonNext.disabled = true;
+          }
+        }, 100);
+      }
+    }, 100);
+
   }
 
 
@@ -569,7 +657,15 @@ export class ContratoComponent implements OnInit {
     console.log(ocultarForm);
   } */
   abrirModal() {
-
+    let datos = JSON.parse(localStorage.getItem('objetosEstudiatePrograma') as string);
+    let contador;
+    if (contador == null) {
+      this.validFormEstudiantes();
+    }else{
+      contador = datos.length;
+      this.contadorEstudiantes = contador;
+    }
+    
     this.modalImagenServices.abrirModal();
   }
 
@@ -588,10 +684,11 @@ export class ContratoComponent implements OnInit {
   }
 
 
-  cerrarModalEstudiante(){
+  cerrarModalEstudiante() {
     this.mostraModal = true;
+    this.limpiarCamposModalEstudiante();
   }
-  abrirModalEstudiante(){
+  abrirModalEstudiante() {
     this.mostraModal = false;
   }
 
@@ -651,7 +748,7 @@ export class ContratoComponent implements OnInit {
    * ==========================================================
    */
 
-   recuperarDatosCiudad() {
+  recuperarDatosCiudad() {
     this.ciudadService.getAllCiudades().subscribe((resp: any) => {
       let nombreciudades: any = [];
       resp.data.forEach((element: any) => {

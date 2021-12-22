@@ -55,7 +55,7 @@ export class CiudadesComponent implements OnInit {
     if (busqueda.length === 0) {
       return this.ciudades = this.ciudadesTemporales;
     }
-    return this.busquedaService.buscar('ciudades',busqueda).subscribe(
+    return this.busquedaService.buscar2('ciudades',busqueda,['nombre']).subscribe(
       (resp:any)=>{
         console.log(resp);
         this.ciudades = resp;

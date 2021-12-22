@@ -120,7 +120,8 @@ export class FacturarComponent implements OnInit, OnChanges {
         cedula_ruc: "",
         telefono: "",
         direccion: "",
-        correo: ""
+        correo: "",
+        total:""
       });
     }
     

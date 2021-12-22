@@ -56,7 +56,7 @@ export class RepresentantesComponent implements OnInit {
     if (busqueda.length === 0) {
       return this.representantes = this.representantesTemporales;
     }
-    return this.busquedaService.buscar('representantes', busqueda).subscribe(
+    return this.busquedaService.buscar2('representantes', busqueda,['nombresApellidos']).subscribe(
       (resp: any) => {
         this.representantes = resp;
       }

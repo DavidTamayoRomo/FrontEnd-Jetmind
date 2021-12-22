@@ -15,7 +15,7 @@
                             formControlName="fecha">
                     </div>
                     <div class="text-danger">
-                        <!-- <p *ngIf="campoNoValido('fecha')">La fecha de nacimiento es obligatoria</p> -->
+                        <p *ngIf="campoNoValido('fecha')">La fecha de nacimiento es obligatoria</p>
                     </div>
                 </div>
             </div>
@@ -28,6 +28,9 @@
                         <option value="Rechazado">Rechazado</option>
                     </select>
                     <small class="form-control-feedback"> Seleccione el estado </small>
+                </div>
+                <div class="text-danger">
+                    <p *ngIf="campoNoValido('estado')">El estado es obligatorio</p>
                 </div>
             </div>
         </div>
@@ -42,6 +45,9 @@
                         <option value="Contado">Contado</option>
                     </select>
                     <small class="form-control-feedback"> Seleccione el tipo de Pago </small>
+                    <div class="text-danger">
+                        <p *ngIf="campoNoValido('tipoPago')">El tipo de pago es obligatorio</p>
+                    </div>
                 </div>
             </div>
             <div class="col-md-6">
@@ -54,6 +60,9 @@
                         <option value="Saldo">Saldo</option>
                     </select>
                     <small class="form-control-feedback"> Seleccione estado de la venta </small>
+                    <div class="text-danger">
+                        <p *ngIf="campoNoValido('estadoVenta')">El estado de venta es obligatorio</p>
+                    </div>
                 </div>
 
             </div>
@@ -68,13 +77,13 @@
                             formControlName="valorTotal"  (keyup)="calculadora()">
                     </div>
                     <div class="text-danger">
-                        <!-- <p *ngIf="campoNoValido('valorTotal')">El Nombre y Apellido es obligatorio</p> -->
+                        <p *ngIf="campoNoValido('valorTotal')">El valor total es obligatorio</p>
                     </div>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="exampleInputEmail1">Valor Matricula *</label>
+                    <label for="exampleInputEmail1">Valor Matricula </label>
                     <div class="input-group">
                         <div class="input-group-addon"><i class="ti-money"></i></div>
                         <input type="number" class="form-control" placeholder="Ingrese Valor Matricula"
@@ -89,7 +98,7 @@
         <div class="row p-t-20">
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="cedula">Abono/Saldo *</label>
+                    <label for="cedula">Abono/Saldo </label>
                     <div class="input-group">
                         <div class="input-group-addon"><i class=" ti-money "></i></div>
                         <input type="number" class="form-control" id="abono" placeholder="Ingrese Abono"
@@ -138,18 +147,21 @@
         <div class="row p-t-20">
             <div class="col-md-6">
                 <div class="form-group">
-                    <div class="demo-switch-title">Forma de pago</div>
+                    <div class="demo-switch-title">Forma de pago *</div>
                     <select class="form-control custom-select" formControlName="formaPago">
                         <option value="Tarjeta">Efectivo</option>
                         <option value="Tarjeta">Tarjeta</option>
                         <option value="Credito">Credito</option>
                     </select>
                     <small class="form-control-feedback"> Seleccione el forma pago </small>
+                    <div class="text-danger">
+                        <p *ngIf="campoNoValido('formaPago')">La forma de pago es obligatoria</p>
+                    </div>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="comentario">Comentario</label>
+                    <label for="comentario">Comentario del contrato</label>
                     <div class="input-group">
                         <div class="input-group-addon"><i class=" ti-comment "></i></div>
                         <textarea type="text" class="form-control" id="comentario" placeholder="Ingrese comentario"

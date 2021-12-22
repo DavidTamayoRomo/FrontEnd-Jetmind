@@ -33,7 +33,7 @@ export class ContratoService {
     return this.http.get(`${base_url}/contrato/${id}`, { headers: headers })
   }
 
-  crearContrato(formData: any) {
+  crearContrato(formData: Contrato) {
     const headers = this.retornarHeader();
     return this.http.post(`${base_url}/contrato`, formData, { headers: headers });
   }

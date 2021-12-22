@@ -57,7 +57,7 @@ export class SucursalesComponent implements OnInit {
     if (busqueda.length === 0) {
       return this.sucursales = this.sucursalesTemporales;
     }
-    return this.busquedaService.buscar('sucursales', busqueda).subscribe(
+    return this.busquedaService.buscar2('sucursales', busqueda,['nombre']).subscribe(
       (resp: any) => {
         this.sucursales = resp;
       }

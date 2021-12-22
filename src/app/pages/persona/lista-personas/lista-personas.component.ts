@@ -61,7 +61,7 @@ export class ListaPersonasComponent implements OnInit {
     if (busqueda.length === 0) {
       return this.personas = this.personasTemporales;
     }
-    return this.busquedaService.buscar('personas',busqueda).subscribe(
+    return this.busquedaService.buscar2('personas',busqueda,['nombre']).subscribe(
       (resp:any)=>{
         console.log(resp);
         this.personas = resp;

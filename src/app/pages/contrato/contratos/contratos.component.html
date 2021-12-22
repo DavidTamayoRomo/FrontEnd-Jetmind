@@ -83,18 +83,19 @@
                                     </div>
                                 </td>
 
-                                <td (click)="mostrarDatosModal(contrato)">{{contrato.personaAprueba?.nombresApellidos}}</td>
-                                <td (click)="mostrarDatosModal(contrato)">{{contrato.createdAt}}</td>
-                                <td (click)="mostrarDatosModal(contrato)">{{contrato.codigo}}</td>
-                                <td (click)="mostrarDatosModal(contrato)">{{contrato.idRepresentante.nombresApellidos}}</td>
-                                <td (click)="mostrarDatosModal(contrato)">{{contrato.idRepresentante.cedula}}</td>
-                                <td (click)="mostrarDatosModal(contrato)">{{contrato.addedUser.nombresApellidos}}</td>
-                                <td (click)="mostrarDatosModal(contrato)">{{contrato.valorMatricula}}</td>
-                                <td (click)="mostrarDatosModal(contrato)">{{contrato.valorTotal}}</td>
-                                <td (click)="mostrarDatosModal(contrato)">{{contrato.formaPago}}</td>
-                                <td (click)="mostrarDatosModal(contrato)">{{contrato.voucher}}</td>
-                                <td (click)="mostrarDatosModal(contrato)">{{contrato.comentario}}</td>
-                                <td (click)="mostrarDatosModal(contrato)">{{contrato.fechaAprobacion}}</td>
+                                <td (click)="mostrarDatosModal(contrato)">{{contrato?.personaAprueba?.nombresApellidos}}</td>
+                                <td (click)="mostrarDatosModal(contrato)">{{contrato?.createdAt}}</td>
+                                <td (click)="mostrarDatosModal(contrato)">{{contrato?.codigo}}</td>
+                                <td (click)="mostrarDatosModal(contrato)">{{contrato?.idRepresentante?.nombresApellidos}}</td>
+                                <td (click)="mostrarDatosModal(contrato)">{{contrato?.idRepresentante?.cedula}}</td>
+                                <td (click)="mostrarDatosModal(contrato)">{{contrato?.addedUser?.nombresApellidos}}</td>
+                                <td (click)="mostrarDatosModal(contrato)">{{contrato?.valorMatricula}}</td>
+                                <td (click)="mostrarDatosModal(contrato)">{{contrato?.valorTotal}}</td>
+                                <td (click)="mostrarDatosModal(contrato)">{{contrato?.formaPago}}</td>
+                                <td (click)="mostrarDatosModal(contrato)">{{contrato?.voucher}}</td>
+                                <td (click)="mostrarDatosModal(contrato)">{{contrato?.comentario}}</td>
+                                <td *ngIf="contrato?.fechaAprobacion != '1989-12-31'" (click)="mostrarDatosModal(contrato)">{{contrato?.fechaAprobacion}}</td>
+                                <td *ngIf="contrato?.fechaAprobacion == '1989-12-31'" (click)="mostrarDatosModal(contrato)">Pendiente</td>
 
                                 <td class="text-nowrap">
                                     <a [routerLink]="['/contrato',contrato._id]" data-toggle="tooltip"
@@ -137,7 +138,7 @@
                     <h6 class="card-subtitle">Datos del contrato</h6>
                     <div class="row button-group">
                         <div class="col-md-4">
-                            <button type="button" class="btn btn-block btn-outline-info"><i class="fa fa-edit"></i>
+                            <button (click)="editarContrato()" type="button" class="btn btn-block btn-outline-info"><i class="fa fa-edit"></i>
                                 Editar</button>
                         </div>
                         <div class="col-md-4">
@@ -152,13 +153,17 @@
                             <button type="button" class="btn btn-block btn-outline-primary"><i
                                     class="fa fa-check-square"></i> Verificar</button>
                         </div>
+                        <div class="col-md-4">
+                            <button type="button" class="btn btn-block btn-outline-primary"><i
+                                    class="fa fa-check-square"></i> Editar estudiantes</button>
+                        </div>
                     </div>
 
                     <div class="row p-t-20">
                         <div class="col-md-6">
                             <table class="table .color-table .dark-table">
                         
-                                <tr *ngFor="let nombreatributo of atributostablaContrato.nombreAtributos">
+                                <tr *ngFor="let nombreatributo of atributostablaContrato?.nombreAtributos">
                                     <td>{{nombreatributo}}</td>
                                 </tr>
                             </table>
@@ -166,8 +171,9 @@
                         <div class="col-md-6">
                             <table class="table .color-table .dark-table">
                         
-                                <tr *ngFor="let idatributo of atributostablaContrato.idAtributos ">
-                                    <td>{{idatributo }}</td> 
+                                <tr *ngFor="let idatributo of atributostablaContrato?.idAtributos ">
+                                    <td *ngIf="idatributo==null">--</td> 
+                                    <td *ngIf="idatributo!=null">{{idatributo}}</td> 
                                 </tr>
                             </table>
                         </div>

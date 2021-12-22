@@ -24,7 +24,7 @@ export class ContratoFormComponent implements OnInit, OnChanges {
 
   //Valores de configuracion
   public configuracionPorcentaje: number = 1.15;
-  public cuotaMinima:number = 75;
+  public cuotaMinima: number = 75;
 
   public deuda: number = 0;
   public planCuotasMensuales: number;
@@ -50,11 +50,12 @@ export class ContratoFormComponent implements OnInit, OnChanges {
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(({ id }) => {
       this.cargarContratobyId(id);
+      if (this.router.url == '/contrato1/nuevo' || this.router.url == `/contrato1/${id}`) {
+        this.mostrarBoton = true;
+      }
     });
 
-    if (this.router.url == '/contrato1/nuevo') {
-      this.mostrarBoton = true;
-    }
+    
 
     //llenar el campo fecha con la fecha actual
     const fecha = new Date();
@@ -110,7 +111,8 @@ export class ContratoFormComponent implements OnInit, OnChanges {
     }
 
     if (this.registerForm.get('tipoPago')?.value == 'Plan' && this.registerForm.get('estadoVenta')?.value == 'OK') {
-      this.registerForm.get('valorMatricula')?.enable();
+      this.registerForm.get('valorMatricula')?.disable();
+      this.registerForm.get('valorMatricula')?.setValue("0");
       this.registerForm.get('numeroCuotas')?.enable();
       this.registerForm.get('abono')?.setValue("0");
       this.registerForm.get('abono')?.disable();
@@ -119,9 +121,19 @@ export class ContratoFormComponent implements OnInit, OnChanges {
     }
 
     if (this.registerForm.get('tipoPago')?.value == 'Plan' &&
-      (this.registerForm.get('estadoVenta')?.value == 'Abono' || this.registerForm.get('estadoVenta')?.value == 'Saldo')) {
+      (this.registerForm.get('estadoVenta')?.value == 'Abono')) {
       this.registerForm.get('abono')?.enable();
       this.registerForm.get('valorMatricula')?.enable();
+      this.registerForm.get('numeroCuotas')?.enable();
+
+    }
+
+    if (this.registerForm.get('tipoPago')?.value == 'Plan' &&
+      (this.registerForm.get('estadoVenta')?.value == 'Saldo')) {
+
+      this.registerForm.get('valorMatricula')?.enable();
+      this.registerForm.get('abono')?.disable();
+      this.registerForm.get('abono')?.setValue("0");
       this.registerForm.get('numeroCuotas')?.enable();
 
     }
@@ -133,7 +145,7 @@ export class ContratoFormComponent implements OnInit, OnChanges {
     if (this.registerForm.get('tipoPago')?.value == 'Contado') {
       setTimeout(() => {
         if (this.registerForm.get('estadoVenta')?.value != 'OK') {
-          this.deuda = this.registerForm.get('valorTotal')?.value - this.registerForm.get('abono')?.value - this.registerForm.get('valorMatricula')?.value;
+          this.deuda = this.registerForm.get('valorTotal')?.value - this.registerForm.get('abono')?.value;
           this.mostrarCalculadora = true;
         }
 
@@ -142,9 +154,12 @@ export class ContratoFormComponent implements OnInit, OnChanges {
     if (this.registerForm.get('tipoPago')?.value == 'Plan') {
       setTimeout(() => {
         if (this.registerForm.get('numeroCuotas')?.value != 0) {
-          
-          this.deuda = ((this.registerForm.get('valorTotal')?.value * this.configuracionPorcentaje) - this.registerForm.get('abono')?.value - this.registerForm.get('valorMatricula')?.value)
-            / this.registerForm.get('numeroCuotas')?.value;
+          let valorTotal = this.registerForm.get('valorTotal')?.value;
+          let valorMatricula = this.registerForm.get('valorMatricula')?.value;
+          let numeroCuotas = this.registerForm.get('numeroCuotas')?.value;
+
+
+          this.deuda = ((valorTotal - valorMatricula) * this.configuracionPorcentaje) / numeroCuotas;
           this.mostrarCalculadora = true;
           this.deuda = Math.round(this.deuda * 100) / 100;
           setTimeout(() => {
@@ -156,7 +171,7 @@ export class ContratoFormComponent implements OnInit, OnChanges {
               )
             }
           }, 100);
-   
+
         }
       }, 100);
     }
@@ -173,13 +188,14 @@ export class ContratoFormComponent implements OnInit, OnChanges {
       .subscribe((resp: any) => {
         this.contratoSeleccionado = resp.data;
         this.LlenarForm(resp);
+        //console.log(resp);
       });
 
   }
 
   LlenarForm(resp: any) {
     const {
-      _id,
+      
       fecha,
       estado,
       idRepresentante,
@@ -197,7 +213,7 @@ export class ContratoFormComponent implements OnInit, OnChanges {
     } = resp.data;
     this.contratoSeleccionado = resp.data;
     this.registerForm.setValue({
-      _id,
+      
       fecha,
       estado,
       idRepresentante,
@@ -213,20 +229,21 @@ export class ContratoFormComponent implements OnInit, OnChanges {
       estadoPrograma,
       fechaAprobacion
     });
+    this.habilitarCampos();
   }
 
 
   public registerForm = this.fb.group({
     fecha: [null, Validators.required],
-    estado: ['Espera'],
+    estado: ['Espera', Validators.required],
     idRepresentante: [null],
-    tipoPago: [null],
-    estadoVenta: [null],
+    tipoPago: [null, Validators.required],
+    estadoVenta: [null, Validators.required],
     abono: [0],
     valorMatricula: [0],
-    valorTotal: [0],
+    valorTotal: [0, Validators.required],
     numeroCuotas: [0],
-    formaPago: [null],
+    formaPago: [null, Validators.required],
     comentario: [null],
     directorAsignado: [null],
     estadoPrograma: [null],
@@ -247,7 +264,21 @@ export class ContratoFormComponent implements OnInit, OnChanges {
 
     if (this.contratoSeleccionado) {
       //actualizar
+
       this.ContratoModel = this.registerForm.value;
+
+      if (this.registerForm.value.abono == null) {
+        this.ContratoModel.abono = "0";
+      }
+      if (this.registerForm.value.valorMatricula == null) {
+        this.ContratoModel.valorMatricula = "0";
+      }
+      if (this.registerForm.value.numeroCuotas == null) {
+        this.ContratoModel.numeroCuotas = "0";
+      }
+      this.ContratoModel.estado=this.registerForm.value.estado;
+      console.log(this.registerForm.value.estado);
+      console.log( this.ContratoModel.estado);
       if (this.registerForm.invalid) {
         //Formulario invalido
         const Toast = Swal.mixin({
@@ -267,49 +298,53 @@ export class ContratoFormComponent implements OnInit, OnChanges {
         })
         return;
       } else {
+        setTimeout(() => {
+          this.contratoService.updatecontrato(this.contratoSeleccionado._id, this.ContratoModel).subscribe((resp: any) => {
+            const Toast = Swal.mixin({
+              toast: true,
+              position: 'top-end',
+              showConfirmButton: false,
+              timer: 3000,
+              timerProgressBar: true,
+              didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+              }
+            })
+            Toast.fire({
+              icon: 'success',
+              title: 'Se actualizo correctamente'
+            })
+            this.router.navigateByUrl('/listacontratos');
+          }, (err: any) => {
 
-        this.contratoService.updatecontrato(this.contratoSeleccionado._id, this.ContratoModel).subscribe((resp: any) => {
-          const Toast = Swal.mixin({
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-              toast.addEventListener('mouseenter', Swal.stopTimer)
-              toast.addEventListener('mouseleave', Swal.resumeTimer)
-            }
-          })
-          Toast.fire({
-            icon: 'success',
-            title: 'Se actualizo correctamente'
-          })
-          this.router.navigateByUrl('/listacontratos');
-        }, (err: any) => {
+            console.warn(err.error.message);
 
-          console.warn(err.error.message);
+            const Toast = Swal.mixin({
+              toast: true,
+              position: 'top-end',
+              showConfirmButton: false,
+              timer: 3000,
+              timerProgressBar: true,
+              didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+              }
+            })
 
-          const Toast = Swal.mixin({
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-              toast.addEventListener('mouseenter', Swal.stopTimer)
-              toast.addEventListener('mouseleave', Swal.resumeTimer)
-            }
-          })
+            //TODO: Mostrar error cuando es administrador. Dato que muestra el error completo=  err.error.message
+            Toast.fire({
+              icon: 'error',
+              title: 'ERROR: ' + err.error.statusCode + '\nContactese con su proveedor de software '
+            })
+          });
+        }, 100);
 
-          //TODO: Mostrar error cuando es administrador. Dato que muestra el error completo=  err.error.message
-          Toast.fire({
-            icon: 'error',
-            title: 'ERROR: ' + err.error.statusCode + '\nContactese con su proveedor de software '
-          })
-        });
+
       }
     } else {
       //crear
+
       if (this.registerForm.invalid) {
         const Toast = Swal.mixin({
           toast: true,
@@ -328,47 +363,65 @@ export class ContratoFormComponent implements OnInit, OnChanges {
         })
         return;
       } else {
-        this.contratoService.crearContrato(this.registerForm.value).subscribe((resp) => {
 
-          const Toast = Swal.mixin({
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-              toast.addEventListener('mouseenter', Swal.stopTimer)
-              toast.addEventListener('mouseleave', Swal.resumeTimer)
-            }
-          })
-          Toast.fire({
-            icon: 'success',
-            title: 'Guardado correctamente'
-          })
+        this.ContratoModel = this.registerForm.value;
 
-          this.router.navigateByUrl('/listacontratos');
-        }, (err: any) => {
+        if (this.registerForm.value.abono == null) {
+          this.ContratoModel.abono = "0";
+        }
+        if (this.registerForm.value.valorMatricula == null) {
+          this.ContratoModel.valorMatricula = "0";
+        }
+        if (this.registerForm.value.numeroCuotas == null) {
+          this.ContratoModel.numeroCuotas = "0";
+        }
 
-          console.warn(err.error.message);
+        setTimeout(() => {
+          console.log(this.ContratoModel);
+          this.contratoService.crearContrato(this.ContratoModel).subscribe((resp) => {
 
-          const Toast = Swal.mixin({
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-              toast.addEventListener('mouseenter', Swal.stopTimer)
-              toast.addEventListener('mouseleave', Swal.resumeTimer)
-            }
-          })
+            const Toast = Swal.mixin({
+              toast: true,
+              position: 'top-end',
+              showConfirmButton: false,
+              timer: 3000,
+              timerProgressBar: true,
+              didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+              }
+            })
+            Toast.fire({
+              icon: 'success',
+              title: 'Guardado correctamente'
+            })
 
-          //TODO: Mostrar error cuando es administrador. Dato que muestra el error completo=  err.error.message
-          Toast.fire({
-            icon: 'error',
-            title: 'ERROR: ' + err.error.statusCode + '\nContactese con su proveedor de software '
-          })
-        });
+            this.router.navigateByUrl('/listacontratos');
+          }, (err: any) => {
+
+            console.warn(err.error.message);
+
+            const Toast = Swal.mixin({
+              toast: true,
+              position: 'top-end',
+              showConfirmButton: false,
+              timer: 3000,
+              timerProgressBar: true,
+              didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+              }
+            })
+
+            //TODO: Mostrar error cuando es administrador. Dato que muestra el error completo=  err.error.message
+            Toast.fire({
+              icon: 'error',
+              title: 'ERROR: ' + err.error.statusCode + '\nContactese con su proveedor de software '
+            })
+          });
+        }, 100);
+
+
       }
 
     }
