@@ -26,6 +26,7 @@ import { FacturasComponent } from './facturar/facturas/facturas.component';
 import { ContratoFormComponent } from './contrato-form/contrato-form.component';
 import { ProgramaComponent } from './programa/programa.component';
 import { ContratosComponent } from './contrato/contratos/contratos.component';
+import { ProgramasComponent } from './programa/programas/programas.component';
 
 
 
@@ -72,7 +73,7 @@ const routes: Routes = [
             { path: 'listafacturar', component:FacturasComponent , data:{titulo:'Lista de las facturas'} },
             
             { path: 'programa/:id', component: ProgramaComponent, data:{titulo:'Programa'} },
-            //{ path: 'listaprogramas', component:FacturasComponent , data:{titulo:'Lista de los programas'} },
+            { path: 'listaprogramas', component:ProgramasComponent , data:{titulo:'Lista de los programas'} },
 
             { path: 'perfil', component: PerfilComponent, data:{titulo:'Perfil'} },
             { path: '', redirectTo: '/dashboard', pathMatch: 'full'},

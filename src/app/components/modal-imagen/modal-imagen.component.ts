@@ -100,6 +100,10 @@ export class ModalImagenComponent implements OnInit {
 
   cerrarModal(){
     this.modalImagenServices.cerrarModal();
+
+    //limpiar los campos
+    this.registerForm.reset();
+    
   }
 
   crearEstudiante(){

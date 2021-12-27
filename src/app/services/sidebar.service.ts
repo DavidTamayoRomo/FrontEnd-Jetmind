@@ -72,6 +72,7 @@ export class SidebarService {
       icono: 'mdi mdi-account-settings',
       submenu: [
         { titulo: 'Programa',url: '/programa/nuevo' },
+        { titulo: 'Lista Programa',url: '/listaprogramas' },
       ]
     },
     {

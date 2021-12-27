@@ -40,5 +40,9 @@ export class ModalUploadService {
 
   }
 
+  limpiarCampos(){
+    this._ocultarModal = true;
+  }
+
   constructor() { }
 }

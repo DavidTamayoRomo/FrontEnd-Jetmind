@@ -24,6 +24,7 @@ import { SucursalService } from '../services/sucursal.service';
 import { MarcaService } from '../services/marca.service';
 import { NombreProgramaService } from '../services/nombre-programa.service';
 import { formatDate } from '@angular/common';
+import { Router } from '@angular/router';
 
 
 
@@ -50,7 +51,7 @@ export class ContratoComponent implements OnInit {
   public nombrePrograma: any = [];
   public programaSeleccionada: any;
 
-  
+
 
   stepStates = {
     normal: STEP_STATE.normal,
@@ -72,6 +73,7 @@ export class ContratoComponent implements OnInit {
             this.crearObjeto();
             //Para limpiar local storage
             //this.limpiarLocalStorage();
+
 
           },
         },
@@ -112,7 +114,8 @@ export class ContratoComponent implements OnInit {
     private ciudadService: CiudadService,
     private sucursalService: SucursalService,
     private marcaService: MarcaService,
-    private nombreProgramaService: NombreProgramaService
+    private nombreProgramaService: NombreProgramaService,
+    private router: Router
   ) {
 
   }
@@ -144,7 +147,7 @@ export class ContratoComponent implements OnInit {
       "nombre": "Quito"
     }; */
 
-    
+
 
   }
   ngOnChanges(changes: SimpleChanges): void {
@@ -194,6 +197,21 @@ export class ContratoComponent implements OnInit {
     this.representanteService.crearRepresentante(representante).subscribe((resp: any) => {
       console.log(resp);
       console.log("Representante creado creado");
+      const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener('mouseenter', Swal.stopTimer);
+          toast.addEventListener('mouseleave', Swal.resumeTimer);
+        },
+      });
+      Toast.fire({
+        icon: 'success',
+        title: 'Se creo el representante correctamente',
+      });
       estudiantes.forEach((objetoEstudiantePrograma: any) => {
         Object.assign(objetoEstudiantePrograma.estudiante, { idRepresentante: [resp.data._id] });
         setTimeout(() => {
@@ -232,7 +250,24 @@ export class ContratoComponent implements OnInit {
             }, 900);
 
           });
+          const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+              toast.addEventListener('mouseenter', Swal.stopTimer);
+              toast.addEventListener('mouseleave', Swal.resumeTimer);
+            },
+          });
+          Toast.fire({
+            icon: 'success',
+            title: 'Se crearon los estudiantes correctamente',
+          });
         }, 900);
+        
+        
 
       });
 
@@ -247,7 +282,21 @@ export class ContratoComponent implements OnInit {
         /* this.fileuploadService.actualizarVoucher(voucher, resp.data._id).subscribe((resp: any) => {
           console.log(resp);
         }); */
-
+        const Toast = Swal.mixin({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer);
+            toast.addEventListener('mouseleave', Swal.resumeTimer);
+          },
+        });
+        Toast.fire({
+          icon: 'success',
+          title: 'Se creo el contrato correctamente',
+        });
         //Crear facturacion
         let programaLista: any = [];
         facturacion.programa.forEach((element: any) => {
@@ -262,6 +311,23 @@ export class ContratoComponent implements OnInit {
           this.facturacionService.crearFacturar(facturacion).subscribe((resp: any) => {
             console.log(resp);
             console.log("Contrato facturacion");
+            const Toast = Swal.mixin({
+              toast: true,
+              position: 'top-end',
+              showConfirmButton: false,
+              timer: 3000,
+              timerProgressBar: true,
+              didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer);
+                toast.addEventListener('mouseleave', Swal.resumeTimer);
+              },
+            });
+            Toast.fire({
+              icon: 'success',
+              title: 'Se la factura  correctamente',
+            });
+            //navegar a lista de contratos
+            this.router.navigateByUrl('/listacontratos');
           });
         }, 1000);
 
@@ -270,6 +336,9 @@ export class ContratoComponent implements OnInit {
     });
 
     console.log(objeto);
+
+
+
   }
 
   //this.ngWizardService.navigateTo('estudiante');//informacion importante --navigateTo-- es para navegar entre los pasos
@@ -592,8 +661,8 @@ export class ContratoComponent implements OnInit {
       setTimeout(() => {
         const buttonNext: any = document.getElementsByClassName('ng-wizard-btn-next')[0];
         if (buttonNext) {
-          buttonNext.classList.add('disabled');
-          buttonNext.disabled = true;
+          /* buttonNext.classList.add('disabled');
+          buttonNext.disabled = true; */
         }
       }, 100);
     }
@@ -612,8 +681,8 @@ export class ContratoComponent implements OnInit {
       setTimeout(() => {
         const buttonNext: any = document.getElementsByClassName('ng-wizard-btn-next')[0];
         if (buttonNext) {
-          buttonNext.classList.add('disabled');
-          buttonNext.disabled = true;
+          /* buttonNext.classList.add('disabled');
+          buttonNext.disabled = true; */
         }
       }, 100);
     }
@@ -660,12 +729,12 @@ export class ContratoComponent implements OnInit {
     let datos = JSON.parse(localStorage.getItem('objetosEstudiatePrograma') as string);
     let contador;
     if (contador == null) {
-      this.validFormEstudiantes();
-    }else{
+      //this.validFormEstudiantes();
+    } else {
       contador = datos.length;
       this.contadorEstudiantes = contador;
     }
-    
+
     this.modalImagenServices.abrirModal();
   }
 

@@ -37,6 +37,7 @@ import { NgxFileDropModule } from 'ngx-file-drop';
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { ProgramaComponent } from './programa/programa.component';
 import { ContratosComponent } from './contrato/contratos/contratos.component';
+import { ProgramasComponent } from './programa/programas/programas.component';
 
 
 const ngWizardConfig: NgWizardConfig = {
@@ -70,6 +71,7 @@ const ngWizardConfig: NgWizardConfig = {
     ContratoFormComponent,
     ProgramaComponent,
     ContratosComponent,
+    ProgramasComponent,
   ],
   exports:[
     DashboardComponent,
