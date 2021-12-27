@@ -138,6 +138,14 @@ export class ModalImagenComponent implements OnInit {
     }
 
     this.emitirEstudianteNuevo.emit(this.objetoEstudiatePrograma);
+
+    //cerrar modal
+    this.modalImagenServices.cerrarModal(); 
+
+    setTimeout(() => {
+    //limpiar campos del formulario
+    this.registerForm.reset();
+    }, 600);
     
   }
 

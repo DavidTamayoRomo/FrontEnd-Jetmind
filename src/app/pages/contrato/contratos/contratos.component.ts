@@ -47,7 +47,7 @@ export class ContratosComponent implements OnInit {
   ngOnInit(): void {
     this.cargarContratos();
     this.dropdownSettings = {
-      singleSelection: false,
+      singleSelection: true,
       idField: 'item_id',
       textField: 'nombre',
       selectAllText: 'Select All',

@@ -56,11 +56,12 @@ export class EstudianteComponent implements OnInit, OnChanges {
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(({ id }) => {
       this.cargarEstudiantebyId(id);
+      if (this.router.url == '/estudiante/nuevo' || this.router.url == `/estudiante/${id}`) {
+        this.mostrarBoton = true;
+      }
     });
 
-    if (this.router.url == '/estudiante/nuevo') {
-      this.mostrarBoton = true;
-    }
+    
     
 
     /** Servicio que me devuelva las REPRESENTANTES de la base de datos */

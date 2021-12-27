@@ -72,7 +72,7 @@ export class ContratoComponent implements OnInit {
             //construir JSON para enviar al BackEnd
             this.crearObjeto();
             //Para limpiar local storage
-            //this.limpiarLocalStorage();
+            this.limpiarLocalStorage();
 
 
           },

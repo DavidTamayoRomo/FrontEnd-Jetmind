@@ -26,7 +26,9 @@
                                             <input  type="text" class="form-control" placeholder="Nombres"
                                                 formControlName="nombresApellidos">
                                         </div>
-
+                                        <div class="text-danger">
+                                            <p *ngIf="campoNoValido('nombresApellidos')">Ingrese el nombre del estudiante</p>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -37,7 +39,9 @@
                                             <input type="email" class="form-control" placeholder="Ingrese email"
                                                 formControlName="email">
                                         </div>
-
+                                        <div class="text-danger">
+                                            <p *ngIf="campoNoValido('email')">Ingrese el email del estudiante</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -50,7 +54,9 @@
                                             <input type="number" class="form-control" id="cedula"
                                                 placeholder="Ingrese cedula" formControlName="cedula">
                                         </div>
-
+                                        <div class="text-danger">
+                                            <p *ngIf="campoNoValido('cedula')">Ingrese cedula del estudiante</p>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -61,7 +67,9 @@
                                             <input type="number" class="form-control" id="telefono"
                                                 placeholder="Ingrese telefono" formControlName="telefono">
                                         </div>
-
+                                        <div class="text-danger">
+                                            <p *ngIf="campoNoValido('telefono')">Ingrese telefono del estudiante</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -74,6 +82,9 @@
                                             <input type="date" class="form-control" id="fechaNacimiento"
                                                 placeholder="Ingrese fecha Nacimiento"
                                                 formControlName="fechaNacimiento">
+                                        </div>
+                                        <div class="text-danger">
+                                            <p *ngIf="campoNoValido('fechaNacimiento')">Ingrese fecha de nacimiento del estudiante</p>
                                         </div>
 
                                     </div>

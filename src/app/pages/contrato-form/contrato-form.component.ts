@@ -159,7 +159,8 @@ export class ContratoFormComponent implements OnInit, OnChanges {
           let numeroCuotas = this.registerForm.get('numeroCuotas')?.value;
 
 
-          this.deuda = ((valorTotal - valorMatricula) * this.configuracionPorcentaje) / numeroCuotas;
+          //this.deuda = ((valorTotal - valorMatricula) * this.configuracionPorcentaje) / numeroCuotas;
+          this.deuda = (( valorTotal  * this.configuracionPorcentaje) - valorMatricula) / numeroCuotas ;
           this.mostrarCalculadora = true;
           this.deuda = Math.round(this.deuda * 100) / 100;
           setTimeout(() => {

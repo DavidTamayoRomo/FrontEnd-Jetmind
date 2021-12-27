@@ -51,11 +51,12 @@ export class ProgramaComponent implements OnInit {
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(({ id }) => {
       this.cargarProgramabyId(id);
+      if (this.router.url == '/programa/nuevo' || this.router.url == `/programa/${id}`) {
+        this.mostrarBoton = true;
+      }
     });
 
-    if (this.router.url == '/programa/nuevo') {
-      this.mostrarBoton = true;
-    }
+   
 
     /** Servicio que me devuelva las CIUDADES de la base de datos */
     this.recuperarDatosCiudad();

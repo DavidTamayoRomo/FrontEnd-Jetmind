@@ -42,10 +42,12 @@ export class RepresentanteComponent implements OnInit, OnChanges {
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(({ id }) => {
       this.cargarRepresentantebyId(id);
+      if (this.router.url == '/representante/nuevo' || this.router.url == `/representante/${id}`) {
+        this.mostrarBoton = true;
+      }
     });
-    if (this.router.url == '/representante/nuevo') {
-      this.mostrarBoton = true;
-    }
+    
+    
     this.registerForm.statusChanges.subscribe((res) => {
       if (res === 'INVALID') {
         this.validForm.emit(false);

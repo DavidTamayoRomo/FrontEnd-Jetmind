@@ -44,11 +44,12 @@ export class FacturarComponent implements OnInit, OnChanges {
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(({ id }) => {
       this.cargarFacturabyId(id);
+      if (this.router.url == '/facturar/nuevo' || this.router.url == `/facturar/${id}`) {
+        this.mostrarBoton = true;
+      }
     });
 
-    if (this.router.url == '/facturar/nuevo') {
-      this.mostrarBoton = true;
-    }
+    
 
      /** Servicio que me devuelva las MARCAS de la base de datos */
      this.recuperarDatosMarcas();
