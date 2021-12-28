@@ -19,10 +19,9 @@ const clave = claves.clavePersonaPrimeraVez;
 @Component({
   selector: 'app-persona',
   templateUrl: './persona.component.html',
-  styles: []
+  styles: [],
 })
 export class PersonaComponent implements OnInit {
-
   public dropdownListCiudades: any = [];
   public dropdownListSucursales: any = [];
   public dropdownListMarcas: any = [];
@@ -36,20 +35,18 @@ export class PersonaComponent implements OnInit {
   public role: any = [];
   public personaSeleccionada: any;
 
-
-
-  constructor(private fb: FormBuilder,
+  constructor(
+    private fb: FormBuilder,
     private personaService: PersonaService,
     private ciudadService: CiudadService,
     private sucursalService: SucursalService,
     private marcaService: MarcaService,
     private roleService: RoleService,
     private activatedRoute: ActivatedRoute,
-    private router:Router
-  ) { }
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
-
     this.activatedRoute.params.subscribe(({ id }) => {
       this.cargarPersonabyId(id);
     });
@@ -61,7 +58,6 @@ export class PersonaComponent implements OnInit {
     this.recuperarDatosMarcas();
     /** Servicio que me devuelva las ROLE de la base de datos */
     this.recuperarDatosRole();
-  
 
     this.dropdownSettings = {
       singleSelection: false,
@@ -70,16 +66,14 @@ export class PersonaComponent implements OnInit {
       selectAllText: 'Select All',
       unSelectAllText: 'UnSelect All',
       //itemsShowLimit: 3,
-      allowSearchFilter: true
+      allowSearchFilter: true,
     };
-
-    
   }
 
   PersonaModel = new Persona();
-  /** 
+  /**
    * ====================================================================
-   * Ractive form 
+   * Ractive form
    * ====================================================================
    * */
   public registerForm = this.fb.group({
@@ -90,7 +84,7 @@ export class PersonaComponent implements OnInit {
     idMarca: [null, Validators.required],
     nombresApellidos: [null, Validators.required],
     email: [null, [Validators.required, Validators.email]],
-    password: {value: clave, disabled: true},
+    password: { value: clave, disabled: true },
     cedula: [null, Validators.required],
     telefono: [null],
     telefonoDomicilio: [null],
@@ -98,10 +92,9 @@ export class PersonaComponent implements OnInit {
     direccion: [null],
     genero: [null],
     fechaIngresoEmpresa: [null, Validators.required],
-    numeroCuenta: [null]
+    numeroCuenta: [null],
   });
   async crearPersona() {
-
     if (this.personaSeleccionada) {
       //Actualizar
 
@@ -160,68 +153,69 @@ export class PersonaComponent implements OnInit {
           timer: 3000,
           timerProgressBar: true,
           didOpen: (toast) => {
-            toast.addEventListener('mouseenter', Swal.stopTimer)
-            toast.addEventListener('mouseleave', Swal.resumeTimer)
-          }
-        })
+            toast.addEventListener('mouseenter', Swal.stopTimer);
+            toast.addEventListener('mouseleave', Swal.resumeTimer);
+          },
+        });
         Toast.fire({
           icon: 'error',
-          title: 'Verificar campos invalidos \n Indicados con el color rojo'
-        })
+          title: 'Verificar campos invalidos \n Indicados con el color rojo',
+        });
         return;
       } else {
-        
-        this.personaService.updatePersona(this.personaSeleccionada._id, this.PersonaModel).subscribe((resp: any) => {
-          const Toast = Swal.mixin({
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-              toast.addEventListener('mouseenter', Swal.stopTimer)
-              toast.addEventListener('mouseleave', Swal.resumeTimer)
+        this.personaService
+          .updatePersona(this.personaSeleccionada._id, this.PersonaModel)
+          .subscribe(
+            (resp: any) => {
+              const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                  toast.addEventListener('mouseenter', Swal.stopTimer);
+                  toast.addEventListener('mouseleave', Swal.resumeTimer);
+                },
+              });
+              Toast.fire({
+                icon: 'success',
+                title: 'Se actualizo correctamente',
+              });
+              this.router.navigateByUrl('/listapersonas');
+            },
+            (err: any) => {
+              console.warn(err.error.message);
+
+              const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                  toast.addEventListener('mouseenter', Swal.stopTimer);
+                  toast.addEventListener('mouseleave', Swal.resumeTimer);
+                },
+              });
+
+              //TODO: Mostrar error cuando es administrador. Dato que muestra el error completo=  err.error.message
+              Toast.fire({
+                icon: 'error',
+                title:
+                  'ERROR: ' +
+                  err.error.statusCode +
+                  '\nContactese con su proveedor de software ',
+              });
             }
-          })
-          Toast.fire({
-            icon: 'success',
-            title: 'Se actualizo correctamente'
-          })
-          this.router.navigateByUrl('/listapersonas');
-        }, (err: any) => {
-
-          console.warn(err.error.message);
-
-          const Toast = Swal.mixin({
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-              toast.addEventListener('mouseenter', Swal.stopTimer)
-              toast.addEventListener('mouseleave', Swal.resumeTimer)
-            }
-          })
-
-          //TODO: Mostrar error cuando es administrador. Dato que muestra el error completo=  err.error.message
-          Toast.fire({
-            icon: 'error',
-            title: 'ERROR: ' + err.error.statusCode + '\nContactese con su proveedor de software '
-          })
-        });
+          );
       }
-
-
-
     } else {
-
       //Crear
       console.log(this.registerForm.value);
       if (this.registerForm.invalid) {
         //Formulario invalido
 
-        
         this.registerForm.get('tipo')?.invalid;
 
         const Toast = Swal.mixin({
@@ -231,17 +225,17 @@ export class PersonaComponent implements OnInit {
           timer: 6000,
           timerProgressBar: true,
           didOpen: (toast) => {
-            toast.addEventListener('mouseenter', Swal.stopTimer)
-            toast.addEventListener('mouseleave', Swal.resumeTimer)
-          }
-        })
+            toast.addEventListener('mouseenter', Swal.stopTimer);
+            toast.addEventListener('mouseleave', Swal.resumeTimer);
+          },
+        });
         Toast.fire({
           icon: 'error',
-          title: '- Campos con asterisco son obligatorios\n - Verificar campos invalidos, \n indicados con el color rojo  '
-        })
+          title:
+            '- Campos con asterisco son obligatorios\n - Verificar campos invalidos, \n indicados con el color rojo  ',
+        });
         return;
       } else {
-
         //Formulario VALIDO
         //Guardar los datos con el servicio
         this.PersonaModel = this.registerForm.value;
@@ -271,70 +265,72 @@ export class PersonaComponent implements OnInit {
           roleLista.push(element.item_id);
         });
         this.PersonaModel.tipo = roleLista;
-        this.PersonaModel.password=clave;
+        this.PersonaModel.password = clave;
 
         console.log(this.PersonaModel.tipo);
-        this.personaService.crearPersona(this.PersonaModel).subscribe((resp) => {
-          console.log("Persona creada");
-          const Toast = Swal.mixin({
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-              toast.addEventListener('mouseenter', Swal.stopTimer)
-              toast.addEventListener('mouseleave', Swal.resumeTimer)
-            }
-          })
-          Toast.fire({
-            icon: 'success',
-            title: 'Guardado correctamente'
-          })
+        this.personaService.crearPersona(this.PersonaModel).subscribe(
+          (resp) => {
+            console.log('Persona creada');
+            const Toast = Swal.mixin({
+              toast: true,
+              position: 'top-end',
+              showConfirmButton: false,
+              timer: 3000,
+              timerProgressBar: true,
+              didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer);
+                toast.addEventListener('mouseleave', Swal.resumeTimer);
+              },
+            });
+            Toast.fire({
+              icon: 'success',
+              title: 'Guardado correctamente',
+            });
 
-          this.router.navigateByUrl('/listapersonas');
-        }, (err: any) => {
+            this.router.navigateByUrl('/listapersonas');
+          },
+          (err: any) => {
+            console.warn(err.error.message);
 
-          console.warn(err.error.message);
+            const Toast = Swal.mixin({
+              toast: true,
+              position: 'top-end',
+              showConfirmButton: false,
+              timer: 3000,
+              timerProgressBar: true,
+              didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer);
+                toast.addEventListener('mouseleave', Swal.resumeTimer);
+              },
+            });
 
-          const Toast = Swal.mixin({
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-              toast.addEventListener('mouseenter', Swal.stopTimer)
-              toast.addEventListener('mouseleave', Swal.resumeTimer)
-            }
-          })
-
-          //TODO: Mostrar error cuando es administrador. Dato que muestra el error completo=  err.error.message
-          Toast.fire({
-            icon: 'error',
-            title: 'ERROR: ' + err.error.statusCode + '\nContactese con su proveedor de software '
-          })
-        });
+            //TODO: Mostrar error cuando es administrador. Dato que muestra el error completo=  err.error.message
+            Toast.fire({
+              icon: 'error',
+              title:
+                'ERROR: ' +
+                err.error.statusCode +
+                '\nContactese con su proveedor de software ',
+            });
+          }
+        );
       }
-
     }
-
-
-
-
   }
 
   campoNoValido(campo: any): boolean {
-    if (this.registerForm.get(campo)?.invalid  && (this.registerForm.get(campo)?.dirty || this.registerForm.get(campo)?.touched)) {
+    if (
+      this.registerForm.get(campo)?.invalid &&
+      (this.registerForm.get(campo)?.dirty ||
+        this.registerForm.get(campo)?.touched)
+    ) {
       return true;
-    }
-    else {
+    } else {
       return false;
     }
   }
 
-
-  LlenarForm(resp:any){
+  LlenarForm(resp: any) {
     const {
       tipo,
       estado,
@@ -354,7 +350,7 @@ export class PersonaComponent implements OnInit {
       fotoCedula1,
       fotoCedula2,
       fechaIngresoEmpresa,
-      numeroCuenta
+      numeroCuenta,
     } = resp.data;
     this.personaSeleccionada = resp.data;
     this.registerForm.setValue({
@@ -373,7 +369,7 @@ export class PersonaComponent implements OnInit {
       direccion,
       genero,
       fechaIngresoEmpresa,
-      numeroCuenta
+      numeroCuenta,
     });
   }
 
@@ -382,12 +378,10 @@ export class PersonaComponent implements OnInit {
       return;
     }
 
-    this.personaService.obtenerPersonaById(id)
-      .subscribe((resp: any) => {
-        this.personaSeleccionada = resp.data;
-        this.LlenarForm(resp);
-      });
-
+    this.personaService.obtenerPersonaById(id).subscribe((resp: any) => {
+      this.personaSeleccionada = resp.data;
+      this.LlenarForm(resp);
+    });
   }
 
   /**
@@ -403,6 +397,15 @@ export class PersonaComponent implements OnInit {
         nombreciudades.push({ item_id: element._id, nombre: element.nombre });
       });
       this.dropdownListCiudades = nombreciudades;
+      this.personaSeleccionada.idCiudad.map((c: any) => {
+        const findCiudadPersona = this.dropdownListCiudades.find(
+          (item: any) => item.item_id === c
+        );
+        if (findCiudadPersona) {
+          this.onItemSelect(findCiudadPersona);
+          this.registerForm.get('idCiudad')?.setValue(this.ciudad);
+        }
+      });
     });
   }
   recuperarDatosSucursales() {
@@ -412,6 +415,16 @@ export class PersonaComponent implements OnInit {
         nombreSucursal.push({ item_id: element._id, nombre: element.nombre });
       });
       this.dropdownListSucursales = nombreSucursal;
+      console.log('Este', this.personaSeleccionada);
+      this.personaSeleccionada.idSucursal.map((s: any) => {
+        const findSucursalPersona = this.dropdownListSucursales.find(
+          (item: any) => item.item_id === s
+        );
+        if (findSucursalPersona) {
+          this.onItemSelectsucursal(findSucursalPersona);
+          this.registerForm.get('idSucursal')?.setValue(this.sucursal);
+        }
+      });
     });
   }
   recuperarDatosMarcas() {
@@ -421,7 +434,15 @@ export class PersonaComponent implements OnInit {
         nombremarcas.push({ item_id: element._id, nombre: element.nombre });
       });
       this.dropdownListMarcas = nombremarcas;
-
+      this.personaSeleccionada.idMarca.map((m: any) => {
+        const findMarcaPersona = this.dropdownListMarcas.find(
+          (item: any) => item.item_id === m
+        );
+        if (findMarcaPersona) {
+          this.onItemSelectmarca(findMarcaPersona);
+          this.registerForm.get('idMarca')?.setValue(this.marca);
+        }
+      });
     });
   }
   recuperarDatosRole() {
@@ -431,15 +452,21 @@ export class PersonaComponent implements OnInit {
         nombreRole.push({ item_id: element._id, nombre: element.nombre });
       });
       this.dropdownListRole = nombreRole;
-
+      this.personaSeleccionada.tipo.map((t: any) => {
+        const findRolePersona = this.dropdownListRole.find(
+          (item: any) => item.item_id === t
+        );
+        if (findRolePersona) {
+          this.onItemSelectRole(findRolePersona);
+          this.registerForm.get('tipo')?.setValue(this.role);
+        }
+      });
     });
   }
 
-
-  cancelarGuardado(){
-    this.router.navigateByUrl('/listapersonas')
+  cancelarGuardado() {
+    this.router.navigateByUrl('/listapersonas');
   }
-
 
   /**
    * ===================================================
@@ -461,33 +488,32 @@ export class PersonaComponent implements OnInit {
   findByItemIdIndexCiudad(id: any) {
     return this.ciudad.findIndex((resp: any) => {
       return resp.item_id === id;
-    })
+    });
   }
   onDeSelect(item: any) {
     //verificar esto no se queda asi
     console.log(item);
-    console.log("entre");
+    console.log('entre');
     if (item.item_id) {
-      console.log("entre 1");
+      console.log('entre 1');
       const index = this.findByItemIdIndexCiudad(item.item_id);
-      const newArray = (index > -1) ? [
-        ...this.ciudad.slice(0, index),
-        ...this.ciudad.slice(index + 1)
-      ] : this.ciudad;
+      const newArray =
+        index > -1
+          ? [...this.ciudad.slice(0, index), ...this.ciudad.slice(index + 1)]
+          : this.ciudad;
       this.ciudad = newArray;
       console.log(this.ciudad);
     } else {
-      console.log("entre 2");
+      console.log('entre 2');
       const index = this.ciudad.indexOf(item);
-      const newArray = (index > -1) ? [
-        ...this.ciudad.slice(0, index),
-        ...this.ciudad.slice(index + 1)
-      ] : this.ciudad;
+      const newArray =
+        index > -1
+          ? [...this.ciudad.slice(0, index), ...this.ciudad.slice(index + 1)]
+          : this.ciudad;
       this.ciudad = newArray;
       console.log(this.ciudad);
     }
   }
-
 
   /** Deselccionar todos los items */
   onDeSelectAll(items: any) {
@@ -510,15 +536,15 @@ export class PersonaComponent implements OnInit {
   findByItemIdIndexSucursal(id: any) {
     return this.sucursal.findIndex((resp: any) => {
       return resp.item_id === id;
-    })
+    });
   }
   onDeSelectsucursal(item: any) {
     /** Borrar elemento del array  */
     const index = this.findByItemIdIndexSucursal(item.item_id);
-    const newArray = (index > -1) ? [
-      ...this.sucursal.slice(0, index),
-      ...this.sucursal.slice(index + 1)
-    ] : this.sucursal;
+    const newArray =
+      index > -1
+        ? [...this.sucursal.slice(0, index), ...this.sucursal.slice(index + 1)]
+        : this.sucursal;
     this.sucursal = newArray;
     console.log(this.sucursal);
   }
@@ -543,15 +569,15 @@ export class PersonaComponent implements OnInit {
   findByItemIdIndexMarca(id: any) {
     return this.marca.findIndex((resp: any) => {
       return resp.item_id === id;
-    })
+    });
   }
   onDeSelectmarca(item: any) {
     /** Borrar elemento del array  */
     const index = this.findByItemIdIndexMarca(item.item_id);
-    const newArray = (index > -1) ? [
-      ...this.marca.slice(0, index),
-      ...this.marca.slice(index + 1)
-    ] : this.marca;
+    const newArray =
+      index > -1
+        ? [...this.marca.slice(0, index), ...this.marca.slice(index + 1)]
+        : this.marca;
     this.marca = newArray;
     console.log(this.marca);
   }
@@ -560,7 +586,6 @@ export class PersonaComponent implements OnInit {
     this.marca = items;
     console.log(this.marca);
   }
-
 
   /** ROLE */
   /** Item Seleccionado */
@@ -577,15 +602,15 @@ export class PersonaComponent implements OnInit {
   findByItemIdIndexRole(id: any) {
     return this.role.findIndex((resp: any) => {
       return resp.item_id === id;
-    })
+    });
   }
   onDeSelectRole(item: any) {
     /** Borrar elemento del array  */
     const index = this.findByItemIdIndexRole(item.item_id);
-    const newArray = (index > -1) ? [
-      ...this.role.slice(0, index),
-      ...this.role.slice(index + 1)
-    ] : this.role;
+    const newArray =
+      index > -1
+        ? [...this.role.slice(0, index), ...this.role.slice(index + 1)]
+        : this.role;
     this.role = newArray;
     console.log(this.role);
   }
@@ -594,6 +619,4 @@ export class PersonaComponent implements OnInit {
     this.role = items;
     console.log(this.role);
   }
-
-
 }
