@@ -6,6 +6,8 @@ import { environment } from 'src/environments/environment';
 import { BusquedasService } from '../../../services/busquedas.service';
 import Swal from 'sweetalert2';
 import { ModalUploadService } from '../../../services/modal-upload.service';
+import { Router } from '@angular/router';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-lista-personas',
@@ -22,11 +24,15 @@ export class ListaPersonasComponent implements OnInit {
   public personasTemporales:Persona [] = [];
   public imagen:any = [];
   public cargando:boolean=false;
+  public mostraModal: boolean = true;
+  public personaSeleccionado: any;
+
+  public atributostablaPersona: any = {};
 
   constructor(private personaService:PersonaService, 
     private busquedaService:BusquedasService, 
     private modalImagenServices: ModalUploadService,
-    
+    private router:Router
     ) { }
 
   ngOnInit(): void {
@@ -70,6 +76,7 @@ export class ListaPersonasComponent implements OnInit {
   }
 
   borrarUsuario(usuario:any){
+    this.cerrarModal();
     if (usuario._id ===  this.personaService.persona._id) {
       Swal.fire(
         'Informacion',
@@ -104,4 +111,35 @@ export class ListaPersonasComponent implements OnInit {
     this.modalImagenServices.abrirModal();
   }
 
+  cerrarModal() {
+    this.mostraModal = true;
+  }
+
+  editarPersona(){
+    //navegar a editar contrato
+    this.router.navigate(['/persona/', this.personaSeleccionado._id]);
+  }
+
+  mostrarDatosModal(persona: any) {
+    this.mostraModal = false;
+    this.personaSeleccionado = persona;
+    
+    let ciudades = persona.idCiudad.map((ciudad:any) => ciudad.nombre);
+    let sucursales = persona.idSucursal.map((sucursal:any) => sucursal.nombre);
+    let marcas = persona.idMarca.map((marca:any) => marca.nombre);
+    let roles = persona.tipo.map((role:any) => role.nombre);
+    this.atributostablaPersona = {
+      'nombreAtributos': ['Estado', 'Role', 'Ciudades', 'Sucursales ', 'Marcas '
+        , 'Nombres y Apellidos', 'Email address', 'Cedula', 'Telefono', 'Telefono Domicilio', 'Fecha Nacimiento', 
+        'Direccion','Genero','Ingreso  empresa ','Numero Cuenta'],
+
+      'idAtributos': [persona?.estado,roles,ciudades,sucursales,
+        marcas,persona?.nombresApellidos,persona?.email,persona?.cedula,
+        persona?.telefono,persona?.telefonoDomicilio,persona?.fechaNacimiento,persona?.direccion,persona?.genero,persona?.fechaIngresoEmpresa,
+        persona?.numeroCuenta]
+    };
+
+  }
+
 }
+

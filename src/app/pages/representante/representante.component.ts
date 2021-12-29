@@ -128,7 +128,7 @@ export class RepresentanteComponent implements OnInit, OnChanges {
   }
 
   cancelarGuardado() {
-    this.router.navigateByUrl('/listapersonas');
+    this.router.navigateByUrl('/listarepresentantes');
   }
 
   campoNoValido(campo: any): boolean {

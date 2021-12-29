@@ -4,6 +4,7 @@ import { BusquedasService } from '../../../services/busquedas.service';
 
 import Swal from 'sweetalert2';
 import { Representante } from '../representante.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-representantes',
@@ -19,10 +20,14 @@ export class RepresentantesComponent implements OnInit {
   public desde: number = 0;
   public representantes1: Representante[] = [];
   public representantesTemporales: Representante[] = [];
+  public mostraModal: boolean = true;
+  public representanteSeleccionado: Representante;
+  public atributostablaRepresentante: any = {};
 
   constructor(
     private representanteService: RepresentanteService,
-    private busquedaService: BusquedasService
+    private busquedaService: BusquedasService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -64,10 +69,10 @@ export class RepresentantesComponent implements OnInit {
   }
 
   borrarRepresentantes(representante: any) {
-
+    this.cerrarModal();
     Swal.fire({
       title: 'Desea eliminar representante ?',
-      text: `Esta a punto de borrar a ${representante.nombre}`,
+      text: `Esta a punto de borrar a ${representante.nombresApellidos}`,
       icon: 'question',
       showCancelButton: true,
       confirmButtonText: 'Si, borrar esta representante'
@@ -84,6 +89,31 @@ export class RepresentantesComponent implements OnInit {
 
       }
     })
+  }
+
+
+  cerrarModal() {
+    this.mostraModal = true;
+  }
+
+  editarRepresentante(){
+    //navegar a editar contrato
+    this.router.navigate(['/representante/', this.representanteSeleccionado._id]);
+  }
+
+  mostrarDatosModal(representante: any) {
+    this.mostraModal = false;
+    this.representanteSeleccionado = representante;
+
+    this.atributostablaRepresentante = {
+      'nombreAtributos': ['Estado', 'Nombres y Apellidos ', 'Email address', 'Cedula ', 'Telefono '
+        , 'Telefono Domicilio', 'Tlf emergencia', 'Telefono de oficina', 'Direccion', 'Lugar de trabajo', 'Genero'],
+
+      'idAtributos': [representante?.estado, representante?.nombresApellidos, representante?.email, representante?.cedula, representante?.telefono,
+        representante?.telefonoDomicilio, representante?.numeroEmergencia, representante?.telefonoOficina, representante?.direccion, 
+        representante?.lugarTrabajo, representante?.genero]
+    };
+
   }
 
 }

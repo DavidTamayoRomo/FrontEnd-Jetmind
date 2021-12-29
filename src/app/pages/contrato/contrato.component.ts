@@ -187,6 +187,8 @@ export class ContratoComponent implements OnInit {
       voucher
     }
 
+    console.log(objeto);
+
 
 
     //Este metodo esta creado para guardar el objecto creado en el local storage

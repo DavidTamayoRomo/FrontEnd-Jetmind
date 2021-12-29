@@ -15,6 +15,7 @@ import { EstudianteService } from '../services/estudiante.service';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 
 import Swal from 'sweetalert2';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-estudiante',
@@ -105,8 +106,17 @@ export class EstudianteComponent implements OnInit, OnChanges {
           nombre: element.nombresApellidos,
         });
       });
-      console.log(nombrerepresentantes);
       this.dropdownListRepresentantes = nombrerepresentantes;
+
+      this.estudianteSeleccionada.idRepresentante.map((r: any) => {
+        const findRepresentante = this.dropdownListRepresentantes.find(
+          (item: any) => item.item_id === r
+        );
+        if (findRepresentante) {
+          this.onItemSelectRepresentante(findRepresentante);
+          this.registerForm.get('idRepresentante')?.setValue(this.representante);
+        }
+      });
     });
   }
 
@@ -163,7 +173,7 @@ export class EstudianteComponent implements OnInit, OnChanges {
   }
 
   cancelarGuardado() {
-    this.router.navigateByUrl('/listapersonas');
+    this.router.navigateByUrl('/listaestudiantes');
   }
 
   campoNoValido(campo: any): boolean {

@@ -60,18 +60,18 @@
                         <tbody>
                             <tr *ngFor="let representante of representantes">
 
-                                <td>{{representante.estado}}</td>
-                                <td>{{representante.nombresApellidos}}</td>
-                                <td>{{representante.email}}</td>
-                                <td>{{representante.cedula}}</td>
-                                <td>{{representante.telefono}}</td>
-                                <td>{{representante.telefonoDomicilio}}</td>
-                                <td>{{representante.numeroEmergencia}}</td>
-                                <td>{{representante.telefonoOficina}}</td>
-                                <td>{{representante.fechaNacimiento}}</td>
-                                <td>{{representante.direccion}}</td>
-                                <td>{{representante.genero}}</td>                                
-                                <td>{{representante.lugarTrabajo}}</td>
+                                <td (click)="mostrarDatosModal(representante)">{{representante.estado}}</td>
+                                <td (click)="mostrarDatosModal(representante)">{{representante.nombresApellidos}}</td>
+                                <td (click)="mostrarDatosModal(representante)">{{representante.email}}</td>
+                                <td (click)="mostrarDatosModal(representante)">{{representante.cedula}}</td>
+                                <td (click)="mostrarDatosModal(representante)">{{representante.telefono}}</td>
+                                <td (click)="mostrarDatosModal(representante)">{{representante.telefonoDomicilio}}</td>
+                                <td (click)="mostrarDatosModal(representante)">{{representante.numeroEmergencia}}</td>
+                                <td (click)="mostrarDatosModal(representante)">{{representante.telefonoOficina}}</td>
+                                <td (click)="mostrarDatosModal(representante)">{{representante.fechaNacimiento}}</td>
+                                <td (click)="mostrarDatosModal(representante)">{{representante.direccion}}</td>
+                                <td (click)="mostrarDatosModal(representante)">{{representante.genero}}</td>                                
+                                <td (click)="mostrarDatosModal(representante)">{{representante.lugarTrabajo}}</td>
 
                                 <td class="text-nowrap">
                                     <a [routerLink]="['/representante',representante._id]" data-toggle="tooltip"
@@ -93,6 +93,66 @@
                     </div>
 
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="fondo-modal-imagen animated fadeIn fast"  [class.oculto]="mostraModal">
+    <div id="responsive-modal" class="modal fade show" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+        style="display: block;padding-right: 17px; overflow-y: initial">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Datos Representante</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="cerrarModal()">×</button>
+                </div>
+
+                <div class="card-body">
+                    <h4 class="card-title">Acciones</h4>
+                    <div class="row button-group">
+                        <div class="col-md-4">
+                            <button (click)="editarRepresentante()" type="button" class="btn btn-block btn-outline-info"><i class="fa fa-edit"></i>
+                                Editar</button>
+                        </div>
+                        <div class="col-md-4">
+                            <button (click)="borrarRepresentantes(representanteSeleccionado)" type="button" class="btn btn-block btn-outline-danger"><i class="fa fa-trash-o"></i>
+                                Elimiar</button>
+                        </div>
+                        
+                    </div>
+
+                    <div class="row p-t-20">
+                        <div class="col-md-6">
+                            <table class="table .color-table .dark-table">
+                        
+                                <tr *ngFor="let nombreatributo of atributostablaRepresentante?.nombreAtributos">
+                                    <td>{{nombreatributo}}</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="col-md-6">
+                            <table class="table .color-table .dark-table">
+                        
+                                <tr *ngFor="let idatributo of atributostablaRepresentante?.idAtributos ">
+                                    <td *ngIf="idatributo==null">--</td> 
+                                    <td *ngIf="idatributo!=null">{{idatributo}}</td> 
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    
+
+                    
+
+
+                </div>
+
+
+
             </div>
         </div>
     </div>

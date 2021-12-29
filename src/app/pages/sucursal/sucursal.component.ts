@@ -8,6 +8,7 @@ import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import Swal from 'sweetalert2';
 import { MarcaService } from '../services/marca.service';
 import { Marca } from '../marca/marca.model';
+import { map } from 'rxjs/operators';
 
 
 @Component({
@@ -272,8 +273,21 @@ export class SucursalComponent implements OnInit {
         nombremarcas.push({ item_id: element._id, nombre: element.nombre });
       });
       this.dropdownListMarcas = nombremarcas;
+      this.sucursalSeleccionada.idMarcas.map((m: any) => {
+        console.log(m);
+        const findMarca = this.dropdownListMarcas.find(
+          (item: any) => item.item_id === m
+        );
+        console.log(findMarca);
+        if (findMarca) {
+          this.onItemSelectmarca(findMarca);
+          this.registerForm.get('idMarcas')?.setValue(this.marca);
+        }
+      });
 
     });
+
+    
   }
 
   /** MARCA */
