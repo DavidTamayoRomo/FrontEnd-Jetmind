@@ -31,9 +31,9 @@ export class EstudianteService {
     return this.http.get(`${base_url}/estudiante`, { headers: headers });
   }
 
-  getAllEstudiantesByIdRepresentante(idEstudiante: string,idRepresentante: string) {
+  getAllEstudiantesByIdRepresentante(idRepresentante: string) {
     const headers = this.retornarHeader();
-    return this.http.get(`${base_url}/estudiante/${idEstudiante}/${idRepresentante}`, { headers: headers });
+    return this.http.get(`${base_url}/estudiante/representante/${idRepresentante}`, { headers: headers });
   }
 
 

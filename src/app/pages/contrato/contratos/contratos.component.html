@@ -64,7 +64,7 @@
                         </thead>
                         <tbody>
                             <tr *ngFor="let contrato of contratos">
-                                <td >
+                                <td>
                                     <button type="button"
                                         [ngClass]="{'btn-warning': contrato.estado == 'Espera', 'btn-success': contrato.estado == 'Aprobado', 'btn-danger':contrato.estado == 'Rechazado'}"
                                         class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
@@ -82,10 +82,12 @@
                                     </div>
                                 </td>
 
-                                <td (click)="mostrarDatosModal(contrato)">{{contrato?.personaAprueba?.nombresApellidos}}</td>
+                                <td (click)="mostrarDatosModal(contrato)">{{contrato?.personaAprueba?.nombresApellidos}}
+                                </td>
                                 <td (click)="mostrarDatosModal(contrato)">{{contrato?.createdAt}}</td>
                                 <td (click)="mostrarDatosModal(contrato)">{{contrato?.codigo}}</td>
-                                <td (click)="mostrarDatosModal(contrato)">{{contrato?.idRepresentante?.nombresApellidos}}</td>
+                                <td (click)="mostrarDatosModal(contrato)">
+                                    {{contrato?.idRepresentante?.nombresApellidos}}</td>
                                 <td (click)="mostrarDatosModal(contrato)">{{contrato?.idRepresentante?.cedula}}</td>
                                 <td (click)="mostrarDatosModal(contrato)">{{contrato?.addedUser?.nombresApellidos}}</td>
                                 <td (click)="mostrarDatosModal(contrato)">{{contrato?.valorMatricula}}</td>
@@ -93,10 +95,12 @@
                                 <td (click)="mostrarDatosModal(contrato)">{{contrato?.formaPago}}</td>
                                 <td (click)="mostrarDatosModal(contrato)">{{contrato?.voucher}}</td>
                                 <td (click)="mostrarDatosModal(contrato)">{{contrato?.comentario}}</td>
-                                <td *ngIf="contrato?.fechaAprobacion != '1989-12-31'" (click)="mostrarDatosModal(contrato)">{{contrato?.fechaAprobacion}}</td>
-                                <td *ngIf="contrato?.fechaAprobacion == '1989-12-31'" (click)="mostrarDatosModal(contrato)">Pendiente</td>
+                                <td *ngIf="contrato?.fechaAprobacion != '1989-12-31'"
+                                    (click)="mostrarDatosModal(contrato)">{{contrato?.fechaAprobacion}}</td>
+                                <td *ngIf="contrato?.fechaAprobacion == '1989-12-31'"
+                                    (click)="mostrarDatosModal(contrato)">Pendiente</td>
 
-                                
+
                             </tr>
 
 
@@ -115,14 +119,15 @@
 </div>
 
 
-<div class="fondo-modal-imagen animated fadeIn fast"  [class.oculto]="mostraModal">
+<div class="fondo-modal-imagen animated fadeIn fast" [class.oculto]="mostraModal">
     <div id="responsive-modal" class="modal fade show" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
         style="display: block;padding-right: 17px; overflow-y: initial">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title">Datos Contrato</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="cerrarModal()">×</button>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                        (click)="cerrarModal()">×</button>
                 </div>
 
                 <div class="card-body">
@@ -130,7 +135,8 @@
                     <h6 class="card-subtitle">Datos del contrato</h6>
                     <div class="row button-group">
                         <div class="col-md-4">
-                            <button (click)="editarContrato()" type="button" class="btn btn-block btn-outline-info"><i class="fa fa-edit"></i>
+                            <button (click)="editarContrato()" type="button" class="btn btn-block btn-outline-info"><i
+                                    class="fa fa-edit"></i>
                                 Editar</button>
                         </div>
                         <div class="col-md-4">
@@ -154,7 +160,7 @@
                     <div class="row p-t-20">
                         <div class="col-md-6">
                             <table class="table .color-table .dark-table">
-                        
+
                                 <tr *ngFor="let nombreatributo of atributostablaContrato?.nombreAtributos">
                                     <td>{{nombreatributo}}</td>
                                 </tr>
@@ -162,18 +168,95 @@
                         </div>
                         <div class="col-md-6">
                             <table class="table .color-table .dark-table">
-                        
+
                                 <tr *ngFor="let idatributo of atributostablaContrato?.idAtributos ">
-                                    <td *ngIf="idatributo==null">--</td> 
-                                    <td *ngIf="idatributo!=null">{{idatributo}}</td> 
+                                    <td *ngIf="idatributo==null">--</td>
+                                    <td *ngIf="idatributo!=null">{{idatributo}}</td>
                                 </tr>
                             </table>
                         </div>
                     </div>
-                    
+
+
+                    <div class="row p-t-20">
+                        <div class="card-body">
+                            <h4 class="card-title"> Datos Representante</h4>
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div style="height: 10px;"></div>
+                                            <div class="table-responsive">
+                                                <table class="table table-bordered">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Nombre</th>
+                                                            <th>Cedula</th>
+                                                            <th>Editar</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>{{datosRepresentante?.nombresApellidos}}</td>
+                                                            <td>{{datosRepresentante?.cedula}}</td>
+                                                            <td class="text-nowrap">
+                                                                <a data-toggle="tooltip" data-original-title="Editar"
+                                                                    (click)="editarRepresentante(datosRepresentante)">
+                                                                    <i class="ti-pencil"></i>
+                                                                </a>
+                                                            </td>
+
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="row p-t-20">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title"> Datos Estudiantes</h4>
+                                <div style="height: 10px;"></div>
+                                <div class="table-responsive">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Nombre</th>
+                                                <th>Cedula</th>
+                                                <th>Editar</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let estudiante of datosEstudiantes;let indice=index">
+                                                <td>{{estudiante.nombresApellidos}}</td>
+                                                <td>{{estudiante.cedula}}</td>
+                                                <td class="text-nowrap">
+                                                    <a data-toggle="tooltip" data-original-title="Editar"
+                                                    (click)="editarEstudiante(estudiante)">
+                                                        <i class="ti-pencil"></i>
+                                                    </a>
+                                                </td>
+                                                
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+        
+        
+                            </div>
+                        </div>
+
+                    </div>
+
 
                     
-
 
                 </div>
 

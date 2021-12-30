@@ -8,6 +8,8 @@ import { PersonaService } from '../../persona/persona.service';
 import { ModalUploadService } from '../../../services/modal-upload.service';
 import { formatDate } from '@angular/common';
 import { Router } from '@angular/router';
+import { RepresentanteService } from '../../services/representante.service';
+import { EstudianteService } from '../../services/estudiante.service';
 
 @Component({
   selector: 'app-contratos',
@@ -36,11 +38,16 @@ export class ContratosComponent implements OnInit {
 
   public atributostablaContrato: any = {};
 
+  public datosEstudiantes: any=[];
+  public datosRepresentante: any;
+
   constructor(
     private contratoService: ContratoService,
     private busquedaService: BusquedasService,
     private personaService: PersonaService,
     private modalImagenServices: ModalUploadService,
+    private representanteService:RepresentanteService,
+    private estudianteService:EstudianteService,
     private router: Router
   ) { }
 
@@ -200,7 +207,25 @@ export class ContratosComponent implements OnInit {
         , contrato.valorTotal, contrato.formaPago,
         , contrato.fechaAprobacion, contrato.comentario]
     };
+    console.log(contrato.idRepresentante?._id);
 
+    this.representanteService.obtenerRepresentanteById(contrato.idRepresentante?._id).subscribe((resp: any) => {
+      this.datosRepresentante = resp.data;
+      console.log(resp.data);
+    });
+
+    this.estudianteService.getAllEstudiantesByIdRepresentante(contrato.idRepresentante?._id).subscribe((resp: any) => {
+      this.datosEstudiantes = resp.data;
+      console.log(resp.data);
+    });
+
+  }
+
+  editarRepresentante(representante: any) {
+    this.router.navigate(['/representante/', representante._id]);
+  }
+  editarEstudiante( estudiante: any) {
+    this.router.navigate(['/estudiante/', estudiante._id]);
   }
 
   editarContrato(){

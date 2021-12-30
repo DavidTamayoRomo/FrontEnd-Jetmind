@@ -3,6 +3,7 @@ import { Estudiante } from '../estudiante.model';
 import { EstudianteService } from '../../services/estudiante.service';
 import { BusquedasService } from '../../../services/busquedas.service';
 import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-estudiantes',
@@ -19,12 +20,18 @@ export class EstudiantesComponent implements OnInit {
   public estudiantesTemporales:Estudiante [] = [];
   public imagen:any = [];
   public cargando:boolean=false;
+
+  public mostraModal: boolean = true;
+  public estudianteSeleccionado: Estudiante;
+  public atributostablaEstudiante: any = {};
+
   @Input() idRepresentante:string= '';
   @Input() idEstudiante:string = '';
 
   constructor(
     private estudianteService:EstudianteService, 
-    private busquedaService:BusquedasService
+    private busquedaService:BusquedasService,
+    private router:Router
   ) { }
 
   ngOnInit(): void {
@@ -107,6 +114,30 @@ export class EstudiantesComponent implements OnInit {
         
       }
     })
+  }
+
+  cerrarModal() {
+    this.mostraModal = true;
+  }
+
+  editarEstudiante(){
+    //navegar a editar contrato
+    this.router.navigate(['/estudiante/', this.estudianteSeleccionado._id]);
+  }
+
+  mostrarDatosModal(estudiante: any) {
+    this.mostraModal = false;
+    this.estudianteSeleccionado = estudiante;
+    //TODO: hacer variable global desde el arqchivo configurable (Donde estan las rutas)
+    this.atributostablaEstudiante = {
+      'nombreAtributos': ['Estado', 'Nombres y Apellidos Estudiante ', 'Nombres y Apellidos Representante ', 'Email address', 'Cedula ', 'Telefono '
+       , 'Direccion', 'Genero'],
+
+      'idAtributos': [estudiante?.estado, estudiante?.nombresApellidos, estudiante?.idRepresentante[0]?.nombresApellidos,
+       estudiante?.email, estudiante?.cedula, estudiante?.telefono,
+        , estudiante?.direccion, estudiante?.genero]
+    };
+
   }
 
 }

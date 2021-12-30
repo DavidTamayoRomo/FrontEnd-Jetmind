@@ -60,15 +60,15 @@
                         <tbody>
                             <tr *ngFor="let estudiante of estudiantes">
                         
-                                <td>{{estudiante.idRepresentante[0].nombresApellidos}}</td>
-                                <td>{{estudiante.nombresApellidos}}</td>
-                                <td>{{estudiante.email}}</td>
-                                <td>{{estudiante.cedula}}</td>
-                                <td>{{estudiante.telefono}}</td>
-                                <td>{{estudiante.fechaNacimiento}}</td>
-                                <td>{{estudiante.direccion}}</td>
-                                <td>{{estudiante.genero}}</td>
-                                <td>{{estudiante.estado}}</td>
+                                <td (click)="mostrarDatosModal(estudiante)" >{{estudiante.idRepresentante[0].nombresApellidos}}</td>
+                                <td (click)="mostrarDatosModal(estudiante)" >{{estudiante.nombresApellidos}}</td>
+                                <td (click)="mostrarDatosModal(estudiante)" >{{estudiante.email}}</td>
+                                <td (click)="mostrarDatosModal(estudiante)" >{{estudiante.cedula}}</td>
+                                <td (click)="mostrarDatosModal(estudiante)" >{{estudiante.telefono}}</td>
+                                <td (click)="mostrarDatosModal(estudiante)" >{{estudiante.fechaNacimiento}}</td>
+                                <td (click)="mostrarDatosModal(estudiante)" >{{estudiante.direccion}}</td>
+                                <td (click)="mostrarDatosModal(estudiante)" >{{estudiante.genero}}</td>
+                                <td (click)="mostrarDatosModal(estudiante)" >{{estudiante.estado}}</td>
                                 
                                 
                                 <td class="text-nowrap">
@@ -91,6 +91,66 @@
                     </div>
 
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="fondo-modal-imagen animated fadeIn fast"  [class.oculto]="mostraModal">
+    <div id="responsive-modal" class="modal fade show" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+        style="display: block;padding-right: 17px; overflow-y: initial">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Datos Estudiante</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="cerrarModal()">×</button>
+                </div>
+
+                <div class="card-body">
+                    <h4 class="card-title">Acciones</h4>
+                    <div class="row button-group">
+                        <div class="col-md-4">
+                            <button (click)="editarEstudiante()" type="button" class="btn btn-block btn-outline-info"><i class="fa fa-edit"></i>
+                                Editar</button>
+                        </div>
+                        <div class="col-md-4">
+                            <button (click)="borrarEstudiante(estudianteSeleccionado)" type="button" class="btn btn-block btn-outline-danger"><i class="fa fa-trash-o"></i>
+                                Elimiar</button>
+                        </div>
+                        
+                    </div>
+
+                    <div class="row p-t-20">
+                        <div class="col-md-6">
+                            <table class="table .color-table .dark-table">
+                        
+                                <tr *ngFor="let nombreatributo of atributostablaEstudiante?.nombreAtributos">
+                                    <td>{{nombreatributo}}</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="col-md-6">
+                            <table class="table .color-table .dark-table">
+                        
+                                <tr *ngFor="let idatributo of atributostablaEstudiante?.idAtributos ">
+                                    <td *ngIf="idatributo==null">--</td> 
+                                    <td *ngIf="idatributo!=null">{{idatributo}}</td> 
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    
+
+                    
+
+
+                </div>
+
+
+
             </div>
         </div>
     </div>

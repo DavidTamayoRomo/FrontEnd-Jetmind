@@ -86,7 +86,6 @@ export class RepresentantesComponent implements OnInit {
             'success'
           )
         });
-
       }
     })
   }
