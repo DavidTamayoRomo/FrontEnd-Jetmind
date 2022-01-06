@@ -6,7 +6,7 @@ export class Contrato {
         public idRepresentante?:boolean,
         public tipoPago?:string,
         public estadoVenta?:string,
-        public abono?:string,
+        public abono?:Array<any>,
         public valorMatricula?:string,
         public valorTotal?:string,
         public numeroCuotas?:string,

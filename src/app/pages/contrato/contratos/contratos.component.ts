@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { Contrato } from '../../contrato-form/contrato.model';
 import { ContratoService } from '../../services/contrato.service';
 import { BusquedasService } from '../../../services/busquedas.service';
@@ -10,6 +10,7 @@ import { formatDate } from '@angular/common';
 import { Router } from '@angular/router';
 import { RepresentanteService } from '../../services/representante.service';
 import { EstudianteService } from '../../services/estudiante.service';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-contratos',
@@ -25,7 +26,7 @@ export class ContratosComponent implements OnInit {
   public desde: number = 0;
   public contratos1: Contrato[] = [];
   public contratosTemporales: Contrato[] = [];
-  public contratoSeleccionado: any ;
+  public contratoSeleccionado: any;
 
   public contratos2: any[] = [];
 
@@ -34,20 +35,31 @@ export class ContratosComponent implements OnInit {
   public dropdownSettings: IDropdownSettings = {};
 
   public mostraModal: boolean = true;
+  public mostraModalAbono: boolean = true;
+  public mostraModalEditarAbono: boolean = true;
+
+  public totalAbonosPagados: number = 0;
+  public totalAbonosDeuda: number = 0;
+  public totalAbonos: number = 0;
+  public deudaMatricula: number = 0;
 
 
   public atributostablaContrato: any = {};
 
-  public datosEstudiantes: any=[];
+  public datosEstudiantes: any = [];
   public datosRepresentante: any;
+
+  @ViewChild('fechaAbono') fechaAbono: ElementRef;
+  @ViewChild('montoAbono') montoAbono: ElementRef;
+  @ViewChild('estadoAbono') estadoAbono: ElementRef;
 
   constructor(
     private contratoService: ContratoService,
     private busquedaService: BusquedasService,
     private personaService: PersonaService,
     private modalImagenServices: ModalUploadService,
-    private representanteService:RepresentanteService,
-    private estudianteService:EstudianteService,
+    private representanteService: RepresentanteService,
+    private estudianteService: EstudianteService,
     private router: Router
   ) { }
 
@@ -193,10 +205,10 @@ export class ContratosComponent implements OnInit {
 
 
   mostrarDatosModal(contrato: any) {
-    console.log('Modal contrato ',contrato);
+    console.log('Modal contrato ', contrato);
     this.mostraModal = false;
     this.contratoSeleccionado = contrato;
-    
+
 
     this.atributostablaContrato = {
       'nombreAtributos': ['Estado', 'Persona Responsable', 'Fecha contrato', 'Codigo', 'Representante'
@@ -224,11 +236,11 @@ export class ContratosComponent implements OnInit {
   editarRepresentante(representante: any) {
     this.router.navigate(['/representante/', representante._id]);
   }
-  editarEstudiante( estudiante: any) {
+  editarEstudiante(estudiante: any) {
     this.router.navigate(['/estudiante/', estudiante._id]);
   }
 
-  editarContrato(){
+  editarContrato() {
     //navegar a editar contrato
     this.router.navigate(['/contrato1/', this.contratoSeleccionado._id]);
     /* this.contratoService.updatecontrato(this.contratoSeleccionado).subscribe(
@@ -240,6 +252,12 @@ export class ContratosComponent implements OnInit {
 
   cerrarModal() {
     this.mostraModal = true;
+  }
+  cerrarModalAbono() {
+    this.mostraModalAbono = true;
+  }
+  cerrarModalEditarAbono() {
+    this.mostraModalEditarAbono = true;
   }
 
   actualizarEstado(contrato: Contrato, estado: string) {
@@ -278,6 +296,129 @@ export class ContratosComponent implements OnInit {
         })
       });
     }, 400);
+
+  }
+
+
+
+  abrirModalAbono(contrato: any) {
+    this.mostraModalAbono = false;
+    this.contratoSeleccionado = contrato;
+  }
+
+  abrirModalEditarAbono(contrato: any) {
+    this.mostraModalEditarAbono = false;
+    this.contratoSeleccionado = contrato;
+    //sumar el total de abonos
+    this.totalAbonosPagados = 0;
+    this.totalAbonosDeuda = 0;
+    this.totalAbonos = 0;
+
+    this.contratoSeleccionado.abono.forEach((element: any) => {
+      if (element.estado == 'Pagado') {
+        this.totalAbonosPagados += parseFloat(element.monto);
+      }
+      if (element.estado == 'No pagado') {
+        this.totalAbonosDeuda += parseFloat(element.monto);
+      }
+      this.totalAbonos += parseFloat(element.monto);
+      if (this.contratoSeleccionado.valorMatricula == 0) {
+        this.deudaMatricula = 0;
+      } else {
+        /**
+        *  Si el numero de abonos supera el valor de la matricula, el valor de total del abono
+        *  se convierte en el valor de la matricula
+        */
+        this.deudaMatricula = parseFloat(this.contratoSeleccionado.valorMatricula) - this.totalAbonosPagados;
+        
+        if (this.deudaMatricula < 0) {
+          this.contratoSeleccionado.valorMatricula = this.contratoSeleccionado.valorMatricula + Math.abs(parseFloat(this.contratoSeleccionado.valorMatricula) - this.totalAbonosPagados);
+          this.deudaMatricula = parseFloat(this.contratoSeleccionado.valorMatricula) - this.totalAbonosPagados;
+          this.contratoService.updatecontrato(this.contratoSeleccionado._id, this.contratoSeleccionado).subscribe((resp: any) => {
+            this.cargarContratos();
+          });
+        }
+      }
+
+    });
+
+  }
+
+  agregarAbono() {
+    this.fechaAbono.nativeElement.value;
+    console.log(this.fechaAbono.nativeElement.value);
+    console.log(this.contratoSeleccionado.abono);
+    this.contratoSeleccionado.abono.push({
+      fechaPago: this.fechaAbono.nativeElement.value,
+      monto: this.montoAbono.nativeElement.value,
+      estado: this.estadoAbono.nativeElement.value
+    });
+    /**
+     *  Si el numero de abonos supera el valor de la matricula, el valor de total del abono
+     *  se convierte en el valor de la matricula
+     */
+    this.deudaMatricula = parseFloat(this.contratoSeleccionado.valorMatricula) - this.totalAbonosPagados;
+    if (this.deudaMatricula < 0) {
+      this.contratoSeleccionado.valorMatricula = this.contratoSeleccionado.valorMatricula + Math.abs(parseFloat(this.contratoSeleccionado.valorMatricula) - this.totalAbonosPagados);
+      this.deudaMatricula = parseFloat(this.contratoSeleccionado.valorMatricula) - this.totalAbonosPagados;
+    }
+
+    setTimeout(() => {
+
+      this.contratoService.updatecontrato(this.contratoSeleccionado._id!, this.contratoSeleccionado).subscribe((resp: any) => {
+        this.cargarContratos();
+        const Toast = Swal.mixin({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+          }
+        })
+        Toast.fire({
+          icon: 'success',
+          title: 'Se actualizo correctamente'
+        })
+      });
+    }, 400);
+
+    this.cerrarModalAbono();
+
+  }
+
+
+  actualizarEstadoAbono(contrato: any, estado: string, indice: number) {
+
+    this.contratoSeleccionado.abono[indice].estado = estado;
+
+
+    setTimeout(() => {
+
+      this.contratoService.updatecontrato(this.contratoSeleccionado._id!, this.contratoSeleccionado).subscribe((resp: any) => {
+        this.cargarContratos();
+        const Toast = Swal.mixin({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+          }
+        })
+        Toast.fire({
+          icon: 'success',
+          title: 'Se actualizo correctamente'
+        })
+      });
+
+    }, 400);
+
+    this.cerrarModalEditarAbono();
 
   }
 

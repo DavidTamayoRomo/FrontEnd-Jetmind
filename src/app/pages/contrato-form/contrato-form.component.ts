@@ -220,7 +220,7 @@ export class ContratoFormComponent implements OnInit, OnChanges {
       idRepresentante,
       tipoPago,
       estadoVenta,
-      abono,
+      abono:abono[0].monto,
       valorMatricula,
       valorTotal,
       numeroCuotas,
@@ -268,8 +268,14 @@ export class ContratoFormComponent implements OnInit, OnChanges {
 
       this.ContratoModel = this.registerForm.value;
 
-      if (this.registerForm.value.abono == null) {
-        this.ContratoModel.abono = "0";
+      let objetoAbono = {
+        monto:"0",
+        fechaPago:this.registerForm.value.fecha,
+        estado:"Pagado"
+      }
+
+      if (this.registerForm.value.abono == null) {  
+        this.ContratoModel.abono?.push(objetoAbono);
       }
       if (this.registerForm.value.valorMatricula == null) {
         this.ContratoModel.valorMatricula = "0";
@@ -345,7 +351,7 @@ export class ContratoFormComponent implements OnInit, OnChanges {
       }
     } else {
       //crear
-
+      
       if (this.registerForm.invalid) {
         const Toast = Swal.mixin({
           toast: true,
@@ -364,18 +370,98 @@ export class ContratoFormComponent implements OnInit, OnChanges {
         })
         return;
       } else {
-
         this.ContratoModel = this.registerForm.value;
+        let objetoAbono = {
+          fechaPago:new Date(),
+          monto:this.registerForm.value.valorMatricula,
+          estado:"Pagado"
+        }
+       /*  const objetoAbono2 = {
+          fechaPago:new Date(),
+          monto:this.registerForm.value.abono,
+          estado:"Pagado"
+        } */
 
+        if (this.registerForm.value.tipoPago == "Plan" && this.registerForm.value.estadoVenta == "OK") {
+          objetoAbono = {
+            fechaPago:new Date(),
+            monto:0,
+            estado:"Pagado"
+          }
+          this.ContratoModel.valorMatricula = "0";
+          this.ContratoModel.abono = [];  
+          this.ContratoModel.abono.push(objetoAbono);
+        }
+        if (this.registerForm.value.tipoPago == "Plan" && this.registerForm.value.estadoVenta == "Abono") {
+          objetoAbono = {
+            fechaPago:new Date(),
+            monto:this.registerForm.value.abono,
+            estado:"Pagado"
+          }
+          this.ContratoModel.abono = []; 
+          this.ContratoModel.abono.push(objetoAbono);
+        }
+        if (this.registerForm.value.tipoPago == "Plan" && this.registerForm.value.estadoVenta == "Saldo") {
+          objetoAbono = {
+            fechaPago:new Date(),
+            monto:this.registerForm.value.valorMatricula,
+            estado:"Pagado"
+          }
+          this.ContratoModel.abono = [];
+          this.ContratoModel.abono.push(objetoAbono);
+        }
+        if (this.registerForm.value.tipoPago == "Contado" && this.registerForm.value.estadoVenta == "OK") {
+          objetoAbono = {
+            fechaPago:new Date(),
+            monto:0,
+            estado:"Pagado"
+          }
+          this.ContratoModel.valorMatricula = "0";
+          this.ContratoModel.numeroCuotas= "0";
+          this.ContratoModel.abono = [];  
+          this.ContratoModel.abono.push(objetoAbono);
+        }
+        if (this.registerForm.value.tipoPago == "Contado" && this.registerForm.value.estadoVenta == "Abono") {
+          objetoAbono = {
+            fechaPago:new Date(),
+            monto:this.registerForm.value.abono,
+            estado:"Pagado"
+          }
+          this.ContratoModel.valorMatricula = "0";
+          this.ContratoModel.numeroCuotas= "0";
+          this.ContratoModel.abono = []; 
+          this.ContratoModel.abono.push(objetoAbono);
+        }
+        if (this.registerForm.value.tipoPago == "Contado" && this.registerForm.value.estadoVenta == "Saldo") {
+          objetoAbono = {
+            fechaPago:new Date(),
+            monto:this.registerForm.value.abono,
+            estado:"Pagado"
+          }
+          this.ContratoModel.valorMatricula = "0";
+          this.ContratoModel.numeroCuotas= "0";
+          this.ContratoModel.abono = []; 
+          this.ContratoModel.abono.push(objetoAbono);
+        }
+        
+
+        
+        /*
         if (this.registerForm.value.abono == null) {
-          this.ContratoModel.abono = "0";
+          this.ContratoModel.abono = [];  
+          this.ContratoModel.abono.push(objetoAbono);
+        }else{
+          this.ContratoModel.abono = [];
+          this.ContratoModel.abono.push(objetoAbono2);
         }
         if (this.registerForm.value.valorMatricula == null) {
           this.ContratoModel.valorMatricula = "0";
         }
         if (this.registerForm.value.numeroCuotas == null) {
           this.ContratoModel.numeroCuotas = "0";
-        }
+        } */
+        
+        
 
         setTimeout(() => {
           console.log(this.ContratoModel);
