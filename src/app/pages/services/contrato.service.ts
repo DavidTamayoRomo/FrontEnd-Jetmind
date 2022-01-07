@@ -27,6 +27,11 @@ export class ContratoService {
     const headers = this.retornarHeader();
     return this.http.get(`${base_url}/contrato`, { headers: headers });
   }
+  /** Get Contratos aprobados*/
+  getAllContratosAprobados(){
+    const headers = this.retornarHeader();
+    return this.http.get(`${base_url}/contrato/contratosAprobados`, { headers: headers });
+  }
 
   obtenerContratoById(id:string){
     const headers = this.retornarHeader();
@@ -66,7 +71,25 @@ export class ContratoService {
         };
       })
     )
-    
-     
   }
+
+  cargarContratosAprobados (skip: number = 0){
+    const headers = this.retornarHeader();
+    return this.http.get(`${base_url}/contrato/contratosAprobados?skip=${skip}`, { headers: headers })
+    .pipe(
+      tap( (resp:any) => {
+        
+        const contratos = resp.data.map((contrato:any) => new Contrato(contrato._id, contrato.fecha, 
+          contrato.estado, contrato.idRepresentante, contrato.tipoPago,contrato.estadoVenta,contrato.abono
+          ,contrato.valorMatricula,contrato.valorTotal,contrato.numeroCuotas,contrato.formaPago,contrato.comentario,
+          contrato.directorAsignado,contrato.fechaAprobacion, contrato.voucher));
+        
+        return{
+          total:resp.totalContratos,
+          contratos
+        };
+      })
+    )
+  }
+
 }

@@ -12,7 +12,7 @@ export class Contrato {
         public numeroCuotas?:string,
         public formaPago?:string,
         public comentario?:string,
-        public directorAsignado?:string,
+        public directorAsignado?:Array<any>,
         public estadoPrograma?:string,
         public fechaAprobacion?:Date,
         public voucher?:Array<string>,

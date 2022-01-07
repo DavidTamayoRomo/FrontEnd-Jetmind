@@ -38,6 +38,7 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
 import { ProgramaComponent } from './programa/programa.component';
 import { ContratosComponent } from './contrato/contratos/contratos.component';
 import { ProgramasComponent } from './programa/programas/programas.component';
+import { ContratosAsignarDirectorComponent } from './contratos-asignar-director/contratos-asignar-director.component';
 
 
 const ngWizardConfig: NgWizardConfig = {
@@ -72,6 +73,7 @@ const ngWizardConfig: NgWizardConfig = {
     ProgramaComponent,
     ContratosComponent,
     ProgramasComponent,
+    ContratosAsignarDirectorComponent,
   ],
   exports:[
     DashboardComponent,

@@ -27,6 +27,7 @@ import { ContratoFormComponent } from './contrato-form/contrato-form.component';
 import { ProgramaComponent } from './programa/programa.component';
 import { ContratosComponent } from './contrato/contratos/contratos.component';
 import { ProgramasComponent } from './programa/programas/programas.component';
+import { ContratosAsignarDirectorComponent } from './contratos-asignar-director/contratos-asignar-director.component';
 
 
 
@@ -77,6 +78,8 @@ const routes: Routes = [
 
             { path: 'perfil', component: PerfilComponent, data:{titulo:'Perfil'} },
             { path: '', redirectTo: '/dashboard', pathMatch: 'full'},
+
+            { path: 'asignardirector', component:ContratosAsignarDirectorComponent , data:{titulo:'Lista de los contratos para asignar director'} },
         ]
     },
 ];

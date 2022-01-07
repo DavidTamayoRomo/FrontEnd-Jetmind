@@ -444,7 +444,7 @@ export class ContratoFormComponent implements OnInit, OnChanges {
           this.ContratoModel.abono.push(objetoAbono);
         }
         
-
+        this.ContratoModel.estadoPrograma = "Cliente no atendido";
         
         /*
         if (this.registerForm.value.abono == null) {

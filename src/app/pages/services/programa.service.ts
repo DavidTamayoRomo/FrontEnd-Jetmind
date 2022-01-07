@@ -34,6 +34,11 @@ export class ProgramaService {
     const headers = this.retornarHeader();
     return this.http.get(`${base_url}/programa/${id}`, { headers: headers })
   }
+  
+  obtenerProgramaByIdEstudiante(id: string) {
+    const headers = this.retornarHeader();
+    return this.http.get(`${base_url}/programa/idEstudiante/${id}`, { headers: headers })
+  }
 
   crearPrograma(formData: any) {
     const headers = this.retornarHeader();

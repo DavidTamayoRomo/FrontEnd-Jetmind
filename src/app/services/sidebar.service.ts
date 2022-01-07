@@ -101,6 +101,14 @@ export class SidebarService {
         { titulo: 'Lista Facturar',url: '/listafacturar' },
       ]
     },
+    {
+      titulo: 'Directores',
+      icono: 'mdi mdi-briefcase',
+      submenu: [
+        
+        { titulo: 'Asignar Director',url: '/asignardirector' },
+      ]
+    },
     
 
   ]

@@ -94,6 +94,11 @@ export class PersonaService {
 
   }
 
+  getAllPersonas() {
+    const headers = this.retornarHeader();
+    return this.http.get(`${base_url}/persona`, { headers: headers });
+  }
+
   crearPersona(formData: any) {
     const headers = this.retornarHeader();
     return this.http.post(`${base_url}/persona`, formData, { headers: headers });
