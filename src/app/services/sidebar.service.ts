@@ -109,6 +109,15 @@ export class SidebarService {
         { titulo: 'Asignar Director',url: '/asignardirector' },
       ]
     },
+    {
+      titulo: 'Telemarketing',
+      icono: 'mdi mdi-briefcase',
+      submenu: [
+        
+        { titulo: 'Crear citas',url: '/citasTelemarketing' },
+        { titulo: 'Lista citas',url: '/citasTelemarketing' },
+      ]
+    },
     
 
   ]

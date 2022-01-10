@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import {HttpClientModule} from '@angular/common/http'
+import {HttpClientModule} from '@angular/common/http';
 
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { PagesComponent } from './pages.component';
@@ -39,6 +39,8 @@ import { ProgramaComponent } from './programa/programa.component';
 import { ContratosComponent } from './contrato/contratos/contratos.component';
 import { ProgramasComponent } from './programa/programas/programas.component';
 import { ContratosAsignarDirectorComponent } from './contratos-asignar-director/contratos-asignar-director.component';
+import { CitasTelemarketingComponent } from './citas-telemarketing/citas-telemarketing.component';
+
 
 
 const ngWizardConfig: NgWizardConfig = {
@@ -74,6 +76,7 @@ const ngWizardConfig: NgWizardConfig = {
     ContratosComponent,
     ProgramasComponent,
     ContratosAsignarDirectorComponent,
+    CitasTelemarketingComponent,
   ],
   exports:[
     DashboardComponent,

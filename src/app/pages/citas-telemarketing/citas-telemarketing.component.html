@@ -1,0 +1,155 @@
+<div class="card">
+
+    <form (ngSubmit)="crearCitasTelemarketing()" autocomplete="off" [formGroup]="registerForm">
+
+
+        <div class="card-body">
+            <h4 class="card-title">Agregar Cita Telemarketing</h4>
+            <h6 class="card-subtitle">Ingrese todos los datos solicitados</h6>
+
+            <div class="row p-t-20">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="exampleInputuname">Marcas *</label>
+                        <ng-multiselect-dropdown [placeholder]="'Seleccione Marca'" [settings]="dropdownSettings"
+                            [data]="dropdownListMarcas" (onSelect)="onItemSelectmarca($event)"
+                            (onSelectAll)="onSelectAllmarca($event)" (onDeSelect)="onDeSelectmarca($event)"
+                            (onDeSelectAll)="onDeSelectAllmarca($event)" formControlName="idMarca">
+                        </ng-multiselect-dropdown>
+                        <div class="text-danger">
+                            <p *ngIf="campoNoValido('tipo')">Ingrese una Marca</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <div class="demo-switch-title">Estado</div>
+                        <select class="form-control custom-select" formControlName="estado">
+                            <option value="Control calidad">Control calidad</option>
+                            <option value="Re agendado">Re agendado</option>
+                            <option value="Ok">Ok</option>
+                            <option value="Rechazado">Rechazado</option>
+                            <option value="Renegociacion">Renegociacion</option>
+                            <option value="Hoy">Hoy</option>
+                            <option value="Cliente no atendido">Cliente no atendido</option>
+                        </select>
+                        <small class="form-control-feedback"> Seleccione el genero </small>
+                    </div>
+                </div>
+            </div>
+            <div class="row p-t-20">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Nombres y Apellidos Representante *</label>
+                        <div class="input-group">
+                            <div class="input-group-addon"><i class="ti-email"></i></div>
+                            <input type="text" class="form-control" placeholder="Ingrese Nombres y Apellidos"
+                                formControlName="nombreApellidoRepresentante">
+                        </div>
+                        <div class="text-danger">
+                            <p *ngIf="campoNoValido('nombreApellidoRepresentante')">El nombre y apellido son
+                                obligatorios</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="telefono">Telefono *</label>
+                        <div class="input-group">
+                            <div class="input-group-addon"><i class=" ti-id-badge"></i></div>
+                            <input type="number" class="form-control" id="telefono" placeholder="Ingrese telefono"
+                                formControlName="telefono">
+                        </div>
+                        <div class="text-danger">
+                            <p *ngIf="campoNoValido('telefono')">La telefono es obligatoria</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row p-t-20">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="ciudad">Ciudad</label>
+                        <div class="input-group">
+                            <div class="input-group-addon"><i class="fa fa-phone"></i></div>
+                            <input type="text" class="form-control" id="ciudad" placeholder="Ingrese ciudad"
+                                formControlName="ciudad">
+                        </div>
+                        <div class="text-danger">
+                            <p *ngIf="campoNoValido('ciudad')">La ciudad es obligatoria</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="actividadEconomica">Actividad Economica</label>
+                        <div class="input-group">
+                            <div class="input-group-addon"><i class="fa fa-phone"></i></div>
+                            <input type="text" class="form-control" id="actividadEconomica"
+                                placeholder="Ingrese Actividad Economica" formControlName="actividadEconomica">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row p-t-20">
+                <div class="col-md-6">
+                    <div>Lista de estudiantes</div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="comentario">Observaciones</label>
+                        <div class="input-group">
+                            <div class="input-group-addon"><i class=" ti-comment "></i></div>
+                            <textarea type="text" class="form-control" id="observaciones"
+                                placeholder="Ingrese observaciones" formControlName="observaciones"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row p-t-20">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <div class="demo-switch-title">Tarjeta de credito</div>
+                        <select class="form-control custom-select" formControlName="tarjeraCredito">
+                            <option value="Si">Si</option>
+                            <option value="No">No</option>
+                        </select>
+                        <small class="form-control-feedback"> Seleccione Si o No </small>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <div class="demo-switch-title">Tarjeta</div>
+                        <select class="form-control custom-select" formControlName="tarjeta">
+                            <option value="Visa">Visa</option>
+                            <option value="Master Card">Master Card</option>
+                            <option value="Dinners club">Dinners club</option>
+                            <option value="American Express">American Express</option>
+                            <option value="Alia">Alia</option>
+                            <option value="Otra">Otra</option>
+                        </select>
+                        <small class="form-control-feedback"> Seleccione Nombre de la tarjeta de credito </small>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row p-t-20">
+                <div class="col-md-6">
+                    <!-- Ingresar fecha y hora -->
+                    
+                    
+                </div>
+                <div class="col-md-6">
+                    
+                </div>
+            </div>
+
+
+            <button type="submit" class="btn btn-success waves-effect waves-light m-r-10">Guardar</button>
+            <a (click)="cancelarGuardado()" class="btn btn-inverse waves-effect waves-light">Cancelar</a>
+        </div>
+    </form>
+
+</div>
+
+

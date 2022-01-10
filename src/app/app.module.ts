@@ -8,6 +8,8 @@ import { AuthModule } from './auth/auth.module';
 import { AppComponent } from './app.component';
 import { NopagefoundComponent } from './nopagefound/nopagefound.component';
 import { ModalImagenComponent } from './components/modal-imagen/modal-imagen.component';
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 
 
 
@@ -21,6 +23,7 @@ import { ModalImagenComponent } from './components/modal-imagen/modal-imagen.com
     AppRoutingModule,
     PagesModule,
     AuthModule,
+    CalendarModule.forRoot({ provide: DateAdapter, useFactory: adapterFactory }),
   ],
   providers: [],
   bootstrap: [AppComponent]
