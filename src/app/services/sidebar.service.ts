@@ -116,6 +116,7 @@ export class SidebarService {
         
         { titulo: 'Crear citas',url: '/citasTelemarketing/nuevo' },
         { titulo: 'Lista citas',url: '/listacitas' },
+        { titulo: 'Calendario',url: '/calendario' },
       ]
     },
     

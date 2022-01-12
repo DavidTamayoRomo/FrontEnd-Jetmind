@@ -30,6 +30,7 @@ import { ProgramasComponent } from './programa/programas/programas.component';
 import { ContratosAsignarDirectorComponent } from './contratos-asignar-director/contratos-asignar-director.component';
 import { CitasTelemarketingComponent } from './citas-telemarketing/citas-telemarketing.component';
 import { ListaCitasComponent } from './citas-telemarketing/lista-citas/lista-citas.component';
+import { CalendarioComponent } from './calendario/calendario.component';
 
 
 
@@ -85,6 +86,7 @@ const routes: Routes = [
             
             { path: 'citasTelemarketing/:id', component: CitasTelemarketingComponent , data:{titulo:'Crear Citas Telemarketing'} },
             { path: 'listacitas', component: ListaCitasComponent , data:{titulo:'Lista Citas Telemarketing'} },
+            { path: 'calendario', component: CalendarioComponent , data:{titulo:'Calendario'} },
 
         ]
     },

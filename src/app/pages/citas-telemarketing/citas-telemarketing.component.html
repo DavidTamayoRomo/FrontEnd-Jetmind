@@ -209,7 +209,12 @@
                     <!-- Ingresar fecha y hora -->
                     <label for="exampleInputEmail1">Fecha Cita </label>
                     <input class="form-control" type="text" mwlFlatpickr [altInput]="true" [convertModelValue]="false"
-                        [enableTime]="true" dateFormat="Y-m-d H:i" formControlName="fechaCita" [inline]="true">
+                        [enableTime]="true" dateFormat="Y-m-d H:i" altFormat="F j, Y H:i" formControlName="fechaCita" [inline]="true">
+                    <!-- poner el inline en false para que no este fijo el calendario 
+                        <label for="exampleInputEmail1">Fecha Cita </label>
+                    <input class="form-control" type="text" mwlFlatpickr [altInput]="true" [convertModelValue]="false"
+                        [enableTime]="true" dateFormat="Y-m-d H:i" altFormat="F j, Y H:i" formControlName="fechaCita" [inline]="true"> -->
+
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
