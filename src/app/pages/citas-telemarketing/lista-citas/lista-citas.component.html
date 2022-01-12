@@ -1,0 +1,182 @@
+<div class="col">
+
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="text-right">
+                    <a class="btn btn-primary" routerLink="/citasTelemarketing/nuevo">
+                        <i class="mdi mdi-account-plus"></i>
+                        Crear Cita
+                    </a>
+                </div>
+                <div style="height: 10px;"></div>
+                <input type="text" class="form-control" placeholder="Buscar cita" (keyup)="buscar(txtBusqueda.value)"
+                    #txtBusqueda>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" *ngIf="cargando">
+    <div class="col-12">
+        <div class="alert alert-info text-center">
+            <h4 class="alert-heading">Cargando</h4>
+            <i class="fa fa-spin fa-refresh fa-2x"></i>
+            <p class="mb-0">Por favor espere...</p>
+        </div>
+    </div>
+</div>
+<div class="row" *ngIf="!cargando">
+
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Citas registrados</h4>
+                <h6 class="card-subtitle">Lista de todos las citas existentes en el sistema</h6>
+                <h6 class="card-subtitle">Total de citas: {{totalCitas}}</h6>
+                <div class="table-responsive">
+                    <table class="table full-color-table full-inverse-table hover-table">
+                        <thead>
+                            <tr>
+                                <th class="w100">Estado</th>
+                                <th class="w100">Telemercadista</th>
+                                <th class="w100">Fecha cita</th>
+                                <th class="w100">Forma</th>
+                                <th class="w100">Asesor Asignado</th>
+                                <th class="w100">Programa</th>
+                                <th class="w100">Observaciones</th>
+                                <th class="w100">Nombre Representante</th>
+                                <th class="w100">Telefono</th>
+                                <th class="w100">Ciudad</th>
+                                <th class="w100">Actividad Economica</th>
+                                
+
+                                <th class="text-nowrap w100">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let cita of citas">
+
+                                <td (click)="mostrarDatosModal(cita)">{{cita.estado}}</td>
+                                <td (click)="mostrarDatosModal(cita)">{{cita.addedUser}}</td>
+                                <td (click)="mostrarDatosModal(cita)">{{cita.fechaCita | date:"dd-MM-yy HH:mm"}}</td>
+                                <td (click)="mostrarDatosModal(cita)">{{cita.forma}}</td>
+                                <td (click)="mostrarDatosModal(cita)">{{cita.asignado}}</td>
+                                <td (click)="mostrarDatosModal(cita)"> <div *ngFor="let citax of cita.idMarca">{{citax.nombre}}</div> </td>
+                                <td (click)="mostrarDatosModal(cita)">{{cita.observaciones}}</td>
+                                <td (click)="mostrarDatosModal(cita)">{{cita.nombreApellidoRepresentante}}</td>
+                                <td (click)="mostrarDatosModal(cita)">{{cita.telefono}}</td>
+                                <td (click)="mostrarDatosModal(cita)">{{cita.ciudad}}</td>
+                                <td (click)="mostrarDatosModal(cita)">{{cita.actividadEconomica}}</td>
+
+                                <td class="text-nowrap">
+                                    <a [routerLink]="['/citasTelemarketing',cita._id]" data-toggle="tooltip"
+                                        data-original-title="Editar"> <i class="ti-pencil"></i> </a>
+                                    <a data-toggle="tooltip" data-original-title="Borrar"
+                                        (click)="borrarCita(cita)">
+                                        <i class=" ti-trash"></i>
+                                    </a>
+                                </td>
+                            </tr>
+
+
+                        </tbody>
+                    </table>
+                    <div *ngIf="txtBusqueda.value.length === 0">
+                        <button (click)="paginar(-5)" class="btn btn-secondary">Anterio</button>
+                        &nbsp;
+                        <button (click)="paginar(5)" class="btn btn-secondary">Siguiente</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<!-- Modal para ver los datos del contrato -->
+<div class="fondo-modal-imagen animated fadeIn fast" [class.oculto]="mostraModal">
+    <div id="responsive-modal" class="modal fade show" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+        style="display: block;padding-right: 17px; overflow-y: initial">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Datos de la cita</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                        (click)="cerrarModal()">×</button>
+                </div>
+
+                <div class="card-body">
+                    <h4 class="card-title">Acciones</h4>
+                    <h6 class="card-subtitle">Datos de la cita</h6>
+                    <div class="row button-group">
+       
+                    </div>
+
+                    <div class="row p-t-20">
+                        <div class="col-md-6">
+                            <table class="table .color-table .dark-table">
+
+                                <tr *ngFor="let nombreatributo of atributostablaCita?.nombreAtributos">
+                                    <td>{{nombreatributo}}</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="col-md-6">
+                            <table class="table .color-table .dark-table">
+
+                                <tr *ngFor="let idatributo of atributostablaCita?.idAtributos ">
+                                    <td *ngIf="idatributo==null">--</td>
+                                    <td *ngIf="idatributo!=null">{{idatributo}}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="row p-t-20">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title"> Datos Estudiantes</h4>
+                                <div style="height: 10px;"></div>
+                                <div class="table-responsive">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Nombre</th>
+                                                <th>Edad</th>
+                                                <th>Observaciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let estudiante of citaSeleccionado?.estudiante">
+                                                <td>{{estudiante?.nombre}}</td>
+                                                <td>{{estudiante?.edad}}</td>
+                                                <td>{{estudiante?.observaciones}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+
+                            </div>
+                        </div>
+
+                    </div>
+
+
+
+
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+</div> 

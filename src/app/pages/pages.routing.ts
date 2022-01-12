@@ -29,6 +29,7 @@ import { ContratosComponent } from './contrato/contratos/contratos.component';
 import { ProgramasComponent } from './programa/programas/programas.component';
 import { ContratosAsignarDirectorComponent } from './contratos-asignar-director/contratos-asignar-director.component';
 import { CitasTelemarketingComponent } from './citas-telemarketing/citas-telemarketing.component';
+import { ListaCitasComponent } from './citas-telemarketing/lista-citas/lista-citas.component';
 
 
 
@@ -82,7 +83,8 @@ const routes: Routes = [
 
             { path: 'asignardirector', component:ContratosAsignarDirectorComponent , data:{titulo:'Lista para asignar contratos a director'} },
             
-            { path: 'citasTelemarketing', component: CitasTelemarketingComponent , data:{titulo:'Crear Citas Telemarketing'} },
+            { path: 'citasTelemarketing/:id', component: CitasTelemarketingComponent , data:{titulo:'Crear Citas Telemarketing'} },
+            { path: 'listacitas', component: ListaCitasComponent , data:{titulo:'Lista Citas Telemarketing'} },
 
         ]
     },

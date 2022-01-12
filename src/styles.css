@@ -12,8 +12,10 @@
 @import '~ng-wizard/themes/ng_wizard_theme_dots.min.css';
 
 
-/* angular-cli file: src/styles.css */
-@import "../node_modules/angular-calendar/css/angular-calendar.css";
+/* DatePicker */
+@import  '../node_modules/flatpickr/dist/flatpickr.min.css';
+
+
 
 .w100{
     width: 200px;

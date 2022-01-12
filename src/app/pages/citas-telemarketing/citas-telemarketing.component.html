@@ -93,7 +93,36 @@
             </div>
             <div class="row p-t-20">
                 <div class="col-md-6">
+                    <!-- Centrar boton -->
+                    <button (click)="abrirModalEstudiantes()" type="button" class="btn btn-info btn-circle btn-lg "><i class="fa fa-plus" ></i> </button>
+                    <br>
+                    <!-- Crear una tabla con dos atributos -->
                     <div>Lista de estudiantes</div>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Edad</th>
+                                <th>Editar</th>
+                                <th>Eliminar</th>
+                                
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let estudiante of estudiantes; let index=index">
+                                <td>{{estudiante.nombre}}</td>
+                                <td>{{estudiante.edad}}</td>  
+                                <td><a data-toggle="tooltip" data-original-title="Editar"
+                                    (click)="cargarEstudiante(index)">
+                                    <i class="ti-pencil"></i>
+                                </a></td>  
+                                <td><a data-toggle="tooltip" data-original-title="Eliminar"
+                                    (click)="eliminarEstudiante(index)">
+                                    <i class="ti-trash"></i>
+                                </a></td>  
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
@@ -101,7 +130,7 @@
                         <div class="input-group">
                             <div class="input-group-addon"><i class=" ti-comment "></i></div>
                             <textarea type="text" class="form-control" id="observaciones"
-                                placeholder="Ingrese observaciones" formControlName="observaciones"></textarea>
+                                placeholder="Ingrese observaciones" formControlName="observaciones" style="height: 200px;"></textarea>
                         </div>
                     </div>
                 </div>
@@ -118,7 +147,7 @@
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="form-group">
+                    <div class="form-group" *ngIf="registerForm.get('tarjeraCredito')?.value == 'Si'">
                         <div class="demo-switch-title">Tarjeta</div>
                         <select class="form-control custom-select" formControlName="tarjeta">
                             <option value="Visa">Visa</option>
@@ -135,21 +164,162 @@
             
             <div class="row p-t-20">
                 <div class="col-md-6">
-                    <!-- Ingresar fecha y hora -->
-                    
-                    
+                    <div class="form-group">
+                        <div class="demo-switch-title">Forma</div>
+                        <select class="form-control custom-select" formControlName="forma">
+                            <option value="En sucursal">En sucursal</option>
+                            <option value="Zoom">Zoom</option>
+                            <option value="Domicilio / Terreno">Domicilio / Terreno</option>
+                        </select>
+                        <small class="form-control-feedback"> Seleccione forma de la cita </small>
+                    </div>
                 </div>
                 <div class="col-md-6">
+                    <div class="form-group" *ngIf="registerForm.get('forma')?.value == 'En sucursal'">
+                        <label for="exampleInputuname">Sucursales *</label>
+                        <ng-multiselect-dropdown [placeholder]="'Seleccione Sucursal'" [settings]="dropdownSettingsSucursal"
+                            [data]="dropdownListSucursales" (onSelect)="onItemSelectsucursal($event)"
+                            (onSelectAll)="onSelectAllsucursal($event)" (onDeSelect)="onDeSelectsucursal($event)"
+                            (onDeSelectAll)="onDeSelectAllsucursal($event)" formControlName="idSucursal">
+                        </ng-multiselect-dropdown>
+                    </div>
+
+                    <div *ngIf="registerForm.get('forma')?.value == 'Zoom'" class="form-group">
+                        <label for="comentario">Zoom</label>
+                        <div class="input-group">
+                            <div class="input-group-addon"><i class=" ti-comment "></i></div>
+                            <textarea type="text" class="form-control" 
+                                placeholder="Ingrese link zoom" ></textarea>
+                        </div>
+                    </div>
+
+                    <div *ngIf="registerForm.get('forma')?.value == 'Domicilio / Terreno'" class="form-group">
+                        <label for="comentario">Domicilio / Terreno</label>
+                        <div class="input-group">
+                            <div class="input-group-addon"><i class=" ti-comment "></i></div>
+                            <textarea type="text" class="form-control" 
+                                placeholder="Ingrese  Domicilio / Terreno" ></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row p-t-20">
+                <div class="col-md-6">
+                    <!-- Ingresar fecha y hora -->
+                    <label for="exampleInputEmail1">Fecha Cita </label>
+                    <input class="form-control" type="text" mwlFlatpickr [altInput]="true" [convertModelValue]="false"
+                        [enableTime]="true" dateFormat="Y-m-d H:i" formControlName="fechaCita" [inline]="true">
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Email </label>
+                        <div class="input-group">
+                            <div class="input-group-addon"><i class="ti-email"></i></div>
+                            <input type="email" class="form-control" placeholder="Ingrese email"
+                                formControlName="email">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="exampleInputuname">Asesor *</label>
+                    <ng-multiselect-dropdown [placeholder]="'Seleccione Asesor'" [settings]="dropdownSettingsSucursal"
+                        [data]="dropdownListAsesores" (onSelect)="onItemSelectAsesor($event)"
+                        (onSelectAll)="onSelectAllAsesor($event)" (onDeSelect)="onDeSelectAsesor($event)"
+                        (onDeSelectAll)="onDeSelectAllAsesor($event)" formControlName="asignado">
+                    </ng-multiselect-dropdown>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Codigo Lead </label>
+                        <div class="input-group">
+                            <div class="input-group-addon"><i class="ti-email"></i></div>
+                            <input type="text" class="form-control" placeholder="Ingrese codigo"
+                                formControlName="codigoLead">
+                        </div>
+                    </div>
+
                     
+                </div>
+            </div>
+            <div class="row p-t-20">
+                <div class="col-md-6">
+                    <div class="form-group">
+
+                    </div>
+                </div>
+                <div class="col-md-6">
+
                 </div>
             </div>
 
 
-            <button type="submit" class="btn btn-success waves-effect waves-light m-r-10">Guardar</button>
-            <a (click)="cancelarGuardado()" class="btn btn-inverse waves-effect waves-light">Cancelar</a>
+            <button  type="submit" class="btn btn-success waves-effect waves-light m-r-10">Guardar</button>
+            <a  (click)="cancelarGuardado()" class="btn btn-inverse waves-effect waves-light">Cancelar</a>
         </div>
     </form>
 
 </div>
 
 
+
+
+<!-- Modal para agregar estudiantes -->
+
+<div class="fondo-modal-imagen animated fadeIn fast" [class.oculto]="mostraModalEstudiantes">
+    <div id="responsive-modal" class="modal fade show" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+        style="display: block;padding-right: 17px; overflow-y: initial">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Agregar abono</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                        (click)="cerrarModalEstudiantes()">×</button>
+                </div>
+
+                <div class="card-body">
+                    <h4 class="card-title">Estudiante</h4>
+                    <h6 class="card-subtitle">Agregar Estudiante</h6>
+                    <br>
+                    
+                    <div class="form-group">
+                        <label for="exampleInputuname">Nombre y apellido</label>
+                        <div class="input-group">
+                            <div class="input-group-addon"><i class="ti-user"></i></div>
+                            <input type="text" name="monto" id="" #nombreEstudiante>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="exampleInputuname">Edad</label>
+                        <div class="input-group">
+                            <div class="input-group-addon"><i class="ti-user"></i></div>
+                            <input type="number" name="monto" id="" #edadEstudiante>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="comentario">Observaciones</label>
+                        <div class="input-group">
+                            <div class="input-group-addon"><i class=" ti-comment "></i></div>
+                            <textarea type="text" class="form-control" 
+                                placeholder="Ingrese observaciones" #observacionesEstudiante style="height: 150px;"></textarea>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default waves-effect" data-dismiss="modal"
+                        (click)="cerrarModalEstudiantes()">Close</button>
+                    <button *ngIf="editaEstudiante==false" type="button" (click)="agregarEstudiante()"
+                        class="btn btn-success waves-effect waves-light">Agregar</button>
+                    <button *ngIf="editaEstudiante==true" type="button" (click)="editarEstudiante()"
+                        class="btn btn-success waves-effect waves-light">Editar</button>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

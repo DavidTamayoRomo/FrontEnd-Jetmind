@@ -42,6 +42,10 @@ import { ContratosAsignarDirectorComponent } from './contratos-asignar-director/
 import { CitasTelemarketingComponent } from './citas-telemarketing/citas-telemarketing.component';
 
 
+import { FlatpickrModule } from 'angularx-flatpickr';
+import { ListaCitasComponent } from './citas-telemarketing/lista-citas/lista-citas.component';
+import { CalendarioComponent } from './calendario/calendario.component';
+
 
 const ngWizardConfig: NgWizardConfig = {
   theme: THEME.default
@@ -77,6 +81,9 @@ const ngWizardConfig: NgWizardConfig = {
     ProgramasComponent,
     ContratosAsignarDirectorComponent,
     CitasTelemarketingComponent,
+    ListaCitasComponent,
+    CalendarioComponent
+    
   ],
   exports:[
     DashboardComponent,
@@ -95,6 +102,8 @@ const ngWizardConfig: NgWizardConfig = {
     ComponentsModule,
     PipesModule,
     NgWizardModule.forRoot(ngWizardConfig),
+    FlatpickrModule.forRoot(),  
+    
   ],
  
 })

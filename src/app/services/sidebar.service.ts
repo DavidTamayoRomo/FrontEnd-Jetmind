@@ -114,8 +114,8 @@ export class SidebarService {
       icono: 'mdi mdi-briefcase',
       submenu: [
         
-        { titulo: 'Crear citas',url: '/citasTelemarketing' },
-        { titulo: 'Lista citas',url: '/citasTelemarketing' },
+        { titulo: 'Crear citas',url: '/citasTelemarketing/nuevo' },
+        { titulo: 'Lista citas',url: '/listacitas' },
       ]
     },
     

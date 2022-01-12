@@ -13,9 +13,14 @@ export class CitaTelemarketing {
         public observaciones?:string,
         public tarjeraCredito?:string,
         public tarjeta?:string,
-        public forma?:any,
+        public forma?:string,
+        public idSucursal?:Array<string>,
+        public zoom?:string,
+        public terreno?:string,
         public fechaCita?:string,
-        public asignado?:string,
+        public email?:string,
+        public asignado?:Array<string>,
+        public codigoLead?:string,
         public observacionesAsesor?:string,
         public addedUser?:string,//responsable
         public modifiedUser?:string
