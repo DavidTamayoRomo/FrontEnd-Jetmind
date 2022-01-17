@@ -116,3 +116,86 @@
     </div>
   </ng-template>
   
+
+
+  
+<!-- Modal para ver los datos del contrato -->
+<div class="fondo-modal-imagen animated fadeIn fast" [class.oculto]="mostraModal">
+  <div id="responsive-modal" class="modal fade show" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+      style="display: block;padding-right: 17px; overflow-y: initial">
+      <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h4 class="modal-title">Datos de la cita</h4>
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                      (click)="cerrarModal()">×</button>
+              </div>
+
+              <div class="card-body">
+                  <h4 class="card-title">Acciones</h4>
+                  <h6 class="card-subtitle">Datos de la cita</h6>
+                  <div class="row button-group">
+     
+                  </div>
+
+                  <div class="row p-t-20">
+                      <div class="col-md-6">
+                          <table class="table .color-table .dark-table">
+
+                              <tr *ngFor="let nombreatributo of atributostablaCita?.nombreAtributos">
+                                  <td>{{nombreatributo}}</td>
+                              </tr>
+                          </table>
+                      </div>
+                      <div class="col-md-6">
+                          <table class="table .color-table .dark-table">
+
+                              <tr *ngFor="let idatributo of atributostablaCita?.idAtributos ">
+                                  <td *ngIf="idatributo==null">--</td>
+                                  <td *ngIf="idatributo!=null">{{idatributo}}</td>
+                              </tr>
+                          </table>
+                      </div>
+                  </div>
+
+                  <div class="row p-t-20">
+                      <div class="card">
+                          <div class="card-body">
+                              <h4 class="card-title"> Datos Estudiantes</h4>
+                              <div style="height: 10px;"></div>
+                              <div class="table-responsive">
+                                  <table class="table table-bordered">
+                                      <thead>
+                                          <tr>
+                                              <th>Nombre</th>
+                                              <th>Edad</th>
+                                              <th>Observaciones</th>
+                                          </tr>
+                                      </thead>
+                                      <tbody>
+                                          <tr *ngFor="let estudiante of citaSeleccionado?.estudiante">
+                                              <td>{{estudiante?.nombre}}</td>
+                                              <td>{{estudiante?.edad}}</td>
+                                              <td>{{estudiante?.observaciones}}</td>
+                                          </tr>
+                                      </tbody>
+                                  </table>
+                              </div>
+
+
+                          </div>
+                      </div>
+
+                  </div>
+
+
+
+
+              </div>
+
+
+
+          </div>
+      </div>
+  </div>
+</div> 

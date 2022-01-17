@@ -61,10 +61,24 @@
                             <tr *ngFor="let cita of citas">
 
                                 <td (click)="mostrarDatosModal(cita)">{{cita.estado}}</td>
-                                <td (click)="mostrarDatosModal(cita)">{{cita.addedUser}}</td>
+                                <td (click)="mostrarDatosModal(cita)">{{cita.addedUser?.nombresApellidos}}</td>
                                 <td (click)="mostrarDatosModal(cita)">{{cita.fechaCita | date:"dd-MM-yy HH:mm"}}</td>
                                 <td (click)="mostrarDatosModal(cita)">{{cita.forma}}</td>
-                                <td (click)="mostrarDatosModal(cita)">{{cita.asignado}}</td>
+                                <td >
+                                    <div style="width: 200px;" (click)="actualizarAsignado(cita)">
+                                        <ng-multiselect-dropdown [placeholder]="'Seleccione Director'"
+                                            [settings]="dropdownSettings" [data]="dropdownListPersona"
+                                            (onSelect)="onItemSelectpersona($event)"
+                                            (onSelectAll)="onSelectAllpersona($event)"
+                                            (onDeSelect)="onDeSelectpersona($event)"
+                                            (onDeSelectAll)="onDeSelectAllpersona($event)"
+                                            [(ngModel)]="cita.asignado"
+                                            (click)="actualizarAsignado(cita)">
+                                        </ng-multiselect-dropdown>
+                                    </div>
+
+
+                                </td>
                                 <td (click)="mostrarDatosModal(cita)"> <div *ngFor="let citax of cita.idMarca">{{citax.nombre}}</div> </td>
                                 <td (click)="mostrarDatosModal(cita)">{{cita.observaciones}}</td>
                                 <td (click)="mostrarDatosModal(cita)">{{cita.nombreApellidoRepresentante}}</td>

@@ -4,6 +4,8 @@ import { CitasTelemarketingService } from '../../services/citas-telemarketing.se
 import { BusquedasService } from '../../../services/busquedas.service';
 import Swal from 'sweetalert2';
 import { map } from 'rxjs/operators';
+import { IDropdownSettings } from 'ng-multiselect-dropdown';
+import { PersonaService } from '../../persona/persona.service';
 
 @Component({
   selector: 'app-lista-citas',
@@ -23,13 +25,50 @@ export class ListaCitasComponent implements OnInit {
   public atributostablaCita: any = {};
   public citaSeleccionado: any;
 
+
+  public dropdownListPersona: any = [];
+
+  public selectedItems: any = [];
+  public dropdownSettings: IDropdownSettings = {};
+  public persona: any = [];
+
   constructor(
     private citasTelemarketingService: CitasTelemarketingService,
-    private busquedaService: BusquedasService
+    private busquedaService: BusquedasService,
+    private personaService: PersonaService,
   ) { }
 
   ngOnInit(): void {
     this.cargarCitas();
+
+    this.recuperarDatosPersonas();
+
+    this.dropdownSettings = {
+      singleSelection: true,
+      idField: 'item_id',
+      textField: 'nombre',
+      selectAllText: 'Select All',
+      unSelectAllText: 'UnSelect All',
+      //itemsShowLimit: 3,
+      allowSearchFilter: true,
+    };
+
+  }
+
+  recuperarDatosPersonas() {
+    //TODO: Para cada marca cambia los datos y para cada ciudad || obtener los datos de las persona loggeada = Datos se obtiene de (this.personaService.persona)
+    //Obtener el id del role Director
+    //Obtener el id de la marca
+    //Obtener el id de ciudad
+    console.log(this.personaService.persona);
+
+    this.personaService.getAllByRoleCiudadMarca("617c24f29f60c044346e3ff8","613a389282cbc52ac8a87a13","613a53447f51e7211092c8de").subscribe((resp: any) => {
+      let nombrePersona: any = [];
+      resp.data.forEach((element: any) => {
+        nombrePersona.push({ item_id: element._id, nombre: element.nombresApellidos });
+      });
+      this.dropdownListPersona = nombrePersona;
+    });
   }
 
   cargarCitas() {
@@ -118,7 +157,7 @@ export class ListaCitasComponent implements OnInit {
         , 'Programa', 'Observaciones', 'Representante', 'Telefono', 'Ciudad', 'Actividad Economica', 'Tarjeta de credito',
         'Tarjeta', 'Direccion Cita', 'Sucursal', 'Zoom', 'Fecha', 'Observaciones Asesor', 'Correo', 'Codigo Lead'],
 
-      'idAtributos': [cita?.estado, cita?.addedUser, fechacitaString, cita?.forma, cita?.asignado[0]?.nombresApellidos
+      'idAtributos': [cita?.estado, cita?.addedUser?.nombresApellidos, fechacitaString, cita?.forma, cita?.asignado[0]?.nombresApellidos
         , cita?.idMarca?.map((resp: any) => resp.nombre), cita?.observaciones, cita?.nombreApellidoRepresentante, cita?.telefono, cita?.ciudad, cita?.actividadEconomica, cita?.tarjeraCredito
         , cita?.tarjeta, cita?.terreno, cita?.idSucursal[0]?.nombre, cita?.zoom, cita?.fecha, cita?.observacionesAsesor, cita?.email, cita?.codigoLead]
     };
@@ -126,5 +165,61 @@ export class ListaCitasComponent implements OnInit {
 
 
   }
+
+
+    /** Persona */
+  /** Item Seleccionado */
+  onItemSelectpersona(item: any) {
+    this.persona=item;
+    //actualizar Cita telemarketing
+    this.citaSeleccionado.asignado = this.persona;
+    this.citasTelemarketingService.updateCitasTelemarketing(this.citaSeleccionado._id, this.citaSeleccionado).subscribe(resp=>{
+      this.cargarCitas();
+      Swal.fire(
+        'Actualizado!',
+        `Asido actualizado con éxito.`,
+        'success'
+      )
+    });
+
+  }
+  /** Todos los items Seleccionados */
+
+  onSelectAllpersona(items: any) {
+    this.persona = items;
+    
+
+  }
+  /** Deselccionar item */
+  findByItemIdIndexpersona(id: any) {
+    return this.persona.findIndex((resp: any) => {
+      return resp.item_id === id;
+    });
+  }
+  onDeSelectpersona(item: any) {
+    /** Borrar elemento del array  */
+    this.persona = [];
+    this.citasTelemarketingService.updateCitasTelemarketing(this.citaSeleccionado._id, this.citaSeleccionado).subscribe(resp=>{
+      this.cargarCitas();
+      Swal.fire(
+        'Actualizado!',
+        `Asido actualizado con éxito.`,
+        'success'
+      )
+    });
+  }
+  /** Deselccionar todos los items */
+  onDeSelectAllpersona(items: any) {
+    this.persona = items;
+    console.log(this.persona);
+  }
+
+
+  actualizarAsignado(cita:CitaTelemarketing){
+    this.citaSeleccionado = cita;
+    console.log(this.citaSeleccionado);
+  }
+
+
 
 }

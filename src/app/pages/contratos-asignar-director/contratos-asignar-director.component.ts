@@ -132,13 +132,26 @@ export class ContratosAsignarDirectorComponent implements OnInit {
 
 
   recuperarDatosPersonas() {
-    this.personaService.getAllPersonas().subscribe((resp: any) => {
+    //TODO: Para cada marca cambia los datos y para cada ciudad || obtener los datos de las persona loggeada = Datos se obtiene de (this.personaService.persona)
+    //Obtener el id del role Director
+    //Obtener el id de la marca
+    //Obtener el id de ciudad
+    console.log(this.personaService.persona);
+
+    this.personaService.getAllByRoleCiudadMarca("617c24f99f60c044346e3ffa","613a389282cbc52ac8a87a13","613a53447f51e7211092c8de").subscribe((resp: any) => {
       let nombrePersona: any = [];
       resp.data.forEach((element: any) => {
         nombrePersona.push({ item_id: element._id, nombre: element.nombresApellidos });
       });
       this.dropdownListPersona = nombrePersona;
     });
+    /* this.personaService.getAllPersonas().subscribe((resp: any) => {
+      let nombrePersona: any = [];
+      resp.data.forEach((element: any) => {
+        nombrePersona.push({ item_id: element._id, nombre: element.nombresApellidos });
+      });
+      this.dropdownListPersona = nombrePersona;
+    }); */
   }
 
 
@@ -168,7 +181,7 @@ export class ContratosAsignarDirectorComponent implements OnInit {
     });
   }
 
-  /** SUCRUSAL */
+  /** Persona */
   /** Item Seleccionado */
   onItemSelectpersona(item: any) {
     this.persona.push(item);

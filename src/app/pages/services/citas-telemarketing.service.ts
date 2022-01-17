@@ -27,7 +27,7 @@ export class CitasTelemarketingService {
     return this.http.get(`${base_url}/citastelemarketing`, { headers: headers });
   }
 
-  obtenerCitasTelemarketingById(id:string){
+  obtenerCitasTelemarketingById(id:any){
     const headers = this.retornarHeader();
     return this.http.get(`${base_url}/citastelemarketing/${id}`, { headers: headers })
   }
@@ -37,7 +37,7 @@ export class CitasTelemarketingService {
     return this.http.post(`${base_url}/citastelemarketing`, formData, { headers: headers });
   }
 
-  updateCitasTelemarketing(id:string, telemarketing:CitaTelemarketing){
+  updateCitasTelemarketing(id:any, telemarketing:CitaTelemarketing){
     const headers = this.retornarHeader();
     return this.http.put(`${base_url}/citastelemarketing/${id}`, telemarketing, { headers: headers });
   }

@@ -25,6 +25,8 @@ import {
   CalendarView,
 } from 'angular-calendar';
 
+
+
 const colors: any = {
   red: {
     primary: '#ad2121',
@@ -52,35 +54,46 @@ export class CalendarioComponent implements OnInit {
 
   public arrayCalendario: any = [];
 
+  public mostraModal: boolean = true;
+  public atributostablaCita: any = {};
+  public citaSeleccionado: any;
+  public idCita: string = "";
+
+  constructor(private modal: NgbModal,
+    private citasTelemarketingService: CitasTelemarketingService,
+
+  ) { }
+
 
   ngOnInit(): void {
-    setTimeout(() => {
-      //Uso para cargar los datos al calendario
-      //Para q detecte un cambio en el calendario
-      //y se ejecute el metodo ngAfterViewInit
-      this.addEvent();
-    }, 200);
-  }
 
-  ngAfterViewInit(): void {
-
+    //TODO: Modificar solo la busqueda a solo las citas del mes que se muestra
     this.citasTelemarketingService.getAllCitasTelemarketing().subscribe(
       (resp: any) => {
         console.log('Respuesta del servicio', resp);
         this.citasTelemarketing = resp.data;
         this.citasTelemarketing.map((item: any) => {
-          console.log('Item', new Date(item.fechaCita));
+          
+          let fecha = new Date(item.fechaCita);
+          let fechacitaString;
+          if (fecha.getMinutes() < 10) {
+            fechacitaString = fecha.getDate() + "-" + (fecha.getMonth() + 1) + "-" + fecha.getFullYear() + " " + fecha.getHours() + ":0" + fecha.getMinutes();
+          } else {
+            fechacitaString = fecha.getDate() + "-" + (fecha.getMonth() + 1) + "-" + fecha.getFullYear() + " " + fecha.getHours() + ":" + fecha.getMinutes();
+          }
+
           this.arrayCalendario.push({
             start: new Date(item.fechaCita),
-            title: item.nombreApellidoRepresentante,
-            color: colors.red,
-            actions: this.actions,
+            title: `Representante: ${item?.nombreApellidoRepresentante}  -  Telemercadista: ${item?.addedUser?.nombresApellidos} 
+            - Fecha cita: ${fechacitaString}`,
+            color: colors.blue,
+            id: item._id,
           });
         })
-        return this.arrayCalendario;
+
+        this.events = this.arrayCalendario;
       }
     );
-
 
   }
 
@@ -100,32 +113,16 @@ export class CalendarioComponent implements OnInit {
   };
 
   actions: CalendarEventAction[] = [
-    {
-      label: '<i class="fas fa-fw fa-pencil-alt"></i>',
-      a11yLabel: 'Edit',
-      onClick: ({ event }: { event: CalendarEvent }): void => {
-        this.handleEvent('Edited', event);
-      },
-    },
-    {
-      label: '<i class="fas fa-fw fa-trash-alt"></i>',
-      a11yLabel: 'Delete',
-      onClick: ({ event }: { event: CalendarEvent }): void => {
-        this.events = this.events.filter((iEvent) => iEvent !== event);
-        this.handleEvent('Deleted', event);
-      },
-    },
+
   ];
 
   refresh = new Subject<void>();
 
-  events: CalendarEvent[] = this.arrayCalendario;
+  events: CalendarEvent[] = [];
 
   activeDayIsOpen: boolean = true;
 
-  constructor(private modal: NgbModal,
-    private citasTelemarketingService: CitasTelemarketingService
-  ) { }
+  
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
     console.log('Emite elvalor de la fecha en donde se aplasta', date);
@@ -152,7 +149,7 @@ export class CalendarioComponent implements OnInit {
         return {
           ...event,
           start: newStart,
-          end: newEnd,
+          end: newEnd
         };
       }
       return iEvent;
@@ -161,16 +158,42 @@ export class CalendarioComponent implements OnInit {
   }
 
   handleEvent(action: string, event: CalendarEvent): void {
-    this.modalData = { event, action };
-    this.modal.open(this.modalContent, { size: 'lg' });
+    //Muestra los datos del item seleccionado
+    //this.modalData = { event, action };
+    //this.modal.open(this.modalContent, { size: 'lg' });
+
+    if (event) {
+      console.log('Evento', event);
+      let idCita = event.id?.toString();
+      this.citasTelemarketingService.obtenerCitasTelemarketingById( idCita ).subscribe(
+        (resp: any) => {
+          this.mostrarDatosModal(resp.data);   
+        }
+      );
+    }
+   
+    
+
+
   }
 
   addEvent(): void {
-    this.events = [
-      
-    ];
+    /* this.events = [
+      ...this.events,
+      {
+        title: 'New event',
+        start: startOfDay(new Date()),
+        end: endOfDay(new Date()),
+        color: colors.red,
+        draggable: true,
+        resizable: {
+          beforeStart: true,
+          afterEnd: true,
+        },
+      },
+    ]; */
 
-    
+
   }
 
   deleteEvent(eventToDelete: CalendarEvent) {
@@ -184,4 +207,40 @@ export class CalendarioComponent implements OnInit {
   closeOpenMonthViewDay() {
     this.activeDayIsOpen = false;
   }
+
+
+
+  cerrarModal() {
+    this.mostraModal = true;
+  }
+
+  mostrarDatosModal(cita: any) {
+    this.mostraModal = false;
+    this.citaSeleccionado = cita;
+
+    //transformar fecha a formato dd/mm/yyyy HH:mm
+    let fecha = new Date(cita.fechaCita);
+    let fechacitaString;
+    if (fecha.getMinutes() < 10) {
+      fechacitaString = fecha.getDate() + "-" + (fecha.getMonth() + 1) + "-" + fecha.getFullYear() + " " + fecha.getHours() + ":0" + fecha.getMinutes();
+    } else {
+      fechacitaString = fecha.getDate() + "-" + (fecha.getMonth() + 1) + "-" + fecha.getFullYear() + " " + fecha.getHours() + ":" + fecha.getMinutes();
+    }
+
+
+    this.atributostablaCita = {
+      'nombreAtributos': ['Estado', 'Telemercadista', 'Fecha cita', 'Fomra', 'Asesor asignado'
+        , 'Programa', 'Observaciones', 'Representante', 'Telefono', 'Ciudad', 'Actividad Economica', 'Tarjeta de credito',
+        'Tarjeta', 'Direccion Cita', 'Sucursal', 'Zoom', 'Fecha', 'Observaciones Asesor', 'Correo', 'Codigo Lead'],
+
+      'idAtributos': [cita?.estado, cita?.addedUser?.nombresApellidos, fechacitaString, cita?.forma, cita?.asignado[0]?.nombresApellidos
+        , cita?.idMarca?.map((resp: any) => resp.nombre), cita?.observaciones, cita?.nombreApellidoRepresentante, cita?.telefono, cita?.ciudad, cita?.actividadEconomica, cita?.tarjeraCredito
+        , cita?.tarjeta, cita?.terreno, cita?.idSucursal[0]?.nombre, cita?.zoom, cita?.fecha, cita?.observacionesAsesor, cita?.email, cita?.codigoLead]
+    };
+
+
+
+  }
+
+
 }

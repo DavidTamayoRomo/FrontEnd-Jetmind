@@ -212,7 +212,7 @@ export class CitasTelemarketingComponent implements OnInit {
       this.citaTelemarketingModel.idMarca = marcaLista;
       //ID de las Personas
       let personaLista: any = [];
-      this.marca.forEach((element: any) => {
+      this.asesor.forEach((element: any) => {
         personaLista.push(element.item_id);
       });
       this.citaTelemarketingModel.asignado = personaLista;
@@ -307,7 +307,7 @@ export class CitasTelemarketingComponent implements OnInit {
       this.citaTelemarketingModel.idMarca = marcaLista;
       //ID de las Personas
       let personaLista: any = [];
-      this.marca.forEach((element: any) => {
+      this.asesor.forEach((element: any) => {
         personaLista.push(element.item_id);
       });
       this.citaTelemarketingModel.asignado = personaLista;

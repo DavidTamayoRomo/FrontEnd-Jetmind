@@ -98,6 +98,11 @@ export class PersonaService {
     const headers = this.retornarHeader();
     return this.http.get(`${base_url}/persona`, { headers: headers });
   }
+  
+  getAllByRoleCiudadMarca(idRole:string, idCiudad:string, idMarca:string) {
+    const headers = this.retornarHeader();
+    return this.http.get(`${base_url}/persona/byroleciudadmarca/${idRole}/${idCiudad}/${idMarca}`, { headers: headers });
+  }
 
   crearPersona(formData: any) {
     const headers = this.retornarHeader();
