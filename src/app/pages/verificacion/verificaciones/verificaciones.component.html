@@ -1,0 +1,83 @@
+<div class="col">
+
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <!-- <div class="text-right">
+                    <a class="btn btn-primary" routerLink="/ciudad/nuevo">
+                        <i class="mdi mdi-account-plus"></i>
+                        Crear Ciudad
+                    </a>
+                </div> -->
+                <div style="height: 10px;"></div>
+                <input type="text" class="form-control" placeholder="Buscar Verificar" (keyup)="buscar(txtBusqueda.value)"
+                    #txtBusqueda>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" *ngIf="cargando">
+    <div class="col-12">
+        <div class="alert alert-info text-center">
+            <h4 class="alert-heading">Cargando</h4>
+            <i class="fa fa-spin fa-refresh fa-2x"></i>
+            <p class="mb-0">Por favor espere...</p>
+        </div>
+    </div>
+</div>
+<div class="row" *ngIf="!cargando">
+
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Verificaciones registrados</h4>
+                <h6 class="card-subtitle">Lista de todos las verificaciones existentes en el sistema</h6>
+                <h6 class="card-subtitle">Total de verificaciones: {{totalVerificaciones}}</h6>
+                <div class="table-responsive">
+                    <table class="table full-color-table full-inverse-table hover-table">
+                        <thead>
+                            <tr>
+                                <th class="w100">Contrato</th>
+                                <th class="w100">Representante del contrato</th>
+                                <th class="w100">Tipo Pago</th>
+                                <th class="w100">Valor total</th>
+                                <th class="w100">Fecha Verificacion</th>
+                                <th class="w100">Estado</th>
+
+                                <th class="text-nowrap w100">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let verificacion of verificaciones">
+
+                                <td>{{verificacion.idContrato[0]?.idRepresentante?.codigo }}</td>
+                                <td>{{verificacion.idContrato[0]?.idRepresentante?.nombresApellidos}}</td>
+                                <td>{{verificacion.idContrato[0]?.tipoPago}}</td>
+                                <td>{{verificacion.idContrato[0]?.valorTotal}}</td>
+                                <td>{{verificacion.fechaVerificacion}}</td>
+                                <td>{{verificacion.estado}}</td>
+
+                                <td class="text-nowrap">
+                                    <button (click)="abrirVistaVerificacion(verificacion)" type="button" class="btn btn-info btn-circle btn-lg">
+                                        <i class="ti ti-eye "></i></button>
+                                </td>
+                            </tr>
+
+
+                        </tbody>
+                    </table>
+                    <div *ngIf="txtBusqueda.value.length === 0">
+                        <button (click)="paginar(-5)" class="btn btn-secondary">Anterio</button>
+                        &nbsp;
+                        <button (click)="paginar(5)" class="btn btn-secondary">Siguiente</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

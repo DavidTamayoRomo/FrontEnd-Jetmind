@@ -157,7 +157,7 @@ export class FacturarComponent implements OnInit, OnChanges {
 
   public registerForm = this.fb.group({
       idContrato:[null],
-      programa:[null, Validators.required],
+      programa:[null],
       nombre:[null, Validators.required],
       cedula_ruc:[null, Validators.required],
       telefono:[null],

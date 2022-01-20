@@ -10,7 +10,7 @@ import { ProgramaService } from '../../pages/services/programa.service';
 import { Estudiante } from '../../pages/estudiante/estudiante.model';
 import { Programa } from '../../pages/programa/programa.model';
 
-
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -34,14 +34,14 @@ export class ModalImagenComponent implements OnInit {
   public nombrePrograma: any = [];
   public programaSeleccionada: any;
 
-  public estudiante:Estudiante = new Estudiante();
-  public programa:Programa = new Programa();
-  public objetoEstudiatePrograma: any ; 
-  public objetosEstudiatePrograma: any = []; 
+  public estudiante: Estudiante = new Estudiante();
+  public programa: Programa = new Programa();
+  public objetoEstudiatePrograma: any;
+  public objetosEstudiatePrograma: any = [];
 
   @Output() emitirEstudianteNuevo = new EventEmitter();
-  
-  @ViewChild("nombresApellidos1", {static:true}) nombresApellidos1: ElementRef;
+
+  @ViewChild("nombresApellidos1", { static: true }) nombresApellidos1: ElementRef;
 
   constructor(
     public modalImagenServices: ModalUploadService,
@@ -51,7 +51,7 @@ export class ModalImagenComponent implements OnInit {
     private marcaService: MarcaService,
     private nombreProgramaService: NombreProgramaService,
     private programaService: ProgramaService
-     ) { }
+  ) { }
 
   ngOnInit(): void {
     this.cerrarModal();
@@ -64,8 +64,8 @@ export class ModalImagenComponent implements OnInit {
     /** Servicio que me devuelva las ROLE de la base de datos */
     this.recuperarDatosnombreProgramas();
 
-    
-    
+
+
 
     this.dropdownSettings = {
       singleSelection: false,
@@ -79,13 +79,13 @@ export class ModalImagenComponent implements OnInit {
 
   }
 
-  public setRegisterForm(nombre:any) {
+  public setRegisterForm(nombre: any) {
     this.registerForm.controls.nombresApellidos.setValue(nombre)
   }
 
   public registerForm = this.fb.group({
     nombresApellidos: [null, Validators.required],
-    email: [null, Validators.required],
+    email: [null, [Validators.required, Validators.email]],
     cedula: [null, Validators.required],
     telefono: [null, Validators.required],
     fechaNacimiento: [null, Validators.required],
@@ -98,58 +98,79 @@ export class ModalImagenComponent implements OnInit {
     idNombrePrograma: [null, Validators.required],
   });
 
-  cerrarModal(){
+  cerrarModal() {
     this.modalImagenServices.cerrarModal();
 
     //limpiar los campos
     this.registerForm.reset();
-    
+
   }
 
-  crearEstudiante(){
-    console.log(this.registerForm.value);
-    this.estudiante.nombresApellidos = this.registerForm.value.nombresApellidos;
-    this.estudiante.email = this.registerForm.value.email;
-    this.estudiante.cedula = this.registerForm.value.cedula;
-    this.estudiante.telefono = this.registerForm.value.telefono;
-    this.estudiante.fechaNacimiento = this.registerForm.value.fechaNacimiento;
-    this.estudiante.direccion = this.registerForm.value.direccion;
-    this.estudiante.genero = this.registerForm.value.genero;
-    this.estudiante.estado = this.registerForm.value.estado;
-
-    this.programa.idMarca = this.registerForm.value.idMarca;
-    this.programa.idCiudad = this.registerForm.value.idCiudad;
-    this.programa.idSucursal = this.registerForm.value.idSucursal;
-    this.programa.idNombrePrograma = this.registerForm.value.idNombrePrograma;
- 
-    this.objetoEstudiatePrograma = {'estudiante':this.estudiante, 'programa':this.programa};
-    console.log(this.objetoEstudiatePrograma);
-    let objetoEP =JSON.parse(localStorage.getItem('objetosEstudiatePrograma') as string );
-    if (objetoEP != null) {
-      //agregar mas items
-      let duplicado = objetoEP;
-      duplicado.push(this.objetoEstudiatePrograma);
-      localStorage.setItem('objetosEstudiatePrograma', JSON.stringify(duplicado));
-
+  crearEstudiante() {
+    if (this.registerForm.invalid) {
+      //Formulario invalido
+      const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener('mouseenter', Swal.stopTimer)
+          toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+      })
+      Toast.fire({
+        icon: 'error',
+        title: 'Verificar campos invalidos \n Indicados con el color rojo'
+      })
+      return;
     } else {
-      //primer item
-      this.objetosEstudiatePrograma = [this.objetoEstudiatePrograma]
-      localStorage.setItem('objetosEstudiatePrograma', JSON.stringify(this.objetosEstudiatePrograma));  
+      console.log(this.registerForm.value);
+      this.estudiante.nombresApellidos = this.registerForm.value.nombresApellidos;
+      this.estudiante.email = this.registerForm.value.email;
+      this.estudiante.cedula = this.registerForm.value.cedula;
+      this.estudiante.telefono = this.registerForm.value.telefono;
+      this.estudiante.fechaNacimiento = this.registerForm.value.fechaNacimiento;
+      this.estudiante.direccion = this.registerForm.value.direccion;
+      this.estudiante.genero = this.registerForm.value.genero;
+      this.estudiante.estado = this.registerForm.value.estado;
+
+      this.programa.idMarca = this.registerForm.value.idMarca;
+      this.programa.idCiudad = this.registerForm.value.idCiudad;
+      this.programa.idSucursal = this.registerForm.value.idSucursal;
+      this.programa.idNombrePrograma = this.registerForm.value.idNombrePrograma;
+
+      this.objetoEstudiatePrograma = { 'estudiante': this.estudiante, 'programa': this.programa };
+      console.log(this.objetoEstudiatePrograma);
+      let objetoEP = JSON.parse(localStorage.getItem('objetosEstudiatePrograma') as string);
+      if (objetoEP != null) {
+        //agregar mas items
+        let duplicado = objetoEP;
+        duplicado.push(this.objetoEstudiatePrograma);
+        localStorage.setItem('objetosEstudiatePrograma', JSON.stringify(duplicado));
+
+      } else {
+        //primer item
+        this.objetosEstudiatePrograma = [this.objetoEstudiatePrograma]
+        localStorage.setItem('objetosEstudiatePrograma', JSON.stringify(this.objetosEstudiatePrograma));
+      }
+
+      this.emitirEstudianteNuevo.emit(this.objetoEstudiatePrograma);
+
+      //cerrar modal
+      this.modalImagenServices.cerrarModal();
+
+      setTimeout(() => {
+        //limpiar campos del formulario
+        this.registerForm.reset();
+      }, 600);
     }
 
-    this.emitirEstudianteNuevo.emit(this.objetoEstudiatePrograma);
 
-    //cerrar modal
-    this.modalImagenServices.cerrarModal(); 
-
-    setTimeout(() => {
-    //limpiar campos del formulario
-    this.registerForm.reset();
-    }, 600);
-    
   }
 
-  
+
 
   campoNoValido(campo: any): boolean {
     if (this.registerForm.get(campo)?.invalid && (this.registerForm.get(campo)?.dirty || this.registerForm.get(campo)?.touched)) {
@@ -161,7 +182,7 @@ export class ModalImagenComponent implements OnInit {
   }
 
 
-  
+
   /**
    * ===================================================
    *  Multi select dropDown
@@ -216,7 +237,7 @@ export class ModalImagenComponent implements OnInit {
    * ==========================================================
    */
 
-   recuperarDatosCiudad() {
+  recuperarDatosCiudad() {
     this.ciudadService.getAllCiudades().subscribe((resp: any) => {
       let nombreciudades: any = [];
       resp.data.forEach((element: any) => {

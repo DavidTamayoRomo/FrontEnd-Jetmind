@@ -9,7 +9,7 @@
 
             <div class="row p-t-20">
                 <div class="col-md-6">
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                         <label for="exampleInputuname">Marcas *</label>
                         <ng-multiselect-dropdown [placeholder]="'Seleccione Marca'" [settings]="dropdownSettings"
                             [data]="dropdownListMarcas" (onSelect)="onItemSelectmarca($event)"
@@ -19,15 +19,16 @@
                         <div class="text-danger">
                             <p *ngIf="campoNoValido('programa')">Ingrese al menos una marca</p>
                         </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
+                    </div> -->
                     <div class="form-check">
                         <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" #flexCheckDefault>
                         <label class="form-check-label" for="flexCheckDefault" (click)="copiardatosRepresentante()">
                           Mismos datos del representante
                         </label>
                       </div>
+                </div>
+                <div class="col-md-6">
+                    
                 </div>
             </div>
             <div class="row p-t-20">

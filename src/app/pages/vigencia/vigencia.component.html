@@ -1,0 +1,58 @@
+<div class="card">
+
+    <form (ngSubmit)="crearVigencia()" autocomplete="off" [formGroup]="registerForm">
+
+    
+    <div class="card-body">
+        <h4 class="card-title">Agregar crearVigencia</h4>
+        <h6 class="card-subtitle">Ingrese todos los datos solicitados</h6>
+
+        <div class="form-group">
+            <div class="demo-switch-title">Estado</div>
+            <div class="switch">
+                <label>
+                    <input type="checkbox" checked="" formControlName="estado"><span class="lever switch-col-cyan"></span>
+                </label>
+            </div> 
+        </div>
+
+        <div class="form-group">
+            <label for="exampleInputuname">Ciudades *</label>
+            <ng-multiselect-dropdown [placeholder]="'Seleccione Ciudades'" [settings]="dropdownSettings"
+                [data]="dropdownListCiudades" (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)"
+                (onDeSelect)="onDeSelect($event)" (onDeSelectAll)="onDeSelectAll($event)" formControlName="idCiudad" >
+            </ng-multiselect-dropdown>
+            <div class="text-danger"><p *ngIf="campoNoValido('idCiudad')">Ingrese al menos una ciudad</p></div> 
+        </div>
+        
+        
+
+        
+        
+        <div class="form-group">
+            <label for="exampleInputuname">Fecha Inicio  *</label>
+            <div class="input-group">
+                <div class="input-group-addon"><i class="ti-user"></i></div>
+                <input type="date" class="form-control" placeholder="Fehca Inicio" formControlName="fechaInicio">
+            </div>
+            <div class="text-danger"><p *ngIf="campoNoValido('fechaInicio')">La fecha de inicio es obligatoria</p></div> 
+        </div>
+
+        <div class="form-group">
+            <label for="exampleInputuname">Fecha Fin  *</label>
+            <div class="input-group">
+                <div class="input-group-addon"><i class="ti-user"></i></div>
+                <input type="date" class="form-control" placeholder="Fehca Fin" formControlName="fechaCierre">
+            </div>
+            <div class="text-danger"><p *ngIf="campoNoValido('fechaCierre')">La fecha de inicio es obligatoria</p></div> 
+        </div>
+       
+    
+  
+
+        <button type="submit" class="btn btn-success waves-effect waves-light m-r-10">Guardar</button>
+        <a (click)="cancelarGuardado()"   class="btn btn-inverse waves-effect waves-light">Cancelar</a>
+    </div>
+    </form>
+    
+</div>

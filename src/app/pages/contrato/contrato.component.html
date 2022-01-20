@@ -88,7 +88,7 @@
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
                         (click)="cerrarModalEstudiante()">×</button>
                 </div>
-
+                <form (ngSubmit)="editarEstudianteFrom()" autocomplete="off" [formGroup]="registerFormEstudiante">
                 <div class="card-body">
 
                     <div class="card-body">
@@ -101,7 +101,10 @@
                                     <div class="input-group">
                                         <div class="input-group-addon"><i class="ti-user"></i></div>
                                         <input  type="text" class="form-control" placeholder="Nombres"
-                                            id="nombresApellidos" #nombresApellidos>
+                                            id="nombresApellidos" formControlName="nombresApellidos">
+                                    </div>
+                                    <div class="text-danger">
+                                        <p *ngIf="campoNoValido2('nombresApellidos')">El Nombre y Apellido es obligatorio</p>
                                     </div>
                                 </div>
                             </div>
@@ -111,7 +114,10 @@
                                     <div class="input-group">
                                         <div class="input-group-addon"><i class="ti-email"></i></div>
                                         <input type="email" class="form-control" placeholder="Ingrese email"
-                                            id="email" #email>
+                                            id="email" formControlName="email">
+                                    </div>
+                                    <div class="text-danger">
+                                        <p *ngIf="campoNoValido2('email')">El email es obligatorio / Ingrese email valido</p>
                                     </div>
                                 </div>
                             </div>
@@ -123,9 +129,11 @@
                                     <div class="input-group">
                                         <div class="input-group-addon"><i class=" ti-id-badge"></i></div>
                                         <input type="number" class="form-control" id="cedula"
-                                            placeholder="Ingrese cedula" id="cedula" #cedula>
+                                            placeholder="Ingrese cedula" id="cedula" formControlName="cedula">
                                     </div>
-
+                                    <div class="text-danger">
+                                        <p *ngIf="campoNoValido2('cedula')">La cedula es obligatoria</p>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -134,9 +142,11 @@
                                     <div class="input-group">
                                         <div class="input-group-addon"><i class="fa fa-phone"></i></div>
                                         <input type="number" class="form-control" id="telefono"
-                                            placeholder="Ingrese telefono" id="telefono" #telefono>
+                                            placeholder="Ingrese telefono" id="telefono" formControlName="telefono">
                                     </div>
-
+                                    <div class="text-danger">
+                                        <p *ngIf="campoNoValido2('telefono')">El numero de telefono es obligatorio</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -148,9 +158,11 @@
                                         <div class="input-group-addon"><i class="fa fa-clock-o"></i></div>
                                         <input type="date" class="form-control" id="fechaNacimiento"
                                             placeholder="Ingrese fecha Nacimiento"
-                                            id="fechaNacimiento" #fechaNacimiento>
+                                            id="fechaNacimiento" formControlName="fechaNacimiento">
                                     </div>
-
+                                    <div class="text-danger">
+                                        <p *ngIf="campoNoValido2('fechaNacimiento')">La fecha de nacimiento es obligatoria</p>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -159,7 +171,7 @@
                                     <div class="input-group">
                                         <div class="input-group-addon"><i class=" ti-location-pin"></i></div>
                                         <input type="text" class="form-control" id="direccion"
-                                            placeholder="Ingrese direccion" id="direccion" #direccion>
+                                            placeholder="Ingrese direccion" id="direccion" formControlName="direccion">
                                     </div>
                                 </div>
                             </div>
@@ -168,7 +180,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="control-label">Genero</label>
-                                    <select class="form-control custom-select" id="genero" #genero>
+                                    <select class="form-control custom-select" id="genero" formControlName="genero">
                                         <option value="Femenino">Femenino</option>
                                         <option value="Masculino">Masculino</option>
                                     </select>
@@ -185,11 +197,11 @@
                                 <div class="form-group">
                                     <label for="exampleInputuname">Ciudades *</label>
                                     <ng-multiselect-dropdown [placeholder]="'Seleccione Ciudades'"
-                                        [settings]="dropdownSettings" [data]="dropdownListCiudades" [(ngModel)]="selectedItemsCiudades"
+                                        [settings]="dropdownSettings" [data]="dropdownListCiudades" 
                                         (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)"
-                                        (onDeSelect)="onDeSelect($event)" (onDeSelectAll)="onDeSelectAll($event)">
+                                        (onDeSelect)="onDeSelect($event)" (onDeSelectAll)="onDeSelectAll($event)" formControlName="idCiudad">
                                     </ng-multiselect-dropdown>
-                                    
+                                    <div class="text-danger"><p *ngIf="campoNoValido2('idCiudad')">Ingrese al menos una ciudad</p></div> 
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -201,9 +213,9 @@
                                         (onSelectAll)="onSelectAllsucursal($event)"
                                         (onDeSelect)="onDeSelectsucursal($event)"
                                         (onDeSelectAll)="onDeSelectAllsucursal($event)"
-                                        id="idSucursal" #idSucursal>
+                                        formControlName="idSucursal">
                                     </ng-multiselect-dropdown>
-                                    
+                                    <div class="text-danger"><p *ngIf="campoNoValido2('idSucursal')">Ingrese al menos una sucursal</p></div> 
                                 </div>
                             </div>
                         </div>
@@ -216,9 +228,9 @@
                                         (onSelect)="onItemSelectmarca($event)"
                                         (onSelectAll)="onSelectAllmarca($event)"
                                         (onDeSelect)="onDeSelectmarca($event)"
-                                        (onDeSelectAll)="onDeSelectAllmarca($event)" id="idMarca" #idMarca>
+                                        (onDeSelectAll)="onDeSelectAllmarca($event)" id="idMarca" formControlName="idMarca">
                                     </ng-multiselect-dropdown>
-                                    
+                                    <div class="text-danger"><p *ngIf="campoNoValido2('idMarca')">Ingrese al menos una marca</p></div> 
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -230,9 +242,9 @@
                                         (onSelectAll)="onSelectAllNombrePrograma($event)"
                                         (onDeSelect)="onDeSelectNombrePrograma($event)"
                                         (onDeSelectAll)="onDeSelectAllNombrePrograma($event)"
-                                        id="idNombrePrograma" #idNombrePrograma>
+                                        id="idNombrePrograma" formControlName="idNombrePrograma">
                                     </ng-multiselect-dropdown>
-                                    
+                                    <div class="text-danger"><p *ngIf="campoNoValido2('idNombrePrograma')">Ingrese al menos una marca</p></div> 
                                 </div>
                             </div>
                         </div>
@@ -240,7 +252,7 @@
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default waves-effect" data-dismiss="modal"
                                 (click)="cerrarModalEstudiante()">Close</button>
-                            <button type="button" (click)="editarEstudianteModal()" class="btn btn-danger waves-effect waves-light">Editar</button>
+                            <button type="submit" class="btn btn-danger waves-effect waves-light">Editar</button>
                         </div>
 
                     </div>
@@ -250,8 +262,9 @@
                 </div>
 
 
-
+            </form>
             </div>
+            
         </div>
     </div>
 </div>

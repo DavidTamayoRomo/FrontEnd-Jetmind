@@ -1,52 +1,48 @@
 import { Component, OnInit } from '@angular/core';
-import { Sucursal } from './sucursal.model';
-import { SucursalService } from '../services/sucursal.service';
-import { FormBuilder, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Vigencia } from './vigencia.model';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
-
+import { FormBuilder } from '@angular/forms';
+import { VigenciaService } from '../services/vigencia.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { CiudadService } from '../services/ciudad.service';
 import Swal from 'sweetalert2';
-import { MarcaService } from '../services/marca.service';
-import { Marca } from '../marca/marca.model';
-import { map } from 'rxjs/operators';
-
 
 @Component({
-  selector: 'app-sucursal',
-  templateUrl: './sucursal.component.html',
+  selector: 'app-vigencia',
+  templateUrl: './vigencia.component.html',
   styles: [
   ]
 })
-export class SucursalComponent implements OnInit {
+export class VigenciaComponent implements OnInit {
 
-  public sucursalSeleccionada : any;
+  public vigenciaSeleccionada : any;
 
-  SucursalModel = new Sucursal();
+  VigenciaModel = new Vigencia();
 
-  public dropdownListMarcas: any = [];
-  public marca: any = [];
-  public Marca:Marca = new Marca();
+  public dropdownListCiudades: any = [];
+  public ciudad: any = [];
+
 
   public dropdownSettings: IDropdownSettings = {};
 
   constructor(
     private fb: FormBuilder,
-    private sucursalService:SucursalService,
-    private marcaService: MarcaService,
+    private vigenciaService:VigenciaService,
+    private ciudadService:CiudadService,
     private activatedRoute: ActivatedRoute,
     private router: Router
   ) { }
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(({ id }) => {
-      this.cargarSucursalbyId(id);
+      this.cargarVigenciabyId(id);
     });
 
-    /** Servicio que me devuelva las MARCAS de la base de datos */
-    this.recuperarDatosMarcas();
+    /** Servicio que me devuelva las CIUDADES de la base de datos */
+    this.recuperarDatosCiudad();
    
     this.dropdownSettings = {
-      singleSelection: false,
+      singleSelection: true,
       idField: 'item_id',
       textField: 'nombre',
       selectAllText: 'Select All',
@@ -56,48 +52,41 @@ export class SucursalComponent implements OnInit {
     };
   }
 
-
-  async cargarSucursalbyId(id: string) {
+  async cargarVigenciabyId(id: string) {
     if (id === 'nuevo') {
       return;
     }
 
-    this.sucursalService.obtenerSucursalById(id)
+    this.vigenciaService.obtenerVigenciaById(id)
       .subscribe((resp: any) => {
-        this.sucursalSeleccionada = resp.data;
+        this.vigenciaSeleccionada = resp.data;
         this.LlenarForm(resp);
       });
 
   }
 
-
   LlenarForm(resp:any){
     const {
-      idMarcas,
-      nombre,
-      sector,
-      descripcion,
-      estado
+      idCiudad,
+      estado,
+      fechaInicio,
+      fechaCierre
     } = resp.data;
-    this.sucursalSeleccionada = resp.data; 
+    this.vigenciaSeleccionada = resp.data; 
     this.registerForm.setValue({
-      idMarcas,
-      nombre,
-      sector,
-      descripcion,
-      estado
+      idCiudad,
+      estado,
+      fechaInicio,
+      fechaCierre
     });
   }
 
-
   public registerForm = this.fb.group({
-    idMarcas: [null, Validators.required],
-    nombre: [null],
-    sector: [null],
-    descripcion: [null],
+    idCiudad: [null],
     estado: [true],
+    fechaInicio: [null],
+    fechaCierre: [null]
   });
-
 
   campoNoValido(campo: any): boolean {
     if (this.registerForm.get(campo)?.invalid  && (this.registerForm.get(campo)?.dirty || this.registerForm.get(campo)?.touched)) {
@@ -108,18 +97,17 @@ export class SucursalComponent implements OnInit {
     }
   }
 
-  crearSucursal(){
+  crearVigencia(){
 
-    if (this.sucursalSeleccionada) {
+    if (this.vigenciaSeleccionada) {
       //actualizar
 
-      let marcaLista: any = [];
-      this.marca.forEach((element: any) => {
-        marcaLista.push(element.item_id);
-      }); 
-      
-      this.SucursalModel = this.registerForm.value;
-      this.SucursalModel.idMarcas= marcaLista;
+      //ID de las ciudades
+      let ciudadLista: any = [];
+      this.ciudad.forEach((element: any) => {
+        ciudadLista.push(element.item_id);
+      });
+      this.vigenciaSeleccionada.idCiudad = ciudadLista;
 
       if (this.registerForm.invalid) {
         //Formulario invalido
@@ -141,7 +129,7 @@ export class SucursalComponent implements OnInit {
         return;
       } else {
         
-        this.sucursalService.updateSucursal(this.sucursalSeleccionada._id, this.SucursalModel).subscribe((resp: any) => {
+        this.vigenciaService.updateVigencia(this.vigenciaSeleccionada._id, this.vigenciaSeleccionada).subscribe((resp: any) => {
           const Toast = Swal.mixin({
             toast: true,
             position: 'top-end',
@@ -157,7 +145,7 @@ export class SucursalComponent implements OnInit {
             icon: 'success',
             title: 'Se actualizo correctamente'
           })
-          this.router.navigateByUrl('/listasucursales');
+          this.router.navigateByUrl('/listavigencias');
         }, (err: any) => {
 
           console.warn(err.error.message);
@@ -183,16 +171,15 @@ export class SucursalComponent implements OnInit {
       }
     }else{
 
-      this.Marca = this.registerForm.value;
+      this.VigenciaModel = this.registerForm.value;
 
       //crear
-      //ID de las Marcas
-      let marcaLista: any = [];
-      this.marca.forEach((element: any) => {
-        marcaLista.push(element.item_id);
-      }); 
-
-      this.Marca.idMarcas= marcaLista;
+      //ID de las ciudades
+      let ciudadLista: any = [];
+      this.ciudad.forEach((element: any) => {
+        ciudadLista.push(element.item_id);
+      });
+      this.VigenciaModel.idCiudad = ciudadLista;
 
       if (this.registerForm.invalid) {
         const Toast = Swal.mixin({
@@ -212,7 +199,7 @@ export class SucursalComponent implements OnInit {
         })
         return;
       }else{
-        this.sucursalService.crearSucursal(this.Marca).subscribe((resp) => {
+        this.vigenciaService.crearVigencia(this.VigenciaModel).subscribe((resp) => {
           
           const Toast = Swal.mixin({
             toast: true,
@@ -230,7 +217,7 @@ export class SucursalComponent implements OnInit {
             title: 'Guardado correctamente'
           })
 
-          this.router.navigateByUrl('/listasucursales');
+          this.router.navigateByUrl('/listavigencias');
         }, (err: any) => {
 
           console.warn(err.error.message);
@@ -262,68 +249,82 @@ export class SucursalComponent implements OnInit {
 
 
   cancelarGuardado(){
-    this.router.navigateByUrl('/listasucursales')
+    this.router.navigateByUrl('/listavigencias')
   }
 
 
-  recuperarDatosMarcas() {
-    this.marcaService.getAllMarcas().subscribe((resp: any) => {
-      let nombremarcas: any = [];
+
+  recuperarDatosCiudad() {
+    this.ciudadService.getAllCiudades().subscribe((resp: any) => {
+      let nombreciudades: any = [];
       resp.data.forEach((element: any) => {
-        nombremarcas.push({ item_id: element._id, nombre: element.nombre });
+        nombreciudades.push({ item_id: element._id, nombre: element.nombre });
       });
-      this.dropdownListMarcas = nombremarcas;
-      if (this.sucursalSeleccionada) {
-        this.sucursalSeleccionada.idMarcas.map((m: any) => {
-          console.log(m);
-          const findMarca = this.dropdownListMarcas.find(
-            (item: any) => item.item_id === m
+      this.dropdownListCiudades = nombreciudades;
+      if (this.vigenciaSeleccionada) {
+        this.vigenciaSeleccionada.idCiudad.map((c: any) => {
+          const findCiudad = this.dropdownListCiudades.find(
+            (item: any) => {
+              return item.item_id === c;
+            }
           );
-          console.log(findMarca);
-          if (findMarca) {
-            this.onItemSelectmarca(findMarca);
-            this.registerForm.get('idMarcas')?.setValue(this.marca);
+          if (findCiudad) {
+            this.onItemSelect(findCiudad);
+            this.registerForm.get('idCiudad')?.setValue(this.ciudad);
           }
         });
       }
-      
-
     });
-
-    
   }
 
-  /** MARCA */
+
+  /** CIUDAD */
   /** Item Seleccionado */
-  onItemSelectmarca(item: any) {
-    this.marca.push(item);
-    console.log(this.marca);
+  onItemSelect(item: any) {
+    this.ciudad=[item];
+    console.log(this.ciudad);
   }
   /** Todos los items Seleccionados */
-  onSelectAllmarca(items: any) {
-    this.marca = items;
-    console.log(this.marca);
+  onSelectAll(items: any) {
+    this.ciudad = items;
+    console.log(this.ciudad);
   }
   /** Deselccionar item */
-  findByItemIdIndexMarca(id: any) {
-    return this.marca.findIndex((resp: any) => {
+  findByItemIdIndexCiudad(id: any) {
+    return this.ciudad.findIndex((resp: any) => {
       return resp.item_id === id;
-    })
+    });
   }
-  onDeSelectmarca(item: any) {
-    /** Borrar elemento del array  */
-    const index = this.findByItemIdIndexMarca(item.item_id);
-    const newArray = (index > -1) ? [
-      ...this.marca.slice(0, index),
-      ...this.marca.slice(index + 1)
-    ] : this.marca;
-    this.marca = newArray;
-    console.log(this.marca);
+  onDeSelect(item: any) {
+    //verificar esto no se queda asi
+    console.log(item);
+    console.log('entre');
+    if (item.item_id) {
+      console.log('entre 1');
+      const index = this.findByItemIdIndexCiudad(item.item_id);
+      const newArray =
+        index > -1
+          ? [...this.ciudad.slice(0, index), ...this.ciudad.slice(index + 1)]
+          : this.ciudad;
+      this.ciudad = newArray;
+      console.log(this.ciudad);
+    } else {
+      console.log('entre 2');
+      const index = this.ciudad.indexOf(item);
+      const newArray =
+        index > -1
+          ? [...this.ciudad.slice(0, index), ...this.ciudad.slice(index + 1)]
+          : this.ciudad;
+      this.ciudad = newArray;
+      console.log(this.ciudad);
+    }
   }
+
   /** Deselccionar todos los items */
-  onDeSelectAllmarca(items: any) {
-    this.marca = items;
-    console.log(this.marca);
+  onDeSelectAll(items: any) {
+    this.ciudad = items;
+    console.log(this.ciudad);
   }
+
 
 }

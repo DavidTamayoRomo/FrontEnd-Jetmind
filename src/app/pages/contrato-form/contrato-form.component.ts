@@ -101,12 +101,10 @@ export class ContratoFormComponent implements OnInit, OnChanges {
       (this.registerForm.get('estadoVenta')?.value == 'Abono' || this.registerForm.get('estadoVenta')?.value == 'Saldo')) {
       this.registerForm.get('valorMatricula')?.setValue("0");
       this.registerForm.get('numeroCuotas')?.setValue("0");
-      this.registerForm.get('abono')?.setValue("0");
+      //this.registerForm.get('abono')?.setValue("0");
       this.registerForm.get('valorMatricula')?.disable();
       this.registerForm.get('numeroCuotas')?.disable();
       this.registerForm.get('abono')?.enable();
-
-
 
     }
 
@@ -220,7 +218,7 @@ export class ContratoFormComponent implements OnInit, OnChanges {
       idRepresentante,
       tipoPago,
       estadoVenta,
-      abono:abono[0].monto,
+      abono:Number(abono[0].monto),
       valorMatricula,
       valorTotal,
       numeroCuotas,
@@ -265,17 +263,25 @@ export class ContratoFormComponent implements OnInit, OnChanges {
 
     if (this.contratoSeleccionado) {
       //actualizar
-
+      console.log(this.contratoSeleccionado);
+      
       this.ContratoModel = this.registerForm.value;
 
       let objetoAbono = {
         monto:"0",
+        fechaPago:new Date(),
+        estado:"Pagado"
+      };
+      let objetoAbono1 = [{
+        monto:this.registerForm.value.abono,
         fechaPago:this.registerForm.value.fecha,
         estado:"Pagado"
-      }
+      }];
 
       if (this.registerForm.value.abono == null) {  
         this.ContratoModel.abono?.push(objetoAbono);
+      }else{
+        this.ContratoModel.abono=objetoAbono1;
       }
       if (this.registerForm.value.valorMatricula == null) {
         this.ContratoModel.valorMatricula = "0";

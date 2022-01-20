@@ -49,6 +49,10 @@ import { CalendarioComponent } from './calendario/calendario.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { VigenciaComponent } from './vigencia/vigencia.component';
+import { VigenciasComponent } from './vigencia/vigencias/vigencias.component';
+import { VerificacionComponent } from './verificacion/verificacion.component';
+import { VerificacionesComponent } from './verificacion/verificaciones/verificaciones.component';
 
 
 const ngWizardConfig: NgWizardConfig = {
@@ -86,7 +90,11 @@ const ngWizardConfig: NgWizardConfig = {
     ContratosAsignarDirectorComponent,
     CitasTelemarketingComponent,
     ListaCitasComponent,
-    CalendarioComponent
+    CalendarioComponent,
+    VigenciaComponent,
+    VigenciasComponent,
+    VerificacionComponent,
+    VerificacionesComponent
     
   ],
   exports:[

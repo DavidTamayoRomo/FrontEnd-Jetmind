@@ -31,6 +31,10 @@ import { ContratosAsignarDirectorComponent } from './contratos-asignar-director/
 import { CitasTelemarketingComponent } from './citas-telemarketing/citas-telemarketing.component';
 import { ListaCitasComponent } from './citas-telemarketing/lista-citas/lista-citas.component';
 import { CalendarioComponent } from './calendario/calendario.component';
+import { VigenciaComponent } from './vigencia/vigencia.component';
+import { VigenciasComponent } from './vigencia/vigencias/vigencias.component';
+import { VerificacionComponent } from './verificacion/verificacion.component';
+import { VerificacionesComponent } from './verificacion/verificaciones/verificaciones.component';
 
 
 
@@ -87,6 +91,13 @@ const routes: Routes = [
             { path: 'citasTelemarketing/:id', component: CitasTelemarketingComponent , data:{titulo:'Crear Citas Telemarketing'} },
             { path: 'listacitas', component: ListaCitasComponent , data:{titulo:'Lista Citas Telemarketing'} },
             { path: 'calendario', component: CalendarioComponent , data:{titulo:'Calendario'} },
+
+
+            { path: 'vigencia/:id', component:VigenciaComponent , data:{titulo:'Vigencia'} },
+            { path: 'listavigencias', component:VigenciasComponent , data:{titulo:'Lista de vigencias'} },
+
+            { path: 'verificacion/:id', component:VerificacionComponent , data:{titulo:'Verificacion'} },
+            { path: 'listaverificacion', component:VerificacionesComponent , data:{titulo:'Lista de verificacion'} },
 
         ]
     },

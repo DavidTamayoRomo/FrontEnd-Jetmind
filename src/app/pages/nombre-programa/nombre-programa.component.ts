@@ -74,17 +74,20 @@ export class NombreProgramaComponent implements OnInit {
         nombreciudades.push({ item_id: element._id, nombre: element.nombre });
       });
       this.dropdownListCiudades = nombreciudades;
-      this.nombreProgramaSeleccionada.idCiudad.map((c: any) => {
-        const findCiudadPersona = this.dropdownListCiudades.find(
-          (item: any) => {
-            return item.item_id === c;
+      if (this.nombreProgramaSeleccionada) {
+        this.nombreProgramaSeleccionada.idCiudad.map((c: any) => {
+          const findCiudadPersona = this.dropdownListCiudades.find(
+            (item: any) => {
+              return item.item_id === c;
+            }
+          );
+          if (findCiudadPersona) {
+            this.onItemSelect(findCiudadPersona);
+            this.registerForm.get('idCiudad')?.setValue(this.ciudad);
           }
-        );
-        if (findCiudadPersona) {
-          this.onItemSelect(findCiudadPersona);
-          this.registerForm.get('idCiudad')?.setValue(this.ciudad);
-        }
-      });
+        });
+      }
+      
     });
   }
   recuperarDatosMarcas() {
@@ -94,15 +97,18 @@ export class NombreProgramaComponent implements OnInit {
         nombremarcas.push({ item_id: element._id, nombre: element.nombre });
       });
       this.dropdownListMarcas = nombremarcas;
-      this.nombreProgramaSeleccionada.idMarca.map((m: any) => {
-        const findMarcaPersona = this.dropdownListMarcas.find(
-          (item: any) => item.item_id === m
-        );
-        if (findMarcaPersona) {
-          this.onItemSelectmarca(findMarcaPersona);
-          this.registerForm.get('idMarca')?.setValue(this.marca);
-        }
-      });
+      if (this.nombreProgramaSeleccionada) {
+        this.nombreProgramaSeleccionada.idMarca.map((m: any) => {
+          const findMarcaPersona = this.dropdownListMarcas.find(
+            (item: any) => item.item_id === m
+          );
+          if (findMarcaPersona) {
+            this.onItemSelectmarca(findMarcaPersona);
+            this.registerForm.get('idMarca')?.setValue(this.marca);
+          }
+        });
+      }
+      
     });
   }
 

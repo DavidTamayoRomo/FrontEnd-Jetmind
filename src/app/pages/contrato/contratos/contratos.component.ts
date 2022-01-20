@@ -11,6 +11,8 @@ import { Router } from '@angular/router';
 import { RepresentanteService } from '../../services/representante.service';
 import { EstudianteService } from '../../services/estudiante.service';
 import { map } from 'rxjs/operators';
+import { VerificacionService } from '../../services/verificacion.service';
+import { Verificacion } from '../../verificacion/verificacion.model';
 
 @Component({
   selector: 'app-contratos',
@@ -28,6 +30,9 @@ export class ContratosComponent implements OnInit {
   public contratosTemporales: Contrato[] = [];
   public contratoSeleccionado: any;
 
+  public deuda: number = 0;
+  public configuracionPorcentaje: number = 1.15;
+
   public contratos2: any[] = [];
 
   public dropdownListContratos: any = [];
@@ -37,6 +42,7 @@ export class ContratosComponent implements OnInit {
   public mostraModal: boolean = true;
   public mostraModalAbono: boolean = true;
   public mostraModalEditarAbono: boolean = true;
+  public mostraModalVerificacion: boolean = true;
 
   public totalAbonosPagados: number = 0;
   public totalAbonosDeuda: number = 0;
@@ -49,9 +55,12 @@ export class ContratosComponent implements OnInit {
   public datosEstudiantes: any = [];
   public datosRepresentante: any;
 
+  public verificacion: Verificacion = new Verificacion();
+
   @ViewChild('fechaAbono') fechaAbono: ElementRef;
   @ViewChild('montoAbono') montoAbono: ElementRef;
   @ViewChild('estadoAbono') estadoAbono: ElementRef;
+  @ViewChild('fechaAcuerdoVerificacion') fechaAcuerdoVerificacion: ElementRef;
 
   constructor(
     private contratoService: ContratoService,
@@ -60,6 +69,7 @@ export class ContratosComponent implements OnInit {
     private modalImagenServices: ModalUploadService,
     private representanteService: RepresentanteService,
     private estudianteService: EstudianteService,
+    private verificacionService: VerificacionService,
     private router: Router
   ) { }
 
@@ -259,6 +269,9 @@ export class ContratosComponent implements OnInit {
   cerrarModalEditarAbono() {
     this.mostraModalEditarAbono = true;
   }
+  cerrarModalVerificacion() {
+    this.mostraModalVerificacion = true;
+  }
 
   actualizarEstado(contrato: Contrato, estado: string) {
     contrato.estado = estado;
@@ -330,7 +343,7 @@ export class ContratosComponent implements OnInit {
         *  se convierte en el valor de la matricula
         */
         this.deudaMatricula = parseFloat(this.contratoSeleccionado.valorMatricula) - this.totalAbonosPagados;
-        
+
         if (this.deudaMatricula < 0) {
           this.contratoSeleccionado.valorMatricula = this.contratoSeleccionado.valorMatricula + Math.abs(parseFloat(this.contratoSeleccionado.valorMatricula) - this.totalAbonosPagados);
           this.deudaMatricula = parseFloat(this.contratoSeleccionado.valorMatricula) - this.totalAbonosPagados;
@@ -419,6 +432,114 @@ export class ContratosComponent implements OnInit {
     }, 400);
 
     this.cerrarModalEditarAbono();
+
+  }
+
+  abrirModalVerificacionFecha() {
+    this.mostraModalVerificacion = false;
+  }
+
+  crearVerificacion() {
+
+    if (this.fechaAcuerdoVerificacion.nativeElement.value != null) {
+      console.log("ENtre crear");
+      this.verificacion.idContrato = [this.contratoSeleccionado._id];
+      this.verificacion.estado = 'Pendiente';
+      this.verificacion.fechaVerificacion = new Date();
+      let fechaAcuerdo = this.fechaAcuerdoVerificacion.nativeElement.value;
+      this.calculadora(this.contratoSeleccionado);
+
+      let numeroCuotas = this.contratoSeleccionado.numeroCuotas;
+
+      setTimeout(() => {
+        let valorMensual = this.deuda;
+        console.log(valorMensual);
+
+        let objetoCobranza = this.generarCobranza(fechaAcuerdo, valorMensual, numeroCuotas);
+        this.verificacion.cobranza = objetoCobranza;
+
+        console.log(this.verificacion);
+        this.verificacionService.crearVerificacion(this.verificacion).subscribe((resp: any) => {
+          console.log(resp);
+          //abrir pagina de ver los datos de verificacion
+          this.router.navigate([`/verificacion/${resp.data._id}`]);
+        });
+      }, 1000);
+
+    } else {
+      Swal.fire('Ingrese una fecha de acuerdo de de pago');
+    }
+
+  }
+
+  generarCobranza(fecha: any, valorMesual: any, numeroCuotas: number) {
+    let objetoCobrabza = [];
+    let fecha1 = new Date(fecha);
+    //sumar un dia a la fecha
+    ;//fecha actual TODO: verificar si pasa siempre 
+    for (let index = 0; index < numeroCuotas; index++) {
+      if (index == 0) {
+        objetoCobrabza.push({
+          fechaAcuerdo: new Date(fecha1.setDate(fecha1.getDate())),
+          fechaPago: null,
+          valor: valorMesual,
+          estado: 'No pagado',
+          numeroComprobante: null,
+        });
+      } else {
+        objetoCobrabza.push({
+          fechaAcuerdo: new Date(fecha1.setMonth(fecha1.getMonth() + 1)),
+          fechaPago: null,
+          valor: valorMesual,
+          estado: 'No pagado',
+          numeroComprobante: null,
+        });
+      }
+
+    }
+    return objetoCobrabza;
+  }
+
+  calculadora(contrato: any) {
+    console.log(contrato);
+    let tipoPago = contrato.tipoPago;
+    let estadoVenta = contrato.estadoVenta;
+    let valorTotal = contrato.valorTotal;
+    let abono = contrato.abono;//es un array
+    let numeroCuotas = contrato.numeroCuotas;
+    let valorMatricula = contrato.valorMatricula;
+
+    //calcular la deuda existente, deuda de contado y plan 
+    if (tipoPago == 'Contado') {
+      setTimeout(() => {
+
+        if (estadoVenta != 'OK') {
+          this.deuda = valorTotal - abono;
+        }
+
+
+      }, 100);
+
+    }
+    if (tipoPago == 'Plan') {
+      setTimeout(() => {
+
+        if (numeroCuotas != 0) {
+          let valorTotal1 = valorTotal;
+          let valorMatricula1 = valorMatricula;
+          let numeroCuotas1 = numeroCuotas;
+
+          this.deuda = ((valorTotal1 * this.configuracionPorcentaje) - valorMatricula1) / numeroCuotas1;
+          this.deuda = Math.round(this.deuda * 100) / 100;
+
+
+        }
+      }, 100);
+
+    }
+
+
+
 
   }
 

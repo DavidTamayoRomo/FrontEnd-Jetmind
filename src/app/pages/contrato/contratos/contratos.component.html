@@ -83,8 +83,18 @@
                                             (click)="actualizarEstado(contrato,'Rechazado')">Rechazado</a>
                                     </div>
                                 </td>
-                                <td><button type="button" (click)="abrirModalAbono(contrato)">Abono</button>
-                                    <button (click)="abrirModalEditarAbono(contrato)">Editar Abono</button>
+                                <td>
+                                    <button type="button" (click)="abrirModalAbono(contrato)"
+                                        class="btn btn-outline-info"
+                                        *ngIf="contrato.estadoVenta == 'Abono' || contrato.estadoVenta == 'Saldo'">
+                                        <i class="fa fa-plus-circle"></i>
+                                        Abono
+                                    </button>
+                                    <div style="height: 10px;"></div>
+                                    <button (click)="abrirModalEditarAbono(contrato)" class="btn btn-outline-danger"
+                                        *ngIf="contrato.estadoVenta== 'Abono'|| contrato.estadoVenta == 'Saldo'">
+                                        <i class="fa fa-pencil"></i>
+                                        Editar Abono</button>
                                 </td>
 
                                 <td (click)="mostrarDatosModal(contrato)">{{contrato?.personaAprueba?.nombresApellidos}}
@@ -97,9 +107,10 @@
                                 <td (click)="mostrarDatosModal(contrato)">{{contrato?.addedUser?.nombresApellidos}}</td>
                                 <td (click)="mostrarDatosModal(contrato)">
                                     <div *ngFor="let monto of contrato?.abono">
-                                        <span [ngClass]="{'label label-rounded label-success': monto.estado === 'Pagado','label label-rounded label-danger': monto.estado === 'No pagado'}">{{monto.monto}}</span>
-                                    </div> 
-                                    
+                                        <span
+                                            [ngClass]="{'label label-rounded label-success': monto.estado === 'Pagado','label label-rounded label-danger': monto.estado === 'No pagado'}">{{monto.monto}}</span>
+                                    </div>
+
                                 </td>
                                 <td (click)="mostrarDatosModal(contrato)">{{contrato?.valorMatricula}}</td>
                                 <td (click)="mostrarDatosModal(contrato)">{{contrato?.valorTotal}}</td>
@@ -159,8 +170,9 @@
                                     class="fa fa-file-pdf-o"></i> PDF</button>
                         </div>
                         <div class="col-md-4">
-                            <button type="button" class="btn btn-block btn-outline-primary"><i
-                                    class="fa fa-check-square"></i> Verificar</button>
+                            <button (click)="abrirModalVerificacionFecha()" type="button"
+                                class="btn btn-block btn-outline-primary"><i class="fa fa-check-square"></i>
+                                Verificar</button>
                         </div>
                         <div class="col-md-4">
                             <button type="button" class="btn btn-block btn-outline-primary"><i
@@ -315,7 +327,7 @@
                         <div class="input-group">
                             <div class="input-group-addon"><i class="ti-user"></i></div>
                             <select class="form-control custom-select" #estadoAbono>
-                                
+
                                 <option value="Pagado">Pagado</option>
                                 <option value="No pagado">No pagado</option>
                             </select>
@@ -360,7 +372,7 @@
                             <div>Valor de Matricula: {{contratoSeleccionado?.valorMatricula}}</div>
                         </div>
                     </div>
-                        
+
                     <div class="row p-t-20">
                         <div class="card">
                             <div class="card-body">
@@ -378,7 +390,7 @@
                                         <tbody>
                                             <tr *ngFor="let contrato of contratoSeleccionado?.abono;let indice=index">
                                                 <td>{{contrato?.monto}}</td>
-                                                <td>{{contrato?.fechaPago}}</td>
+                                                <td>{{contrato?.fechaPago | date:"dd-MM-yyyy"}}</td>
                                                 <td>
                                                     <button type="button"
                                                         [ngClass]="{'btn-warning': contrato.estado == 'Espera', 'btn-success': contrato.estado == 'Pagado', 'btn-danger':contrato.estado == 'No pagado'}"
@@ -388,11 +400,12 @@
                                                     <div class="dropdown-menu animated slideInUp"
                                                         x-placement="top-start"
                                                         style="position: absolute; transform: translate3d(0px, -2px, 0px); top: 0px; left: 0px; will-change: transform;">
-                                                        
+
                                                         <a class="dropdown-item"
                                                             (click)="actualizarEstadoAbono(contrato,'Pagado',indice)">Pagado</a>
                                                         <a class="dropdown-item"
-                                                            (click)="actualizarEstadoAbono(contrato,'No pagado',indice)">No pagado</a>
+                                                            (click)="actualizarEstadoAbono(contrato,'No pagado',indice)">No
+                                                            pagado</a>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -400,24 +413,24 @@
                                         <tr>
                                             <td></td>
                                             <td>Total Abonos Pagados</td>
-                                            <td>{{totalAbonosPagados}}</td>   
+                                            <td>{{totalAbonosPagados}}</td>
                                         </tr>
                                         <tr>
                                             <td></td>
                                             <td>Total Deuda</td>
-                                            <td>{{totalAbonosDeuda}}</td>   
+                                            <td>{{totalAbonosDeuda}}</td>
                                         </tr>
                                         <tr>
                                             <td></td>
                                             <td>Total</td>
-                                            <td>{{totalAbonos}}</td>   
+                                            <td>{{totalAbonos}}</td>
                                         </tr>
                                         <tr>
                                             <td></td>
                                             <td>Deuda Matricula</td>
-                                            <td>{{deudaMatricula}}</td>   
+                                            <td>{{deudaMatricula}}</td>
                                         </tr>
-                                        
+
                                     </table>
                                 </div>
 
@@ -432,6 +445,43 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default waves-effect" data-dismiss="modal"
                         (click)="cerrarModalEditarAbono()">Close</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal verificacion fecha -->
+
+<div class="fondo-modal-imagen animated fadeIn fast" [class.oculto]="mostraModalVerificacion">
+    <div id="responsive-modal" class="modal fade show" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+        style="display: block;padding-right: 17px; overflow-y: initial">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Asignar fecha Cobranza</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                        (click)="cerrarModalVerificacion()">×</button>
+                </div>
+
+                <div class="card-body">
+                    <h4 class="card-title">Verificacion</h4>
+                    <div class="card">
+                        <div class="card-body">
+                            <div>
+                                <input type="date" name="" #fechaAcuerdoVerificacion>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default waves-effect" data-dismiss="modal"
+                        (click)="cerrarModalVerificacion()">Close</button>
+                    <button type="button" 
+                        (click)="crearVerificacion()" class="btn btn-success waves-effect waves-light">Crear Verificacion</button>
                 </div>
 
             </div>

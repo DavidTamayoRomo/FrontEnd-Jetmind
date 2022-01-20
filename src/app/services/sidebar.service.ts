@@ -12,10 +12,7 @@ export class SidebarService {
       icono:'mdi mdi-home',
       submenu:[
         { titulo: 'Main',url: '/' },
-        { titulo: 'Perfil',url: '/perfil' },
-  
-       
-        
+        { titulo: 'Perfil',url: '/perfil' }, 
       ]
     },
 
@@ -28,6 +25,14 @@ export class SidebarService {
       ]
     },
     {
+      titulo: 'Marca',
+      icono: 'mdi mdi-cards-outline',
+      submenu: [
+        { titulo: 'Marca',url: '/marca/nuevo' },
+        { titulo: 'Lista Marcas',url: '/listamarcas' },
+      ]
+    },
+    {
       titulo: 'Sucursal',
       icono: 'mdi mdi-arrange-send-to-back',
       submenu: [
@@ -36,11 +41,20 @@ export class SidebarService {
       ]
     },
     {
-      titulo: 'Marca',
-      icono: 'mdi mdi-cards-outline',
+      titulo: 'Vigencia',
+      icono: 'mdi mdi-timer',
       submenu: [
-        { titulo: 'Marca',url: '/marca/nuevo' },
-        { titulo: 'Lista Marcas',url: '/listamarcas' },
+        { titulo: 'Crear Vigencia',url: '/vigencia/nuevo' },
+        { titulo: 'Lista Vigencias',url: '/listavigencias' },
+      ]
+    },
+    {
+      titulo: 'Nombre de Programas',
+      icono: 'mdi mdi-book',
+      submenu: [
+        { titulo: 'Programas',url: '/nombrePrograma/nuevo' },
+        { titulo: 'Lista programas',url: '/listanombreprogramas' },
+        
       ]
     },
     {
@@ -75,15 +89,7 @@ export class SidebarService {
         { titulo: 'Lista Programa',url: '/listaprogramas' },
       ]
     },
-    {
-      titulo: 'Nombre de Programas',
-      icono: 'mdi mdi-book',
-      submenu: [
-        { titulo: 'Programas',url: '/nombrePrograma/nuevo' },
-        { titulo: 'Lista programas',url: '/listanombreprogramas' },
-        
-      ]
-    },
+    
     {
       titulo: 'Contratos',
       icono: 'mdi mdi-book-open-page-variant',
@@ -103,7 +109,7 @@ export class SidebarService {
     },
     {
       titulo: 'Directores',
-      icono: 'mdi mdi-briefcase',
+      icono: 'mdi mdi-earth',
       submenu: [
         
         { titulo: 'Asignar Director',url: '/asignardirector' },
@@ -111,12 +117,20 @@ export class SidebarService {
     },
     {
       titulo: 'Telemarketing',
-      icono: 'mdi mdi-briefcase',
+      icono: 'mdi mdi-camera-front-variant',
       submenu: [
         
         { titulo: 'Crear citas',url: '/citasTelemarketing/nuevo' },
         { titulo: 'Lista citas',url: '/listacitas' },
         { titulo: 'Calendario',url: '/calendario' },
+      ]
+    },
+    {
+      titulo: 'Verificacion',
+      icono: 'mdi mdi-camera-front-variant',
+      submenu: [
+        { titulo: 'Verificacion',url: '/verificacion/nuevo' }, 
+        { titulo: 'Lista verificacion',url: '/listaverificacion' }, 
       ]
     },
     

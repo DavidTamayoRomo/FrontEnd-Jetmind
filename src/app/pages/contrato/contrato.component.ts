@@ -8,7 +8,7 @@ import {
   STEP_STATE,
   THEME,
 } from 'ng-wizard';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { RepresentanteService } from '../services/representante.service';
 import { ModalUploadService } from '../../services/modal-upload.service';
 import Swal from 'sweetalert2';
@@ -50,7 +50,7 @@ export class ContratoComponent implements OnInit {
   public marca: any = [];
   public nombrePrograma: any = [];
   public programaSeleccionada: any;
-
+  public estudianteSeleccionado: any;
 
 
   stepStates = {
@@ -71,8 +71,7 @@ export class ContratoComponent implements OnInit {
           event: () => {
             //construir JSON para enviar al BackEnd
             this.crearObjeto();
-            //Para limpiar local storage
-            this.limpiarLocalStorage();
+
 
 
           },
@@ -100,6 +99,8 @@ export class ContratoComponent implements OnInit {
   public mostraModal: boolean = true;
 
   public contadorEstudiantes: number = 0;
+
+  public ContratoModel: any;
 
   constructor(
     private ngWizardService: NgWizardService,
@@ -142,10 +143,7 @@ export class ContratoComponent implements OnInit {
       allowSearchFilter: true
     };
 
-    /* this.selectedItemsCiudades = {
-      "item_id": "613a389282cbc52ac8a87a13",
-      "nombre": "Quito"
-    }; */
+
 
 
 
@@ -179,168 +177,306 @@ export class ContratoComponent implements OnInit {
     let contrato = JSON.parse(localStorage.getItem('contrato') as string);
     let voucher = JSON.parse(localStorage.getItem('files') as string);
 
-    let objeto = {
-      representante,
-      estudiantes,
-      facturacion,
-      contrato,
-      voucher
-    }
+    //Verificar campos vacios de cada objeto
 
-    console.log(objeto);
+    //representante
+    if (representante == null) {
+      Swal.fire('Agrege datos del Representante');
+    } else
+      if (representante.nombresApellidos == null) {
+        Swal.fire('Agrege nombres y Apellidos del Representante');
+      } else
+        if (representante.email == null) {
+          Swal.fire('Agrege un correo electronico representante');
+        } else
+          if (representante.cedula == null) {
+            Swal.fire('Agrege una cedula representante');
+          } else
+            if (representante.telefono == null) {
+              Swal.fire('Agrege un telefono representante');
+            } else
+              if (representante.fechaNacimiento == null) {
+                Swal.fire('Agrege una fecha de nacimiento representante');
+              } else
+                if (estudiantes == null || estudiantes.length == 0) {
+                  Swal.fire('Agrege al menos un estudiante');
+                } else
+                  if (contrato == null) {
+                    Swal.fire('Agrege al datos al contrato');
+                  } else
+                    if (contrato.tipoPago == null) {
+                      Swal.fire('Agrege tipo de pago al contrato');
+                    } else
+                      if (contrato.estadoVenta == null) {
+                        Swal.fire('Agrege estado de la venta al contrato');
+                      } else
+                        if (contrato.valorTotal == null) {
+                          Swal.fire('Agrege estado al contrato');
+                        } else
+                          if (contrato.formaPago == null) {
+                            Swal.fire('Agrege forma de pago al contrato');
+                          } else
+                            if (facturacion == null) {
+                              Swal.fire('Agrege datos para la facturacion');
+                            } else
+                              if (facturacion.nombre == null) {
+                                Swal.fire('Agrege Nombre o razon social para la facturacion');
+                              } else
+                                if (facturacion.cedula_ruc == null) {
+                                  Swal.fire('Agrege cedula o ruc para la facturacion');
+                                } else
+                                  if (facturacion.correo == null) {
+                                    Swal.fire('Agrege correo para la facturacion');
+                                  }
+                                  else {
 
+                                    console.log('Entre al else');
 
+                                    //-------------------------------------------------
 
-    //Este metodo esta creado para guardar el objecto creado en el local storage
-    //de las tablas representante, estudiante, contrato y facturacion
-    //crea representante
+                                    let objeto = {
+                                      representante,
+                                      estudiantes,
+                                      facturacion,
+                                      contrato,
+                                      voucher
+                                    }
 
-    //TODO: Controlar cuando el representante ya exista en la base de datos (Porque si existe va a dar error)
-    this.representanteService.crearRepresentante(representante).subscribe((resp: any) => {
-      console.log(resp);
-      console.log("Representante creado creado");
-      const Toast = Swal.mixin({
-        toast: true,
-        position: 'top-end',
-        showConfirmButton: false,
-        timer: 3000,
-        timerProgressBar: true,
-        didOpen: (toast) => {
-          toast.addEventListener('mouseenter', Swal.stopTimer);
-          toast.addEventListener('mouseleave', Swal.resumeTimer);
-        },
-      });
-      Toast.fire({
-        icon: 'success',
-        title: 'Se creo el representante correctamente',
-      });
-      estudiantes.forEach((objetoEstudiantePrograma: any) => {
-        Object.assign(objetoEstudiantePrograma.estudiante, { idRepresentante: [resp.data._id] });
-        setTimeout(() => {
-          //crea estudiate
-          this.estudianteService.crearEstudiante(objetoEstudiantePrograma.estudiante).subscribe((resp: any) => {
-            console.log(resp);
-            console.log("Estudiante creado");
-            //crear el Programa del estudiante
-
-            let ciudad: any = [];
-            objetoEstudiantePrograma.programa.idCiudad.forEach((element: any) => {
-              ciudad.push(element.item_id);
-            });
-            let marca: any = [];
-            objetoEstudiantePrograma.programa.idMarca.forEach((element: any) => {
-              marca.push(element.item_id);
-            });
-            let nombrePrograma: any = [];
-            objetoEstudiantePrograma.programa.idNombrePrograma.forEach((element: any) => {
-              nombrePrograma.push(element.item_id);
-            });
-            let sucursal: any = [];
-            objetoEstudiantePrograma.programa.idSucursal.forEach((element: any) => {
-              sucursal.push(element.item_id);
-            });
-
-            Object.assign(objetoEstudiantePrograma.programa,
-              { idEstudiante: [resp.data._id], idCiudad: ciudad, idMarca: marca, idNombrePrograma: nombrePrograma, idSucursal: sucursal });
-
-            setTimeout(() => {
-              //Crear el programa
-              this.programaSercice.crearPrograma(objetoEstudiantePrograma.programa).subscribe((resp: any) => {
-                console.log(resp);
-                console.log("Programa creado");
-              });
-            }, 900);
-
-          });
-          const Toast = Swal.mixin({
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-              toast.addEventListener('mouseenter', Swal.stopTimer);
-              toast.addEventListener('mouseleave', Swal.resumeTimer);
-            },
-          });
-          Toast.fire({
-            icon: 'success',
-            title: 'Se crearon los estudiantes correctamente',
-          });
-        }, 900);
-        
-        
-
-      });
-
-
-      //Crear contrato
-      Object.assign(contrato, { idRepresentante: resp.data._id, fechaAprobacion: "" });
-      this.contratoService.crearContrato(contrato).subscribe((resp: any) => {
-        console.log(resp);
-        console.log("Contrato creado");
-        //TODO: Falta subir las imagenes
-        //subir imagenes al contrato
-        /* this.fileuploadService.actualizarVoucher(voucher, resp.data._id).subscribe((resp: any) => {
-          console.log(resp);
-        }); */
-        const Toast = Swal.mixin({
-          toast: true,
-          position: 'top-end',
-          showConfirmButton: false,
-          timer: 3000,
-          timerProgressBar: true,
-          didOpen: (toast) => {
-            toast.addEventListener('mouseenter', Swal.stopTimer);
-            toast.addEventListener('mouseleave', Swal.resumeTimer);
-          },
-        });
-        Toast.fire({
-          icon: 'success',
-          title: 'Se creo el contrato correctamente',
-        });
-        //Crear facturacion
-        let programaLista: any = [];
-        facturacion.programa.forEach((element: any) => {
-          if (element.item_id) {
-            programaLista.push(element.item_id);
-          } else {
-            programaLista.push(element);
-          }
-        });
-        setTimeout(() => {
-          Object.assign(facturacion, { idContrato: resp.data._id, programa: programaLista });
-          this.facturacionService.crearFacturar(facturacion).subscribe((resp: any) => {
-            console.log(resp);
-            console.log("Contrato facturacion");
-            const Toast = Swal.mixin({
-              toast: true,
-              position: 'top-end',
-              showConfirmButton: false,
-              timer: 3000,
-              timerProgressBar: true,
-              didOpen: (toast) => {
-                toast.addEventListener('mouseenter', Swal.stopTimer);
-                toast.addEventListener('mouseleave', Swal.resumeTimer);
-              },
-            });
-            Toast.fire({
-              icon: 'success',
-              title: 'Se la factura  correctamente',
-            });
-            //navegar a lista de contratos
-            this.router.navigateByUrl('/listacontratos');
-          });
-        }, 1000);
-
-      });
-
-    });
-
-    console.log(objeto);
+                                    console.log(objeto);
 
 
 
+                                    //Este metodo esta creado para guardar el objecto creado en el local storage
+                                    //de las tablas representante, estudiante, contrato y facturacion
+                                    //crea representante
+
+                                    //TODO: Controlar cuando el representante ya exista en la base de datos (Porque si existe va a dar error)
+                                    this.representanteService.crearRepresentante(representante).subscribe((resp: any) => {
+                                      console.log(resp);
+                                      console.log("Representante creado creado");
+                                      const Toast = Swal.mixin({
+                                        toast: true,
+                                        position: 'top-end',
+                                        showConfirmButton: false,
+                                        timer: 3000,
+                                        timerProgressBar: true,
+                                        didOpen: (toast) => {
+                                          toast.addEventListener('mouseenter', Swal.stopTimer);
+                                          toast.addEventListener('mouseleave', Swal.resumeTimer);
+                                        },
+                                      });
+                                      Toast.fire({
+                                        icon: 'success',
+                                        title: 'Se creo el representante correctamente',
+                                      });
+                                      estudiantes.forEach((objetoEstudiantePrograma: any) => {
+                                        Object.assign(objetoEstudiantePrograma.estudiante, { idRepresentante: [resp.data._id] });
+                                        setTimeout(() => {
+                                          //crea estudiate
+                                          this.estudianteService.crearEstudiante(objetoEstudiantePrograma.estudiante).subscribe((resp: any) => {
+                                            console.log(resp);
+                                            console.log("Estudiante creado");
+                                            //crear el Programa del estudiante
+
+                                            let ciudad: any = [];
+                                            objetoEstudiantePrograma.programa.idCiudad.forEach((element: any) => {
+                                              ciudad.push(element.item_id);
+                                            });
+                                            let marca: any = [];
+                                            objetoEstudiantePrograma.programa.idMarca.forEach((element: any) => {
+                                              marca.push(element.item_id);
+                                            });
+                                            let nombrePrograma: any = [];
+                                            objetoEstudiantePrograma.programa.idNombrePrograma.forEach((element: any) => {
+                                              nombrePrograma.push(element.item_id);
+                                            });
+                                            let sucursal: any = [];
+                                            objetoEstudiantePrograma.programa.idSucursal.forEach((element: any) => {
+                                              sucursal.push(element.item_id);
+                                            });
+
+                                            Object.assign(objetoEstudiantePrograma.programa,
+                                              { idEstudiante: [resp.data._id], idCiudad: ciudad, idMarca: marca, idNombrePrograma: nombrePrograma, idSucursal: sucursal });
+
+                                            setTimeout(() => {
+                                              //Crear el programa
+                                              this.programaSercice.crearPrograma(objetoEstudiantePrograma.programa).subscribe((resp: any) => {
+                                                console.log(resp);
+                                                console.log("Programa creado");
+                                              });
+                                            }, 900);
+
+                                          });
+                                          const Toast = Swal.mixin({
+                                            toast: true,
+                                            position: 'top-end',
+                                            showConfirmButton: false,
+                                            timer: 3000,
+                                            timerProgressBar: true,
+                                            didOpen: (toast) => {
+                                              toast.addEventListener('mouseenter', Swal.stopTimer);
+                                              toast.addEventListener('mouseleave', Swal.resumeTimer);
+                                            },
+                                          });
+                                          Toast.fire({
+                                            icon: 'success',
+                                            title: 'Se crearon los estudiantes correctamente',
+                                          });
+                                        }, 900);
+
+
+
+                                      });
+
+
+                                      //Crear contrato
+
+                                      let objetoAbono = {
+                                        fechaPago: new Date(),
+                                        monto: contrato.valorMatricula,
+                                        estado: "Pagado"
+                                      }
+                                      this.ContratoModel = contrato;
+
+                                      if (contrato.tipoPago == "Plan" && contrato.estadoVenta == "OK") {
+                                        objetoAbono = {
+                                          fechaPago: new Date(),
+                                          monto: 0,
+                                          estado: "Pagado"
+                                        }
+                                        this.ContratoModel.valorMatricula = "0";
+                                        this.ContratoModel.abono = [];
+                                        this.ContratoModel.abono.push(objetoAbono);
+                                      }
+                                      if (contrato.tipoPago == "Plan" && contrato.estadoVenta == "Abono") {
+                                        objetoAbono = {
+                                          fechaPago: new Date(),
+                                          monto: contrato.abono,
+                                          estado: "Pagado"
+                                        }
+                                        this.ContratoModel.abono = [];
+                                        this.ContratoModel.abono.push(objetoAbono);
+                                      }
+                                      if (contrato.tipoPago == "Plan" && contrato.estadoVenta == "Saldo") {
+                                        objetoAbono = {
+                                          fechaPago: new Date(),
+                                          monto: contrato.valorMatricula,
+                                          estado: "Pagado"
+                                        }
+                                        this.ContratoModel.abono = [];
+                                        this.ContratoModel.abono.push(objetoAbono);
+                                      }
+                                      if (contrato.tipoPago == "Contado" && contrato.estadoVenta == "OK") {
+                                        objetoAbono = {
+                                          fechaPago: new Date(),
+                                          monto: 0,
+                                          estado: "Pagado"
+                                        }
+                                        this.ContratoModel.valorMatricula = "0";
+                                        this.ContratoModel.numeroCuotas = "0";
+                                        this.ContratoModel.abono = [];
+                                        this.ContratoModel.abono.push(objetoAbono);
+                                      }
+                                      if (contrato.tipoPago == "Contado" && contrato.estadoVenta == "Abono") {
+                                        objetoAbono = {
+                                          fechaPago: new Date(),
+                                          monto: contrato.abono,
+                                          estado: "Pagado"
+                                        }
+                                        this.ContratoModel.valorMatricula = "0";
+                                        this.ContratoModel.numeroCuotas = "0";
+                                        this.ContratoModel.abono = [];
+                                        this.ContratoModel.abono.push(objetoAbono);
+                                      }
+                                      if (contrato.tipoPago == "Contado" && contrato.estadoVenta == "Saldo") {
+                                        objetoAbono = {
+                                          fechaPago: new Date(),
+                                          monto: contrato.abono,
+                                          estado: "Pagado"
+                                        }
+                                        this.ContratoModel.valorMatricula = "0";
+                                        this.ContratoModel.numeroCuotas = "0";
+                                        this.ContratoModel.abono = [];
+                                        this.ContratoModel.abono.push(objetoAbono);
+                                      }
+
+
+
+                                      Object.assign(this.ContratoModel, { idRepresentante: resp.data._id, fechaAprobacion: "", estadoPrograma: "Cliente no atendido" });
+
+                                      setTimeout(() => {
+                                        this.contratoService.crearContrato(this.ContratoModel).subscribe((resp: any) => {
+                                          console.log(resp);
+                                          console.log("Contrato creado");
+                                          //TODO: Falta subir las imagenes
+                                          //subir imagenes al contrato
+                                          /* this.fileuploadService.actualizarVoucher(voucher, resp.data._id).subscribe((resp: any) => {
+                                            console.log(resp);
+                                          }); */
+
+                                          const Toast = Swal.mixin({
+                                            toast: true,
+                                            position: 'top-end',
+                                            showConfirmButton: false,
+                                            timer: 3000,
+                                            timerProgressBar: true,
+                                            didOpen: (toast) => {
+                                              toast.addEventListener('mouseenter', Swal.stopTimer);
+                                              toast.addEventListener('mouseleave', Swal.resumeTimer);
+                                            },
+                                          });
+                                          Toast.fire({
+                                            icon: 'success',
+                                            title: 'Se creo el contrato correctamente',
+                                          });
+                                          //Crear facturacion
+                                          let programaLista: any = [];
+                                          facturacion.programa.forEach((element: any) => {
+                                            if (element.item_id) {
+                                              programaLista.push(element.item_id);
+                                            } else {
+                                              programaLista.push(element);
+                                            }
+                                          });
+                                          setTimeout(() => {
+                                            Object.assign(facturacion, { idContrato: resp.data._id, programa: programaLista });
+                                            this.facturacionService.crearFacturar(facturacion).subscribe((resp: any) => {
+                                              console.log(resp);
+                                              console.log("Contrato facturacion");
+                                              const Toast = Swal.mixin({
+                                                toast: true,
+                                                position: 'top-end',
+                                                showConfirmButton: false,
+                                                timer: 3000,
+                                                timerProgressBar: true,
+                                                didOpen: (toast) => {
+                                                  toast.addEventListener('mouseenter', Swal.stopTimer);
+                                                  toast.addEventListener('mouseleave', Swal.resumeTimer);
+                                                },
+                                              });
+                                              Toast.fire({
+                                                icon: 'success',
+                                                title: 'Se la factura  correctamente',
+                                              });
+                                              //navegar a lista de contratos
+                                              this.router.navigateByUrl('/listacontratos');
+                                            });
+                                          }, 1000);
+
+                                        });
+                                      }, 1000);
+
+
+                                    });
+
+                                    console.log(objeto);
+
+                                    //Para limpiar local storage
+                                    this.limpiarLocalStorage();
+
+                                    //-------------------------------------------------
+
+                                  }
   }
 
   //this.ngWizardService.navigateTo('estudiante');//informacion importante --navigateTo-- es para navegar entre los pasos
@@ -359,6 +495,7 @@ export class ContratoComponent implements OnInit {
   @ViewChild('idNombrePrograma') idNombrePrograma1: ElementRef;
 
   editarEstudiante(index: any) {
+
     console.log(index);
     let objetosEstudiateProgramaCopia = JSON.parse(localStorage.getItem('objetosEstudiatePrograma') as string);
     let estudiante = objetosEstudiateProgramaCopia[index].estudiante;
@@ -366,13 +503,28 @@ export class ContratoComponent implements OnInit {
 
     //abrir modal
     this.abrirModalEstudiante();
-    this.nombresApellidos1.nativeElement.value = estudiante.nombresApellidos;
+    /* this.nombresApellidos1.nativeElement.value = estudiante.nombresApellidos;
     this.email1.nativeElement.value = estudiante.email;
     this.cedula1.nativeElement.value = estudiante.cedula;
     this.telefono1.nativeElement.value = estudiante.telefono;
     this.fechaNacimiento1.nativeElement.value = estudiante.fechaNacimiento;
     this.direccion1.nativeElement.value = estudiante.direccion;
-    this.genero1.nativeElement.value = estudiante.genero;
+    this.genero1.nativeElement.value = estudiante.genero; */
+    this.LlenarFormEstudiante(estudiante, programa);
+
+
+
+
+    /* programa.idMarca.map((r: any) => {
+      const findMarca = this.dropdownListMarcas.find(
+        (item: any) => item.item_id === r
+      );
+      if (findMarca) {
+        this.onItemSelectmarca(findMarca);
+        console.log(findMarca);
+        //this.registerForm.get('idRepresentante')?.setValue(this.representante);
+      }
+    }); */
 
     //Guardar en el local storage
     objetosEstudiateProgramaCopia[index]
@@ -386,18 +538,20 @@ export class ContratoComponent implements OnInit {
   }
 
   limpiarCamposModalEstudiante() {
-    this.nombresApellidos1.nativeElement.value = "";
-    this.email1.nativeElement.value = "";
-    this.cedula1.nativeElement.value = "";
-    this.telefono1.nativeElement.value = "";
-    this.fechaNacimiento1.nativeElement.value = "";
-    this.direccion1.nativeElement.value = "";
-    this.genero1.nativeElement.value = "";
-    //TODO: Ver como borrar el texto del dropdown 
-    /* this.idCiudad1.nativeElement.value = null;
-    this.idSucursal1.nativeElement.value = null;
-    this.idMarca1.nativeElement.value = null;
-    this.idNombrePrograma1.nativeElement.value = null; */
+
+    this.registerForm.reset();
+    /* this.registerFormEstudiante.get('nombresApellidos')?.setValue('');
+    this.registerFormEstudiante.get('email')?.setValue('');
+    this.registerFormEstudiante.get('cedula')?.setValue(''); 
+    this.registerFormEstudiante.get('telefono')?.setValue(''); 
+    this.registerFormEstudiante.get('fechaNacimiento')?.setValue(''); 
+    this.registerFormEstudiante.get('direccion')?.setValue(''); 
+    this.registerFormEstudiante.get('genero')?.setValue(''); 
+    this.registerFormEstudiante.get('idMarca')?.setValue(''); 
+    this.registerFormEstudiante.get('idCiudad')?.setValue(''); 
+    this.registerFormEstudiante.get('idSucursal')?.setValue(''); 
+    this.registerFormEstudiante.get('idNombrePrograma')?.setValue(''); */
+
   }
 
   editarEstudianteModal() {
@@ -443,6 +597,153 @@ export class ContratoComponent implements OnInit {
 
   }
 
+
+  editarEstudianteFrom() {
+    if (this.registerFormEstudiante.invalid) {
+      //Formulario invalido
+      const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener('mouseenter', Swal.stopTimer)
+          toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+      })
+      Toast.fire({
+        icon: 'error',
+        title: 'Verificar campos invalidos \n Indicados con el color rojo'
+      })
+      return;
+
+    } else {
+      if (localStorage.getItem('indexEdit')) {
+        let objetoEstudiante = {
+          nombresApellidos: this.registerFormEstudiante.get('nombresApellidos')?.value,
+          email: this.registerFormEstudiante.get('email')?.value,
+          cedula: this.registerFormEstudiante.get('cedula')?.value,
+          telefono: this.registerFormEstudiante.get('telefono')?.value,
+          fechaNacimiento: this.registerFormEstudiante.get('fechaNacimiento')?.value,
+          direccion: this.registerFormEstudiante.get('direccion')?.value,
+          genero: this.registerFormEstudiante.get('genero')?.value,
+          estado: "Inactivo"
+        };
+
+        let objetoPrograma = {
+          idMarca: this.registerFormEstudiante.get('idMarca')?.value,
+          idCiudad: this.registerFormEstudiante.get('idCiudad')?.value,
+          idSucursal: this.registerFormEstudiante.get('idSucursal')?.value,
+          idNombrePrograma: this.registerFormEstudiante.get('idNombrePrograma')?.value
+        };
+
+        let objetosEstudiateProgramaCopia = JSON.parse(localStorage.getItem('objetosEstudiatePrograma') as string);
+
+        objetosEstudiateProgramaCopia[Number(localStorage.getItem('indexEdit'))].estudiante = objetoEstudiante;
+        objetosEstudiateProgramaCopia[Number(localStorage.getItem('indexEdit'))].programa = objetoPrograma;
+
+        localStorage.setItem('objetosEstudiatePrograma', JSON.stringify(objetosEstudiateProgramaCopia));
+        this.llenarTablaEstudiantes();
+
+        const Toast = Swal.mixin({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer);
+            toast.addEventListener('mouseleave', Swal.resumeTimer);
+          },
+        });
+        Toast.fire({
+          icon: 'success',
+          title: 'El estudiante se actualizo correctamente',
+        });
+
+      }
+      this.limpiarCamposModalEstudiante();
+      this.cerrarModalEstudiante();
+    }
+
+  }
+
+  public registerFormEstudiante = this.fb.group({
+    nombresApellidos: [null, Validators.required],
+    email: [null, [Validators.required, Validators.email]],
+    cedula: [null, Validators.required],
+    telefono: [null, Validators.required],
+    fechaNacimiento: [null, Validators.required],
+    direccion: [null],
+    genero: [null, Validators.required],
+    estado: ["Espera"],
+    idCiudad: [null, Validators.required],
+    idSucursal: [null, Validators.required],
+    idMarca: [null, Validators.required],
+    idNombrePrograma: [null, Validators.required]
+  });
+
+  LlenarFormEstudiante(estudiante: any, programa: any) {
+
+    const {
+      nombresApellidos,
+      email,
+      cedula,
+      telefono,
+      fechaNacimiento,
+      direccion,
+      genero,
+      estado,
+
+    } = estudiante;
+    const {
+      idCiudad,
+      idSucursal,
+      idMarca,
+      idNombrePrograma
+    } = programa;
+
+    this.registerFormEstudiante.setValue({
+      nombresApellidos,
+      email,
+      cedula,
+      telefono,
+      fechaNacimiento,
+      direccion,
+      genero,
+      estado,
+      idCiudad,
+      idSucursal,
+      idMarca,
+      idNombrePrograma
+    });
+  }
+
+  campoNoValido(campo: any): boolean {
+    if (
+      this.registerForm.get(campo)?.invalid &&
+      (this.registerForm.get(campo)?.dirty ||
+        this.registerForm.get(campo)?.touched)
+    ) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  campoNoValido2(campo: any): boolean {
+    if (
+      this.registerFormEstudiante.get(campo)?.invalid &&
+      (this.registerFormEstudiante.get(campo)?.dirty ||
+        this.registerFormEstudiante.get(campo)?.touched)
+    ) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   borrarEstudiante(index: any) {
 
     let objetosEstudiateProgramaCopia = JSON.parse(localStorage.getItem('objetosEstudiatePrograma') as string);
@@ -468,8 +769,6 @@ export class ContratoComponent implements OnInit {
         this.llenarTablaEstudiantes();
       }
     })
-
-
 
   }
 
@@ -612,19 +911,19 @@ export class ContratoComponent implements OnInit {
   validFormRepresentante(event: any) {
     if (event) {
       setTimeout(() => {
-        const buttonNext: any = document.getElementsByClassName('ng-wizard-btn-next')[0];
+        /* const buttonNext: any = document.getElementsByClassName('ng-wizard-btn-next')[0];
         if (buttonNext) {
           buttonNext.classList.remove('disabled');
           buttonNext.disabled = false;
-        }
+        } */
       }, 100);
     } else {
       setTimeout(() => {
-        const buttonNext: any = document.getElementsByClassName('ng-wizard-btn-next')[0];
+        /* const buttonNext: any = document.getElementsByClassName('ng-wizard-btn-next')[0];
         if (buttonNext) {
           buttonNext.classList.add('disabled');
           buttonNext.disabled = true;
-        }
+        } */
       }, 100);
     }
   }
@@ -827,6 +1126,7 @@ export class ContratoComponent implements OnInit {
       });
       this.dropdownListCiudades = nombreciudades;
     });
+
   }
   recuperarDatosSucursales() {
     this.sucursalService.getAllSucursales().subscribe((resp: any) => {

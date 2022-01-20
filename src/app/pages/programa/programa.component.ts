@@ -368,17 +368,20 @@ export class ProgramaComponent implements OnInit {
         nombreciudades.push({ item_id: element._id, nombre: element.nombre });
       });
       this.dropdownListCiudades = nombreciudades;
-      this.programaSeleccionada.idCiudad.map((c: any) => {
-        const findCiudadPersona = this.dropdownListCiudades.find(
-          (item: any) => {
-            return item.item_id === c; 
+      if (this.programaSeleccionada) {
+        this.programaSeleccionada.idCiudad.map((c: any) => {
+          const findCiudadPersona = this.dropdownListCiudades.find(
+            (item: any) => {
+              return item.item_id === c; 
+            }
+          );
+          if (findCiudadPersona) {
+            this.onItemSelect(findCiudadPersona);
+            this.registerForm.get('idCiudad')?.setValue(this.ciudad);
           }
-        );
-        if (findCiudadPersona) {
-          this.onItemSelect(findCiudadPersona);
-          this.registerForm.get('idCiudad')?.setValue(this.ciudad);
-        }
-      });
+        });
+      }
+      
     });
     
   }
@@ -389,15 +392,18 @@ export class ProgramaComponent implements OnInit {
         nombreSucursal.push({ item_id: element._id, nombre: element.nombre });
       });
       this.dropdownListSucursales = nombreSucursal;
-      this.programaSeleccionada.idSucursal.map((s: any) => {
-        const findSucursalPersona = this.dropdownListSucursales.find(
-          (item: any) => item.item_id === s
-        );
-        if (findSucursalPersona) {
-          this.onItemSelectsucursal(findSucursalPersona);
-          this.registerForm.get('idSucursal')?.setValue(this.sucursal);
-        }
-      });
+      if (this.programaSeleccionada) {
+        this.programaSeleccionada.idSucursal.map((s: any) => {
+          const findSucursalPersona = this.dropdownListSucursales.find(
+            (item: any) => item.item_id === s
+          );
+          if (findSucursalPersona) {
+            this.onItemSelectsucursal(findSucursalPersona);
+            this.registerForm.get('idSucursal')?.setValue(this.sucursal);
+          }
+        });
+      }
+     
     });
     
   }
@@ -408,15 +414,18 @@ export class ProgramaComponent implements OnInit {
         nombremarcas.push({ item_id: element._id, nombre: element.nombre });
       });
       this.dropdownListMarcas = nombremarcas;
-      this.programaSeleccionada.idMarca.map((m: any) => {
-        const findMarcaPersona = this.dropdownListMarcas.find(
-          (item: any) => item.item_id === m
-        );
-        if (findMarcaPersona) {
-          this.onItemSelectmarca(findMarcaPersona);
-          this.registerForm.get('idMarca')?.setValue(this.marca);
-        }
-      });
+      if(this.programaSeleccionada){
+        this.programaSeleccionada.idMarca.map((m: any) => {
+          const findMarcaPersona = this.dropdownListMarcas.find(
+            (item: any) => item.item_id === m
+          );
+          if (findMarcaPersona) {
+            this.onItemSelectmarca(findMarcaPersona);
+            this.registerForm.get('idMarca')?.setValue(this.marca);
+          }
+        });
+      }
+      
 
     });
     
@@ -428,17 +437,20 @@ export class ProgramaComponent implements OnInit {
         nombrePrograma.push({ item_id: element._id, nombre: element.nombre });
       });
       this.dropdownListNombreProgramas = nombrePrograma;
-      this.programaSeleccionada.idNombrePrograma.map((c: any) => {
-        const findNombrePrograma = this.dropdownListNombreProgramas.find(
-          (item: any) => {
-            return item.item_id === c; 
+      if(this.programaSeleccionada){
+        this.programaSeleccionada.idNombrePrograma.map((c: any) => {
+          const findNombrePrograma = this.dropdownListNombreProgramas.find(
+            (item: any) => {
+              return item.item_id === c; 
+            }
+          );
+          if (findNombrePrograma) {
+            this.onItemSelectNombrePrograma(findNombrePrograma);
+            this.registerForm.get('idNombrePrograma')?.setValue(this.nombrePrograma);
           }
-        );
-        if (findNombrePrograma) {
-          this.onItemSelectNombrePrograma(findNombrePrograma);
-          this.registerForm.get('idNombrePrograma')?.setValue(this.nombrePrograma);
-        }
-      });
+        });
+      }
+      
     });
   }
 
