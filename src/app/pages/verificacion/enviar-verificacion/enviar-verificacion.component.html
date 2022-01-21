@@ -1,0 +1,130 @@
+<div class="row">
+    <div class="col-lg-6 col-xlg-6">
+        <div class="card">
+            <div class="card-body little-profile text-center">
+
+                <h3 class="m-b-0">Datos Personales</h3>
+                <br>
+                <h3 class="m-b-0">{{repesentante?.nombresApellidos}}</h3>
+                <h6 class="text-muted">Nombre</h6>
+                <h3 class="m-b-0">{{repesentante?.cedula}}</h3>
+                <h6 class="text-muted">Cedula</h6>
+                <h3 class="m-b-0">{{repesentante?.telefono}}</h3>
+                <h6 class="text-muted">Telefono</h6>
+                <h3 class="m-b-0">{{repesentante?.direccion}}</h3>
+                <h6 class="text-muted">Direccion</h6>
+
+            </div>
+
+        </div>
+    </div>
+    <div class="col-lg-6 col-xlg-6">
+        <div class="card">
+            <div class="card-body little-profile text-center">
+                <h3 class="m-b-0">Datos Economicos</h3>
+                <br>
+                <h3 class="m-b-0">{{verificacionesSeleccionadas?.idContrato[0]?.tipoPago}}</h3>
+                <h6 class="text-muted">Tipo Pago</h6>
+                <h3 class="m-b-0">${{verificacionesSeleccionadas?.idContrato[0]?.valorTotal}}</h3>
+                <h6 class="text-muted">Valor Total</h6>
+                <h3 class="m-b-0">${{verificacionesSeleccionadas?.idContrato[0]?.valorMatricula}}</h3>
+                <h6 class="text-muted">Valor Matricula</h6>
+
+                <button (click)="aceptarVerificacion()" class="btn btn-info waves-effect waves-light" type="button"><span class="btn-label"><i class="fa fa-check"></i></span>
+                    Verificar informacion
+                </button>  
+
+            </div>
+
+        </div>
+    </div>
+    <div class="col-lg-6 col-xlg-12">
+        <div class="card">
+            <div class="card-body little-profile text-center">
+                
+
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex no-block">
+                                    <div class="m-r-20 align-self-center"><span class="lstick m-r-20"></span>
+                                        <i class="ti-money"></i>
+                                    </div>
+                                    <div class="align-self-center">
+                                        <h6 class="text-muted m-t-10 m-b-0">Total Pagado</h6>
+                                        <h2 class="m-t-0">{{totalPagado}}</h2>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex no-block">
+                                    <div class="m-r-20 align-self-center"><span class="lstick m-r-20"></span>
+                                        <i class="ti-money"></i></div>
+                                    <div class="align-self-center">
+                                        <h6 class="text-muted m-t-10 m-b-0">Total Deuda</h6>
+                                        <h2 class="m-t-0">{{totalDeuda}}</h2>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex">
+                    <div>
+                        <h4 class="card-title"><span class="lstick"></span>Verificacion</h4>
+                    </div>
+
+                </div>
+                <div class="table-responsive m-t-20 no-wrap">
+                    <table class="table vm no-th-brd pro-of-month">
+                        <thead>
+                            <tr>
+                                <th>Fecha Acuerdo</th>
+                                <th>Valor</th>
+                                <th>Estado</th>
+                                <th>Fecha de Pago</th>
+                                <th>Numero comprobante</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let cobranza of verificacionesSeleccionadas?.cobranza; let index=index">
+                                <td>{{cobranza?.fechaAcuerdo | date:'dd-MM-yyyy'}}</td>
+                                <td>{{cobranza?.valor}}</td>
+                                <td>
+                                    <button class=""
+                                        [ngClass]="{'tst3 btn btn-success': cobranza?.estado== 'Pagado', 'tst4 btn btn-danger': cobranza?.estado== 'No pagado'}">{{cobranza?.estado}}</button>
+                                </td>
+                                <td>{{cobranza?.fechaPago | date:'dd-MM-yyyy'}}</td>
+                                <td>{{cobranza?.numeroComprobante}}</td>
+                                
+                            </tr>
+
+                        </tbody>
+                    </table>
+
+                    
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

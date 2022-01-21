@@ -66,7 +66,7 @@ export class VerificacionComponent implements OnInit {
             
         });
         this.totalPagado=pagado;
-        this.totalDeuda=deuda;
+        this.totalDeuda=deuda.toFixed(2);
         this.representanteService.obtenerRepresentanteById(this.verificacionesSeleccionadas.idContrato[0].idRepresentante)
           .subscribe((resp: any) => {
             console.log(resp.data);

@@ -49,12 +49,13 @@
                                 <th class="w100">Estado</th>
 
                                 <th class="text-nowrap w100">Action</th>
+                                <th class="text-nowrap w100">Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr *ngFor="let verificacion of verificaciones">
 
-                                <td>{{verificacion.idContrato[0]?.idRepresentante?.codigo }}</td>
+                                <td>{{verificacion.idContrato[0]?.codigo }}</td>
                                 <td>{{verificacion.idContrato[0]?.idRepresentante?.nombresApellidos}}</td>
                                 <td>{{verificacion.idContrato[0]?.tipoPago}}</td>
                                 <td>{{verificacion.idContrato[0]?.valorTotal}}</td>
@@ -64,6 +65,10 @@
                                 <td class="text-nowrap">
                                     <button (click)="abrirVistaVerificacion(verificacion)" type="button" class="btn btn-info btn-circle btn-lg">
                                         <i class="ti ti-eye "></i></button>
+                                </td>
+                                <td class="text-nowrap">
+                                    <button (click)="enviarAceptacion(verificacion)" type="button" class="btn btn-info btn-circle btn-lg">
+                                        <i class="ti ti-crown"></i></button>
                                 </td>
                             </tr>
 

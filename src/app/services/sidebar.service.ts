@@ -100,6 +100,13 @@ export class SidebarService {
       ]
     },
     {
+      titulo: 'Verificacion',
+      icono: 'mdi mdi-verified',
+      submenu: [
+        { titulo: 'Lista verificacion',url: '/listaverificacion' },
+      ]
+    },
+    {
       titulo: 'Facturas',
       icono: 'mdi mdi-briefcase',
       submenu: [
@@ -125,14 +132,7 @@ export class SidebarService {
         { titulo: 'Calendario',url: '/calendario' },
       ]
     },
-    {
-      titulo: 'Verificacion',
-      icono: 'mdi mdi-camera-front-variant',
-      submenu: [
-        { titulo: 'Verificacion',url: '/verificacion/nuevo' }, 
-        { titulo: 'Lista verificacion',url: '/listaverificacion' }, 
-      ]
-    },
+    
     
 
   ]

@@ -93,4 +93,8 @@ export class VerificacionesComponent implements OnInit {
     this.router.navigate([`/verificacion/${verificacion._id}`]);
   }
 
+  enviarAceptacion(verificacion:any){
+    this.router.navigate([`/aceptacionverificacion/${verificacion._id}`]);
+  }
+
 }

@@ -35,6 +35,7 @@ import { VigenciaComponent } from './vigencia/vigencia.component';
 import { VigenciasComponent } from './vigencia/vigencias/vigencias.component';
 import { VerificacionComponent } from './verificacion/verificacion.component';
 import { VerificacionesComponent } from './verificacion/verificaciones/verificaciones.component';
+import { EnviarVerificacionComponent } from './verificacion/enviar-verificacion/enviar-verificacion.component';
 
 
 
@@ -98,6 +99,7 @@ const routes: Routes = [
 
             { path: 'verificacion/:id', component:VerificacionComponent , data:{titulo:'Verificacion'} },
             { path: 'listaverificacion', component:VerificacionesComponent , data:{titulo:'Lista de verificacion'} },
+            { path: 'aceptacionverificacion/:id', component:EnviarVerificacionComponent , data:{titulo:'Aceptar verificacion'} },
 
         ]
     },

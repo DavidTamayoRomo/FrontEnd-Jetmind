@@ -53,6 +53,7 @@ import { VigenciaComponent } from './vigencia/vigencia.component';
 import { VigenciasComponent } from './vigencia/vigencias/vigencias.component';
 import { VerificacionComponent } from './verificacion/verificacion.component';
 import { VerificacionesComponent } from './verificacion/verificaciones/verificaciones.component';
+import { EnviarVerificacionComponent } from './verificacion/enviar-verificacion/enviar-verificacion.component';
 
 
 const ngWizardConfig: NgWizardConfig = {
@@ -94,7 +95,8 @@ const ngWizardConfig: NgWizardConfig = {
     VigenciaComponent,
     VigenciasComponent,
     VerificacionComponent,
-    VerificacionesComponent
+    VerificacionesComponent,
+    EnviarVerificacionComponent
     
   ],
   exports:[
