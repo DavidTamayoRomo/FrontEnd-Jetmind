@@ -1,5 +1,3 @@
-
-
 <form (ngSubmit)="crearContrato()" autocomplete="off" [formGroup]="registerForm">
     <div class="card-body">
         <h4 class="card-title">Contrato</h4>
@@ -40,7 +38,8 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <div class="demo-switch-title">Tipo de pago</div>
-                    <select class="form-control custom-select" formControlName="tipoPago" (click)="habilitarCampos();calculadora()">
+                    <select class="form-control custom-select" formControlName="tipoPago"
+                        (click)="habilitarCampos();calculadora()">
                         <option value="Plan">Plan</option>
                         <option value="Contado">Contado</option>
                     </select>
@@ -74,7 +73,7 @@
                     <div class="input-group">
                         <div class="input-group-addon"><i class=" ti-money"></i></div>
                         <input type="number" class="form-control" placeholder="Ingrese Valor Total"
-                            formControlName="valorTotal"  (keyup)="calculadora()">
+                            formControlName="valorTotal" (keyup)="calculadora()">
                     </div>
                     <div class="text-danger">
                         <p *ngIf="campoNoValido('valorTotal')">El valor total es obligatorio</p>
@@ -97,13 +96,44 @@
         </div>
         <div class="row p-t-20">
             <div class="col-md-6">
-                <div class="form-group">
+                <div class="form-group" *ngIf="mostraAbono">
                     <label for="cedula">Abono/Saldo </label>
-                    <div class="input-group">
+                    <button (click)="abrirModal()" type="button" class="btn btn-info btn-circle btn-lg "><i
+                            class="fa fa-plus"></i> </button>
+                    <!-- Crear una tabla con dos atributos -->
+                    <div>Lista de estudiantes</div>
+                    <table class="table table-bordered" >
+                        <thead>
+                            <tr>
+                                <th>Valor</th>
+                                <th>Fecha</th>
+                                <th>Estado</th>
+                                <th>Editar</th>
+                                <th>Eliminar</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let abon of abono; let index=index">
+                                <td>{{abon.monto}}</td>
+                                <td>{{abon.fechaPago | date:"dd-MM-yyyy"}}</td>
+                                <td>{{abon.estado}}</td>
+                                <td><a data-toggle="tooltip" data-original-title="Editar"
+                                        (click)="cargar(index)">
+                                        <i class="ti-pencil"></i>
+                                    </a></td>
+                                <td><a data-toggle="tooltip" data-original-title="Eliminar"
+                                        (click)="eliminar(index)">
+                                        <i class="ti-trash"></i>
+                                    </a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <!-- <div class="input-group">
                         <div class="input-group-addon"><i class=" ti-money "></i></div>
                         <input type="number" class="form-control" id="abono" placeholder="Ingrese Abono"
                             formControlName="abono" (keyup)="calculadora()">
-                    </div>
+                    </div> -->
                     <div class="text-danger">
                         <!-- <p *ngIf="campoNoValido('abono')">La cedula es obligatoria</p> -->
                     </div>
@@ -175,3 +205,59 @@
         <a *ngIf="mostrarBoton" class="btn btn-inverse waves-effect waves-light">Cancelar</a>
     </div>
 </form>
+
+
+
+
+<!-- Modal para abonos -->
+
+<div class="fondo-modal-imagen animated fadeIn fast" [class.oculto]="mostraModal">
+    <div id="responsive-modal" class="modal fade show" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+        style="display: block;padding-right: 17px; overflow-y: initial">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Agregar abono</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                        (click)="cerrarModal()">×</button>
+                </div>
+
+                <div class="card-body">
+                    <h4 class="card-title">Abono</h4>
+                    <h6 class="card-subtitle">Agregar Abono</h6>
+                    <br>
+
+                    <div class="form-group">
+                        <label for="exampleInputuname">Fecha</label>
+                        <div class="input-group">
+                            <div class="input-group-addon"><i class="ti-user"></i></div>
+                            <input type="date" name="monto" id="" #fechaAbono>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="exampleInputuname">Valor</label>
+                        <div class="input-group">
+                            <div class="input-group-addon"><i class="ti-user"></i></div>
+                            <input type="number" name="monto" id="" #valorAbono>
+                        </div>
+                    </div>
+
+
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default waves-effect" data-dismiss="modal"
+                        (click)="cerrarModal()">Close</button>
+                    <button *ngIf="editarAbono==false" type="button" (click)="agregarAbono();calculadora()"
+                        class="btn btn-success waves-effect waves-light">Agregar</button>
+                    <button *ngIf="editarAbono==true" type="button" (click)="editarAbono1();calculadora()"
+                        class="btn btn-success waves-effect waves-light">Editar</button>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

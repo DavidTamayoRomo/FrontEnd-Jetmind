@@ -181,7 +181,7 @@ export class FacturarComponent implements OnInit, OnChanges {
     if (this.facturaSeleccionada) {
       //actualizar
       this.FacturarModel = this.registerForm.value;
-      //ID de las Marcas
+      /* //ID de las Marcas
       let marcaLista: any = [];
       const marcaEspera = await this.marca.forEach((element: any) => {
         if (element.item_id) {
@@ -190,7 +190,7 @@ export class FacturarComponent implements OnInit, OnChanges {
           marcaLista.push(element);
         }
       });
-      this.FacturarModel.programa = marcaLista;
+      this.FacturarModel.programa = marcaLista; */
       if (this.registerForm.invalid) {
         //Formulario invalido
         const Toast = Swal.mixin({
