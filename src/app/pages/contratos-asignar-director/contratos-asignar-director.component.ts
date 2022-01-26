@@ -48,7 +48,7 @@ export class ContratosAsignarDirectorComponent implements OnInit {
     private personaService: PersonaService,
     private representanteService: RepresentanteService,
     private estudianteService: EstudianteService,
-    private programaService:ProgramaService,
+    private programaService: ProgramaService,
     private router: Router
   ) { }
 
@@ -96,38 +96,17 @@ export class ContratosAsignarDirectorComponent implements OnInit {
 
   buscar(busqueda: any) {
 
-    /* if (this.contratos2.length>0) {
-        
-    }  */
-
     if (busqueda.length === 0) {
       return this.contratos = this.contratosTemporales;
-    }
-
-    if (this.contratos2.length > 0) {
-      console.log('Entre a mas de 0');
-      let listaCamposBusqueda: any = [];
-      this.contratos2.forEach((element: any) => {
-        listaCamposBusqueda.push(element.item_id);
-      });
-
-      return this.busquedaService.buscar2('contratos', busqueda, listaCamposBusqueda).subscribe(
-        (resp: any) => {
-          console.log(resp);
-          this.contratos = resp;
-        }
-      );
-
-    } else {
-      console.log('Entre a menos de 0');
-      return this.busquedaService.buscar2('contratos', busqueda, []).subscribe(
+    }else{
+      return this.busquedaService.buscar2('contratosAporbados', busqueda, ["codigo"]).subscribe(
         (resp: any) => {
           console.log(resp);
           this.contratos = resp;
         }
       );
     }
-
+    
   }
 
 
@@ -138,7 +117,7 @@ export class ContratosAsignarDirectorComponent implements OnInit {
     //Obtener el id de ciudad
     console.log(this.personaService.persona);
 
-    this.personaService.getAllByRoleCiudadMarca("617c24f99f60c044346e3ffa","613a389282cbc52ac8a87a13","613a53447f51e7211092c8de").subscribe((resp: any) => {
+    this.personaService.getAllByRoleCiudadMarca("617c24f99f60c044346e3ffa", "613a389282cbc52ac8a87a13", "613a53447f51e7211092c8de").subscribe((resp: any) => {
       let nombrePersona: any = [];
       resp.data.forEach((element: any) => {
         nombrePersona.push({ item_id: element._id, nombre: element.nombresApellidos });
@@ -159,7 +138,7 @@ export class ContratosAsignarDirectorComponent implements OnInit {
     this.contratoSeleccionado = contrato;
   }
 
-  actualizarEstadoPrograma(estado:String, contrato:any){
+  actualizarEstadoPrograma(estado: String, contrato: any) {
     contrato.estadoPrograma = estado;
     this.contratoService.updatecontrato(contrato._id, contrato).subscribe((resp: any) => {
       this.cargarContratos();
@@ -294,13 +273,13 @@ export class ContratosAsignarDirectorComponent implements OnInit {
   editarEstudiante(estudiante: any) {
     this.router.navigate(['/estudiante/', estudiante._id]);
   }
-  
+
   editarProgramaEstudiante(estudiante: any) {
     this.programaService.obtenerProgramaByIdEstudiante(estudiante._id).subscribe((resp: any) => {
       this.router.navigate(['/programa/', resp.data[0]._id]);
     });
 
-    
+
   }
 
 }

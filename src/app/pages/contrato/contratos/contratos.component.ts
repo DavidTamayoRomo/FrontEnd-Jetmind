@@ -97,7 +97,6 @@ export class ContratosComponent implements OnInit {
       this.totalcontratos = resp.totalContratos;
       console.log(this.contratos);
     });
-
   }
 
   paginar(valor: number) {
@@ -128,6 +127,7 @@ export class ContratosComponent implements OnInit {
       this.contratos2.forEach((element: any) => {
         listaCamposBusqueda.push(element.item_id);
       });
+      console.log(listaCamposBusqueda);
 
       return this.busquedaService.buscar2('contratos', busqueda, listaCamposBusqueda).subscribe(
         (resp: any) => {
@@ -135,10 +135,9 @@ export class ContratosComponent implements OnInit {
           this.contratos = resp;
         }
       );
-
     } else {
       console.log('Entre a menos de 0');
-      return this.busquedaService.buscar2('contratos', busqueda, []).subscribe(
+      return this.busquedaService.buscar2('contratos', busqueda, ["codigo"]).subscribe(
         (resp: any) => {
           console.log(resp);
           this.contratos = resp;
@@ -151,7 +150,6 @@ export class ContratosComponent implements OnInit {
   }
 
   cambiarEstadoContrato(contrato: any) {
-
 
   }
 
@@ -167,10 +165,10 @@ export class ContratosComponent implements OnInit {
         item_id: 'estado',
         nombre: 'Estado'
       },
-      {
+      /*{
         item_id: 'idRepresentante',
         nombre: 'Representante'
-      }
+      } */
     ];
     this.dropdownListContratos = contratos;
 
@@ -180,7 +178,7 @@ export class ContratosComponent implements OnInit {
   /** CONTRATO */
   /** Item Seleccionado */
   onItemSelectContrato(item: any) {
-    this.contratos2.push(item);
+    this.contratos2=[item];
     console.log(this.contratos2);
   }
   /** Todos los items Seleccionados */

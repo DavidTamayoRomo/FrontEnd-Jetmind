@@ -7,13 +7,13 @@
         <div class="card">
             <div class="card-body">
                 <div class="text-right">
-                    <a class="btn btn-primary" routerLink="/marca/nuevo">
+                    <a class="btn btn-primary" routerLink="/programa/nuevo">
                         <i class="mdi mdi-account-plus"></i>
-                        Crear Marca
+                        Crear Programa
                     </a>
                 </div>
                 <div style="height: 10px;"></div>
-                <input type="text" class="form-control" placeholder="Buscar marca" (keyup)="buscar(txtBusqueda.value)"
+                <input type="text" class="form-control" placeholder="Buscar programa" (keyup)="buscar(txtBusqueda.value)"
                     #txtBusqueda>
 
             </div>
@@ -34,9 +34,9 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Marcas registradas</h4>
-                <h6 class="card-subtitle">Lista de todas las marcas existentes en el sistema</h6>
-                <h6 class="card-subtitle">Total de marcas: {{totalProgramas}}</h6>
+                <h4 class="card-title">Programa registradas</h4>
+                <h6 class="card-subtitle">Lista de todas las programa existentes en el sistema</h6>
+                <h6 class="card-subtitle">Total de programas: {{totalProgramas}}</h6>
                 <div class="table-responsive">
                     <table class="table full-color-table full-inverse-table hover-table">
                         <thead>

@@ -56,12 +56,12 @@
                         <tbody>
                             <tr *ngFor="let factura of facturas">
                         
-                                <td>{{factura.idContrato}}</td>
-                                <td>{{factura.nombre}}</td>
-                                <td>{{factura.correo}}</td>
-                                <td>{{factura.cedula_ruc}}</td>
-                                <td>{{factura.telefono}}</td>
-                                <td>{{factura.estado}}</td>
+                                <td>{{factura?.idContrato?.codigo}}</td>
+                                <td>{{factura?.nombre}}</td>
+                                <td>{{factura?.correo}}</td>
+                                <td>{{factura?.cedula_ruc}}</td>
+                                <td>{{factura?.telefono}}</td>
+                                <td>{{factura?.estado}}</td>
                                 
                                 
                                 <td class="text-nowrap">
