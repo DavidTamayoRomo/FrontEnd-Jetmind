@@ -12,7 +12,7 @@ export class SidebarService {
       icono:'mdi mdi-home',
       submenu:[
         { titulo: 'Main',url: '/' },
-        { titulo: 'Perfil',url: '/perfil' }, 
+        /* { titulo: 'Perfil',url: '/perfil' },  */
       ]
     },
 
@@ -96,7 +96,7 @@ export class SidebarService {
       submenu: [
         { titulo: 'Contrato',url: '/contrato/nuevo' },
         { titulo: 'Lista Contratos',url: '/listacontratos' },
-        { titulo: 'Contratos 1',url: '/contrato1/nuevo' },
+        /* { titulo: 'Contratos 1',url: '/contrato1/nuevo' }, */
       ]
     },
     {

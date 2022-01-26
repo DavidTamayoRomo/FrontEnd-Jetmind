@@ -331,76 +331,49 @@ export class ContratoComponent implements OnInit {
 
                                       //Crear contrato
 
-                                      let objetoAbono = {
-                                        fechaPago: new Date(),
-                                        monto: contrato.valorMatricula,
-                                        estado: "Pagado"
-                                      }
                                       this.ContratoModel = contrato;
 
-                                      if (contrato.tipoPago == "Plan" && contrato.estadoVenta == "OK") {
-                                        objetoAbono = {
-                                          fechaPago: new Date(),
-                                          monto: 0,
-                                          estado: "Pagado"
+                                      let abonolocalStorage = JSON.parse(localStorage.getItem('contratoAbono') as string);
+                                      if (abonolocalStorage) {
+                                        let objetoAbono = abonolocalStorage;
+                                        if (contrato.tipoPago == "Plan" && contrato.estadoVenta == "OK") {
+                                          objetoAbono = abonolocalStorage;
+                                          this.ContratoModel.valorMatricula = "0";
+                                          this.ContratoModel.abono = [];
+                                          this.ContratoModel.abono = objetoAbono;
                                         }
-                                        this.ContratoModel.valorMatricula = "0";
-                                        this.ContratoModel.abono = [];
-                                        this.ContratoModel.abono.push(objetoAbono);
-                                      }
-                                      if (contrato.tipoPago == "Plan" && contrato.estadoVenta == "Abono") {
-                                        objetoAbono = {
-                                          fechaPago: new Date(),
-                                          monto: contrato.abono,
-                                          estado: "Pagado"
+                                        if (contrato.tipoPago == "Plan" && contrato.estadoVenta == "Abono") {
+                                          objetoAbono = abonolocalStorage;
+                                          this.ContratoModel.abono = [];
+                                          this.ContratoModel.abono = objetoAbono;
                                         }
-                                        this.ContratoModel.abono = [];
-                                        this.ContratoModel.abono.push(objetoAbono);
-                                      }
-                                      if (contrato.tipoPago == "Plan" && contrato.estadoVenta == "Saldo") {
-                                        objetoAbono = {
-                                          fechaPago: new Date(),
-                                          monto: contrato.valorMatricula,
-                                          estado: "Pagado"
+                                        if (contrato.tipoPago == "Plan" && contrato.estadoVenta == "Saldo") {
+                                          objetoAbono = abonolocalStorage;
+                                          this.ContratoModel.abono = [];
+                                          this.ContratoModel.abono = objetoAbono;
                                         }
-                                        this.ContratoModel.abono = [];
-                                        this.ContratoModel.abono.push(objetoAbono);
-                                      }
-                                      if (contrato.tipoPago == "Contado" && contrato.estadoVenta == "OK") {
-                                        objetoAbono = {
-                                          fechaPago: new Date(),
-                                          monto: 0,
-                                          estado: "Pagado"
+                                        if (contrato.tipoPago == "Contado" && contrato.estadoVenta == "OK") {
+                                          objetoAbono = abonolocalStorage;
+                                          this.ContratoModel.valorMatricula = "0";
+                                          this.ContratoModel.numeroCuotas = "0";
+                                          this.ContratoModel.abono = [];
+                                          this.ContratoModel.abono = objetoAbono;
                                         }
-                                        this.ContratoModel.valorMatricula = "0";
-                                        this.ContratoModel.numeroCuotas = "0";
-                                        this.ContratoModel.abono = [];
-                                        this.ContratoModel.abono.push(objetoAbono);
-                                      }
-                                      if (contrato.tipoPago == "Contado" && contrato.estadoVenta == "Abono") {
-                                        objetoAbono = {
-                                          fechaPago: new Date(),
-                                          monto: contrato.abono,
-                                          estado: "Pagado"
+                                        if (contrato.tipoPago == "Contado" && contrato.estadoVenta == "Abono") {
+                                          objetoAbono = abonolocalStorage;
+                                          this.ContratoModel.valorMatricula = "0";
+                                          this.ContratoModel.numeroCuotas = "0";
+                                          this.ContratoModel.abono = [];
+                                          this.ContratoModel.abono = objetoAbono;
                                         }
-                                        this.ContratoModel.valorMatricula = "0";
-                                        this.ContratoModel.numeroCuotas = "0";
-                                        this.ContratoModel.abono = [];
-                                        this.ContratoModel.abono.push(objetoAbono);
-                                      }
-                                      if (contrato.tipoPago == "Contado" && contrato.estadoVenta == "Saldo") {
-                                        objetoAbono = {
-                                          fechaPago: new Date(),
-                                          monto: contrato.abono,
-                                          estado: "Pagado"
+                                        if (contrato.tipoPago == "Contado" && contrato.estadoVenta == "Saldo") {
+                                          objetoAbono = abonolocalStorage;
+                                          this.ContratoModel.valorMatricula = "0";
+                                          this.ContratoModel.numeroCuotas = "0";
+                                          this.ContratoModel.abono = [];
+                                          this.ContratoModel.abono = objetoAbono;
                                         }
-                                        this.ContratoModel.valorMatricula = "0";
-                                        this.ContratoModel.numeroCuotas = "0";
-                                        this.ContratoModel.abono = [];
-                                        this.ContratoModel.abono.push(objetoAbono);
                                       }
-
-
 
                                       Object.assign(this.ContratoModel, { idRepresentante: resp.data._id, fechaAprobacion: "", estadoPrograma: "Cliente no atendido" });
 
@@ -430,16 +403,17 @@ export class ContratoComponent implements OnInit {
                                             title: 'Se creo el contrato correctamente',
                                           });
                                           //Crear facturacion
-                                          let programaLista: any = [];
+                                          /* let programaLista: any = [];
                                           facturacion.programa.forEach((element: any) => {
                                             if (element.item_id) {
                                               programaLista.push(element.item_id);
                                             } else {
                                               programaLista.push(element);
                                             }
-                                          });
+                                          }); */
                                           setTimeout(() => {
-                                            Object.assign(facturacion, { idContrato: resp.data._id, programa: programaLista });
+                                            //Object.assign(facturacion, { idContrato: resp.data._id, programa: programaLista });
+                                            Object.assign(facturacion, { idContrato: resp.data._id });
                                             this.facturacionService.crearFacturar(facturacion).subscribe((resp: any) => {
                                               console.log(resp);
                                               console.log("Contrato facturacion");
@@ -873,6 +847,7 @@ export class ContratoComponent implements OnInit {
     localStorage.removeItem('facturacionContrato');
     localStorage.removeItem('files');
     localStorage.removeItem('contrato');
+    localStorage.removeItem('contratoAbono');
   }
 
   setDataFormRepresentante(event: any) {

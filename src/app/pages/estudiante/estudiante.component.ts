@@ -107,16 +107,17 @@ export class EstudianteComponent implements OnInit, OnChanges {
         });
       });
       this.dropdownListRepresentantes = nombrerepresentantes;
-
-      this.estudianteSeleccionada.idRepresentante.map((r: any) => {
-        const findRepresentante = this.dropdownListRepresentantes.find(
-          (item: any) => item.item_id === r
-        );
-        if (findRepresentante) {
-          this.onItemSelectRepresentante(findRepresentante);
-          this.registerForm.get('idRepresentante')?.setValue(this.representante);
-        }
-      });
+      if (this.estudianteSeleccionada) {
+        this.estudianteSeleccionada.idRepresentante.map((r: any) => {
+          const findRepresentante = this.dropdownListRepresentantes.find(
+            (item: any) => item.item_id === r
+          );
+          if (findRepresentante) {
+            this.onItemSelectRepresentante(findRepresentante);
+            this.registerForm.get('idRepresentante')?.setValue(this.representante);
+          }
+        });
+      }
     });
   }
 

@@ -592,6 +592,10 @@ export class ContratoFormComponent implements OnInit, OnChanges {
         }
       );
     }
+    localStorage.setItem(
+      'contratoAbono',
+      JSON.stringify(this.abono)
+    );
     this.cerrarModal();
   }
 
@@ -614,6 +618,10 @@ export class ContratoFormComponent implements OnInit, OnChanges {
     this.abono[this.index1].monto = this.valorAbono.nativeElement.value;
     this.calculadora();
     this.cerrarModal();
+    localStorage.setItem(
+      'contratoAbono',
+      JSON.stringify(this.abono)
+    );
   }
 
 
