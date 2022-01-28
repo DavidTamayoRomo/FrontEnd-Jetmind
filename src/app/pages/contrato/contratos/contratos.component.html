@@ -115,7 +115,12 @@
                                 <td (click)="mostrarDatosModal(contrato)">{{contrato?.valorMatricula}}</td>
                                 <td (click)="mostrarDatosModal(contrato)">{{contrato?.valorTotal}}</td>
                                 <td (click)="mostrarDatosModal(contrato)">{{contrato?.formaPago}}</td>
-                                <td (click)="mostrarDatosModal(contrato)">{{contrato?.voucher}}</td>
+                                <td (click)="mostrarDatosModal(contrato)">
+                                    <div *ngFor="let imagenC of contrato?.voucher">
+                                        <img [src]="imagenC | imagen:'contratos'" class="avatar" >
+                                    </div>
+                                    
+                                </td>
                                 <td (click)="mostrarDatosModal(contrato)">{{contrato?.comentario}}</td>
                                 <td *ngIf="contrato?.fechaAprobacion != '1989-12-31'"
                                     (click)="mostrarDatosModal(contrato)">{{contrato?.fechaAprobacion}}</td>

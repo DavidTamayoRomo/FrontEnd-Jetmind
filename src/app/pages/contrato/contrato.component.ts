@@ -379,14 +379,16 @@ export class ContratoComponent implements OnInit {
                                       Object.assign(this.ContratoModel, { idRepresentante: resp.data._id, fechaAprobacion: "", estadoPrograma: "Cliente no atendido" });
 
                                       setTimeout(() => {
+                                        let respuestaContrato: any;
                                         this.contratoService.crearContrato(this.ContratoModel).subscribe((resp: any) => {
                                           console.log(resp);
                                           console.log("Contrato creado");
-                                          //TODO: Falta subir las imagenes
-                                          //subir imagenes al contrato
-                                          /* this.fileuploadService.actualizarVoucher(voucher, resp.data._id).subscribe((resp: any) => {
+                                          //Carga de imagenes al contrato
+                                          respuestaContrato = resp.data;
+                                          respuestaContrato.voucher = voucher;
+                                          this.contratoService.updateVouchersContrato(respuestaContrato._id,respuestaContrato).subscribe((resp: any) => {
                                             console.log(resp);
-                                          }); */
+                                          });
 
                                           const Toast = Swal.mixin({
                                             toast: true,

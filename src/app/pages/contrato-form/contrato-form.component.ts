@@ -509,7 +509,7 @@ export class ContratoFormComponent implements OnInit, OnChanges {
         setTimeout(() => {
           console.log(this.ContratoModel);
           this.contratoService.crearContrato(this.ContratoModel).subscribe((resp) => {
-
+            console.log(resp);
             const Toast = Swal.mixin({
               toast: true,
               position: 'top-end',
