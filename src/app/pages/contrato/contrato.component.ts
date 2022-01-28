@@ -176,6 +176,7 @@ export class ContratoComponent implements OnInit {
     let facturacion = JSON.parse(localStorage.getItem('facturacionContrato') as string);
     let contrato = JSON.parse(localStorage.getItem('contrato') as string);
     let voucher = JSON.parse(localStorage.getItem('files') as string);
+    let abonolocalStorage = JSON.parse(localStorage.getItem('contratoAbono') as string);
 
     //Verificar campos vacios de cada objeto
 
@@ -333,7 +334,7 @@ export class ContratoComponent implements OnInit {
 
                                       this.ContratoModel = contrato;
 
-                                      let abonolocalStorage = JSON.parse(localStorage.getItem('contratoAbono') as string);
+                                      
                                       if (abonolocalStorage) {
                                         let objetoAbono = abonolocalStorage;
                                         if (contrato.tipoPago == "Plan" && contrato.estadoVenta == "OK") {
