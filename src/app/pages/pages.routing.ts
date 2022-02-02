@@ -36,6 +36,10 @@ import { VigenciasComponent } from './vigencia/vigencias/vigencias.component';
 import { VerificacionComponent } from './verificacion/verificacion.component';
 import { VerificacionesComponent } from './verificacion/verificaciones/verificaciones.component';
 import { EnviarVerificacionComponent } from './verificacion/enviar-verificacion/enviar-verificacion.component';
+import { HorarioComponent } from './horario/horario.component';
+import { HorariosComponent } from './horario/horarios/horarios.component';
+import { Peea17charlotteukComponent } from './peea17charlotteuk/peea17charlotteuk.component';
+import { ListaComponent } from './peea17charlotteuk/lista/lista.component';
 
 
 
@@ -101,6 +105,13 @@ const routes: Routes = [
             { path: 'listaverificacion', component:VerificacionesComponent , data:{titulo:'Lista de verificacion'} },
             { path: 'aceptacionverificacion/:id', component:EnviarVerificacionComponent , data:{titulo:'Aceptar verificacion'} },
 
+            { path: 'horario/:id', component:HorarioComponent , data:{titulo:'Horario'} },
+            { path: 'listahorarios', component:HorariosComponent , data:{titulo:'Lista de Horarios'} },
+            
+            { path: 'peea-17-ch-uk/:id', component: Peea17charlotteukComponent , data:{titulo:'PEEA 17'} },
+            { path: 'listapeea-17-ch-uk', component: ListaComponent , data:{titulo:'Lista de PEEA 17'} },
+
+            
         ]
     },
 ];

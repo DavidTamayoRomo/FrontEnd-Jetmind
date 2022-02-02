@@ -54,6 +54,12 @@ import { VigenciasComponent } from './vigencia/vigencias/vigencias.component';
 import { VerificacionComponent } from './verificacion/verificacion.component';
 import { VerificacionesComponent } from './verificacion/verificaciones/verificaciones.component';
 import { EnviarVerificacionComponent } from './verificacion/enviar-verificacion/enviar-verificacion.component';
+import { HorarioComponent } from './horario/horario.component';
+import { HorariosComponent } from './horario/horarios/horarios.component';
+import { Peea17charlotteukComponent } from './peea17charlotteuk/peea17charlotteuk.component';
+import { ListaComponent } from './peea17charlotteuk/lista/lista.component';
+
+
 
 
 const ngWizardConfig: NgWizardConfig = {
@@ -96,7 +102,11 @@ const ngWizardConfig: NgWizardConfig = {
     VigenciasComponent,
     VerificacionComponent,
     VerificacionesComponent,
-    EnviarVerificacionComponent
+    EnviarVerificacionComponent,
+    HorarioComponent,
+    HorariosComponent,
+    Peea17charlotteukComponent,
+    ListaComponent,
     
   ],
   exports:[
@@ -122,6 +132,7 @@ const ngWizardConfig: NgWizardConfig = {
       provide: DateAdapter,
       useFactory: adapterFactory,
     }),
+    
   ],
  
 })

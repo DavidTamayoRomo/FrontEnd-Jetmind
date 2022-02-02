@@ -132,9 +132,23 @@ export class SidebarService {
         { titulo: 'Calendario',url: '/calendario' },
       ]
     },
-    
-    
-
+    {
+      titulo: 'Horario',
+      icono: 'mdi mdi-calendar-clock',
+      submenu: [        
+        { titulo: 'Crear horario',url: '/horario/nuevo' },
+        { titulo: 'Lista horarios',url: '/listahorarios' },
+      ]
+    },
+    {
+      titulo: 'PEEA 17 Charlotte - Uk',
+      icono: 'mdi mdi-calendar-clock',
+      submenu: [        
+        { titulo: 'Crear PEEA 17',url: '/peea-17-ch-uk/nuevo' },
+        { titulo: 'Lista PEEA 17',url: '/listapeea-17-ch-uk' },
+      ]
+    },
+   
   ]
 
   constructor() { }
