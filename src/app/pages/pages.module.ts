@@ -58,6 +58,8 @@ import { HorarioComponent } from './horario/horario.component';
 import { HorariosComponent } from './horario/horarios/horarios.component';
 import { Peea17charlotteukComponent } from './peea17charlotteuk/peea17charlotteuk.component';
 import { ListaComponent } from './peea17charlotteuk/lista/lista.component';
+import { Peea18charlotteukComponent } from './peea18charlotteuk/peea18charlotteuk.component';
+import { Listapeea18chukComponent } from './peea18charlotteuk/listapeea18chuk/listapeea18chuk.component';
 
 
 
@@ -107,6 +109,8 @@ const ngWizardConfig: NgWizardConfig = {
     HorariosComponent,
     Peea17charlotteukComponent,
     ListaComponent,
+    Peea18charlotteukComponent,
+    Listapeea18chukComponent,
     
   ],
   exports:[

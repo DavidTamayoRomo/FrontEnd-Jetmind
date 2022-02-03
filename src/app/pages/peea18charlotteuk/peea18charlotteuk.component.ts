@@ -1,25 +1,26 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { Peea17chuk } from './peea17chuk.model';
+
+import { Peea18chuk } from './peea18chuk.model';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Peea17chukService } from '../services/peea17chuk.service';
+import { Peea18chukService } from '../services/peea18chuk.service';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-peea17charlotteuk',
-  templateUrl: './peea17charlotteuk.component.html',
+  selector: 'app-peea18charlotteuk',
+  templateUrl: './peea18charlotteuk.component.html',
   styles: [
   ]
 })
-export class Peea17charlotteukComponent implements OnInit {
+export class Peea18charlotteukComponent implements OnInit {
 
-  public pea17chukSeleccionada: any;
+  public pea18chukSeleccionada: any;
   public peeas: any = [];
 
   public mostraModal: boolean = true;
 
-  Peea17chukModel = new Peea17chuk();
-  Peea17chukModel1 = new Peea17chuk();
+  Peea18chukModel = new Peea18chuk();
+  Peea18chukModel1 = new Peea18chuk();
 
   @ViewChild('nombre') nombre: ElementRef;
   @ViewChild('edad') edad: ElementRef;
@@ -37,39 +38,30 @@ export class Peea17charlotteukComponent implements OnInit {
   @ViewChild('radio4') radio4: ElementRef;
   @ViewChild('radio5') radio5: ElementRef;
   @ViewChild('radio6') radio6: ElementRef;
-  @ViewChild('radio7') radio7: ElementRef;
-  @ViewChild('radio8') radio8: ElementRef;
-  @ViewChild('radio9') radio9: ElementRef;
-  @ViewChild('radio10') radio10: ElementRef;
-  @ViewChild('radio11') radio11: ElementRef;
-  @ViewChild('radio12') radio12: ElementRef;
-  @ViewChild('radio13') radio13: ElementRef;
-  @ViewChild('radio14') radio14: ElementRef;
-  @ViewChild('radio15') radio15: ElementRef;
-  @ViewChild('radio16') radio16: ElementRef;
+  
 
 
   constructor(
     private fb: FormBuilder,
-    private peea17chukService: Peea17chukService,
+    private peea18chukService: Peea18chukService,
     private activatedRoute: ActivatedRoute,
     private router: Router
   ) { }
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(({ id, idContrato }) => {
-      this.cargaPeea17chukbyId(id);
+      this.cargaPeea18chukbyId(id);
     });
   }
 
-  async cargaPeea17chukbyId(id: string) {
+  async cargaPeea18chukbyId(id: string) {
     if (id === 'nuevo') {
       return;
     }
-    this.peea17chukService.obtenerPeea17chukById(id)
+    this.peea18chukService.obtenerPeea18chukById(id)
       .subscribe((resp: any) => {
-        this.pea17chukSeleccionada = resp.data;
-        this.peeas = this.pea17chukSeleccionada.pregunta5;
+        this.pea18chukSeleccionada = resp.data;
+        this.peeas = this.pea18chukSeleccionada.pregunta5;
         this.LlenarForm(resp);
       });
   }
@@ -90,14 +82,9 @@ export class Peea17charlotteukComponent implements OnInit {
       pregunta10,
       pregunta11,
       pregunta12,
-      pregunta13,
-      pregunta14,
-      pregunta15,
-      pregunta16,
-      pregunta17,
-      pregunta18
+      pregunta13
     } = resp.data;
-    this.pea17chukSeleccionada = resp.data;
+    this.pea18chukSeleccionada = resp.data;
     this.registerForm.setValue({
       idContrato,
       fecha,
@@ -113,74 +100,35 @@ export class Peea17charlotteukComponent implements OnInit {
       pregunta10,
       pregunta11,
       pregunta12,
-      pregunta13,
-      pregunta14,
-      pregunta15,
-      pregunta16,
-      pregunta17,
-      pregunta18
+      pregunta13
     });
-    if (pregunta8 == "Si") {
+    console.log(this.pea18chukSeleccionada);
+    if (pregunta8.respuesta == "Si") {
+      console.log("Si");
       this.radio1.nativeElement.checked = true;
+      this.visual.nativeElement.value = pregunta8.observacion;
     }else{
       this.radio2.nativeElement.checked = true;
       this.visual.nativeElement.style.display = "none";
     }
 
-    if (pregunta9 == "Si") {
+    if (pregunta9.respuesta == "Si") {
       this.radio3.nativeElement.checked = true;
-      
+      this.auditiva.nativeElement.value = pregunta9.observacion;
     }
     else {
       this.radio4.nativeElement.checked = true;
       this.auditiva.nativeElement.style.display = "none";
     }
 
-    if (pregunta10 == "Si") {
+    if (pregunta10.respuesta == "Si") {
       this.radio5.nativeElement.checked = true;
+      this.aprendizaje.nativeElement.value = pregunta10.observacion;
     }
     else {
       this.radio6.nativeElement.checked = true;
       this.aprendizaje.nativeElement.style.display = "none";
     }
-
-    if (pregunta11 == "Si") {
-      this.radio7.nativeElement.checked = true;
-    }
-    else {
-      this.radio8.nativeElement.checked = true;
-      this.ingles.nativeElement.style.display = "none";
-    }
-
-    if (pregunta12 == "Si") {
-      this.radio9.nativeElement.checked = true;
-    }
-    else {
-      this.radio10.nativeElement.checked = true;
-    }
-
-    if (pregunta13 == "Si") {
-      this.radio11.nativeElement.checked = true;
-    }
-    else {
-      this.radio12.nativeElement.checked = true;
-    }
-
-    if (pregunta14 == "Si") {
-      this.radio13.nativeElement.checked = true;
-    }
-    else {
-      this.radio14.nativeElement.checked = true;
-    }
-
-    if (pregunta15 == "Si") {
-      this.radio15.nativeElement.checked = true;
-    }
-    else {
-      this.radio16.nativeElement.checked = true;
-    }
-
-    
 
   }
 
@@ -199,12 +147,7 @@ export class Peea17charlotteukComponent implements OnInit {
     pregunta10: [null],
     pregunta11: [null],
     pregunta12: [''],
-    pregunta13: [''],
-    pregunta14: [''],
-    pregunta15: [''],
-    pregunta16: [''],
-    pregunta17: [''],
-    pregunta18: ['']
+    pregunta13: ['']
   });
 
   campoNoValido(campo: any): boolean {
@@ -217,60 +160,47 @@ export class Peea17charlotteukComponent implements OnInit {
   }
 
 
-  crearPeea17() {
+  crearPeea18() {
 
-    if (this.pea17chukSeleccionada) {
+    if (this.pea18chukSeleccionada) {
       //actualizar
-      this.Peea17chukModel = this.registerForm.value;
+      this.Peea18chukModel = this.registerForm.value;
 
-      this.Peea17chukModel.idContrato = this.activatedRoute.snapshot.paramMap.get('idContrato')?.toString();
+      this.Peea18chukModel.idContrato = this.activatedRoute.snapshot.paramMap.get('idContrato')?.toString();
         if (this.visual.nativeElement.value != '') {
           console.log(this.visual.nativeElement.value);
-          this.Peea17chukModel.pregunta8 = {
+          this.Peea18chukModel.pregunta8 = {
             respuesta: "Si",
             observacion: this.visual.nativeElement.value
           }
         }else{
-          this.Peea17chukModel.pregunta8 = this.Peea17chukModel1.pregunta8;
+          this.Peea18chukModel.pregunta8 = this.Peea18chukModel1.pregunta8;
         }
 
         if (this.auditiva.nativeElement.value != '') {
           console.log(this.auditiva.nativeElement.value);
-          this.Peea17chukModel.pregunta9 = {
+          this.Peea18chukModel.pregunta9 = {
             respuesta: "Si",
             observacion: this.auditiva.nativeElement.value
           }
         }else{
-          this.Peea17chukModel.pregunta9 = this.Peea17chukModel1.pregunta9;
+          this.Peea18chukModel.pregunta9 = this.Peea18chukModel1.pregunta9;
         }
 
         if (this.aprendizaje.nativeElement.value != '') {
           console.log(this.aprendizaje.nativeElement.value);
-          this.Peea17chukModel.pregunta10 =
+          this.Peea18chukModel.pregunta10 =
           {
             respuesta: "Si",
             observacion: this.aprendizaje.nativeElement.value
           };
         }else{
-          this.Peea17chukModel.pregunta10 = this.Peea17chukModel1.pregunta10;
+          this.Peea18chukModel.pregunta10 = this.Peea18chukModel1.pregunta10;
         }
 
-        if (this.ingles.nativeElement.value != '') {
-          console.log(this.ingles.nativeElement.value);
-          this.Peea17chukModel.pregunta11 =
-          {
-            respuesta: "Si",
-            observacion: this.ingles.nativeElement.value
-          };
-        }else{
-          this.Peea17chukModel.pregunta11 = this.Peea17chukModel1.pregunta11;
-        }
+        
 
-        this.Peea17chukModel.pregunta5 = this.peeas;
-        this.Peea17chukModel.pregunta12 = this.Peea17chukModel1.pregunta12;
-        this.Peea17chukModel.pregunta13 = this.Peea17chukModel1.pregunta13;
-        this.Peea17chukModel.pregunta14 = this.Peea17chukModel1.pregunta14;
-        this.Peea17chukModel.pregunta15 = this.Peea17chukModel1.pregunta15;
+        this.Peea18chukModel.pregunta5 = this.peeas;
 
       if (this.registerForm.invalid) {
         //Formulario invalido
@@ -292,7 +222,7 @@ export class Peea17charlotteukComponent implements OnInit {
         return;
       } else {
 
-        this.peea17chukService.updatePeea17chuk(this.pea17chukSeleccionada._id, this.Peea17chukModel).subscribe((resp: any) => {
+        this.peea18chukService.updatePeea18chuk(this.pea18chukSeleccionada._id, this.Peea18chukModel).subscribe((resp: any) => {
           const Toast = Swal.mixin({
             toast: true,
             position: 'top-end',
@@ -352,61 +282,47 @@ export class Peea17charlotteukComponent implements OnInit {
         })
         return;
       } else {
-        this.Peea17chukModel = this.registerForm.value;
-        this.Peea17chukModel.idContrato = this.activatedRoute.snapshot.paramMap.get('idContrato')?.toString();
+        this.Peea18chukModel = this.registerForm.value;
+        this.Peea18chukModel.idContrato = this.activatedRoute.snapshot.paramMap.get('idContrato')?.toString();
         if (this.visual.nativeElement.value != '') {
           console.log(this.visual.nativeElement.value);
-          this.Peea17chukModel.pregunta8 = {
+          this.Peea18chukModel.pregunta8 = {
             respuesta: "Si",
             observacion: this.visual.nativeElement.value
           }
         }else{
-          this.Peea17chukModel.pregunta8 = this.Peea17chukModel1.pregunta8;
+          this.Peea18chukModel.pregunta8 = this.Peea18chukModel1.pregunta8;
         }
 
         if (this.auditiva.nativeElement.value != '') {
           console.log(this.auditiva.nativeElement.value);
-          this.Peea17chukModel.pregunta9 = {
+          this.Peea18chukModel.pregunta9 = {
             respuesta: "Si",
             observacion: this.auditiva.nativeElement.value
           }
         }else{
-          this.Peea17chukModel.pregunta9 = this.Peea17chukModel1.pregunta9;
+          this.Peea18chukModel.pregunta9 = this.Peea18chukModel1.pregunta9;
         }
 
         if (this.aprendizaje.nativeElement.value != '') {
           console.log(this.aprendizaje.nativeElement.value);
-          this.Peea17chukModel.pregunta10 =
+          this.Peea18chukModel.pregunta10 =
           {
             respuesta: "Si",
             observacion: this.aprendizaje.nativeElement.value
           };
         }else{
-          this.Peea17chukModel.pregunta10 = this.Peea17chukModel1.pregunta10;
+          this.Peea18chukModel.pregunta10 = this.Peea18chukModel1.pregunta10;
         }
 
-        if (this.ingles.nativeElement.value != '') {
-          console.log(this.ingles.nativeElement.value);
-          this.Peea17chukModel.pregunta11 =
-          {
-            respuesta: "Si",
-            observacion: this.ingles.nativeElement.value
-          };
-        }else{
-          this.Peea17chukModel.pregunta11 = this.Peea17chukModel1.pregunta11;
-        }
 
-        this.Peea17chukModel.pregunta5 = this.peeas;
-        this.Peea17chukModel.pregunta12 = this.Peea17chukModel1.pregunta12;
-        this.Peea17chukModel.pregunta13 = this.Peea17chukModel1.pregunta13;
-        this.Peea17chukModel.pregunta14 = this.Peea17chukModel1.pregunta14;
-        this.Peea17chukModel.pregunta15 = this.Peea17chukModel1.pregunta15;
+        this.Peea18chukModel.pregunta5 = this.peeas;
 
 
       
 
         setTimeout(() => {
-          this.peea17chukService.crearPeea17chuk(this.Peea17chukModel).subscribe((resp) => {
+          this.peea18chukService.crearPeea18chuk(this.Peea18chukModel).subscribe((resp) => {
 
             const Toast = Swal.mixin({
               toast: true,
@@ -480,7 +396,7 @@ export class Peea17charlotteukComponent implements OnInit {
       if (campo1 == "Si") {
         this.visual.nativeElement.style.display = "block";
       } else {
-        this.Peea17chukModel1.pregunta8 = { respuesta: "No" };
+        this.Peea18chukModel1.pregunta8 = { respuesta: "No" };
         this.visual.nativeElement.value = "";
         this.visual.nativeElement.style.display = "none";
       }
@@ -489,7 +405,7 @@ export class Peea17charlotteukComponent implements OnInit {
       if (campo1 == "Si") {
         this.auditiva.nativeElement.style.display = "block";
       } else {
-        this.Peea17chukModel1.pregunta9 = { respuesta: "No" };
+        this.Peea18chukModel1.pregunta9 = { respuesta: "No" };
         this.auditiva.nativeElement.value = "";
         this.auditiva.nativeElement.style.display = "none";
       }
@@ -498,54 +414,14 @@ export class Peea17charlotteukComponent implements OnInit {
       if (campo1 == "Si") {
         this.aprendizaje.nativeElement.style.display = "block";
       } else {
-        this.Peea17chukModel1.pregunta10 = { respuesta: "No" };
+        this.Peea18chukModel1.pregunta10 = { respuesta: "No" };
         this.aprendizaje.nativeElement.value = "";
         this.aprendizaje.nativeElement.style.display = "none";
       }
     }
-    if (campo2 == "ingles") {
-      if (campo1 == "Si") {
-
-        this.ingles.nativeElement.style.display = "block";
-      } else {
-        this.Peea17chukModel1.pregunta11 = { respuesta: "No" };
-        this.ingles.nativeElement.value = "";
-        this.ingles.nativeElement.style.display = "none";
-      }
-    }
-
-    if (campo2 == "curso") {
-      if (campo1 == "Si") {
-        this.Peea17chukModel1.pregunta12 = "Si" ;
-      }
-      if (campo1 == "No") {
-        this.Peea17chukModel1.pregunta12 = "No";
-      }
-    }
-    if (campo2 == "inglesa") {
-      if (campo1 == "Si") {
-        this.Peea17chukModel1.pregunta13 = "Si" ;
-      }
-      if (campo1 == "No") {
-        this.Peea17chukModel1.pregunta13 = "No";
-      }
-    }
-    if (campo2 == "escuela") {
-      if (campo1 == "Si") {
-        this.Peea17chukModel1.pregunta14 = "Si" ;
-      }
-      if (campo1 == "No") {
-        this.Peea17chukModel1.pregunta14 = "No";
-      }
-    }
-    if (campo2 == "idioma") {
-      if (campo1 == "Si") {
-        this.Peea17chukModel1.pregunta15 = "Si" ;
-      }
-      if (campo1 == "No") {
-        this.Peea17chukModel1.pregunta15 = "No";
-      }
-    }
+    
+    
+    
 
   }
 

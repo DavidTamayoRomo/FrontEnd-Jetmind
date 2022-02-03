@@ -160,6 +160,29 @@ export class ContratosAsignarDirectorComponent implements OnInit {
     });
   }
 
+  actualizarEstadoEstudiante(estado: String, estudiante: any) {
+    estudiante.estado = estado;
+    
+    this.estudianteService.updateEstudiante(estudiante._id, estudiante).subscribe((resp: any) => {
+      //this.cargarContratos();
+      const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener('mouseenter', Swal.stopTimer)
+          toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+      })
+      Toast.fire({
+        icon: 'success',
+        title: 'Se actualizo correctamente'
+      })
+    });
+  }
+
   /** Persona */
   /** Item Seleccionado */
   onItemSelectpersona(item: any) {

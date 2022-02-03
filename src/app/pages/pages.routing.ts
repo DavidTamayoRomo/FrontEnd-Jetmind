@@ -40,6 +40,8 @@ import { HorarioComponent } from './horario/horario.component';
 import { HorariosComponent } from './horario/horarios/horarios.component';
 import { Peea17charlotteukComponent } from './peea17charlotteuk/peea17charlotteuk.component';
 import { ListaComponent } from './peea17charlotteuk/lista/lista.component';
+import { Peea18charlotteukComponent } from './peea18charlotteuk/peea18charlotteuk.component';
+import { Listapeea18chukComponent } from './peea18charlotteuk/listapeea18chuk/listapeea18chuk.component';
 
 
 
@@ -108,8 +110,11 @@ const routes: Routes = [
             { path: 'horario/:id', component:HorarioComponent , data:{titulo:'Horario'} },
             { path: 'listahorarios', component:HorariosComponent , data:{titulo:'Lista de Horarios'} },
             
-            { path: 'peea-17-ch-uk/:id', component: Peea17charlotteukComponent , data:{titulo:'PEEA 17'} },
+            { path: 'peea-17-ch-uk/:id/:idContrato', component: Peea17charlotteukComponent , data:{titulo:'PEEA 17'} },
             { path: 'listapeea-17-ch-uk', component: ListaComponent , data:{titulo:'Lista de PEEA 17'} },
+            
+            { path: 'peea-18-ch-uk/:id/:idContrato', component: Peea18charlotteukComponent , data:{titulo:'PEEA 18'} },
+            { path: 'listapeea-18-ch-uk', component: Listapeea18chukComponent  , data:{titulo:'Lista de PEEA 18'} },
 
             
         ]

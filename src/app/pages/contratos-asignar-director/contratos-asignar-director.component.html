@@ -219,6 +219,7 @@
                                     <table class="table table-bordered">
                                         <thead>
                                             <tr>
+                                                <th>Estado</th>
                                                 <th>Nombre</th>
                                                 <th>Cedula</th>
                                                 <th>Editar datos estudiante</th>
@@ -227,6 +228,21 @@
                                         </thead>
                                         <tbody>
                                             <tr *ngFor="let estudiante of datosEstudiantes;let indice=index">
+                                                <td>
+                                                    <button type="button"
+                                        class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                                        aria-expanded="false">
+                                        {{estudiante.estado}}
+                                    </button>
+                                    <div class="dropdown-menu animated slideInUp" x-placement="top-start"
+                                        style="position: absolute; transform: translate3d(0px, -2px, 0px); top: 0px; left: 0px; will-change: transform;">
+                                        <a class="dropdown-item" (click)="actualizarEstadoEstudiante('Activo', estudiante)">Activo</a>
+                                        <a class="dropdown-item" (click)="actualizarEstadoEstudiante('Incorporado', estudiante)">Incorporado</a>
+                                        <a class="dropdown-item" (click)="actualizarEstadoEstudiante('Retirado', estudiante)">Retirado</a>
+                                        <a class="dropdown-item" (click)="actualizarEstadoEstudiante('Espera', estudiante)">Espera</a>
+                                        <a class="dropdown-item" (click)="actualizarEstadoEstudiante('Rechazadoo', estudiante)">Rechazado</a>
+                                    </div>
+                                                </td>
                                                 <td>{{estudiante.nombresApellidos}}</td>
                                                 <td>{{estudiante.cedula}}</td>
                                                 <td class="text-nowrap">

@@ -144,8 +144,16 @@ export class SidebarService {
       titulo: 'PEEA 17 Charlotte - Uk',
       icono: 'mdi mdi-calendar-clock',
       submenu: [        
-        { titulo: 'Crear PEEA 17',url: '/peea-17-ch-uk/nuevo' },
+        { titulo: 'Crear PEEA 17',url: '/peea-17-ch-uk/nuevo/idcontrato' },
         { titulo: 'Lista PEEA 17',url: '/listapeea-17-ch-uk' },
+      ]
+    },
+    {
+      titulo: 'PEEA 18 Charlotte - Uk',
+      icono: 'mdi mdi-calendar-clock',
+      submenu: [        
+        { titulo: 'Crear PEEA 18',url: '/peea-18-ch-uk/nuevo/idcontrato' },
+        { titulo: 'Lista PEEA 18',url: '/listapeea-18-ch-uk' },
       ]
     },
    

@@ -1,6 +1,6 @@
 <div class="card">
 
-    <form (ngSubmit)="crearPeea17()" autocomplete="off" [formGroup]="registerForm">
+    <form (ngSubmit)="crearPeea18()" autocomplete="off" [formGroup]="registerForm">
 
 
         <div class="card-body">
@@ -28,21 +28,21 @@
             <div class="row p-t-20">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="direccion">Año / curso </label>
+                        <label for="direccion">Nombre de la instiución </label>
                         <div class="input-group">
                             <div class="input-group-addon"><i class="ti-time"></i></div>
-                            <input type="text" class="form-control" id="pregunta3" placeholder="Año / curso"
+                            <input type="text" class="form-control" id="pregunta3" placeholder="Nombre de la instiución"
                                 formControlName="pregunta3">
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="cedula">Nombre de la institución *</label>
+                        <label for="cedula">Expectativa Personal *</label>
                         <div class="input-group">
                             <div class="input-group-addon"><i class="ti-harddrives"></i></div>
                             <input type="text" class="form-control" id="pregunta4"
-                                placeholder="Nombre de la institución" formControlName="pregunta4">
+                                placeholder="Expectativa Personal" formControlName="pregunta4">
                         </div>
                     </div>
                 </div>
@@ -91,17 +91,17 @@
             <div class="row p-t-20">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label>Mencione con quién vive el/la estudiante</label>
+                        <label>Con quien usted practica inglés</label>
                         <div class="input-group">
                             <div class="input-group-addon"><i class="ti-home"></i></div>
                             <input type="text" class="form-control" id="pregunta7"
-                                placeholder="Mencione con quién vive el/la estudiante" formControlName="pregunta7">
+                                placeholder="Con quien usted practica inglés" formControlName="pregunta7">
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="pregunta8">¿Su hijo/a tiene alguna dificultad visual?</label>
+                        <label for="pregunta8">¿Tiene alguna dificultad visual?</label>
 
                         <div class="col-sm-4">
                             <div class="form-check">
@@ -120,8 +120,6 @@
                             </div>
                         </div>
 
-
-
                         <label>Especifique</label>
                         <div class="input-group">
                             <div class="input-group-addon"><i class="ti-eye"></i></div>
@@ -133,7 +131,7 @@
             <div class="row p-t-20">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="pregunta9">¿Su hijo/a tiene alguna dificultad auditiva?</label>
+                        <label for="pregunta9">¿Se ha practicado alguna vez exámenes auditivos?</label>
                         <div class="col-sm-4">
                             <div class="form-check">
                                 <label class="custom-control custom-radio">
@@ -159,7 +157,7 @@
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="pregunta10">¿Su hijo/a tiene alguna dificultad de aprendizaje?</label>
+                        <label for="pregunta10">¿Se ha practicado alguna vez exámenes visuales?</label>
                         <div class="col-sm-4">
                             <div class="form-check">
                                 <label class="custom-control custom-radio">
@@ -176,7 +174,7 @@
                                 </label>
                             </div>
                         </div>
-                        <label>Especifique</label>
+                        <label>¿Cuál?</label>
                         <div class="input-group">
                             <div class="input-group-addon"><i class="ti-infinite"></i></div>
                             <input type="text" class="form-control" #aprendizaje>
@@ -184,156 +182,43 @@
                     </div>
                 </div>
             </div>
-            <div class="row p-t-20">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="pregunta11">¿Habla inglés en su casa? </label>
-                        <div class="col-sm-4">
-                            <div class="form-check">
-                                <label class="custom-control custom-radio">
-                                    <input #radio7 id="radio7" name="radio3" type="radio" class="custom-control-input" (click)="habilitarCampos('Si','ingles')">
-                                    <span class="custom-control-indicator"></span>
-                                    <span class="custom-control-description">Si</span>
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <label class="custom-control custom-radio">
-                                    <input #radio8 id="radio8" name="radio3" type="radio" class="custom-control-input" (click)="habilitarCampos('No','ingles')">
-                                    <span class="custom-control-indicator"></span>
-                                    <span class="custom-control-description">No</span>
-                                </label>
-                            </div>
-                        </div>
-                        <label>Especifique</label>
-                        <div class="input-group">
-                            <div class="input-group-addon"><i class="ti-bar-chart"></i></div>
-                            <input type="text" class="form-control" #ingles>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="pregunta12">¿Ha tomado otro curso de inglés?</label>
-                        <div class="col-sm-4">
-                            <div class="form-check">
-                                <label class="custom-control custom-radio">
-                                    <input #radio9 id="radio9" name="radio4" type="radio" class="custom-control-input" (click)="habilitarCampos('Si','curso')">
-                                    <span class="custom-control-indicator"></span>
-                                    <span class="custom-control-description">Si</span>
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <label class="custom-control custom-radio">
-                                    <input #radio10 id="radio10" name="radio4" type="radio" class="custom-control-input" (click)="habilitarCampos('No','curso')">
-                                    <span class="custom-control-indicator"></span>
-                                    <span class="custom-control-description">No</span>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            
 
             <div class="row p-t-20">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="pregunta13">¿Ha vivido en algún país de habla inglesa?</label>
-                        <div class="col-sm-4">
-                            <div class="form-check">
-                                <label class="custom-control custom-radio">
-                                    <input #radio11 id="radi11" name="radio5" type="radio" class="custom-control-input" (click)="habilitarCampos('Si','inglesa')">
-                                    <span class="custom-control-indicator"></span>
-                                    <span class="custom-control-description">Si</span>
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <label class="custom-control custom-radio">
-                                    <input #radio12 id="radio12" name="radio5" type="radio" class="custom-control-input"  (click)="habilitarCampos('No','inglesa')">
-                                    <span class="custom-control-indicator"></span>
-                                    <span class="custom-control-description">No</span>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="pregunta14">¿Asiste a escuela / colegio bilingüe?</label>
-                        <div class="col-sm-4">
-                            <div class="form-check">
-                                <label class="custom-control custom-radio">
-                                    <input #radio13 id="radio13" name="radio6" type="radio" class="custom-control-input" (click)="habilitarCampos('Si','escuela')">
-                                    <span class="custom-control-indicator"></span>
-                                    <span class="custom-control-description">Si</span>
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <label class="custom-control custom-radio">
-                                    <input #radio14 id="radio14" name="radio6" type="radio" class="custom-control-input" (click)="habilitarCampos('No','escuela')">
-                                    <span class="custom-control-indicator"></span>
-                                    <span class="custom-control-description">No</span>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row p-t-20">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="pregunta15">¿Encuentra fácil hablar cualquier idioma en público?</label>
-                        <div class="col-sm-4">
-                            <div class="form-check">
-                                <label class="custom-control custom-radio">
-                                    <input #radio15 id="radio15" name="radio7" type="radio" class="custom-control-input" (click)="habilitarCampos('Si','idioma')">
-                                    <span class="custom-control-indicator"></span>
-                                    <span class="custom-control-description">Si</span>
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <label class="custom-control custom-radio">
-                                    <input #radio16 id="radio16" name="radio7" type="radio" class="custom-control-input" (click)="habilitarCampos('No','idioma')">
-                                    <span class="custom-control-indicator"></span>
-                                    <span class="custom-control-description">No</span>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="pregunta16">Explique el motivo principal por el cual decidió tomar el entrenamiento
-                            y cuales son las expectativas para su representado
-                        </label>
-                        <div class="input-group">
-                            <div class="input-group-addon"><i class="ti-bar-chart"></i></div>
-                            <textarea type="text" class="form-control" id="pregunta16" formControlName="pregunta16"></textarea>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row p-t-20">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="pregunta17"> ¿A través de quién o qué medio, conoció nuestro Programa?
+                        <label for="pregunta11"> Principales funciones
                         </label>
                         <div class="input-group">
                             <div class="input-group-addon"><i class="ti-receipt"></i></div>
-                            <textarea type="text" class="form-control" id="pregunta17" formControlName="pregunta17"></textarea>
+                            <textarea type="text" class="form-control" id="pregunta11" formControlName="pregunta11"></textarea>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="pregunta18"> Mencione los acuerdos establecidos con su Consultor Educativo
+                        <label for="pregunta12"> Jornada Laboral (Especificar Horarios)
                         </label>
                         <div class="input-group">
                             <div class="input-group-addon"><i class="ti-stamp"></i></div>
-                            <textarea type="text" class="form-control" id="pregunta18" formControlName="pregunta18"></textarea>
+                            <textarea type="text" class="form-control" id="pregunta12" formControlName="pregunta12"></textarea>
                         </div>
                     </div>
+                </div>
+            </div>
+            <div class="row p-t-20">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="pregunta13"> Mencione los acuerdos establecidos con su Consultor Educativo
+                        </label>
+                        <div class="input-group">
+                            <div class="input-group-addon"><i class="ti-receipt"></i></div>
+                            <textarea type="text" class="form-control" id="pregunta13" formControlName="pregunta13"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    
                 </div>
             </div>
 
@@ -419,3 +304,4 @@
         </div>
     </div>
 </div>
+
