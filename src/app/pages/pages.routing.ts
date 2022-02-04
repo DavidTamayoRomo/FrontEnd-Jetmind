@@ -42,6 +42,7 @@ import { Peea17charlotteukComponent } from './peea17charlotteuk/peea17charlotteu
 import { ListaComponent } from './peea17charlotteuk/lista/lista.component';
 import { Peea18charlotteukComponent } from './peea18charlotteuk/peea18charlotteuk.component';
 import { Listapeea18chukComponent } from './peea18charlotteuk/listapeea18chuk/listapeea18chuk.component';
+import { Peea17ilvemComponent } from './peea17ilvem/peea17ilvem.component';
 
 
 
@@ -116,7 +117,8 @@ const routes: Routes = [
             { path: 'peea-18-ch-uk/:id/:idContrato', component: Peea18charlotteukComponent , data:{titulo:'PEEA 18'} },
             { path: 'listapeea-18-ch-uk', component: Listapeea18chukComponent  , data:{titulo:'Lista de PEEA 18'} },
 
-            
+            { path: 'peea-17-ilvem/:id/:idContrato', component: Peea17ilvemComponent , data:{titulo:'PEEA 17'} },
+           // { path: 'listapeea-17-ch-uk', component: ListaComponent , data:{titulo:'Lista de PEEA 17'} },
         ]
     },
 ];
