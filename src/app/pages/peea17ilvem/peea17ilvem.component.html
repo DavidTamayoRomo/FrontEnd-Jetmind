@@ -1,6 +1,6 @@
 <div class="card-body">
     <form (ngSubmit)="crearPeea17()" autocomplete="off" [formGroup]="registerForm">
-
+        <h3>DATOS DEL ESTUDIANTE</h3>
         <div class="row">
             <div class="col-md-4">
                 <label for="direccion">Lugar de nacimiento</label>
@@ -107,8 +107,9 @@
                     </select>
                     <small class="form-control-feedback"> Seleccione una </small>
                 </div>
-                <label>Especifique</label>
-                <div class="input-group">
+
+                <label *ngIf="this.registerForm.get('pregunta10')?.value == 'Si'">Especifique</label>
+                <div *ngIf="this.registerForm.get('pregunta10')?.value == 'Si'" class="input-group">
                     <div class="input-group-addon"><i class="ti-eye"></i></div>
                     <input type="text" class="form-control" #supletorios>
                 </div>
@@ -139,6 +140,9 @@
             </div>
         </div>
 
+        <h2>1.- HISTORIA Y DESARROLLO</h2>
+        <h3>EMBARAZO Y PARTO:</h3>
+
         <div class="row">
             <div class="col-md-4">
                 <div class="form-group">
@@ -149,8 +153,8 @@
                     </select>
                     <small class="form-control-feedback"> Seleccione una </small>
                 </div>
-                <label>Especifique</label>
-                <div class="input-group">
+                <label *ngIf="this.registerForm.get('pregunta13')?.value == 'Si'">Especifique</label>
+                <div *ngIf="this.registerForm.get('pregunta13')?.value == 'Si'" class="input-group">
                     <div class="input-group-addon"><i class="ti-eye"></i></div>
                     <input type="text" class="form-control" #Planificado>
                 </div>
@@ -166,8 +170,8 @@
                     <small class="form-control-feedback"> Seleccione una </small>
                 </div>
 
-                <label>Especifique</label>
-                <div class="input-group">
+                <label *ngIf="this.registerForm.get('pregunta14')?.value == 'Si'">Especifique</label>
+                <div *ngIf="this.registerForm.get('pregunta14')?.value == 'Si'" class="input-group">
                     <div class="input-group-addon"><i class="ti-eye"></i></div>
                     <input type="text" class="form-control" #embarazo>
                 </div>
@@ -183,8 +187,8 @@
                     <small class="form-control-feedback"> Seleccione una </small>
                 </div>
 
-                <label>Especifique</label>
-                <div class="input-group">
+                <label *ngIf="this.registerForm.get('pregunta15')?.value == 'Si'">Especifique</label>
+                <div *ngIf="this.registerForm.get('pregunta15')?.value == 'Si'" class="input-group">
                     <div class="input-group-addon"><i class="ti-eye"></i></div>
                     <input type="text" class="form-control" #Complicaciones>
                 </div>
@@ -260,7 +264,6 @@
         </div>
 
         <div class="row">
-
             <div class="col-sm-4">
                 <div class="form-group">
                     <div class="demo-switch-title">¿El niño/a requirió incubadora?</div>
@@ -272,12 +275,21 @@
                     <small class="form-control-feedback"> Seleccione una </small>
                 </div>
 
-                <label>Cual</label>
-                <div class="input-group">
+                <label
+                    *ngIf="this.registerForm.get('pregunta22')?.value == 'Si' || this.registerForm.get('pregunta22')?.value == 'Otro'">Cual</label>
+                <div *ngIf="this.registerForm.get('pregunta22')?.value == 'Si' || this.registerForm.get('pregunta22')?.value == 'Otro'"
+                    class="input-group">
                     <div class="input-group-addon"><i class="ti-eye"></i></div>
                     <input type="text" class="form-control" #incubadora>
                 </div>
             </div>
+        </div>
+
+        <h3>ANTECEDENTES POST-NATALES:​</h3>
+        <h4>Por favor complete los datos solicitados a continuación, desde el nacimiento hasta los dos años de edad:
+        </h4>
+        <div class="row">
+
 
 
             <div class="col-md-4">
@@ -290,8 +302,8 @@
                     <small class="form-control-feedback"> Seleccione una </small>
                 </div>
 
-                <label>Especifique</label>
-                <div class="input-group">
+                <label *ngIf="this.registerForm.get('pregunta24')?.value == 'Si'">Especifique</label>
+                <div *ngIf="this.registerForm.get('pregunta24')?.value == 'Si'" class="input-group">
                     <div class="input-group-addon"><i class="ti-eye"></i></div>
                     <input type="text" class="form-control" #Lactancia>
                 </div>
@@ -307,8 +319,8 @@
                     <small class="form-control-feedback"> Seleccione una </small>
                 </div>
 
-                <label>Especifique</label>
-                <div class="input-group">
+                <label *ngIf="this.registerForm.get('pregunta25')?.value == 'Si'">Especifique</label>
+                <div *ngIf="this.registerForm.get('pregunta25')?.value == 'Si'" class="input-group">
                     <div class="input-group-addon"><i class="ti-eye"></i></div>
                     <input type="text" class="form-control" #Succion>
                 </div>
@@ -326,8 +338,8 @@
                     </select>
                     <small class="form-control-feedback"> Seleccione una </small>
                 </div>
-                <label>Especifique</label>
-                <div class="input-group">
+                <label *ngIf="this.registerForm.get('pregunta26')?.value == 'Si'">Especifique</label>
+                <div *ngIf="this.registerForm.get('pregunta26')?.value == 'Si'" class="input-group">
                     <div class="input-group-addon"><i class="ti-eye"></i></div>
                     <input type="text" class="form-control" #Enfermedades>
                 </div>
@@ -343,8 +355,8 @@
                     <small class="form-control-feedback"> Seleccione una </small>
                 </div>
 
-                <label>Especifique</label>
-                <div class="input-group">
+                <label *ngIf="this.registerForm.get('pregunta27')?.value == 'Si'">Especifique</label>
+                <div *ngIf="this.registerForm.get('pregunta27')?.value == 'Si'" class="input-group">
                     <div class="input-group-addon"><i class="ti-eye"></i></div>
                     <input type="text" class="form-control" #Separaciones>
                 </div>
@@ -359,8 +371,8 @@
                     <small class="form-control-feedback"> Seleccione una </small>
                 </div>
 
-                <label>Especifique</label>
-                <div class="input-group">
+                <label *ngIf="this.registerForm.get('pregunta28')?.value == 'Si'">Especifique</label>
+                <div *ngIf="this.registerForm.get('pregunta28')?.value == 'Si'" class="input-group">
                     <div class="input-group-addon"><i class="ti-eye"></i></div>
                     <input type="text" class="form-control" #Gateo>
                 </div>
@@ -378,8 +390,8 @@
                     <small class="form-control-feedback"> Seleccione una </small>
                 </div>
 
-                <label>Especifique</label>
-                <div class="input-group">
+                <label *ngIf="this.registerForm.get('pregunta29')?.value == 'Si'">Especifique</label>
+                <div *ngIf="this.registerForm.get('pregunta29')?.value == 'Si'" class="input-group">
                     <div class="input-group-addon"><i class="ti-eye"></i></div>
                     <input type="text" class="form-control" #Camino>
                 </div>
@@ -395,8 +407,8 @@
                     <small class="form-control-feedback"> Seleccione una </small>
                 </div>
 
-                <label>Especifique</label>
-                <div class="input-group">
+                <label *ngIf="this.registerForm.get('pregunta30')?.value == 'Si'">Especifique</label>
+                <div *ngIf="this.registerForm.get('pregunta30')?.value == 'Si'" class="input-group">
                     <div class="input-group-addon"><i class="ti-eye"></i></div>
                     <input type="text" class="form-control" #palabras>
                 </div>
@@ -411,14 +423,16 @@
                     <small class="form-control-feedback"> Seleccione una </small>
                 </div>
 
-                <label>Especifique</label>
-                <div class="input-group">
+                <label *ngIf="this.registerForm.get('pregunta31')?.value == 'Si'">Especifique</label>
+                <div *ngIf="this.registerForm.get('pregunta31')?.value == 'Si'" class="input-group">
                     <div class="input-group-addon"><i class="ti-eye"></i></div>
                     <input type="text" class="form-control" #esfínteres>
                 </div>
             </div>
         </div>
-
+        <h3>ÁREA COGNITIVA:​</h3>
+        <h4>Por favor complete los datos solicitados a continuación, tomando en cuenta el momento actual de su hijo/a:
+        </h4>
         <div class="row">
             <div class="col-md-4">
                 <div class="form-group">
@@ -533,6 +547,13 @@
                     <small class="form-control-feedback"> Seleccione una </small>
                 </div>
             </div>
+        </div>
+
+        <h3>ÁREA PSICOMOTRÍZ:​</h3>
+        <h4>Por favor complete los datos solicitados a continuación, tomando en cuenta el momento actual de su hijo/a y
+            la escala mencionada a continuación:</h4>
+        <div class="row">
+
             <div class="col-md-4">
                 <div class="form-group">
                     <div class="demo-switch-title"> Se cansa facilmente </div>
@@ -633,6 +654,9 @@
             </div>
         </div>
 
+        <h3>ÁREA SOCIAL / EMOCIONAL:</h3>
+        <h4>Por favor complete los datos solicitados a continuación, tomando en cuenta el momento actual de su hijo/a:
+        </h4>
         <div class="row">
             <div class="col-md-4">
                 <div class="form-group">
@@ -732,6 +756,12 @@
                     <small class="form-control-feedback"> Seleccione una </small>
                 </div>
             </div>
+        </div>
+
+        <h2>2.- SALUD</h2>
+
+        <div class="row">
+
             <div class="col-md-4">
                 <div class="form-group">
                     <div class="demo-switch-title"> En este momento, ¿Su niño/a goza de buena salud?</div>
@@ -752,8 +782,8 @@
                     </select>
                     <small class="form-control-feedback"> Seleccione una </small>
                 </div>
-                <label>Especifique</label>
-                <div class="input-group">
+                <label *ngIf="this.registerForm.get('pregunta55')?.value == 'Si'">Especifique</label>
+                <div *ngIf="this.registerForm.get('pregunta55')?.value == 'Si'" class="input-group">
                     <div class="input-group-addon"><i class="ti-eye"></i></div>
                     <input type="text" class="form-control" #medicamento>
                 </div>
@@ -877,8 +907,8 @@
                     </select>
                     <small class="form-control-feedback"> Seleccione una </small>
                 </div>
-                <label>Especifique</label>
-                <div class="input-group">
+                <label *ngIf="this.registerForm.get('pregunta65')?.value == 'Si'">Especifique</label>
+                <div *ngIf="this.registerForm.get('pregunta65')?.value == 'Si'" class="input-group">
                     <div class="input-group-addon"><i class="ti-eye"></i></div>
                     <input type="text" class="form-control" #Cirugias>
                 </div>
@@ -893,8 +923,8 @@
                     </select>
                     <small class="form-control-feedback"> Seleccione una </small>
                 </div>
-                <label>Especifique</label>
-                <div class="input-group">
+                <label *ngIf="this.registerForm.get('pregunta66')?.value == 'Si'">Especifique</label>
+                <div *ngIf="this.registerForm.get('pregunta66')?.value == 'Si'" class="input-group">
                     <div class="input-group-addon"><i class="ti-eye"></i></div>
                     <input type="text" class="form-control" #terapia>
                 </div>
@@ -903,20 +933,21 @@
             <div class="col-md-4">
                 <div class="form-group">
                     <div class="demo-switch-title">Actualmente recibe alguna terapia</div>
-                    <select class="form-control custom-select" formControlName="pregunta66">
+                    <select class="form-control custom-select" formControlName="pregunta67">
                         <option value="Si">Si</option>
                         <option value="No">No</option>
                     </select>
                     <small class="form-control-feedback"> Seleccione una </small>
                 </div>
-                <label>Especifique</label>
-                <div class="input-group">
+                <label *ngIf="this.registerForm.get('pregunta67')?.value == 'Si'">Especifique</label>
+                <div *ngIf="this.registerForm.get('pregunta67')?.value == 'Si'" class="input-group">
                     <div class="input-group-addon"><i class="ti-eye"></i></div>
                     <input type="text" class="form-control" #actualmenteterapia>
                 </div>
             </div>
         </div>
 
+        <h2>3. HISTORIA ESCOLAR​ </h2>
         <div class="row">
             <div class="col-md-4">
                 <div class="form-group">
@@ -937,13 +968,17 @@
                     </label>
                     <div class="input-group">
                         <div class="input-group-addon"><i class="ti-harddrives"></i></div>
-                        <input type="text" class="form-control" id="pregunta56"
-                            placeholder="  En general ¿cómo describiría la experiencia de su niño/a en la escuela desde su inicio hasta el momento actual?"
-                            formControlName="pregunta69">
+                        <input type="text" class="form-control" id="pregunta56" placeholder="¿Tiene llamados de atención constantes por parte de los/as docentes de la escuela con
+                            relación a su hijo/a (conducta, desempeño, etc.)?" formControlName="pregunta69">
                     </div>
                 </div>
 
             </div>
+
+        </div>
+
+        <h2>4. CONDUCTA</h2>
+        <div class="row">
             <div class="col-md-4">
                 <div class="form-group">
                     <label> Cómo describiría la conducta de su hijo/a</label>
@@ -955,6 +990,8 @@
                 </div>
             </div>
         </div>
+
+        <h4>¿Cuáles son, en general las fortalezas y debilidades de su hijo/a?</h4>
         <div class="row">
             <div class="col-md-4">
                 <div class="form-group">
@@ -976,10 +1013,15 @@
                     </div>
                 </div>
             </div>
+
+        </div>
+
+        <h2>5. ADAPTACIÓN FAMILIAR</h2>
+        <div class="row">
             <div class="col-md-4">
                 <div class="form-group">
-                    <button type="button" class="btn btn-info btn-circle"
-                    (click)="abrirModal()"><i class="fa fa-plus"></i> </button>
+                    <button type="button" class="btn btn-info btn-circle" (click)="abrirModal()"><i
+                            class="fa fa-plus"></i> </button>
 
                     <!-- Crear una tabla con dos atributos -->
                     <div>Lista </div>
@@ -999,13 +1041,14 @@
                                 <td>{{peea.edad}}</td>
                                 <td>{{peea.ocupacion}}</td>
                                 <td>{{peea.parentesco}}</td>
-                                
+
                             </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
+
         <div class="row">
             <div class="col-md-4">
                 <div class="form-group">
@@ -1017,8 +1060,12 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
+        </div>
 
+        <h4>¿Cómo es su relación con cada miembro de la familia?</h4>
+        <div class="row">
+
+            <div class="col-md-4">
                 <div class="form-group">
                     <label>Cómo es su relación con cada miembro de la familia MADRE</label>
                     <div class="input-group">
@@ -1029,6 +1076,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="col-md-4">
                 <div class="form-group">
                     <label>Cómo es su relación con cada miembro de la familia PADRE</label>
@@ -1040,7 +1088,9 @@
                     </div>
                 </div>
             </div>
+
         </div>
+
         <div class="row">
             <div class="col-md-4">
                 <div class="form-group">
@@ -1079,6 +1129,75 @@
                 </div>
             </div>
         </div>
+
+
+        <div elname="formRow" class="mono-column column-block">
+            <div elname="columnLayoutOne" class="formColumn column-0 ">
+                <div class="form-group section-group ">
+                    <div name="INFORMACI_N_IMPORTANTE" class="form-section">
+                        <section>
+                            <h2>
+                                <label class="section-label" title="">INFORMACIÓN IMPORTANTE
+                                </label>
+                            </h2>
+                            <hr style="clear:both;">
+                            <p style="margin-top: 10px;"></p>
+                        </section>
+                    </div>
+                </div>
+            </div>
+
+            <div >
+                <div>
+                    <div>
+                        <div style="text-align: justify"><b>
+                                <span class="size" style="font-size: 16px">Estimado/a Estudiante:</span></b><br></div>
+                        <div style="text-align: justify"><br></div>
+                        <ul>
+                            <li style="text-align: justify">
+                                <span class="size" style="font-size: 16px">
+                                    En el caso de necesitar recuperación de clases, el estudiante debe coordinar su
+                                    recuperación en los
+                                    horarios establecidos por secretaría y Dirección Académica, con anticipación de 24
+                                    horas.</span><br>
+                            </li>
+                            <li style="text-align: justify">
+                                <span class="size" style="font-size: 16px">
+                                    Los estudiantes deben respetar los horarios asignados por la Dirección
+                                    Académica.</span>
+                                <br>
+                            </li>
+                            <li style="text-align: justify"><span class="size" style="font-size: 16px">
+                                    Todo estudiante puede cambiar su horario de estudio hasta dos (2) veces durante el
+                                    transcurso de su enseñanza,
+                                    siempre y cuando exista la disponibilidad en el horario y lo realice con su
+                                    representante y con previa anticipación.
+                                </span><br></li>
+                            <li style="text-align: justify">
+                                <span class="size" style="font-size: 16px">
+                                    Toda falta debe ser justificada por parte del REPRESENTANTE y ante la Secretaría de
+                                    la Institución.
+                                </span><br>
+                            </li>
+                            <li style="text-align: justify">
+                                <span class="size" style="font-size: 16px">El estudiante debe cumplir con un mínimo del
+                                    80% en asistencias y evaluaciones.</span>
+                                <br>
+                            </li>
+                            <li style="text-align: justify">
+                                <span class="size" style="font-size: 16px">Cancelar los valores por derechos de
+                                    finalización del Programa.</span>
+                                <br>
+                            </li>
+                        </ul>
+                        <div><br></div>
+                    </div>
+                </div>
+            </div>
+
+            
+        </div>
+
 
 
         <button type="submit" class="btn btn-success waves-effect waves-light m-r-10">Guardar</button>
@@ -1126,7 +1245,7 @@
                         <label for="exampleInputuname">Ocupacion</label>
                         <div class="input-group">
                             <div class="input-group-addon"><i class="ti-user"></i></div>
-                            <input type="text"  id="" #ocupacion>
+                            <input type="text" id="" #ocupacion>
                         </div>
                     </div>
 

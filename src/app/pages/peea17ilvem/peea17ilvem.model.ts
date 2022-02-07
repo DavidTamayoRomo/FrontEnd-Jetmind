@@ -24,7 +24,7 @@ export class Peea17ilvem {
         public pregunta19?:string,
         public pregunta20?:string,
         public pregunta21?:string,
-        public pregunta22?:string,
+        public pregunta22?:any,
         public pregunta23?:string,
         public pregunta24?:any,
         public pregunta25?:any,
