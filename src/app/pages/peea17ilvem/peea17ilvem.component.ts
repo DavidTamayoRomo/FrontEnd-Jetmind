@@ -67,6 +67,7 @@ export class Peea17ilvemComponent implements OnInit {
     this.peea17ilvemService.obtenerPeea17ilvemById(id)
       .subscribe((resp: any) => {
         this.pea17ilvemSeleccionada = resp.data;
+        console.log(this.pea17ilvemSeleccionada);
         //this.peeas = this.pea17ilvemSeleccionada.pregunta5;
         this.LlenarForm(resp);
       });
@@ -96,7 +97,7 @@ export class Peea17ilvemComponent implements OnInit {
     pregunta19: [''],
     pregunta20: [''],
     pregunta21: [''],
-    pregunta22: [''],
+    //pregunta22: [''],
     pregunta23: [''],
     pregunta24: [''],
     pregunta25: [''],
@@ -128,7 +129,7 @@ export class Peea17ilvemComponent implements OnInit {
     pregunta51: [''],
     pregunta52: [''],
     pregunta53: [''],
-    pregunta54: [''],
+    /* pregunta54: [''], */
     pregunta55: [''],
     pregunta56: [''],
     pregunta57: [''],
@@ -147,7 +148,6 @@ export class Peea17ilvemComponent implements OnInit {
     pregunta70: [''],
     pregunta71: [''],
     pregunta72: [''],
-    pregunta73: [''],
     pregunta74: [''],
     pregunta75: [''],
     pregunta76: [''],
@@ -183,7 +183,6 @@ export class Peea17ilvemComponent implements OnInit {
       pregunta19,
       pregunta20,
       pregunta21,
-      pregunta22,
       pregunta23,
       pregunta24,
       pregunta25,
@@ -215,7 +214,6 @@ export class Peea17ilvemComponent implements OnInit {
       pregunta51,
       pregunta52,
       pregunta53,
-      pregunta54,
       pregunta55,
       pregunta56,
       pregunta57,
@@ -242,6 +240,10 @@ export class Peea17ilvemComponent implements OnInit {
       pregunta78,
       pregunta79
     } = resp.data;
+
+    console.log(pregunta73);
+    this.peeas = pregunta73;
+
     this.pea17ilvemSeleccionada = resp.data;
     this.registerForm.setValue({
       idContrato,
@@ -255,28 +257,27 @@ export class Peea17ilvemComponent implements OnInit {
       pregunta7,
       pregunta8,
       pregunta9,
-      pregunta10,
+      pregunta10:pregunta10?.respuesta,
       pregunta11,
       pregunta12,
-      pregunta13,
-      pregunta14,
-      pregunta15,
+      pregunta13:pregunta13?.respuesta,
+      pregunta14:pregunta14?.respuesta,
+      pregunta15:pregunta15?.respuesta,
       pregunta16,
       pregunta17,
       pregunta18,
       pregunta19,
       pregunta20,
       pregunta21,
-      pregunta22,
       pregunta23,
-      pregunta24,
-      pregunta25,
-      pregunta26,
-      pregunta27,
-      pregunta28,
-      pregunta29,
-      pregunta30,
-      pregunta31,
+      pregunta24:pregunta24?.respuesta,
+      pregunta25:pregunta25?.respuesta,
+      pregunta26:pregunta26?.respuesta,
+      pregunta27:pregunta27?.respuesta,
+      pregunta28:pregunta28?.respuesta,
+      pregunta29:pregunta29?.respuesta,
+      pregunta30:pregunta30?.respuesta,
+      pregunta31:pregunta31?.respuesta,
       pregunta32,
       pregunta33,
       pregunta34,
@@ -299,9 +300,8 @@ export class Peea17ilvemComponent implements OnInit {
       pregunta51,
       pregunta52,
       pregunta53,
-      pregunta54,
-      pregunta55,
-      pregunta56,
+      pregunta55:pregunta55?.respuesta,
+      pregunta56:pregunta56?.respuesta,
       pregunta57,
       pregunta58,
       pregunta59,
@@ -310,15 +310,14 @@ export class Peea17ilvemComponent implements OnInit {
       pregunta62,
       pregunta63,
       pregunta64,
-      pregunta65,
-      pregunta66,
-      pregunta67,
+      pregunta65:pregunta65?.respuesta,
+      pregunta66:pregunta66?.respuesta,
+      pregunta67:pregunta67?.respuesta,
       pregunta68,
       pregunta69,
       pregunta70,
       pregunta71,
       pregunta72,
-      pregunta73,
       pregunta74,
       pregunta75,
       pregunta76,
@@ -326,6 +325,61 @@ export class Peea17ilvemComponent implements OnInit {
       pregunta78,
       pregunta79
     });
+
+    setTimeout(() => {
+      if (pregunta10?.respuesta == "Si") {
+        this.supletorios.nativeElement.value = pregunta10.observacion;
+      }
+      if (pregunta13?.respuesta == "Si") {
+        this.planificado.nativeElement.value = pregunta13.observacion;
+      }
+      if (pregunta14?.respuesta == "Si") {
+        this.embarazo.nativeElement.value = pregunta14.observacion;
+      }
+      if (pregunta15?.respuesta == "Si") {
+        this.Complicaciones.nativeElement.value = pregunta15.observacion;
+      }
+      if (pregunta24?.respuesta == "Si") {
+        this.Lactancia.nativeElement.value = pregunta24.observacion;
+      }
+      if (pregunta25?.respuesta == "Si") {
+        this.Succion.nativeElement.value = pregunta25.observacion;
+      }
+      if (pregunta26?.respuesta == "Si") {
+        this.Enfermedades.nativeElement.value = pregunta26.observacion;
+      }
+      if (pregunta27?.respuesta == "Si") {
+        this.Separaciones.nativeElement.value  = pregunta27.observacion;
+      }
+      if (pregunta28?.respuesta == "Si") {
+        this.Gateo.nativeElement.value = pregunta28.observacion;
+      }
+      if (pregunta29?.respuesta == "Si") {
+        this.Camino.nativeElement.value = pregunta29.observacion;
+      }
+      if (pregunta30?.respuesta == "Si") {
+        this.palabras.nativeElement.value  = pregunta30.observacion;
+      }
+      if (pregunta31?.respuesta == "Si") {
+        this.esfínteres.nativeElement.value = pregunta31.observacion;
+      }
+      if (pregunta55?.respuesta == "Si") {
+        this.medicamento.nativeElement.value = pregunta55.observacion;
+      }
+      if (pregunta56?.respuesta == "Si") {
+        this.condicionMedica.nativeElement.value = pregunta56.observacion;
+      }
+      if (pregunta65?.respuesta == "Si") {
+        this.Cirugias.nativeElement.value = pregunta65.observacion;
+      }
+      if (pregunta66?.respuesta == "Si") {
+        this.terapia.nativeElement.value = pregunta66.observacion;
+      }
+      if (pregunta67?.respuesta == "Si") {
+        this.actualmenteterapia.nativeElement.value  = pregunta67.observacion;
+      }
+    }, 500);
+    
     
   }
 
@@ -354,6 +408,104 @@ export class Peea17ilvemComponent implements OnInit {
       this.Peea17ilvemModel = this.registerForm.value;
 
       this.Peea17ilvemModel.idContrato = this.activatedRoute.snapshot.paramMap.get('idContrato')?.toString();   
+
+
+      this.Peea17ilvemModel.pregunta10={
+        respuesta: this.registerForm.get('pregunta10')?.value,
+        observacion: this.supletorios?.nativeElement.value
+      }
+
+      this.Peea17ilvemModel.pregunta13={
+        respuesta: this.registerForm.get('pregunta13')?.value,
+        observacion: this.planificado?.nativeElement.value
+      }
+
+      this.Peea17ilvemModel.pregunta14={
+        respuesta: this.registerForm.get('pregunta14')?.value,
+        observacion: this.embarazo?.nativeElement.value
+      }
+      
+      this.Peea17ilvemModel.pregunta15={
+        respuesta: this.registerForm.get('pregunta15')?.value,
+        observacion: this.Complicaciones?.nativeElement.value
+      }
+      
+      /* this.Peea17ilvemModel.pregunta22={
+        respuesta: this.registerForm.get('pregunta22')?.value,
+        observacion: this.incubadora?.nativeElement.value
+      } */
+      
+      this.Peea17ilvemModel.pregunta24={
+        respuesta: this.registerForm.get('pregunta24')?.value,
+        observacion: this.Lactancia?.nativeElement.value
+      }
+      
+      this.Peea17ilvemModel.pregunta25={
+        respuesta: this.registerForm.get('pregunta25')?.value,
+        observacion: this.Succion?.nativeElement.value
+      }
+      
+      this.Peea17ilvemModel.pregunta26={
+        respuesta: this.registerForm.get('pregunta26')?.value,
+        observacion: this.Enfermedades?.nativeElement.value
+      }
+
+      this.Peea17ilvemModel.pregunta27={
+        respuesta: this.registerForm.get('pregunta27')?.value,
+        observacion: this.Separaciones?.nativeElement.value
+      }
+      
+      this.Peea17ilvemModel.pregunta28={
+        respuesta: this.registerForm.get('pregunta28')?.value,
+        observacion: this.Gateo?.nativeElement.value
+      }
+      
+      this.Peea17ilvemModel.pregunta29={
+        respuesta: this.registerForm.get('pregunta29')?.value,
+        observacion: this.Camino?.nativeElement.value
+      }
+      
+      this.Peea17ilvemModel.pregunta30={
+        respuesta: this.registerForm.get('pregunta30')?.value,
+        observacion: this.palabras?.nativeElement.value
+      }
+      
+      this.Peea17ilvemModel.pregunta31={
+        respuesta: this.registerForm.get('pregunta31')?.value,
+        observacion: this.esfínteres?.nativeElement.value
+      }
+      
+      this.Peea17ilvemModel.pregunta55={
+        respuesta: this.registerForm.get('pregunta55')?.value,
+        observacion: this.medicamento?.nativeElement.value
+      }
+      
+      this.Peea17ilvemModel.pregunta56={
+        respuesta: this.registerForm.get('pregunta56')?.value,
+        observacion: this.condicionMedica?.nativeElement.value
+      }
+      
+      this.Peea17ilvemModel.pregunta56={
+        respuesta: this.registerForm.get('pregunta56')?.value,
+        observacion: this.condicionMedica?.nativeElement.value
+      }
+      
+      this.Peea17ilvemModel.pregunta65={
+        respuesta: this.registerForm.get('pregunta65')?.value,
+        observacion: this.Cirugias?.nativeElement.value
+      }
+      
+      this.Peea17ilvemModel.pregunta66={
+        respuesta: this.registerForm.get('pregunta66')?.value,
+        observacion: this.terapia?.nativeElement.value
+      }
+      
+      this.Peea17ilvemModel.pregunta67={
+        respuesta: this.registerForm.get('pregunta67')?.value,
+        observacion: this.actualmenteterapia?.nativeElement.value
+      }
+      
+      this.Peea17ilvemModel.pregunta73= this.peeas;
 
       if (this.registerForm.invalid) {
         //Formulario invalido
@@ -458,10 +610,10 @@ export class Peea17ilvemComponent implements OnInit {
           observacion: this.Complicaciones?.nativeElement.value
         }
         
-        this.Peea17ilvemModel.pregunta22={
+        /* this.Peea17ilvemModel.pregunta22={
           respuesta: this.registerForm.get('pregunta22')?.value,
           observacion: this.incubadora?.nativeElement.value
-        }
+        } */
         
         this.Peea17ilvemModel.pregunta24={
           respuesta: this.registerForm.get('pregunta24')?.value,

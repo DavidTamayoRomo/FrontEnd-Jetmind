@@ -161,7 +161,15 @@ export class SidebarService {
       icono: 'mdi mdi-calendar-clock',
       submenu: [        
         { titulo: 'Crear PEEA 17',url: '/peea-17-ilvem/nuevo/idcontrato' },
-        { titulo: 'Lista PEEA 17',url: '/peea-17-ilvem' },
+        { titulo: 'Lista PEEA 17',url: '/lista-peea-17-ilvem' },
+      ]
+    },
+    {
+      titulo: 'PEEA 18 Ilvem',
+      icono: 'mdi mdi-calendar-clock',
+      submenu: [        
+        { titulo: 'Crear PEEA 18',url: '/peea-18-ilvem/nuevo/idcontrato' },
+        { titulo: 'Lista PEEA 18',url: '/lista-peea-18-ilvem' },
       ]
     },
   ]

@@ -61,6 +61,9 @@ import { ListaComponent } from './peea17charlotteuk/lista/lista.component';
 import { Peea18charlotteukComponent } from './peea18charlotteuk/peea18charlotteuk.component';
 import { Listapeea18chukComponent } from './peea18charlotteuk/listapeea18chuk/listapeea18chuk.component';
 import { Peea17ilvemComponent } from './peea17ilvem/peea17ilvem.component';
+import { Listapeea17ilvemComponent } from './peea17ilvem/listapeea17ilvem/listapeea17ilvem.component';
+import { Peea18ilvemComponent } from './peea18ilvem/peea18ilvem.component';
+import { Listapeea18ilvemComponent } from './peea18ilvem/listapeea18ilvem/listapeea18ilvem.component';
 
 
 
@@ -113,6 +116,9 @@ const ngWizardConfig: NgWizardConfig = {
     Peea18charlotteukComponent,
     Listapeea18chukComponent,
     Peea17ilvemComponent,
+    Listapeea17ilvemComponent,
+    Peea18ilvemComponent,
+    Listapeea18ilvemComponent,
     
   ],
   exports:[

@@ -1,0 +1,601 @@
+<div class="card-body">
+    <span class="size" style="font-size: 16px">Estimado estudiante, le recordamos que esta información es de carácter
+        confidencial y que todo lo que usted escriba aquí, se manejará de forma ética y
+        profesional ya que nos servirá como apoyo en&nbsp;<span class="size" style="font-size: 16px">
+            las necesidades que se requieran en la capacitación.</span></span>
+    <br>
+    <form (ngSubmit)="crearPeea18()" autocomplete="off" [formGroup]="registerForm">
+        <h3>DATOS DEL ESTUDIANTE</h3>
+        <div class="row">
+            <div class="col-md-4">
+                <label for="direccion">Lugar de nacimiento</label>
+                <div class="input-group">
+                    <div class="input-group-addon"><i class="ti-location-pin"></i></div>
+                    <input type="text" class="form-control" id="pregunta1" placeholder="Lugar de nacimiento"
+                        formControlName="pregunta1">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label for="direccion">Redes sociales (estudiante - representante) </label>
+                <div class="input-group">
+                    <div class="input-group-addon"><i class=" ti-themify-favicon"></i></div>
+                    <input type="text" class="form-control" id="pregunta2" placeholder="Redes sociales"
+                        formControlName="pregunta2">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="direccion">Describa a continuación su expectativa Personal, al realizar la capacitación
+                        en el Programa de ILVEM </label>
+                    <div class="input-group">
+                        <div class="input-group-addon"><i class="ti-time"></i></div>
+                        <input type="text" class="form-control" id="pregunta3" formControlName="pregunta3">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="cedula">Ocupación *</label>
+                    <div class="input-group">
+                        <div class="input-group-addon"><i class="ti-harddrives"></i></div>
+                        <input type="text" class="form-control" id="pregunta4" formControlName="pregunta4">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="cedula">Empresa donde trabaja</label>
+                    <div class="input-group">
+                        <div class="input-group-addon"><i class="ti-harddrives"></i></div>
+                        <input type="text" class="form-control" id="pregunta5" formControlName="pregunta5">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="cedula">Teléfono Trabajo</label>
+                    <div class="input-group">
+                        <div class="input-group-addon"><i class="ti-harddrives"></i></div>
+                        <input type="number" class="form-control" id="pregunta6" formControlName="pregunta6">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="cedula">Teléfono Convencional</label>
+                    <div class="input-group">
+                        <div class="input-group-addon"><i class="ti-harddrives"></i></div>
+                        <input type="number" class="form-control" id="pregunta7" formControlName="pregunta7">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="demo-switch-title">Estado civil de los padres</div>
+                    <select class="form-control custom-select" formControlName="pregunta8">
+                        <option value="Casados">Casados</option>
+                        <option value="Solteros">Solteros</option>
+                        <option value="Divorciados">Divorciados</option>
+                        <option value="Union de hecho">Union de hecho</option>
+                        <option value="Otro">Otro</option>
+                    </select>
+                    <small class="form-control-feedback"> Seleccione una </small>
+                </div>
+
+            </div>
+
+        </div>
+        <h2>1. DATOS FAMILIARES Y PERSONALES</h2>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <button type="button" class="btn btn-info btn-circle" (click)="abrirModal()"><i
+                            class="fa fa-plus"></i> </button>
+
+                    <!-- Crear una tabla con dos atributos -->
+                    <div>Lista </div>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Edad</th>
+                                <th>Ocupacion</th>
+                                <th>Parentesco</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let peea of peeas; let index=index">
+                                <td>{{peea.nombre}}</td>
+                                <td>{{peea.edad}}</td>
+                                <td>{{peea.ocupacion}}</td>
+                                <td>{{peea.parentesco}}</td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+
+                <div class="form-group">
+                    <label for="cedula">Describa cómo es la relación con su pareja: (En caso de tenerlo)</label>
+                    <div class="input-group">
+                        <div class="input-group-addon"><i class="ti-harddrives"></i></div>
+                        <input type="text" class="form-control" id="pregunta10" formControlName="pregunta10">
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="cedula"> Describa cómo es la relación con sus hijos/as: (En caso de tenerlo)</label>
+                    <div class="input-group">
+                        <div class="input-group-addon"><i class="ti-harddrives"></i></div>
+                        <input type="text" class="form-control" id="pregunta11" formControlName="pregunta11">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="cedula">Describa cómo es la relación con su madre</label>
+                    <div class="input-group">
+                        <div class="input-group-addon"><i class="ti-harddrives"></i></div>
+                        <input type="text" class="form-control" id="pregunta12" formControlName="pregunta12">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="cedula">Describa cómo es la relación con su padre</label>
+                    <div class="input-group">
+                        <div class="input-group-addon"><i class="ti-harddrives"></i></div>
+                        <input type="text" class="form-control" id="pregunta13" formControlName="pregunta13">
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="cedula">Describa cómo es la relación con sus hermanos/as</label>
+                    <div class="input-group">
+                        <div class="input-group-addon"><i class="ti-harddrives"></i></div>
+                        <input type="text" class="form-control" id="pregunta14" formControlName="pregunta14">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="demo-switch-title">¿Ha experimentado algún evento representativo en los últimos dos
+                        años?</div>
+                    <select class="form-control custom-select" formControlName="pregunta15">
+                        <option value="Si">Si</option>
+                        <option value="No">No</option>
+                    </select>
+                    <small class="form-control-feedback"> Seleccione una </small>
+                </div>
+
+                <label *ngIf="this.registerForm.get('pregunta15')?.value == 'Si'">Especifique</label>
+                <div *ngIf="this.registerForm.get('pregunta15')?.value == 'Si'" class="input-group">
+                    <div class="input-group-addon"><i class="ti-eye"></i></div>
+                    <input type="text" class="form-control" #representativo>
+                </div>
+            </div>
+        </div>
+
+        <h2>2- SALUD </h2>
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="demo-switch-title">¿Presenta usted alguna dificultad auditiva? </div>
+                    <select class="form-control custom-select" formControlName="pregunta16">
+                        <option value="Si">Si</option>
+                        <option value="No">No</option>
+                    </select>
+                    <small class="form-control-feedback"> Seleccione una </small>
+                </div>
+                <label *ngIf="this.registerForm.get('pregunta16')?.value == 'Si'">Especifique</label>
+                <div *ngIf="this.registerForm.get('pregunta16')?.value == 'Si'" class="input-group">
+                    <div class="input-group-addon"><i class="ti-eye"></i></div>
+                    <input type="text" class="form-control" #auditiva>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="demo-switch-title"> ¿Presenta usted alguna dificultad de salud? </div>
+                    <select class="form-control custom-select" formControlName="pregunta17">
+                        <option value="Si">Si</option>
+                        <option value="No">No</option>
+                    </select>
+                    <small class="form-control-feedback"> Seleccione una </small>
+                </div>
+
+                <label *ngIf="this.registerForm.get('pregunta17')?.value == 'Si'">Especifique</label>
+                <div *ngIf="this.registerForm.get('pregunta17')?.value == 'Si'" class="input-group">
+                    <div class="input-group-addon"><i class="ti-eye"></i></div>
+                    <input type="text" class="form-control" #salud>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="demo-switch-title"> ¿Presenta usted alguna dificultad visual? </div>
+                    <select class="form-control custom-select" formControlName="pregunta18">
+                        <option value="Si">Si</option>
+                        <option value="No">No</option>
+                    </select>
+                    <small class="form-control-feedback"> Seleccione una </small>
+                </div>
+
+                <label *ngIf="this.registerForm.get('pregunta18')?.value == 'Si'">Especifique</label>
+                <div *ngIf="this.registerForm.get('pregunta18')?.value == 'Si'" class="input-group">
+                    <div class="input-group-addon"><i class="ti-eye"></i></div>
+                    <input type="text" class="form-control" #visual>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="demo-switch-title"> ¿Presenta usted alguna dificultad visual? </div>
+                    <select class="form-control custom-select" formControlName="pregunta19">
+                        <option value="Si">Si</option>
+                        <option value="No">No</option>
+                    </select>
+                    <small class="form-control-feedback"> Seleccione una </small>
+                </div>
+
+                <label *ngIf="this.registerForm.get('pregunta19')?.value == 'Si'">Especifique</label>
+                <div *ngIf="this.registerForm.get('pregunta19')?.value == 'Si'" class="input-group">
+                    <div class="input-group-addon"><i class="ti-eye"></i></div>
+                    <input type="text" class="form-control" #dificultad>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="demo-switch-title"> Describa su estado de salud actual del 1 al 10 </div>
+                    <select class="form-control custom-select" formControlName="pregunta20">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                    </select>
+                    <small class="form-control-feedback"> Seleccione una </small>
+
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="demo-switch-title">¿Está usted o ha estado alguna vez en tratamiento con las siguientes
+                        especialidades médicas? </div>
+                    <select class="form-control custom-select" formControlName="pregunta21">
+                        <option value="Neurólogo">Neurólogo</option>
+                        <option value="Gastroenterólogo">Gastroenterólogo</option>
+                        <option value="Otorrino">Otorrino</option>
+                        <option value="Cardiólogo">Cardiólogo</option>
+                        <option value="Neumólogo">Neumólogo</option>
+                        <option value="Alergologo">Alergologo</option>
+                        <option value="Endocrinólogo">Endocrinólogo</option>
+                        <option value="Psicólogo">Psicólogo</option>
+                        <option value="Otros">Otros </option>
+                    </select>
+                    <small class="form-control-feedback"> Seleccione una </small>
+                    <label *ngIf="this.registerForm.get('pregunta21')?.value == 'Otros'">¿Cuál?</label>
+                    <div *ngIf="this.registerForm.get('pregunta21')?.value == 'Otros'" class="input-group">
+                        <div class="input-group-addon"><i class="ti-eye"></i></div>
+                        <input type="text" class="form-control" #tratamiento>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="demo-switch-title"> ¿Está usted cumpliendo algún tratamiento médico en este momento?</div>
+                    <select class="form-control custom-select" formControlName="pregunta22">
+                        <option value="Si">Si</option>
+                        <option value="No">No</option>
+                    </select>
+                    <small class="form-control-feedback"> Seleccione una </small>
+                </div>
+    
+                <label *ngIf="this.registerForm.get('pregunta22')?.value == 'Si'">Especifique</label>
+                <div *ngIf="this.registerForm.get('pregunta22')?.value == 'Si'" class="input-group">
+                    <div class="input-group-addon"><i class="ti-eye"></i></div>
+                    <input type="text" class="form-control" #cumpliendo>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+
+                <label>¿Cuántas horas duerme como promedio por las noches?</label>
+                <div class="input-group">
+                    <label>Desde</label>
+                    <div class="input-group-addon"><i class="ti-eye"></i></div>
+                    <input type="text" class="form-control" #desde>
+                </div>
+                <br>
+                <div class="input-group">
+                    <label>Hasta</label>
+                    <div class="input-group-addon"><i class="ti-eye"></i></div>
+                    <input type="text" class="form-control" #hasta>
+                </div>
+            </div>
+        </div>
+        
+
+        <h2>3- LABORAL​​</h2>
+        <div class="row">
+            <div class="col-md-4">
+
+                <div class="form-group">
+                    <div class="demo-switch-title"> ¿Trabaja?</div>
+                    <select class="form-control custom-select" formControlName="pregunta24">
+                        <option value="Si">Si</option>
+                        <option value="No">No</option>
+                    </select>
+                    <small class="form-control-feedback"> Seleccione una </small>
+                </div>
+                <label *ngIf="this.registerForm.get('pregunta24')?.value == 'Si'">Cargo</label>
+                <div *ngIf="this.registerForm.get('pregunta24')?.value == 'Si'" class="input-group">
+                    <div class="input-group-addon"><i class="ti-eye"></i></div>
+                    <input type="text" class="form-control" #Trabaja>
+                </div>
+            </div>
+            <div class="col-md-4">
+
+                <div class="form-group">
+                    <label for="cedula">Principales funciones</label>
+                    <div class="input-group">
+                        <div class="input-group-addon"><i class="ti-harddrives"></i></div>
+                        <input type="text" class="form-control" formControlName="pregunta25">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="cedula">Jornada Laboral (Especificar Horarios)</label>
+                    <div class="input-group">
+                        <div class="input-group-addon"><i class="ti-harddrives"></i></div>
+                        <input type="text" class="form-control" formControlName="pregunta26">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <h4> Por favor complete los datos solicitados a continuación, tomando en cuenta el momento actual:</h4>
+        <div class="row">
+            
+            
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="demo-switch-title"> ¿Es distraído?</div>
+                    <select class="form-control custom-select" formControlName="pregunta27">
+                        <option value="Nunca">Nunca</option>
+                        <option value="Casi nunca">Casi nunca</option>
+                        <option value="A veces">A veces</option>
+                        <option value="Casi siempre">Casi siempre</option>
+                        <option value="Siempre">Siempre</option>
+                    </select>
+                    <small class="form-control-feedback"> Seleccione una </small>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="demo-switch-title"> ¿Hace amigos fácilmente?</div>
+                    <select class="form-control custom-select" formControlName="pregunta28">
+                        <option value="Nunca">Nunca</option>
+                        <option value="Casi nunca">Casi nunca</option>
+                        <option value="A veces">A veces</option>
+                        <option value="Casi siempre">Casi siempre</option>
+                        <option value="Siempre">Siempre</option>
+                    </select>
+                    <small class="form-control-feedback"> Seleccione una </small>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="demo-switch-title">¿Alcanza sus metas u objetivos?</div>
+                    <select class="form-control custom-select" formControlName="pregunta29">
+                        <option value="Nunca">Nunca</option>
+                        <option value="Casi nunca">Casi nunca</option>
+                        <option value="A veces">A veces</option>
+                        <option value="Casi siempre">Casi siempre</option>
+                        <option value="Siempre">Siempre</option>
+                    </select>
+                    <small class="form-control-feedback"> Seleccione una </small>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="demo-switch-title">¿Se le dificulta seguir órdenes?</div>
+                    <select class="form-control custom-select" formControlName="pregunta30">
+                        <option value="Nunca">Nunca</option>
+                        <option value="Casi nunca">Casi nunca</option>
+                        <option value="A veces">A veces</option>
+                        <option value="Casi siempre">Casi siempre</option>
+                        <option value="Siempre">Siempre</option>
+                    </select>
+                    <small class="form-control-feedback"> Seleccione una </small>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="demo-switch-title">¿Tiene dificultad para controlar sus emociones? </div>
+                    <select class="form-control custom-select" formControlName="pregunta31">
+                        <option value="Nunca">Nunca</option>
+                        <option value="Casi nunca">Casi nunca</option>
+                        <option value="A veces">A veces</option>
+                        <option value="Casi siempre">Casi siempre</option>
+                        <option value="Siempre">Siempre</option>
+                    </select>
+                    <small class="form-control-feedback"> Seleccione una </small>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="demo-switch-title">¿Se desilusiona fácilmente cuando algo no le sale bien? </div>
+                    <select class="form-control custom-select" formControlName="pregunta32">
+                        <option value="Nunca">Nunca</option>
+                        <option value="Casi nunca">Casi nunca</option>
+                        <option value="A veces">A veces</option>
+                        <option value="Casi siempre">Casi siempre</option>
+                        <option value="Siempre">Siempre</option>
+                    </select>
+                    <small class="form-control-feedback"> Seleccione una </small>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="demo-switch-title"> ¿Es una persona organizada?</div>
+                    <select class="form-control custom-select" formControlName="pregunta33">
+                        <option value="Nunca">Nunca</option>
+                        <option value="Casi nunca">Casi nunca</option>
+                        <option value="A veces">A veces</option>
+                        <option value="Casi siempre">Casi siempre</option>
+                        <option value="Siempre">Siempre</option>
+                    </select>
+                    <small class="form-control-feedback"> Seleccione una </small>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="demo-switch-title"> ¿Tiene usted miedo escénico?</div>
+                    <select class="form-control custom-select" formControlName="pregunta34">
+                        <option value="Nunca">Nunca</option>
+                        <option value="Casi nunca">Casi nunca</option>
+                        <option value="A veces">A veces</option>
+                        <option value="Casi siempre">Casi siempre</option>
+                        <option value="Siempre">Siempre</option>
+                    </select>
+                    <small class="form-control-feedback"> Seleccione una </small>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="cedula">Mencione los acuerdos establecidos con su Consultor Educativo</label>
+                    <div class="input-group">
+                        <div class="input-group-addon"><i class="ti-harddrives"></i></div>
+                        <textarea type="text" class="form-control" formControlName="pregunta35"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="cedula">¿A través de quién o qué medio, conoció nuestro Programa?</label>
+                    <div class="input-group">
+                        <div class="input-group-addon"><i class="ti-harddrives"></i></div>
+                        <textarea type="text" class="form-control" formControlName="pregunta36"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-success waves-effect waves-light m-r-10">Guardar</button>
+        <a (click)="cancelarGuardado()" class="btn btn-inverse waves-effect waves-light">Cancelar</a>
+    </form>
+</div>
+
+
+
+
+<!-- Modal  -->
+
+<div class="fondo-modal-imagen animated fadeIn fast" [class.oculto]="mostraModal">
+    <div id="responsive-modal" class="modal fade show" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+        style="display: block;padding-right: 17px; overflow-y: initial">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">PEEA</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                        (click)="cerrarModal()">×</button>
+                </div>
+
+                <div class="card-body">
+                    <h4 class="card-title">Datos Familiares</h4>
+                    <br>
+
+                    <div class="form-group">
+                        <label for="exampleInputuname">Nombre</label>
+                        <div class="input-group">
+                            <div class="input-group-addon"><i class="ti-user"></i></div>
+                            <input type="text" name="monto" id="" #nombre>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="exampleInputuname">Edad</label>
+                        <div class="input-group">
+                            <div class="input-group-addon"><i class="ti-user"></i></div>
+                            <input type="number" id="" #edad>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="exampleInputuname">Ocupacion</label>
+                        <div class="input-group">
+                            <div class="input-group-addon"><i class="ti-user"></i></div>
+                            <input type="text" id="" #ocupacion>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="exampleInputuname">Parentesco</label>
+                        <select class="form-control custom-select" #parentesco>
+                            <option value="Padre">Padre</option>
+                            <option value="Madre">Madre</option>
+                            <option value="Hermano">Hermano</option>
+                            <option value="Hermana">Hermana</option>
+                            <option value="Abuelo">Abuelo</option>
+                            <option value="Abuela">Abuela</option>
+                            <option value="Tio">Tío</option>
+                            <option value="Tia">Tía</option>
+                            <option value="Otro">Otro</option>
+                        </select>
+                    </div>
+
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default waves-effect" data-dismiss="modal"
+                        (click)="cerrarModal()">Close</button>
+                    <button type="button" (click)="agregar()"
+                        class="btn btn-success waves-effect waves-light">Agregar</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

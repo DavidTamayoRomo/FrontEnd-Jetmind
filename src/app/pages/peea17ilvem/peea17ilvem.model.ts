@@ -56,7 +56,7 @@ export class Peea17ilvem {
         public pregunta51?:string,
         public pregunta52?:string,
         public pregunta53?:string,
-        public pregunta54?:any,
+        public pregunta54?:string,
         public pregunta55?:any,
         public pregunta56?:any,
         public pregunta57?:string,
