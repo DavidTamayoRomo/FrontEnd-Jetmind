@@ -1,0 +1,1426 @@
+<div class="card-body">
+    <form (ngSubmit)="crearPeea17()" autocomplete="off" [formGroup]="registerForm">
+        <h3>DATOS DEL ESTUDIANTE</h3>
+        <div class="row">
+            <div class="col-md-4">
+                <label for="direccion">Lugar de nacimiento</label>
+                <div class="input-group">
+                    <div class="input-group-addon"><i class="ti-location-pin"></i></div>
+                    <input type="text" class="form-control" id="pregunta1" placeholder="Lugar de nacimiento"
+                        formControlName="pregunta1">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label for="direccion">Redes sociales (estudiante - representante) </label>
+                <div class="input-group">
+                    <div class="input-group-addon"><i class=" ti-themify-favicon"></i></div>
+                    <input type="text" class="form-control" id="pregunta2" placeholder="Redes sociales"
+                        formControlName="pregunta2">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="cedula">Motivo de consulta </label>
+                    <div class="input-group">
+                        <div class="input-group-addon"><i class="ti-harddrives"></i></div>
+                        <textarea type="text" class="form-control" id="pregunta4"
+                            formControlName="pregunta4"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="cedula">Si tiene algún diagnóstico indique cual</label>
+                    <div class="input-group">
+                        <div class="input-group-addon"><i class="ti-harddrives"></i></div>
+                        <input type="text" class="form-control" id="pregunta" formControlName="pregunta6">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <h2>1. ESTRUCTURA FAMILIAR:</h2>
+        <div class="row">
+            <div class="col-md-4">
+
+                <div class="form-group">
+                    <button type="button" class="btn btn-info btn-circle" (click)="abrirModal()"><i
+                            class="fa fa-plus"></i> </button>
+
+                    <!-- Crear una tabla con dos atributos -->
+                    <div>Lista </div>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Edad</th>
+                                <th>Ocupacion</th>
+                                <th>Parentesco</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let peea of peeas; let index=index">
+                                <td>{{peea.nombre}}</td>
+                                <td>{{peea.edad}}</td>
+                                <td>{{peea.ocupacion}}</td>
+                                <td>{{peea.parentesco}}</td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="cedula">Estado civil de los padres</label>
+                    <div class="input-group">
+                        <div class="input-group-addon"><i class="ti-harddrives"></i></div>
+                        <input type="text" class="form-control" id="pregunta7" formControlName="pregunta7">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <h2>2. ANTECEDENTES PRE-NATALES:</h2>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="demo-switch-title"> Planificado?</div>
+                    <select class="form-control custom-select" formControlName="pregunta8">
+                        <option value="Si">Si</option>
+                        <option value="No">No</option>
+                    </select>
+                    <small class="form-control-feedback"> Seleccione una </small>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="demo-switch-title"> Consumo de alcohol, drogas o medicamentos</div>
+                    <select class="form-control custom-select" formControlName="pregunta9">
+                        <option value="Si">Si</option>
+                        <option value="No">No</option>
+                    </select>
+                    <small class="form-control-feedback"> Seleccione una </small>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="demo-switch-title"> Necesitó reposo durante el embarazo</div>
+                    <select class="form-control custom-select" formControlName="pregunta10">
+                        <option value="Si">Si</option>
+                        <option value="No">No</option>
+                    </select>
+                    <small class="form-control-feedback"> Seleccione una </small>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="demo-switch-title"> Estrés Durante el Embarazo</div>
+                    <select class="form-control custom-select" formControlName="pregunta11">
+                        <option value="Si">Si</option>
+                        <option value="No">No</option>
+                    </select>
+                    <small class="form-control-feedback"> Seleccione una </small>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="demo-switch-title"> Estrés Durante el Embarazo</div>
+                    <select class="form-control custom-select" formControlName="pregunta12">
+                        <option value="mala">mala</option>
+                        <option value="buena">buena</option>
+                        <option value="regular">regular</option>
+                    </select>
+                    <small class="form-control-feedback"> Seleccione una </small>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="demo-switch-title">Tipo de parto</div>
+                    <select class="form-control custom-select" formControlName="pregunta13">
+                        <option value="natural">natural</option>
+                        <option value="cesarea">cesarea</option>
+                    </select>
+                    <small class="form-control-feedback"> Seleccione una </small>
+                </div>
+            </div>
+            <div class="col-md-4">
+
+                <div class="form-group">
+                    <div class="demo-switch-title">El niño/a requirió incubadora?</div>
+                    <select class="form-control custom-select" formControlName="pregunta14">
+                        <option value="Si">Si</option>
+                        <option value="No">No</option>
+                    </select>
+                    <small class="form-control-feedback"> Seleccione una </small>
+                </div>
+
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="cedula">¿Número de Embarazo?</label>
+                    <div class="input-group">
+                        <div class="input-group-addon"><i class="ti-harddrives"></i></div>
+                        <input type="number" class="form-control" placeholder="¿Número de Embarazo?"
+                            formControlName="pregunta15">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="cedula">Edad de la madre durante el embarazo</label>
+                    <div class="input-group">
+                        <div class="input-group-addon"><i class="ti-harddrives"></i></div>
+                        <input type="number" class="form-control" placeholder="Edad de la madre durante el embarazo"
+                            formControlName="pregunta16">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="cedula">Tiempo de gestación</label>
+                    <div class="input-group">
+                        <div class="input-group-addon"><i class="ti-harddrives"></i></div>
+                        <input type="number" class="form-control" placeholder="Tiempo de gestación"
+                            formControlName="pregunta17">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="cedula">¿Algún dato importante durante el nacimiento del niño/a?</label>
+                    <div class="input-group">
+                        <div class="input-group-addon"><i class="ti-harddrives"></i></div>
+                        <textarea type="number" class="form-control"
+                            placeholder="¿Algún dato importante durante el nacimiento del niño/a?"
+                            formControlName="pregunta18"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h2>3. ANTECEDENTES POST-NATALES:</h2>
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="demo-switch-title">Lactancia materna</div>
+                    <select class="form-control custom-select" formControlName="pregunta19">
+                        <option value="si">si</option>
+                        <option value="no">no</option>
+                    </select>
+                    <small class="form-control-feedback"> Seleccione el un tipo de parto </small>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="demo-switch-title">Succión de dedos</div>
+                    <select class="form-control custom-select" formControlName="pregunta20">
+                        <option value="si">si</option>
+                        <option value="no">no</option>
+                    </select>
+                    <small class="form-control-feedback"> Seleccione el un tipo de parto </small>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="demo-switch-title">Separaciones largas de la madre</div>
+                    <select class="form-control custom-select" formControlName="pregunta21">
+                        <option value="Si">Si</option>
+                        <option value="No">No</option>
+                    </select>
+                    <small class="form-control-feedback"> Seleccione una </small>
+                </div>
+
+            </div>
+        </div>
+
+
+        <div class="row">
+
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="demo-switch-title">Enfermedades</div>
+                    <select class="form-control custom-select" formControlName="pregunta22">
+                        <option value="Si">Si</option>
+                        <option value="No">No</option>
+                    </select>
+                    <small class="form-control-feedback"> Seleccione una </small>
+                </div>
+            </div>
+            <div class="col-md-4">
+
+                <div class="form-group">
+                    <div class="demo-switch-title">Control cefálico</div>
+                    <select class="form-control custom-select" formControlName="pregunta23">
+                        <option value="Si">Si</option>
+                        <option value="No">No</option>
+                    </select>
+                    <small class="form-control-feedback"> Seleccione una </small>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+
+                <div class="form-group">
+                    <div class="demo-switch-title">Gateó</div>
+                    <select class="form-control custom-select" formControlName="pregunta24">
+                        <option value="Si">Si</option>
+                        <option value="No">No</option>
+                    </select>
+                    <small class="form-control-feedback"> Seleccione una </small>
+                </div>
+            </div>
+            <div class="col-md-4">
+
+                <div class="form-group">
+                    <div class="demo-switch-title">Caminó </div>
+                    <select class="form-control custom-select" formControlName="pregunta25">
+                        <option value="Si">Si</option>
+                        <option value="No">No</option>
+                    </select>
+                    <small class="form-control-feedback"> Seleccione una </small>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="demo-switch-title">Primeras palabras </div>
+                    <select class="form-control custom-select" formControlName="pregunta26">
+                        <option value="Si">Si</option>
+                        <option value="No">No</option>
+                    </select>
+                    <small class="form-control-feedback"> Seleccione una </small>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="demo-switch-title">Control de esfínteres </div>
+                    <select class="form-control custom-select" formControlName="pregunta27">
+                        <option value="Si">Si</option>
+                        <option value="No">No</option>
+                    </select>
+                    <small class="form-control-feedback"> Seleccione una </small>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label for="pregunta24">Actividad del niño/a </label>
+                <div class="form-group">
+                    <div class="demo-switch-title">Primeras palabras </div>
+                    <select class="form-control custom-select" formControlName="pregunta28">
+                        <option value="regular">regular</option>
+                        <option value="poco activo">poco activo</option>
+                        <option value="muy activo">muy activo</option>
+                    </select>
+                    <small class="form-control-feedback"> Seleccione una </small>
+                </div>
+            </div>
+
+        </div>
+
+        <h2>4. DESARROLLO DEL LENGUAJE:</h2>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="demo-switch-title">Balbuceo </div>
+                    <select class="form-control custom-select" formControlName="pregunta29">
+                        <option value="Si">Si</option>
+                        <option value="No">No</option>
+                    </select>
+                    <small class="form-control-feedback"> Seleccione una </small>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="demo-switch-title"> Primeras palabras</div>
+                    <select class="form-control custom-select" formControlName="pregunta30">
+                        <option value="Si">Si</option>
+                        <option value="No">No</option>
+                    </select>
+                    <small class="form-control-feedback"> Seleccione una </small>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="demo-switch-title"> Primeras Frases</div>
+                    <select class="form-control custom-select" formControlName="pregunta31">
+                        <option value="Si">Si</option>
+                        <option value="No">No</option>
+                    </select>
+                    <small class="form-control-feedback"> Seleccione una </small>
+                </div>
+            </div>
+
+        </div>
+
+        <h2>5. SALUD:</h2>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="demo-switch-title">En este momento, ¿Su niño/a goza de buena salud?</div>
+                    <select class="form-control custom-select" formControlName="pregunta33">
+                        <option value="Si">Si</option>
+                        <option value="No">No</option>
+                    </select>
+                    <small class="form-control-feedback"> Seleccione una </small>
+                </div>
+                <label *ngIf="this.registerForm.get('pregunta33')?.value == 'Si'">Especifique</label>
+                <div *ngIf="this.registerForm.get('pregunta33')?.value == 'Si'" class="input-group">
+                    <div class="input-group-addon"><i class="ti-eye"></i></div>
+                    <input type="text" class="form-control" #goza>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="demo-switch-title">¿Consume su niño/a algún tipo de medicamentos actualmente?</div>
+                    <select class="form-control custom-select" formControlName="pregunta34">
+                        <option value="Si">Si</option>
+                        <option value="No">No</option>
+                    </select>
+                    <small class="form-control-feedback"> Seleccione una </small>
+                </div>
+                <label *ngIf="this.registerForm.get('pregunta34')?.value == 'Si'">Especifique</label>
+                <div *ngIf="this.registerForm.get('pregunta34')?.value == 'Si'" class="input-group">
+                    <div class="input-group-addon"><i class="ti-eye"></i></div>
+                    <input type="text" class="form-control" #medicamentos>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="demo-switch-title">¿Alguna enfermedad y/o condición específica? ¿Cuál?</div>
+                    <input type="text" class="form-control" formControlName="pregunta35">
+                    <small class="form-control-feedback"> Seleccione una </small>
+                </div>
+
+            </div>
+
+
+
+
+
+
+            <div class="col-sm-2">
+                <div class="demo-switch-title"> Indique si ha sufrido o sufre alguno de estos padecimientos de
+                    manera frecuente </div>
+                <div class="form-check">
+
+                    <label class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" #Otitis (click)="prueba()">
+                        <span class="custom-control-indicator"></span>
+                        <span class="custom-control-description">Otitis</span>
+                    </label>
+                </div>
+                <div class="form-check bd-example-indeterminate">
+                    <label class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" #Sinusitis>
+                        <span class="custom-control-indicator"></span>
+                        <span class="custom-control-description">Sinusitis</span>
+                    </label>
+                </div>
+                <div class="form-check">
+                    <label class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" #Rinitis>
+                        <span class="custom-control-indicator"></span>
+                        <span class="custom-control-description">Rinitis</span>
+                    </label>
+                </div>
+                <div class="form-check">
+                    <label class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" #Epilepsia>
+                        <span class="custom-control-indicator"></span>
+                        <span class="custom-control-description">Epilepsia</span>
+                    </label>
+                </div>
+                <div class="form-check">
+                    <label class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" #unias>
+                        <span class="custom-control-indicator"></span>
+                        <span class="custom-control-description">Se come las uñas</span>
+                    </label>
+                </div>
+                <div class="form-check">
+                    <label class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" #Moja>
+                        <span class="custom-control-indicator"></span>
+                        <span class="custom-control-description">Moja la cama</span>
+                    </label>
+                </div>
+                <div class="form-check">
+                    <label class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" #Estres>
+                        <span class="custom-control-indicator"></span>
+                        <span class="custom-control-description">Estrés</span>
+                    </label>
+                </div>
+                <div class="form-check">
+                    <label class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" #Operaciones>
+                        <span class="custom-control-indicator"></span>
+                        <span class="custom-control-description">Operaciones</span>
+                    </label>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="form-check">
+                    <label class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" #Pesadillas>
+                        <span class="custom-control-indicator"></span>
+                        <span class="custom-control-description">Pesadillas</span>
+                    </label>
+                </div>
+                <div class="form-check">
+                    <label class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" #irregular>
+                        <span class="custom-control-indicator"></span>
+                        <span class="custom-control-description">irregular</span>
+                    </label>
+                </div>
+                <div class="form-check">
+                    <label class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" #Convulsiones>
+                        <span class="custom-control-indicator"></span>
+                        <span class="custom-control-description">Convulsiones</span>
+                    </label>
+                </div>
+                
+                <div class="form-check">
+                    <label class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" #irregular>
+                        <span class="custom-control-indicator"></span>
+                        <span class="custom-control-description">Sueño irregular</span>
+                    </label>
+                </div>
+                <div class="form-check">
+                    <label class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" #Depresion>
+                        <span class="custom-control-indicator"></span>
+                        <span class="custom-control-description">Depresión</span>
+                    </label>
+                </div>
+                <div class="form-check">
+                    <label class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" #Estrenimiento>
+                        <span class="custom-control-indicator"></span>
+                        <span class="custom-control-description">Estreñimiento </span>
+                    </label>
+                </div>
+            </div>
+
+
+
+
+        </div>
+
+        <h2>6. DESARROLLO ACTUAL:</h2>
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="demo-switch-title"> Reconoce las sensaciones del cuerpo, como: hambre, frío, calor,
+                        necesidad de usar el baño </div>
+                    <select class="form-control custom-select" formControlName="pregunta37">
+                        <option value="Nunca">Nunca</option>
+                        <option value="A veces">A veces</option>
+                        <option value="Siempre">Siempre</option>
+                    </select>
+                    <small class="form-control-feedback"> Seleccione una </small>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="demo-switch-title"> Tiene dificultad para sentarse recto </div>
+                    <select class="form-control custom-select" formControlName="pregunta38">
+                        <option value="Nunca">Nunca</option>
+                        <option value="A veces">A veces</option>
+                        <option value="Siempre">Siempre</option>
+                    </select>
+                    <small class="form-control-feedback"> Seleccione una </small>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="demo-switch-title"> Dificultad para practicar deportes</div>
+                    <select class="form-control custom-select" formControlName="pregunta39">
+                        <option value="Nunca">Nunca</option>
+                        <option value="A veces">A veces</option>
+                        <option value="Siempre">Siempre</option>
+                    </select>
+                    <small class="form-control-feedback"> Seleccione una </small>
+                </div>
+            </div>
+        </div>
+
+        
+
+        <div class="row">
+
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="demo-switch-title"> Evita actividades que requieren equilibrio (montar bicicleta) </div>
+                    <select class="form-control custom-select" formControlName="pregunta40">
+                        <option value="Nunca">Nunca</option>
+                        <option value="A veces">A veces</option>
+                        <option value="Siempre">Siempre</option>
+                    </select>
+                    <small class="form-control-feedback"> Seleccione una </small>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="demo-switch-title">Tiende a chocar con las personas u objetos</div>
+                    <select class="form-control custom-select" formControlName="pregunta41">
+                        <option value="Nunca">Nunca</option>
+                        <option value="A veces">A veces</option>
+                        <option value="Siempre">Siempre</option>
+                    </select>
+                    <small class="form-control-feedback"> Seleccione una </small>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="demo-switch-title">Tiene mala caligrafía</div>
+                    <select class="form-control custom-select" formControlName="pregunta42">
+                        <option value="Nunca">Nunca</option>
+                        <option value="A veces">A veces</option>
+                        <option value="Siempre">Siempre</option>
+                    </select>
+                    <small class="form-control-feedback"> Seleccione una </small>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+            
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="demo-switch-title">Confunde izquierda con derecha</div>
+                    <select class="form-control custom-select" formControlName="pregunta43">
+                        <option value="Nunca">Nunca</option>
+                        <option value="A veces">A veces</option>
+                        <option value="Siempre">Siempre</option>
+                    </select>
+                    <small class="form-control-feedback"> Seleccione una </small>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="demo-switch-title"> Tiene lateralidad manual definida</div>
+                    <select class="form-control custom-select" formControlName="pregunta45">
+                        <option value="Nunca">Nunca</option>
+                        <option value="A veces">A veces</option>
+                        <option value="Siempre">Siempre</option>
+                    </select>
+                    <small class="form-control-feedback"> Seleccione una </small>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="demo-switch-title"> Está en constante movimiento</div>
+                    <select class="form-control custom-select" formControlName="pregunta46">
+                        <option value="Nunca">Nunca</option>
+                        <option value="A veces">A veces</option>
+                        <option value="Siempre">Siempre</option>
+                    </select>
+                    <small class="form-control-feedback"> Seleccione una </small>
+                </div>
+            </div>
+        </div>
+
+        
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="demo-switch-title"> Busca contacto físico intenso</div>
+                    <select class="form-control custom-select" formControlName="pregunta47">
+                        <option value="Nunca">Nunca</option>
+                        <option value="A veces">A veces</option>
+                        <option value="Siempre">Siempre</option>
+                    </select>
+                    <small class="form-control-feedback"> Seleccione una </small>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="demo-switch-title">Tiene poco equilibrio, se cae con facilidad</div>
+                    <select class="form-control custom-select" formControlName="pregunta48">
+                        <option value="Nunca">Nunca</option>
+                        <option value="A veces">A veces</option>
+                        <option value="Siempre">Siempre</option>
+                    </select>
+                    <small class="form-control-feedback"> Seleccione una </small>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="demo-switch-title"> Se cansa fácilmente, evita actividades físicas</div>
+                    <select class="form-control custom-select" formControlName="pregunta49">
+                        <option value="Nunca">Nunca</option>
+                        <option value="A veces">A veces</option>
+                        <option value="Siempre">Siempre</option>
+                    </select>
+                    <small class="form-control-feedback"> Seleccione una </small>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="demo-switch-title">Dificultad para agarrar y manejar el lápiz</div>
+                    <select class="form-control custom-select" formControlName="pregunta50">
+                        <option value="Nunca">Nunca</option>
+                        <option value="A veces">A veces</option>
+                        <option value="Siempre">Siempre</option>
+                    </select>
+                    <small class="form-control-feedback"> Seleccione una </small>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="demo-switch-title">Dificultad para vestirse y desvestirse</div>
+                    <select class="form-control custom-select" formControlName="pregunta51">
+                        <option value="Nunca">Nunca</option>
+                        <option value="A veces">A veces</option>
+                        <option value="Siempre">Siempre</option>
+                    </select>
+                    <small class="form-control-feedback"> Seleccione una </small>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="demo-switch-title">Tiene conductas repetitivas</div>
+                    <select class="form-control custom-select" formControlName="pregunta52">
+                        <option value="Nunca">Nunca</option>
+                        <option value="A veces">A veces</option>
+                        <option value="Siempre">Siempre</option>
+                    </select>
+                    <small class="form-control-feedback"> Seleccione una </small>
+                </div>
+            </div>
+        </div>
+
+        <h2>7. GUSTO / OLFATO / VISTA:</h2>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="demo-switch-title">Diferencia sabores como (dulce, salado, ácido, agrio, entre otros)
+                    </div>
+                    <select class="form-control custom-select" formControlName="pregunta53">
+                        <option value="Nunca">Nunca</option>
+                        <option value="A veces">A veces</option>
+                        <option value="Siempre">Siempre</option>
+                    </select>
+                    <small class="form-control-feedback"> Seleccione una </small>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="demo-switch-title">Explora su ambiente a través del gusto</div>
+                    <select class="form-control custom-select" formControlName="pregunta54">
+                        <option value="Nunca">Nunca</option>
+                        <option value="A veces">A veces</option>
+                        <option value="Siempre">Siempre</option>
+                    </select>
+                    <small class="form-control-feedback"> Seleccione una </small>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="demo-switch-title">Rechaza comida por la textura</div>
+                    <select class="form-control custom-select" formControlName="pregunta55">
+                        <option value="Nunca">Nunca</option>
+                        <option value="A veces">A veces</option>
+                        <option value="Siempre">Siempre</option>
+                    </select>
+                    <small class="form-control-feedback"> Seleccione una </small>
+                </div>
+
+            </div>
+        </div>
+
+
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="demo-switch-title">Mastica adecuadamente</div>
+                    <select class="form-control custom-select" formControlName="pregunta56">
+                        <option value="Nunca">Nunca</option>
+                        <option value="A veces">A veces</option>
+                        <option value="Siempre">Siempre</option>
+                    </select>
+                    <small class="form-control-feedback"> Seleccione una </small>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="demo-switch-title">Siente náuseas con algún sabor</div>
+                    <select class="form-control custom-select" formControlName="pregunta57">
+                        <option value="Nunca">Nunca</option>
+                        <option value="A veces">A veces</option>
+                        <option value="Siempre">Siempre</option>
+                    </select>
+                    <small class="form-control-feedback"> Seleccione una </small>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="demo-switch-title">Explora objetos con el olfato</div>
+                    <select class="form-control custom-select" formControlName="pregunta58">
+                        <option value="Nunca">Nunca</option>
+                        <option value="A veces">A veces</option>
+                        <option value="Siempre">Siempre</option>
+                    </select>
+                    <small class="form-control-feedback"> Seleccione una </small>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="demo-switch-title">Tiene dificultad para discriminar colores y formas</div>
+                    <select class="form-control custom-select" formControlName="pregunta59">
+                        <option value="Nunca">Nunca</option>
+                        <option value="A veces">A veces</option>
+                        <option value="Siempre">Siempre</option>
+                    </select>
+                    <small class="form-control-feedback"> Seleccione una </small>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="demo-switch-title">Tiene dificultad para mantener contacto visual</div>
+                    <select class="form-control custom-select" formControlName="pregunta60">
+                        <option value="Nunca">Nunca</option>
+                        <option value="A veces">A veces</option>
+                        <option value="Siempre">Siempre</option>
+                    </select>
+                    <small class="form-control-feedback"> Seleccione una </small>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="demo-switch-title">Se lleva alimentos a la boca adecuadamente</div>
+                    <select class="form-control custom-select" formControlName="pregunta61">
+                        <option value="Nunca">Nunca</option>
+                        <option value="A veces">A veces</option>
+                        <option value="Siempre">Siempre</option>
+                    </select>
+                    <small class="form-control-feedback"> Seleccione una </small>
+                </div>
+            </div>
+        </div>
+
+        <h2>8. AUDICIÓN / LENGUAJE:</h2>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="demo-switch-title">Pronuncia palabras de manera incorrecta</div>
+                    <select class="form-control custom-select" formControlName="pregunta62">
+                        <option value="Nunca">Nunca</option>
+                        <option value="A veces">A veces</option>
+                        <option value="Siempre">Siempre</option>
+                    </select>
+                    <small class="form-control-feedback"> Seleccione una </small>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="demo-switch-title">Necesita que le repitan las instrucciones</div>
+                    <select class="form-control custom-select" formControlName="pregunta63">
+                        <option value="Nunca">Nunca</option>
+                        <option value="A veces">A veces</option>
+                        <option value="Siempre">Siempre</option>
+                    </select>
+                    <small class="form-control-feedback"> Seleccione una </small>
+                </div>
+
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="demo-switch-title">Tendencia a desviarse del tema</div>
+                    <select class="form-control custom-select" formControlName="pregunta64">
+                        <option value="Nunca">Nunca</option>
+                        <option value="A veces">A veces</option>
+                        <option value="Siempre">Siempre</option>
+                    </select>
+                    <small class="form-control-feedback"> Seleccione una </small>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="demo-switch-title">Voz monótona, dificultades para entonar</div>
+                    <select class="form-control custom-select" formControlName="pregunta65">
+                        <option value="Nunca">Nunca</option>
+                        <option value="A veces">A veces</option>
+                        <option value="Siempre">Siempre</option>
+                    </select>
+                    <small class="form-control-feedback"> Seleccione una </small>
+                </div>
+            </div>
+            <div class="col-md-4">
+
+                <div class="form-group">
+                    <div class="demo-switch-title"> Reconoce o repite ritmos o canciones</div>
+                    <select class="form-control custom-select" formControlName="pregunta66">
+                        <option value="Nunca">Nunca</option>
+                        <option value="A veces">A veces</option>
+                        <option value="Siempre">Siempre</option>
+                    </select>
+                    <small class="form-control-feedback"> Seleccione una </small>
+                </div>
+
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="demo-switch-title">Ladea la cabeza cuando intenta oír</div>
+                    <select class="form-control custom-select" formControlName="pregunta67">
+                        <option value="Nunca">Nunca</option>
+                        <option value="A veces">A veces</option>
+                        <option value="Siempre">Siempre</option>
+                    </select>
+                    <small class="form-control-feedback"> Seleccione una </small>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="demo-switch-title">Dificultad para comprender lo que lee</div>
+                    <select class="form-control custom-select" formControlName="pregunta68">
+                        <option value="Nunca">Nunca</option>
+                        <option value="A veces">A veces</option>
+                        <option value="Siempre">Siempre</option>
+                    </select>
+                    <small class="form-control-feedback"> Seleccione una </small>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="demo-switch-title">Falta de fluidez y articulación verbal</div>
+                    <select class="form-control custom-select" formControlName="pregunta69">
+                        <option value="Nunca">Nunca</option>
+                        <option value="A veces">A veces</option>
+                        <option value="Siempre">Siempre</option>
+                    </select>
+                    <small class="form-control-feedback"> Seleccione una </small>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="demo-switch-title">Dificultades de ortografía y caligrafía</div>
+                    <select class="form-control custom-select" formControlName="pregunta70">
+                        <option value="Nunca">Nunca</option>
+                        <option value="A veces">A veces</option>
+                        <option value="Siempre">Siempre</option>
+                    </select>
+                    <small class="form-control-feedback"> Seleccione una </small>
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="demo-switch-title">Presenta tartamudez</div>
+                    <select class="form-control custom-select" formControlName="pregunta71">
+                        <option value="Nunca">Nunca</option>
+                        <option value="A veces">A veces</option>
+                        <option value="Siempre">Siempre</option>
+                    </select>
+                    <small class="form-control-feedback"> Seleccione una </small>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Cómo se integra con los niños?</label>
+                    <div class="input-group">
+                        <div class="input-group-addon"><i class="ti-harddrives"></i></div>
+                        <input type="text" class="form-control" formControlName="pregunta72">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>¿Cómo se integra con los adultos?</label>
+                    <div class="input-group">
+                        <div class="input-group-addon"><i class="ti-harddrives"></i></div>
+                        <input type="text" class="form-control" formControlName="pregunta73">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Áreas fuertes</label>
+                    <div class="input-group">
+                        <div class="input-group-addon"><i class="ti-harddrives"></i></div>
+                        <input type="text" class="form-control" formControlName="pregunta74">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Áreas débiles</label>
+                    <div class="input-group">
+                        <div class="input-group-addon"><i class="ti-harddrives"></i></div>
+                        <input type="text" class="form-control" formControlName="pregunta75">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+   
+
+        <h2>9. SOCIAL EMOCIONAL:</h2>
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="demo-switch-title">Se muestra flexible a los cambios</div>
+                    <select class="form-control custom-select" formControlName="pregunta76">
+                        <option value="Nunca">Nunca</option>
+                        <option value="A veces">A veces</option>
+                        <option value="Siempre">Siempre</option>
+                    </select>
+                    <small class="form-control-feedback"> Seleccione una </small>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="demo-switch-title">Tiene dificultad para hacer y mantener amigos</div>
+                    <select class="form-control custom-select" formControlName="pregunta77">
+                        <option value="Nunca">Nunca</option>
+                        <option value="A veces">A veces</option>
+                        <option value="Siempre">Siempre</option>
+                    </select>
+                    <small class="form-control-feedback"> Seleccione una </small>
+                </div>
+            </div>
+            <div class="col-md-4">
+
+                <div class="form-group">
+                    <div class="demo-switch-title">Cambia de una actividad a otra con facilidad</div>
+                    <select class="form-control custom-select" formControlName="pregunta78">
+                        <option value="Nunca">Nunca</option>
+                        <option value="A veces">A veces</option>
+                        <option value="Siempre">Siempre</option>
+                    </select>
+                    <small class="form-control-feedback"> Seleccione una </small>
+                </div>
+
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="demo-switch-title">Llanto fácil, sin motivo aparente</div>
+                    <select class="form-control custom-select" formControlName="pregunta79">
+                        <option value="Nunca">Nunca</option>
+                        <option value="A veces">A veces</option>
+                        <option value="Siempre">Siempre</option>
+                    </select>
+                    <small class="form-control-feedback"> Seleccione una </small>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="demo-switch-title">Tiene dificultad para manejar sus relaciones emocionales</div>
+                    <select class="form-control custom-select" formControlName="pregunta80">
+                        <option value="Nunca">Nunca</option>
+                        <option value="A veces">A veces</option>
+                        <option value="Siempre">Siempre</option>
+                    </select>
+                    <small class="form-control-feedback"> Seleccione una </small>
+                </div>
+            </div>
+            <div class="col-md-4">
+
+                <div class="form-group">
+                    <div class="demo-switch-title">Se desconecta o pierde interés durante actividades grupales</div>
+                    <select class="form-control custom-select" formControlName="pregunta81">
+                        <option value="Nunca">Nunca</option>
+                        <option value="A veces">A veces</option>
+                        <option value="Siempre">Siempre</option>
+                    </select>
+                    <small class="form-control-feedback"> Seleccione una </small>
+                </div>
+
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="demo-switch-title">Tiende a aislarse</div>
+                    <select class="form-control custom-select" formControlName="pregunta82">
+                        <option value="Nunca">Nunca</option>
+                        <option value="A veces">A veces</option>
+                        <option value="Siempre">Siempre</option>
+                    </select>
+                    <small class="form-control-feedback"> Seleccione una </small>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="demo-switch-title">Se enoja con facilidad</div>
+                    <select class="form-control custom-select" formControlName="pregunta83">
+                        <option value="Nunca">Nunca</option>
+                        <option value="A veces">A veces</option>
+                        <option value="Siempre">Siempre</option>
+                    </select>
+                    <small class="form-control-feedback"> Seleccione una </small>
+                </div>
+            </div>
+            <div class="col-md-4">
+
+                <div class="form-group">
+                    <div class="demo-switch-title"> Es afectivo, le gusta tocar y abrazar</div>
+                    <select class="form-control custom-select" formControlName="pregunta84">
+                        <option value="Nunca">Nunca</option>
+                        <option value="A veces">A veces</option>
+                        <option value="Siempre">Siempre</option>
+                    </select>
+                    <small class="form-control-feedback"> Seleccione una </small>
+                </div>
+
+            </div>
+            
+        </div>
+        
+        <h2>10. ORGANIZACIÓN / ATENCIÓN / CONOCIMIENTO:</h2>
+        
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="demo-switch-title">Se distrae fácilmente</div>
+                    <select class="form-control custom-select" formControlName="pregunta85">
+                        <option value="Nunca">Nunca</option>
+                        <option value="A veces">A veces</option>
+                        <option value="Siempre">Siempre</option>
+                    </select>
+                    <small class="form-control-feedback"> Seleccione una </small>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="demo-switch-title">Tiene deficiente memoria de corto plazo</div>
+                    <select class="form-control custom-select" formControlName="pregunta86">
+                        <option value="Nunca">Nunca</option>
+                        <option value="A veces">A veces</option>
+                        <option value="Siempre">Siempre</option>
+                    </select>
+                    <small class="form-control-feedback"> Seleccione una </small>
+                </div>
+            </div>
+            <div class="col-md-4">
+
+                <div class="form-group">
+                    <div class="demo-switch-title">Necesita leer las tareas escolares muchas veces para comprenderlas
+                    </div>
+                    <select class="form-control custom-select" formControlName="pregunta87">
+                        <option value="Nunca">Nunca</option>
+                        <option value="A veces">A veces</option>
+                        <option value="Siempre">Siempre</option>
+                    </select>
+                    <small class="form-control-feedback"> Seleccione una </small>
+                </div>
+
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="demo-switch-title">Planificar se le dificulta, prefiere unirse a los planes de los demás
+                    </div>
+                    <select class="form-control custom-select" formControlName="pregunta88">
+                        <option value="Nunca">Nunca</option>
+                        <option value="A veces">A veces</option>
+                        <option value="Siempre">Siempre</option>
+                    </select>
+                    <small class="form-control-feedback"> Seleccione una </small>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="demo-switch-title">Desorganizado con las asignaturas de la escuela, sus pertenencias,
+                        horarios</div>
+                    <select class="form-control custom-select" formControlName="pregunta89">
+                        <option value="Nunca">Nunca</option>
+                        <option value="A veces">A veces</option>
+                        <option value="Siempre">Siempre</option>
+                    </select>
+                    <small class="form-control-feedback"> Seleccione una </small>
+                </div>
+            </div>
+            <div class="col-md-4">
+
+                <div class="form-group">
+                    <div class="demo-switch-title">Recuerda el orden secuencial de las tareas</div>
+                    <select class="form-control custom-select" formControlName="pregunta90">
+                        <option value="Nunca">Nunca</option>
+                        <option value="A veces">A veces</option>
+                        <option value="Siempre">Siempre</option>
+                    </select>
+                    <small class="form-control-feedback"> Seleccione una </small>
+                </div>
+
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="demo-switch-title">Tiene dificultad para iniciar o completar tareas sin ayuda</div>
+                    <select class="form-control custom-select" formControlName="pregunta91">
+                        <option value="Nunca">Nunca</option>
+                        <option value="A veces">A veces</option>
+                        <option value="Siempre">Siempre</option>
+                    </select>
+                    <small class="form-control-feedback"> Seleccione una </small>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="demo-switch-title">Le cuesta concentrarse en una sola cosa a la vez</div>
+                    <select class="form-control custom-select" formControlName="pregunta92">
+                        <option value="Nunca">Nunca</option>
+                        <option value="A veces">A veces</option>
+                        <option value="Siempre">Siempre</option>
+                    </select>
+                    <small class="form-control-feedback"> Seleccione una </small>
+                </div>
+            </div>
+            <div class="col-md-4">
+
+                <div class="form-group">
+                    <div class="demo-switch-title">Invierte u omite letras al leer o escribir</div>
+                    <select class="form-control custom-select" formControlName="pregunta93">
+                        <option value="Nunca">Nunca</option>
+                        <option value="A veces">A veces</option>
+                        <option value="Siempre">Siempre</option>
+                    </select>
+                    <small class="form-control-feedback"> Seleccione una </small>
+                </div>
+
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="demo-switch-title">Tiene dificultad para copiar las tareas escolares</div>
+                    <select class="form-control custom-select" formControlName="pregunta94">
+                        <option value="Nunca">Nunca</option>
+                        <option value="A veces">A veces</option>
+                        <option value="Siempre">Siempre</option>
+                    </select>
+                    <small class="form-control-feedback"> Seleccione una </small>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="demo-switch-title">Se prepara para los exámenes académicos</div>
+                    <select class="form-control custom-select" formControlName="pregunta95">
+                        <option value="Nunca">Nunca</option>
+                        <option value="A veces">A veces</option>
+                        <option value="Siempre">Siempre</option>
+                    </select>
+                    <small class="form-control-feedback"> Seleccione una </small>
+                </div>
+            </div>
+            <div class="col-md-4">
+
+                <div class="form-group">
+                    <div class="demo-switch-title">¿De qué manera le resulta más fácil aprender? </div>
+                    <select class="form-control custom-select" formControlName="pregunta96">
+                        <option value="Repitiendo en voz alta">Repitiendo en voz alta</option>
+                        <option value="Escribiendo varias veces">Escribiendo varias veces</option>
+                        <option value="Relacionándolo con algo">Relacionándolo con algo</option>
+                    </select>
+                    <small class="form-control-feedback"> Seleccione una </small>
+                </div>
+
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="demo-switch-title"> ¿Cuándo quiere aprender algo de memoria?</div>
+                    <select class="form-control custom-select" formControlName="pregunta97">
+                        <option value="Memoriza lo que ve y recuerda la imagen">Memoriza lo que ve y recuerda la imagen
+                        </option>
+                        <option value="Memorizo mejor si repito lo estudiado rítmicamente">Memorizo mejor si repito lo
+                            estudiado rítmicamente</option>
+                        <option value="Memorizo paseando y mirando">Memorizo paseando y mirando</option>
+                    </select>
+                    <small class="form-control-feedback"> Seleccione una </small>
+                </div>
+            </div>
+        </div>
+
+        <h2>11. AMBIENTE ESCOLAR:</h2>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>¿En general cómo describiría la experiencia en la institución educativa? ¿Ha existido alguna
+                        queja?</label>
+                    <div class="input-group">
+                        <div class="input-group-addon"><i class="ti-harddrives"></i></div>
+                        <input type="text" class="form-control" formControlName="pregunta98">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+
+                <div class="form-group">
+                    <label>¿Cómo describiría la conducta y el carácter de su hijo/a?</label>
+                    <div class="input-group">
+                        <div class="input-group-addon"><i class="ti-harddrives"></i></div>
+                        <input type="text" class="form-control" formControlName="pregunta99">
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Observaciones generales</label>
+                    <div class="input-group">
+                        <div class="input-group-addon"><i class="ti-harddrives"></i></div>
+                        <input type="text" class="form-control" formControlName="pregunta100">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+        <button type="submit" class="btn btn-success waves-effect waves-light m-r-10">Guardar</button>
+        <a (click)="cancelarGuardado()" class="btn btn-inverse waves-effect waves-light">Cancelar</a>
+    </form>
+</div>
+
+
+
+
+<!-- Modal  -->
+
+<div class="fondo-modal-imagen animated fadeIn fast" [class.oculto]="mostraModal">
+    <div id="responsive-modal" class="modal fade show" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+        style="display: block;padding-right: 17px; overflow-y: initial">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">PEEA</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                        (click)="cerrarModal()">×</button>
+                </div>
+
+                <div class="card-body">
+                    <h4 class="card-title">Datos Familiares</h4>
+                    <br>
+
+                    <div class="form-group">
+                        <label for="exampleInputuname">Nombre</label>
+                        <div class="input-group">
+                            <div class="input-group-addon"><i class="ti-user"></i></div>
+                            <input type="text" name="monto" id="" #nombre>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="exampleInputuname">Edad</label>
+                        <div class="input-group">
+                            <div class="input-group-addon"><i class="ti-user"></i></div>
+                            <input type="number" id="" #edad>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="exampleInputuname">Ocupacion</label>
+                        <div class="input-group">
+                            <div class="input-group-addon"><i class="ti-user"></i></div>
+                            <input type="text" id="" #ocupacion>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="exampleInputuname">Parentesco</label>
+                        <select class="form-control custom-select" #parentesco>
+                            <option value="Padre">Padre</option>
+                            <option value="Madre">Madre</option>
+                            <option value="Hermano">Hermano</option>
+                            <option value="Hermana">Hermana</option>
+                            <option value="Abuelo">Abuelo</option>
+                            <option value="Abuela">Abuela</option>
+                            <option value="Tio">Tío</option>
+                            <option value="Tia">Tía</option>
+                            <option value="Otro">Otro</option>
+                        </select>
+                    </div>
+
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default waves-effect" data-dismiss="modal"
+                        (click)="cerrarModal()">Close</button>
+                    <button type="button" (click)="agregar()"
+                        class="btn btn-success waves-effect waves-light">Agregar</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
