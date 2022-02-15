@@ -181,6 +181,14 @@ export class SidebarService {
       ]
     },
     {
+      titulo: 'PEEA 18 Tomatis',
+      icono: 'mdi mdi-buffer',
+      submenu: [
+        { titulo: 'Crear PEEA 18', url: '/peea-18-tomatis/nuevo/idcontrato' },
+        { titulo: 'Lista PEEA 18', url: '/lista-peea-18-tomatis' },
+      ]
+    },
+    {
       titulo: 'PEEA',
       icono: 'mdi mdi-buffer',
       submenu: [
