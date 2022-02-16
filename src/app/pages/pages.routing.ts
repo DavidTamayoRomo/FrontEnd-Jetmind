@@ -50,6 +50,7 @@ import { Peea17tomatisComponent } from './peea17tomatis/peea17tomatis.component'
 import { Listapeea17tomatisComponent } from './peea17tomatis/listapeea17tomatis/listapeea17tomatis.component';
 import { Peea18tomatisComponent } from './peea18tomatis/peea18tomatis.component';
 import { Listapeea18tomatisComponent } from './peea18tomatis/listapeea18tomatis/listapeea18tomatis.component';
+import { AsignarHorariosEstudianteComponent } from './asignar-horarios-estudiante/asignar-horarios-estudiante.component';
 
 
 
@@ -135,6 +136,9 @@ const routes: Routes = [
            
             { path: 'peea-18-tomatis/:id/:idContrato', component: Peea18tomatisComponent , data:{titulo:'PEEA 18'} },
             { path: 'lista-peea-18-tomatis', component: Listapeea18tomatisComponent , data:{titulo:'Lista de PEEA 18'} },
+
+            { path: 'asignarhorarioestudiante/nuevo', component: AsignarHorariosEstudianteComponent , data:{titulo:'Asignar Horario Estudiante'} },
+            //{ path: 'lista-peea-18-tomatis', component: Listapeea18tomatisComponent , data:{titulo:'Lista de PEEA 18'} },
         ]
     },
 ];

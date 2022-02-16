@@ -199,6 +199,15 @@ export class SidebarService {
         { titulo: 'Lista PEEA 18 TM', url: '/lista-peea-18-ilvem' },
       ]
     },
+    {
+      titulo: 'Asignar Horario',
+      icono: 'mdi mdi-buffer',
+      submenu: [
+        { titulo: 'Crear', url: '/asignarhorarioestudiante/nuevo' },
+        { titulo: 'Lista', url: '/asignarhorariosestudiantes' },
+      ]
+    },
+
   ]
 
   constructor() { }

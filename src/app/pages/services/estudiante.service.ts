@@ -31,6 +31,11 @@ export class EstudianteService {
     return this.http.get(`${base_url}/estudiante`, { headers: headers });
   }
 
+  getAllEstudiantesSinLimite() {
+    const headers = this.retornarHeader();
+    return this.http.get(`${base_url}/estudiante/all`, { headers: headers });
+  }
+
   getAllEstudiantesByIdRepresentante(idRepresentante: string) {
     const headers = this.retornarHeader();
     return this.http.get(`${base_url}/estudiante/representante/${idRepresentante}`, { headers: headers });

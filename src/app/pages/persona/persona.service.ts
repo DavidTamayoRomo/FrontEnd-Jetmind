@@ -98,6 +98,11 @@ export class PersonaService {
     const headers = this.retornarHeader();
     return this.http.get(`${base_url}/persona`, { headers: headers });
   }
+
+  getAllPersonasSinLimite() {
+    const headers = this.retornarHeader();
+    return this.http.get(`${base_url}/persona/all`, { headers: headers });
+  }
   
   getAllByRoleCiudadMarca(idRole:string, idCiudad:string, idMarca:string) {
     const headers = this.retornarHeader();
