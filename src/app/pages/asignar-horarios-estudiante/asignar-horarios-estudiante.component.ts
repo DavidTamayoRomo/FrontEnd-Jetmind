@@ -39,8 +39,8 @@ export class AsignarHorariosEstudianteComponent implements OnInit {
     private fb: FormBuilder,
     private asignarHorarioEstudianteService: AsignarHorariosEstudianteService,
     private personaService: PersonaService,
-    private estudiantesService:EstudianteService,
-    private horariosService:HorarioService,
+    private estudiantesService: EstudianteService,
+    private horariosService: HorarioService,
     private activatedRoute: ActivatedRoute,
     private router: Router
 
@@ -82,6 +82,7 @@ export class AsignarHorariosEstudianteComponent implements OnInit {
 
     this.asignarHorarioEstudianteService.obtenerasignarhorarioestudianteById(id)
       .subscribe((resp: any) => {
+        console.log(resp);
         this.asignarSeleccionada = resp.data;
         this.LlenarForm(resp);
       });
@@ -126,6 +127,24 @@ export class AsignarHorariosEstudianteComponent implements OnInit {
     if (this.asignarSeleccionada) {
       //actualizar
       this.AsignarHorarioEstudianteModel = this.registerForm.value;
+
+      //ID de las docente
+      this.asignarSeleccionada.idDocente = this.persona[0].item_id;
+
+      //ID horarios
+      this.asignarSeleccionada.idHorario = this.horario[0].item_id;
+
+      //ID de las ciudades
+      let estudiantelista: any = [];
+      this.estudiante.forEach((element: any) => {
+        if (element.item_id) {
+          estudiantelista.push(element.item_id);
+        } else {
+          estudiantelista.push(element);
+        }
+      });
+      this.asignarSeleccionada.idEstudiantes = estudiantelista;
+
       if (this.registerForm.invalid) {
         //Formulario invalido
         const Toast = Swal.mixin({
@@ -146,8 +165,7 @@ export class AsignarHorariosEstudianteComponent implements OnInit {
         return;
       } else {
 
-
-        this.asignarHorarioEstudianteService.updateasignarhorarioestudiante(this.asignarSeleccionada._id, this.AsignarHorarioEstudianteModel).subscribe((resp: any) => {
+        this.asignarHorarioEstudianteService.updateasignarhorarioestudiante(this.asignarSeleccionada._id, this.asignarSeleccionada).subscribe((resp: any) => {
           const Toast = Swal.mixin({
             toast: true,
             position: 'top-end',
@@ -193,7 +211,8 @@ export class AsignarHorariosEstudianteComponent implements OnInit {
 
       //ID de las docente
       this.asignarSeleccionada.idDocente = this.persona[0].item_id;
-      
+
+      //ID horarios
       this.asignarSeleccionada.idHorario = this.horario[0].item_id;
 
       //ID de las ciudades
@@ -282,15 +301,15 @@ export class AsignarHorariosEstudianteComponent implements OnInit {
       });
       this.dropdownListPersonas = nombrePersonas;
       if (this.asignarSeleccionada) {
-        /* this.asignarSeleccionada.idMarca.map((m: any) => {
-          const findMarcaPersona = this.dropdownListMarcas.find(
-            (item: any) => item.item_id === m
-          );
-          if (findMarcaPersona) {
-            this.onItemSelectmarca(findMarcaPersona);
-            this.registerForm.get('asignado')?.setValue(this.persona);
-          }
-        }); */
+
+        const findMarcaPersona = this.dropdownListPersonas.find(
+          (item: any) => item.item_id === this.asignarSeleccionada.idDocente
+        );
+        if (findMarcaPersona) {
+          this.onItemSelectPersona(findMarcaPersona);
+          this.registerForm.get('idDocente')?.setValue(this.persona);
+        }
+
       }
 
     });
@@ -300,10 +319,21 @@ export class AsignarHorariosEstudianteComponent implements OnInit {
     this.horariosService.getAllHorario().subscribe((resp: any) => {
       let nombreHorarios: any = [];
       resp.data.forEach((element: any) => {
-        nombreHorarios.push({ item_id: element._id, nombre: `${element.nombre}-${element.modalidad}-${element.dias}-${element.horaInicio}-${element.horaFin}`  });
+        nombreHorarios.push({ item_id: element._id, nombre: `${element.nombre}-${element.modalidad}-${element.dias}-${element.horaInicio}-${element.horaFin}` });
       });
       this.dropdownListHorarios = nombreHorarios;
-      
+
+      if (this.asignarSeleccionada) {
+
+        const findHorario = this.dropdownListHorarios.find(
+          (item: any) => item.item_id === this.asignarSeleccionada.idHorario
+        );
+        if (findHorario) {
+          this.onItemSelectHorario(findHorario);
+          this.registerForm.get('idHorario')?.setValue(this.horario);
+        }
+
+      }
 
     });
 
@@ -323,14 +353,14 @@ export class AsignarHorariosEstudianteComponent implements OnInit {
           );
           if (findEstudainte) {
             this.onItemSelectEstudiante(findEstudainte);
-            this.registerForm.get('idEstudiantes')?.setValue(this.persona);
+            this.registerForm.get('idEstudiantes')?.setValue(this.estudiante);
           }
-        }); 
+        });
       }
-
     });
-
   }
+
+
 
   /** Persona */
   /** Item Seleccionado */

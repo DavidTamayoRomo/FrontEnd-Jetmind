@@ -1,0 +1,71 @@
+<div class="card">
+
+    <form (ngSubmit)="crear()" autocomplete="off" [formGroup]="registerForm">
+
+        <div class="card-body">
+
+
+            <div class="form-group">
+                <label for="exampleInputuname">Docente *</label>
+                <ng-multiselect-dropdown [placeholder]="'Seleccione Docente'" [settings]="dropdownSettingsSingle"
+                    [data]="dropdownListPersonas" (onSelect)="onItemSelectPersona($event)"
+                    (onSelectAll)="onSelectAllPersona($event)" (onDeSelect)="onDeSelectPersona($event)"
+                    (onDeSelectAll)="onDeSelectAllPersona($event)" formControlName="idDocente">
+                </ng-multiselect-dropdown>
+            </div>
+
+            <div class="form-group">
+                <label for="exampleInputuname">Horario *</label>
+                <ng-multiselect-dropdown [placeholder]="'Seleccione Docente'" [settings]="dropdownSettingsSingle"
+                    [data]="dropdownListHorarios" (onSelect)="onItemSelectHorario($event)"
+                    (onSelectAll)="onSelectAllHorario($event)" (onDeSelect)="onDeSelectHorario($event)"
+                    (onDeSelectAll)="onDeSelectAllHorario($event)" formControlName="idHorario">
+                </ng-multiselect-dropdown>
+            </div>
+
+            <div class="form-group">
+                <label for="exampleInputuname">Tema tratado *</label>
+                <div class="input-group">
+                    <div class="input-group-addon"><i class="ti-user"></i></div>
+                    <input type="text" class="form-control" placeholder="Tema tratado" formControlName="temaTratado">
+                </div>
+                <div class="text-danger">
+                    <p *ngIf="campoNoValido('nombre')">El Nombre de la ciudad es obligatorio</p>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <label for="exampleInputuname">Fecha *</label>
+                    </div>
+                    <div class="panel-body">
+                        <input class="form-control" type="text" mwlFlatpickr [altInput]="true"
+                            [convertModelValue]="true" formControlName="fecha">
+                    </div>
+                </div>
+            </div>
+
+            
+            <div  *ngFor="let estudiante of listaEstudiantes">
+                <label class="custom-control custom-checkbox" >
+                    <input type="checkbox" class="custom-control-input" (click)="enviarDatosEstudiante(estudiante)" checked>
+                    <span class="custom-control-indicator"></span>
+                    <span class="custom-control-description">{{estudiante.nombre}}</span>
+                </label>
+            </div>
+            
+
+
+
+
+
+            <div>
+                <button type="submit" class="btn btn-success waves-effect waves-light m-r-10">Guardar</button>
+                <a (click)="cancelarGuardado()" class="btn btn-inverse waves-effect waves-light">Cancelar</a>
+            </div>
+
+        </div>
+    </form>
+
+</div>

@@ -1,0 +1,80 @@
+<div class="col">
+
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="text-right">
+                    <a class="btn btn-primary" routerLink="/asignarhorarioestudiante/nuevo">
+                        <i class="mdi mdi-account-plus"></i>
+                        Crear asignar
+                    </a>
+                </div>
+                <div style="height: 10px;"></div>
+                <input type="text" class="form-control" placeholder="Buscar asignar" (keyup)="buscar(txtBusqueda.value)"
+                    #txtBusqueda>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" *ngIf="cargando">
+    <div class="col-12">
+        <div class="alert alert-info text-center">
+            <h4 class="alert-heading">Cargando</h4>
+            <i class="fa fa-spin fa-refresh fa-2x"></i>
+            <p class="mb-0">Por favor espere...</p>
+        </div>
+    </div>
+</div>
+<div class="row" *ngIf="!cargando">
+
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Asignar horarios estudiante registrados</h4>
+                <h6 class="card-subtitle">Total de asignar: {{totalAsignar}}</h6>
+                <div class="table-responsive">
+                    <table class="table full-color-table full-inverse-table hover-table">
+                        <thead>
+                            <tr>
+                                <th class="w100">Docente</th>
+                                <th class="w100">Horario</th>
+                                <th class="w100">Estudiantes</th>
+
+                                <th class="text-nowrap w100">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let asignar of asignarHorariosEstudiantes">
+
+                                <td>{{asignar.idDocente.nombresApellidos}}</td>
+                                <td>{{asignar.idHorario.nombre}}-{{asignar.idHorario.modalidad}}-{{asignar.idHorario.horaInicio}}-{{asignar.idHorario.horaFin}}</td>
+                                <td><div *ngFor="let estudiante of asignar.idEstudiantes">{{estudiante.nombresApellidos}}</div></td>
+
+                                <td class="text-nowrap">
+                                    <a [routerLink]="['/asignarhorarioestudiante',asignar._id]" data-toggle="tooltip"
+                                        data-original-title="Editar"> <i class="ti-pencil"></i> </a>
+                                    <a data-toggle="tooltip" data-original-title="Borrar"
+                                        (click)="borrarAsignar(asignar)">
+                                        <i class=" ti-trash"></i>
+                                    </a>
+                                </td>
+                            </tr>
+
+
+                        </tbody>
+                    </table>
+                    <div *ngIf="txtBusqueda.value.length === 0">
+                        <button (click)="paginar(-5)" class="btn btn-secondary">Anterio</button>
+                        &nbsp;
+                        <button (click)="paginar(5)" class="btn btn-secondary">Siguiente</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

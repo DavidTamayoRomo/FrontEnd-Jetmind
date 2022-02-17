@@ -27,6 +27,11 @@ export class AsignarHorariosEstudianteService {
     const headers = this.retornarHeader();
     return this.http.get(`${base_url}/asignarhorarioestudiante`, { headers: headers });
   }
+  
+  getAllByDocenteHorario(idDocente:any, idHorario:any){
+    const headers = this.retornarHeader();
+    return this.http.get(`${base_url}/asignarhorarioestudiante/buscar/${idDocente}/${idHorario}`, { headers: headers });
+  }
 
   obtenerasignarhorarioestudianteById(id:string){
     const headers = this.retornarHeader();

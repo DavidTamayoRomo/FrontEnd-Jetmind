@@ -207,6 +207,15 @@ export class SidebarService {
         { titulo: 'Lista', url: '/asignarhorariosestudiantes' },
       ]
     },
+    {
+      titulo: 'Asistencia',
+      icono: 'mdi mdi-buffer',
+      submenu: [
+        { titulo: 'Crear', url: '/asistencia/nuevo' },
+        { titulo: 'Lista', url: '/listaasistencia' },
+      ]
+    },
+    
 
   ]
 
