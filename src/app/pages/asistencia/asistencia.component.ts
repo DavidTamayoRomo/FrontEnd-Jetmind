@@ -28,6 +28,7 @@ export class AsistenciaComponent implements OnInit {
   public horario: any = [];
 
   public listaEstudiantes: any = [];
+  public listaEstudiantesCopia: any = [];
   public listaEstudiantesPresentes: any = [];
   public listaEstudiantesAusentes: any = [];
 
@@ -115,7 +116,7 @@ export class AsistenciaComponent implements OnInit {
 
   public registerForm = this.fb.group({
     idDocente: [null],
-    idAsignarHorarioEstudiante: [null],
+    idHorario: [null],
     temaTratado: [null],
     fecha: [new Date()],
     ausentes: [null],
@@ -131,8 +132,36 @@ export class AsistenciaComponent implements OnInit {
   }
 
 
-  enviarDatosEstudiante(estudiante: any) {
-    console.log(estudiante);
+  enviarDatosEstudiante(estudiante: any, index: any) {
+    console.log(estudiante, '-', index);
+    //cuando se desmarca un estudiante enviar a lista de ausentes
+    //TODO:revisar este codigo
+
+    //verificar si esta en algua de las dos lista
+    const indexPresente = this.listaEstudiantesPresentes.findIndex((resp: any) => {
+      return resp.idEstudiante === estudiante.idEstudiante;
+    });
+    const indexAusente = this.listaEstudiantesAusentes.findIndex((resp: any) => {
+      return resp.idEstudiante === estudiante.idEstudiante;
+    });
+
+    if (indexPresente > -1) {
+      //Enviar a lista de ausentes
+      this.listaEstudiantesPresentes.splice(indexPresente, 1);
+      this.listaEstudiantesAusentes.push(estudiante);
+      console.log('Entre presente');
+    }
+    if (indexAusente > -1) {
+      //Enviar a lista de ausentes
+      this.listaEstudiantesAusentes.splice(indexAusente, 1);
+      this.listaEstudiantesPresentes.push(estudiante);
+      console.log('Entre Ausente');
+    }
+    console.log('Total estudaintes', this.listaEstudiantes);
+    console.log(this.listaEstudiantesPresentes, '- Ausentes : ', this.listaEstudiantesAusentes);
+
+
+
   }
 
   campoNoValido(campo: any): boolean {
@@ -144,43 +173,61 @@ export class AsistenciaComponent implements OnInit {
     }
   }
 
+  llenarEstudiantesChechbox() {
+    //Para agregar los estudiantes a la lista
+    this.listaEstudiantes = [];
+    this.listaEstudiantesAusentes = [];
+    this.listaEstudiantesPresentes = [];
+
+    if (this.persona.length > 0 && this.horario.length > 0) {
+      this.asignarHorariosEstudianteService.getAllByDocenteHorario(this.persona[0].item_id, this.horario[0].item_id).subscribe((resp: any) => {
+        console.log(resp.data);
+        resp.data[0].idEstudiantes.forEach((element: any) => {
+          this.listaEstudiantes.push({ idEstudiante: element._id, nombre: element.nombresApellidos });
+          this.listaEstudiantesCopia.push({ idEstudiante: element._id, nombre: element.nombresApellidos });
+        });
+        this.listaEstudiantesPresentes = this.listaEstudiantesCopia;
+      });
+    }
+
+    console.log('Estudiantes', this.listaEstudiantes);
+    console.log('Ausentes', this.listaEstudiantesAusentes);
+    console.log('Presentes', this.listaEstudiantesPresentes);
+  }
 
   /** Persona */
   /** Item Seleccionado */
   onItemSelectPersona(item: any) {
     this.persona = [item];
-    //Para agregar los estudiantes a la lista
-    this.listaEstudiantes = [];
-    if (this.persona != [] && this.horario != []) {
-      this.asignarHorariosEstudianteService.getAllByDocenteHorario(this.persona[0].item_id, this.horario[0].item_id).subscribe((resp: any) => {
-        console.log(resp.data);
-        resp.data[0].idEstudiantes.forEach((element: any) => {
-          this.listaEstudiantes.push({idEstudiante:element._id,nombre:element.nombresApellidos});
-        });
-      });
-    }
+    this.llenarEstudiantesChechbox();
   }
+
   /** Todos los items Seleccionados */
   onSelectAllPersona(items: any) {
     this.persona = items;
     console.log(this.persona);
 
   }
+
   /** Deselccionar item */
   findByItemIdIndexPersona(id: any) {
     return this.persona.findIndex((resp: any) => {
       return resp.item_id === id;
     })
   }
+
   onDeSelectPersona(item: any) {
     /** Borrar elemento del array  */
-    const index = this.findByItemIdIndexPersona(item.item_id);
-    const newArray = (index > -1) ? [
-      ...this.persona.slice(0, index),
-      ...this.persona.slice(index + 1)
-    ] : this.persona;
-    this.persona = newArray;
-    console.log(this.persona);
+    this.persona = [];
+
+    this.listaEstudiantes = [];
+    this.listaEstudiantesAusentes = [];
+    this.listaEstudiantesPresentes = [];
+
+    console.log('Estudiantes', this.listaEstudiantes);
+    console.log('Ausentes', this.listaEstudiantesAusentes);
+    console.log('Presentes', this.listaEstudiantesPresentes);
+    
   }
   /** Deselccionar todos los items */
   onDeSelectAllPersona(items: any) {
@@ -191,18 +238,9 @@ export class AsistenciaComponent implements OnInit {
   /** horario */
   /** Item Seleccionado */
   onItemSelectHorario(item: any) {
-    this.horario=[item];
-
-    //Para agregar los estudiantes a la lista
-    this.listaEstudiantes = [];
-    if (this.persona != [] && this.horario != []) {
-      this.asignarHorariosEstudianteService.getAllByDocenteHorario(this.persona[0].item_id, this.horario[0].item_id).subscribe((resp: any) => {
-        console.log(resp.data);
-        resp.data[0].idEstudiantes.forEach((element: any) => {
-          this.listaEstudiantes.push({idEstudiante:element._id,nombre:element.nombresApellidos});
-        });
-      });
-    }
+    this.horario = [item];
+    // funcion de llenar lista de estudiantes
+    this.llenarEstudiantesChechbox();
 
   }
   /** Todos los items Seleccionados */
@@ -218,12 +256,14 @@ export class AsistenciaComponent implements OnInit {
   }
   onDeSelectHorario(item: any) {
     /** Borrar elemento del array  */
-    const index = this.findByItemIdIndexHorario(item.item_id);
-    const newArray = (index > -1) ? [
-      ...this.horario.slice(0, index),
-      ...this.horario.slice(index + 1)
-    ] : this.horario;
-    this.horario = newArray;
+    this.horario = [];
+    
+    this.listaEstudiantes = [];
+    this.listaEstudiantesAusentes = [];
+    this.listaEstudiantesPresentes = [];
+    console.log('Estudiantes', this.listaEstudiantes);
+    console.log('Ausentes', this.listaEstudiantesAusentes);
+    console.log('Presentes', this.listaEstudiantesPresentes);
   }
   /** Deselccionar todos los items */
   onDeSelectAllHorario(items: any) {

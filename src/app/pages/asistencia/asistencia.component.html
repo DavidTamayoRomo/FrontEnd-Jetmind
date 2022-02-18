@@ -47,9 +47,9 @@
             </div>
 
             
-            <div  *ngFor="let estudiante of listaEstudiantes">
+            <div  *ngFor="let estudiante of listaEstudiantes; let index=index">
                 <label class="custom-control custom-checkbox" >
-                    <input type="checkbox" class="custom-control-input" (click)="enviarDatosEstudiante(estudiante)" checked>
+                    <input type="checkbox" class="custom-control-input" (click)="enviarDatosEstudiante(estudiante,index)" checked>
                     <span class="custom-control-indicator"></span>
                     <span class="custom-control-description">{{estudiante.nombre}}</span>
                 </label>
