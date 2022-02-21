@@ -1,11 +1,17 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
-import { FormBuilder } from '@angular/forms';
+import { FormArray, FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PersonaService } from '../persona/persona.service';
 import { EstudianteService } from '../services/estudiante.service';
 import { HorarioService } from '../services/horario.service';
 import { AsignarHorariosEstudianteService } from '../services/asignar-horarios-estudiante.service';
+import { Asistencia } from './asistencia.model';
+import { AsistenciaService } from '../services/asistencia.service';
+
+import Swal from 'sweetalert2';
+
+
 
 @Component({
   selector: 'app-asistencia',
@@ -16,6 +22,7 @@ import { AsignarHorariosEstudianteService } from '../services/asignar-horarios-e
 export class AsistenciaComponent implements OnInit {
 
   public asistenciaSeleccionada: any;
+  public AsistenciaModel: Asistencia;
 
   public dropdownListPersonas: any = [];
 
@@ -32,6 +39,8 @@ export class AsistenciaComponent implements OnInit {
   public listaEstudiantesPresentes: any = [];
   public listaEstudiantesAusentes: any = [];
 
+  public ausentes: any = [];
+  public presentes: any = [];
 
   constructor(
     private fb: FormBuilder,
@@ -40,6 +49,7 @@ export class AsistenciaComponent implements OnInit {
     private personaService: PersonaService,
     private estudiantesService: EstudianteService,
     private asignarHorariosEstudianteService: AsignarHorariosEstudianteService,
+    private asistenciaService: AsistenciaService,
     private horariosService: HorarioService,
   ) { }
 
@@ -119,11 +129,146 @@ export class AsistenciaComponent implements OnInit {
     idHorario: [null],
     temaTratado: [null],
     fecha: [new Date()],
-    ausentes: [null],
-    presentes: [null],
+    ausentes: [this.listaEstudiantesAusentes],
+    presentes: [this.listaEstudiantesPresentes],
+    prueba: this.fb.array([this.fb.group({ estado: [null], estudiante: [null], comentario: [null] })])
   });
 
   crear() {
+
+    /* if (this.asistenciaSeleccionada) {
+      //actualizar
+      this.AsistenciaModel = this.registerForm.value;
+      if (this.registerForm.invalid) {
+        //Formulario invalido
+        const Toast = Swal.mixin({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+          }
+        })
+        Toast.fire({
+          icon: 'error',
+          title: 'Verificar campos invalidos \n Indicados con el color rojo'
+        })
+        return;
+      } else {
+        
+        this.asistenciaService.updateAsistencia(this.asistenciaSeleccionada._id, this.AsistenciaModel).subscribe((resp: any) => {
+          const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+              toast.addEventListener('mouseenter', Swal.stopTimer)
+              toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+          })
+          Toast.fire({
+            icon: 'success',
+            title: 'Se actualizo correctamente'
+          })
+          this.router.navigateByUrl('/lista');
+        }, (err: any) => {
+
+          console.warn(err.error.message);
+
+          const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+              toast.addEventListener('mouseenter', Swal.stopTimer)
+              toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+          })
+
+          //TODO: Mostrar error cuando es administrador. Dato que muestra el error completo=  err.error.message
+          Toast.fire({
+            icon: 'error',
+            title: 'ERROR: ' + err.error.statusCode + '\nContactese con su proveedor de software '
+          })
+        });
+      }
+    }else{
+      //crear
+      this.AsistenciaModel = this.registerForm.value;
+
+
+      if (this.registerForm.invalid) {
+        const Toast = Swal.mixin({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 6000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+          }
+        })
+        Toast.fire({
+          icon: 'error',
+          title: '- Campos con asterisco son obligatorios\n - Verificar campos invalidos, \n indicados con el color rojo  '
+        })
+        return;
+      }else{
+        this.asistenciaService.crearAsistencia(this.AsistenciaModel).subscribe((resp) => {
+          console.log("Persona creada");
+          const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+              toast.addEventListener('mouseenter', Swal.stopTimer)
+              toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+          })
+          Toast.fire({
+            icon: 'success',
+            title: 'Guardado correctamente'
+          })
+
+          this.router.navigateByUrl('/lista');
+        }, (err: any) => {
+
+          console.warn(err.error.message);
+
+          const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+              toast.addEventListener('mouseenter', Swal.stopTimer)
+              toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+          })
+
+          //TODO: Mostrar error cuando es administrador. Dato que muestra el error completo=  err.error.message
+          Toast.fire({
+            icon: 'error',
+            title: 'ERROR: ' + err.error.statusCode + '\nContactese con su proveedor de software '
+          })
+        });
+      }
+      
+    } */
+
+    console.log(this.registerForm.value);
+
 
   }
 
@@ -132,6 +277,7 @@ export class AsistenciaComponent implements OnInit {
   }
 
 
+  //No se va a usar :(
   enviarDatosEstudiante(estudiante: any, index: any) {
     console.log(estudiante, '-', index);
     //cuando se desmarca un estudiante enviar a lista de ausentes
@@ -173,11 +319,36 @@ export class AsistenciaComponent implements OnInit {
     }
   }
 
+  get getPrueba() {
+    return this.registerForm.get('prueba') as FormArray;
+  }
+
+  agregarPrueba(estudiante: any, idEstudiante:any) {
+    const pruebaForm = <FormArray>this.registerForm.controls['prueba'];
+
+    pruebaForm.push(this.fb.group(
+      {
+        estado: [true],
+        estudiante: [estudiante],
+        idEstudiante: [idEstudiante],
+        comentario: [null]    
+      }
+    ));
+  }
+
+  removerAllPrueba() {
+    const pruebaForm = <FormArray>this.registerForm.controls['prueba'];
+    pruebaForm.clear();
+  }
+
+
   llenarEstudiantesChechbox() {
     //Para agregar los estudiantes a la lista
     this.listaEstudiantes = [];
+    this.listaEstudiantesCopia = [];
     this.listaEstudiantesAusentes = [];
     this.listaEstudiantesPresentes = [];
+    this.removerAllPrueba();
 
     if (this.persona.length > 0 && this.horario.length > 0) {
       this.asignarHorariosEstudianteService.getAllByDocenteHorario(this.persona[0].item_id, this.horario[0].item_id).subscribe((resp: any) => {
@@ -185,8 +356,10 @@ export class AsistenciaComponent implements OnInit {
         resp.data[0].idEstudiantes.forEach((element: any) => {
           this.listaEstudiantes.push({ idEstudiante: element._id, nombre: element.nombresApellidos });
           this.listaEstudiantesCopia.push({ idEstudiante: element._id, nombre: element.nombresApellidos });
+          this.agregarPrueba(element.nombresApellidos, element._id);
         });
         this.listaEstudiantesPresentes = this.listaEstudiantesCopia;
+
       });
     }
 
@@ -227,7 +400,7 @@ export class AsistenciaComponent implements OnInit {
     console.log('Estudiantes', this.listaEstudiantes);
     console.log('Ausentes', this.listaEstudiantesAusentes);
     console.log('Presentes', this.listaEstudiantesPresentes);
-    
+
   }
   /** Deselccionar todos los items */
   onDeSelectAllPersona(items: any) {
@@ -257,7 +430,7 @@ export class AsistenciaComponent implements OnInit {
   onDeSelectHorario(item: any) {
     /** Borrar elemento del array  */
     this.horario = [];
-    
+
     this.listaEstudiantes = [];
     this.listaEstudiantesAusentes = [];
     this.listaEstudiantesPresentes = [];

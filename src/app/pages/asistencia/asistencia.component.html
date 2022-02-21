@@ -46,17 +46,53 @@
                 </div>
             </div>
 
-            
-            <div  *ngFor="let estudiante of listaEstudiantes; let index=index">
-                <label class="custom-control custom-checkbox" >
-                    <input type="checkbox" class="custom-control-input" (click)="enviarDatosEstudiante(estudiante,index)" checked>
-                    <span class="custom-control-indicator"></span>
-                    <span class="custom-control-description">{{estudiante.nombre}}</span>
-                </label>
+
+            <!-- <div class="row" *ngFor="let estudiante of listaEstudiantes; let index=index">
+                <div class="col-md-6">
+                    <label class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input"
+                            (click)="enviarDatosEstudiante(estudiante,index)" checked>
+                        <span class="custom-control-indicator"></span>
+                        <span class="custom-control-description">{{estudiante.nombre}}</span>
+
+                    </label>
+                </div>
+            </div> -->
+
+
+            <!-- <div formArrayName="prueba">
+                <div class="row" *ngFor="let pruebaForm of prueba.controls">
+                    <div [formGroup]="pruebaForm">
+                        <div class="col-md-6">
+                            <label class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" checked formControlName="estado">
+                                <span class="custom-control-indicator"></span>
+                            </label>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="text" formControlName="comentario">
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+
+            <div class="form-group">
+                <div class="panel panel-default" formArrayName="prueba">
+                    <div class="row" *ngFor = "let item of getPrueba.controls; let pointIndex=index" [formGroupName]="pointIndex">
+                        <div class="col-md-6">
+                            <label class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" formControlName="estado" checked>
+                                <span class="custom-control-indicator"></span>
+                                <input class="form-control" formControlName="estudiante" [attr.disabled]="true">
+                            </label>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <input class="form-control" type="text" formControlName="comentario" >
+                        </div>
+                    </div>
+                </div>
             </div>
-            
-
-
 
 
 
