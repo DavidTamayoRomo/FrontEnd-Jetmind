@@ -53,6 +53,7 @@ import { Listapeea18tomatisComponent } from './peea18tomatis/listapeea18tomatis/
 import { AsignarHorariosEstudianteComponent } from './asignar-horarios-estudiante/asignar-horarios-estudiante.component';
 import { ListaasignarComponent } from './asignar-horarios-estudiante/listaasignar/listaasignar.component';
 import { AsistenciaComponent } from './asistencia/asistencia.component';
+import { ListaAsistenciaComponent } from './asistencia/lista-asistencia/lista-asistencia.component';
 
 
 
@@ -143,6 +144,7 @@ const routes: Routes = [
             { path: 'asignarhorariosestudiantes', component: ListaasignarComponent , data:{titulo:'Lista de Asignar Horario Estudiante'} },
 
             { path: 'asistencia/:id', component: AsistenciaComponent , data:{titulo:'Asistencia'} },
+            { path: 'asistencias', component: ListaAsistenciaComponent , data:{titulo:'Lista Asistencia'} },
         ]
     },
 ];

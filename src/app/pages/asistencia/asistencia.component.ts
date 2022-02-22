@@ -10,6 +10,7 @@ import { Asistencia } from './asistencia.model';
 import { AsistenciaService } from '../services/asistencia.service';
 
 import Swal from 'sweetalert2';
+import { map } from 'rxjs/operators';
 
 
 
@@ -55,8 +56,13 @@ export class AsistenciaComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.recuperarDatosPersonas();
+
+    this.activatedRoute.params.subscribe(({ id }) => {
+      this.cargarAsistenciasbyId(id);
+    });
+
     this.recuperarDatosHorarios();
+    this.recuperarDatosPersonas();
 
     this.dropdownSettings = {
       singleSelection: false,
@@ -77,6 +83,53 @@ export class AsistenciaComponent implements OnInit {
 
   }
 
+  async cargarAsistenciasbyId(id: string) {
+
+    if (id === 'nuevo') {
+      return;
+    }
+
+    this.asistenciaService.obtenerAsistenciaById(id)
+      .subscribe((resp: any) => {
+        this.asistenciaSeleccionada = resp.data;
+        this.LlenarForm(resp);
+      });
+
+  }
+
+  LlenarForm(resp: any) {
+    const {
+      idDocente,
+      idHorario,
+      temaTratado,
+      fecha,
+      prueba
+    } = resp.data;
+    this.asistenciaSeleccionada = resp.data;
+
+    this.removerAllPrueba();
+    prueba.map((element: any) => {
+      this.agregarPrueba2(element.estudiante, element.idEstudiante, element.estado, element.comentario);
+    });
+    
+    this.registerForm.setValue({
+      idDocente,
+      idHorario,
+      temaTratado,
+      fecha,
+      prueba
+    });
+  }
+
+  public registerForm = this.fb.group({
+    idDocente: [null],
+    idHorario: [null],
+    temaTratado: [null],
+    fecha: [new Date()],
+    /* ausentes: [this.listaEstudiantesAusentes],
+    presentes: [this.listaEstudiantesPresentes], */
+    prueba: this.fb.array([this.fb.group({ estado: [null], estudiante: [null], idEstudiante: [null], comentario: [null], _id: [null] })])
+  });
 
   recuperarDatosPersonas() {
     this.personaService.getAllPersonasSinLimite().subscribe((resp: any) => {
@@ -124,21 +177,19 @@ export class AsistenciaComponent implements OnInit {
 
   }
 
-  public registerForm = this.fb.group({
-    idDocente: [null],
-    idHorario: [null],
-    temaTratado: [null],
-    fecha: [new Date()],
-    ausentes: [this.listaEstudiantesAusentes],
-    presentes: [this.listaEstudiantesPresentes],
-    prueba: this.fb.array([this.fb.group({ estado: [null], estudiante: [null], comentario: [null] })])
-  });
+
 
   crear() {
 
-    /* if (this.asistenciaSeleccionada) {
+    if (this.asistenciaSeleccionada) {
       //actualizar
       this.AsistenciaModel = this.registerForm.value;
+
+      this.AsistenciaModel.idDocente = this.persona[0].item_id;
+      this.AsistenciaModel.idHorario = this.horario[0].item_id;
+
+
+
       if (this.registerForm.invalid) {
         //Formulario invalido
         const Toast = Swal.mixin({
@@ -158,7 +209,7 @@ export class AsistenciaComponent implements OnInit {
         })
         return;
       } else {
-        
+
         this.asistenciaService.updateAsistencia(this.asistenciaSeleccionada._id, this.AsistenciaModel).subscribe((resp: any) => {
           const Toast = Swal.mixin({
             toast: true,
@@ -199,10 +250,13 @@ export class AsistenciaComponent implements OnInit {
           })
         });
       }
-    }else{
+    } else {
       //crear
       this.AsistenciaModel = this.registerForm.value;
+      this.AsistenciaModel.idDocente = this.persona[0].item_id;
+      this.AsistenciaModel.idHorario = this.horario[0].item_id;
 
+      console.log(this.AsistenciaModel);
 
       if (this.registerForm.invalid) {
         const Toast = Swal.mixin({
@@ -221,7 +275,7 @@ export class AsistenciaComponent implements OnInit {
           title: '- Campos con asterisco son obligatorios\n - Verificar campos invalidos, \n indicados con el color rojo  '
         })
         return;
-      }else{
+      } else {
         this.asistenciaService.crearAsistencia(this.AsistenciaModel).subscribe((resp) => {
           console.log("Persona creada");
           const Toast = Swal.mixin({
@@ -264,11 +318,8 @@ export class AsistenciaComponent implements OnInit {
           })
         });
       }
-      
-    } */
 
-    console.log(this.registerForm.value);
-
+    }
 
   }
 
@@ -323,7 +374,7 @@ export class AsistenciaComponent implements OnInit {
     return this.registerForm.get('prueba') as FormArray;
   }
 
-  agregarPrueba(estudiante: any, idEstudiante:any) {
+  agregarPrueba(estudiante: any, idEstudiante: any) {
     const pruebaForm = <FormArray>this.registerForm.controls['prueba'];
 
     pruebaForm.push(this.fb.group(
@@ -331,10 +382,28 @@ export class AsistenciaComponent implements OnInit {
         estado: [true],
         estudiante: [estudiante],
         idEstudiante: [idEstudiante],
-        comentario: [null]    
+        comentario: [null],
+        _id: [null]
       }
     ));
   }
+
+  agregarPrueba2(estudiante: any, idEstudiante: any, estado:any, comentario:any) {
+    const pruebaForm = <FormArray>this.registerForm.controls['prueba'];
+
+    pruebaForm.push(this.fb.group(
+      {
+        estado: [estado],
+        estudiante: [estudiante],
+        idEstudiante: [idEstudiante],
+        comentario: [comentario],
+        _id: [null]
+      }
+    ));
+  }
+
+
+
 
   removerAllPrueba() {
     const pruebaForm = <FormArray>this.registerForm.controls['prueba'];
@@ -344,29 +413,62 @@ export class AsistenciaComponent implements OnInit {
 
   llenarEstudiantesChechbox() {
     //Para agregar los estudiantes a la lista
-    this.listaEstudiantes = [];
-    this.listaEstudiantesCopia = [];
-    this.listaEstudiantesAusentes = [];
-    this.listaEstudiantesPresentes = [];
-    this.removerAllPrueba();
+    if (this.asistenciaSeleccionada) {
 
-    if (this.persona.length > 0 && this.horario.length > 0) {
-      this.asignarHorariosEstudianteService.getAllByDocenteHorario(this.persona[0].item_id, this.horario[0].item_id).subscribe((resp: any) => {
-        console.log(resp.data);
-        resp.data[0].idEstudiantes.forEach((element: any) => {
-          this.listaEstudiantes.push({ idEstudiante: element._id, nombre: element.nombresApellidos });
-          this.listaEstudiantesCopia.push({ idEstudiante: element._id, nombre: element.nombresApellidos });
-          this.agregarPrueba(element.nombresApellidos, element._id);
+    } else {
+      if (this.persona.length > 0 && this.horario.length > 0) {
+        console.log('Entre 1');
+        this.removerAllPrueba();
+        this.asignarHorariosEstudianteService.getAllByDocenteHorario(this.persona[0].item_id, this.horario[0].item_id).subscribe((resp: any) => {
+          resp.data[0].idEstudiantes.forEach((element: any) => {
+            this.agregarPrueba(element.nombresApellidos, element._id);
+          });
+
         });
-        this.listaEstudiantesPresentes = this.listaEstudiantesCopia;
-
-      });
+      }
     }
 
-    console.log('Estudiantes', this.listaEstudiantes);
-    console.log('Ausentes', this.listaEstudiantesAusentes);
-    console.log('Presentes', this.listaEstudiantesPresentes);
   }
+
+  llenarEstudiantes(idPersona: any, idHorario: any) {
+    //Para agregar los estudiantes a la lista
+    this.removerAllPrueba();
+    this.asignarHorariosEstudianteService.getAllByDocenteHorario(idPersona, idHorario).subscribe((resp: any) => {
+      resp.data[0].idEstudiantes.forEach((element: any) => {
+        this.agregarPrueba(element.nombresApellidos, element._id);
+      });
+    });
+  }
+
+
+  /* llenarEstudiantesChechbox() {
+    //Para agregar los estudiantes a la lista
+    
+      console.log('Entre');
+      this.listaEstudiantes = [];
+      this.listaEstudiantesCopia = [];
+      this.listaEstudiantesAusentes = [];
+      this.listaEstudiantesPresentes = [];
+      this.removerAllPrueba();
+ 
+      if (this.persona.length > 0 && this.horario.length > 0) {
+        this.asignarHorariosEstudianteService.getAllByDocenteHorario(this.persona[0].item_id, this.horario[0].item_id).subscribe((resp: any) => {
+          console.log(resp.data);
+          resp.data[0].idEstudiantes.forEach((element: any) => {
+            this.listaEstudiantes.push({ idEstudiante: element._id, nombre: element.nombresApellidos });
+            this.listaEstudiantesCopia.push({ idEstudiante: element._id, nombre: element.nombresApellidos });
+            this.agregarPrueba(element.nombresApellidos, element._id);
+          });
+          this.listaEstudiantesPresentes = this.listaEstudiantesCopia;
+ 
+        });
+      }
+ 
+      console.log('Estudiantes', this.listaEstudiantes);
+      console.log('Ausentes', this.listaEstudiantesAusentes);
+      console.log('Presentes', this.listaEstudiantesPresentes);
+    
+  } */
 
   /** Persona */
   /** Item Seleccionado */

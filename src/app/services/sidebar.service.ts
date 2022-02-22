@@ -212,7 +212,7 @@ export class SidebarService {
       icono: 'mdi mdi-buffer',
       submenu: [
         { titulo: 'Crear', url: '/asistencia/nuevo' },
-        { titulo: 'Lista', url: '/listaasistencia' },
+        { titulo: 'Lista', url: '/asistencias' },
       ]
     },
     

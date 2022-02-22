@@ -71,6 +71,7 @@ import { Listapeea18tomatisComponent } from './peea18tomatis/listapeea18tomatis/
 import { AsignarHorariosEstudianteComponent } from './asignar-horarios-estudiante/asignar-horarios-estudiante.component';
 import { ListaasignarComponent } from './asignar-horarios-estudiante/listaasignar/listaasignar.component';
 import { AsistenciaComponent } from './asistencia/asistencia.component';
+import { ListaAsistenciaComponent } from './asistencia/lista-asistencia/lista-asistencia.component';
 
 
 
@@ -132,7 +133,8 @@ const ngWizardConfig: NgWizardConfig = {
     Listapeea18tomatisComponent,
     AsignarHorariosEstudianteComponent,
     ListaasignarComponent,
-    AsistenciaComponent
+    AsistenciaComponent,
+    ListaAsistenciaComponent
     
   ],
   exports:[
