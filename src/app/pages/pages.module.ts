@@ -72,6 +72,7 @@ import { AsignarHorariosEstudianteComponent } from './asignar-horarios-estudiant
 import { ListaasignarComponent } from './asignar-horarios-estudiante/listaasignar/listaasignar.component';
 import { AsistenciaComponent } from './asistencia/asistencia.component';
 import { ListaAsistenciaComponent } from './asistencia/lista-asistencia/lista-asistencia.component';
+import { EntrevistaInicialCHUKComponent } from './entrevista-inicial-chuk/entrevista-inicial-chuk.component';
 
 
 
@@ -134,7 +135,8 @@ const ngWizardConfig: NgWizardConfig = {
     AsignarHorariosEstudianteComponent,
     ListaasignarComponent,
     AsistenciaComponent,
-    ListaAsistenciaComponent
+    ListaAsistenciaComponent,
+    EntrevistaInicialCHUKComponent
     
   ],
   exports:[

@@ -141,6 +141,30 @@ export class SidebarService {
       ]
     },
     {
+      titulo: 'Asignar Horario',
+      icono: 'mdi mdi-brightness-auto',
+      submenu: [
+        { titulo: 'Crear', url: '/asignarhorarioestudiante/nuevo' },
+        { titulo: 'Lista', url: '/asignarhorariosestudiantes' },
+      ]
+    },
+    {
+      titulo: 'Asistencia',
+      icono: 'mdi mdi-checkbox-multiple-marked',
+      submenu: [
+        { titulo: 'Crear', url: '/asistencia/nuevo' },
+        { titulo: 'Lista', url: '/asistencias' },
+      ]
+    },
+    {
+      titulo: 'Entrevista Incial CH UK',
+      icono: 'mdi mdi-checkbox-multiple-marked',
+      submenu: [
+        { titulo: 'Crear', url: '/entrevistainicialchuk/nuevo/idcontrato' },
+        { titulo: 'Lista', url: '/listaentrevistainicialchuk' },
+      ]
+    },
+    {
       titulo: 'PEEA 17 Charlotte - Uk',
       icono: 'mdi mdi-buffer',
       submenu: [
@@ -199,22 +223,7 @@ export class SidebarService {
         { titulo: 'Lista PEEA 18 TM', url: '/lista-peea-18-ilvem' },
       ]
     },
-    {
-      titulo: 'Asignar Horario',
-      icono: 'mdi mdi-buffer',
-      submenu: [
-        { titulo: 'Crear', url: '/asignarhorarioestudiante/nuevo' },
-        { titulo: 'Lista', url: '/asignarhorariosestudiantes' },
-      ]
-    },
-    {
-      titulo: 'Asistencia',
-      icono: 'mdi mdi-buffer',
-      submenu: [
-        { titulo: 'Crear', url: '/asistencia/nuevo' },
-        { titulo: 'Lista', url: '/asistencias' },
-      ]
-    },
+    
     
 
   ]

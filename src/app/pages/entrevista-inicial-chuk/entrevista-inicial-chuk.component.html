@@ -1,0 +1,316 @@
+<div class="card">
+
+    <form (ngSubmit)="crear()" autocomplete="off" [formGroup]="registerForm">
+
+        <div class="card-body">
+
+            <div class="form-group">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <label for="exampleInputuname">Fecha *</label>
+                    </div>
+                    <div class="panel-body">
+                        <input class="form-control" type="text" mwlFlatpickr [altInput]="true"
+                            [convertModelValue]="true" formControlName="fecha">
+                    </div>
+                </div>
+            </div>
+
+
+
+            <!-- <div class="form-group" >
+                <div class="demo-switch-title">Tiempo Capacitacion</div>
+                <select class="form-control custom-select" formControlName="tiempoCapacitacion">
+                    <option value="4 meses">4 meses</option>
+                    <option value="6 meses">6 meses</option>
+                    <option value="6 meses">9 meses</option>
+                    <option value="6 meses">18 meses</option>
+                    <option value="1 año">1 año</option>
+                    <option value="2 año">2 año</option>
+                    <option value="3 año">3 año</option>
+                    <option value="4 año">4 año</option>
+                </select>
+                <small class="form-control-feedback"> Seleccione el Tiempo </small>
+            </div> -->
+
+            <!--tabla -->
+            <div class="form-group">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <label for="exampleInputuname">Estudiantes</label>
+                    </div>
+                    <div class="panel-body">
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Nombre</th>
+                                    <th>Cedula</th>
+                                    <th>Asignado</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let estudiante of estudiantes;let index=index">
+                                    <td>{{estudiante.nombresApellidos}}</td>
+                                    <td>{{estudiante.cedula}}</td>
+                                    <td>
+                                        <div *ngFor="let recorrer of arrayDocentesHorararios[index]">
+                                            <div>
+                                                {{recorrer.idDocente[0]?.nombre}}
+                                            </div>
+                                            <div>
+                                                {{recorrer.idHorario[0]?.nombre}}
+                                            </div> 
+                                        </div>
+                                        
+                                        <!-- <div>{{arrayDocentesHorararios[index][0]?.idHorario[0]?.nombre}}</div> -->
+                                    </td>
+
+                                    <td class="text-nowrap">
+                                        <button (click)="abrirModal(estudiante, index)" type="button"
+                                            class="btn btn-info btn-circle btn-lg">
+                                            <i class="ti ti-plus "></i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+
+            <div class="form-group">
+                <div class="demo-switch-title">Apoyo Académico (R.I.N) </div>
+                <select class="form-control custom-select" formControlName="pregunta1">
+                    <option value="Si">Si</option>
+                    <option value="No">No</option>
+                </select>
+                <small class="form-control-feedback"> Seleccione </small>
+            </div>
+            <div class="form-group">
+                <div class="demo-switch-title">Evaluaciones continuas </div>
+                <select class="form-control custom-select" formControlName="pregunta2">
+                    <option value="Si">Si</option>
+                    <option value="No">No</option>
+                </select>
+                <small class="form-control-feedback"> Seleccione </small>
+            </div>
+            <div class="form-group">
+                <div class="demo-switch-title">Talleres y conferencias virtuales con psicólogos de amplia trayectoria
+                </div>
+                <select class="form-control custom-select" formControlName="pregunta3">
+                    <option value="Si">Si</option>
+                    <option value="No">No</option>
+                </select>
+                <small class="form-control-feedback"> Seleccione </small>
+            </div>
+            <div class="form-group">
+                <div class="demo-switch-title">Certificado</div>
+                <select class="form-control custom-select" formControlName="pregunta4">
+                    <option value="Si">Si</option>
+                    <option value="No">No</option>
+                </select>
+                <small class="form-control-feedback"> Seleccione </small>
+            </div>
+            <div class="form-group">
+                <div class="demo-switch-title">¿Asiste a escuela o colegio bilingüe? </div>
+                <select class="form-control custom-select" formControlName="pregunta5">
+                    <option value="Si">Si</option>
+                    <option value="No">No</option>
+                </select>
+                <small class="form-control-feedback"> Seleccione </small>
+            </div>
+            <div class="form-group">
+                <div class="demo-switch-title">¿En casa alguien habla inglés?</div>
+                <select class="form-control custom-select" formControlName="pregunta6">
+                    <option value="Si">Si</option>
+                    <option value="No">No</option>
+                </select>
+                <small class="form-control-feedback"> Seleccione </small>
+            </div>
+            <div class="form-group">
+                <div class="demo-switch-title">¿Ha estudiando inglés anteriormente?</div>
+                <select class="form-control custom-select" formControlName="pregunta7">
+                    <option value="Si">Si</option>
+                    <option value="No">No</option>
+                </select>
+                <small class="form-control-feedback"> Seleccione </small>
+            </div>
+            <div class="form-group">
+                <div class="demo-switch-title">¿Tiene algún problema de aprendizaje?</div>
+                <select class="form-control custom-select" formControlName="pregunta8">
+                    <option value="Si">Si</option>
+                    <option value="No">No</option>
+                </select>
+                <small class="form-control-feedback"> Seleccione </small>
+            </div>
+            <div class="form-group">
+                <div class="demo-switch-title">¿Por qué ha decidido estudiar inglés?</div>
+                <select class="form-control custom-select" formControlName="pregunta9">
+                    <option value="Si">Si</option>
+                    <option value="No">No</option>
+                </select>
+                <small class="form-control-feedback"> Seleccione </small>
+            </div>
+
+
+            <div>
+                <button type="submit" class="btn btn-success waves-effect waves-light m-r-10">Guardar</button>
+                <a (click)="cancelarGuardado()" class="btn btn-inverse waves-effect waves-light">Cancelar</a>
+            </div>
+
+        </div>
+    </form>
+
+</div>
+
+
+
+
+
+<div class="fondo-modal-imagen animated fadeIn fast" [class.oculto]="mostraModal">
+    <div id="responsive-modal" class="modal fade show" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+        style="display: block;padding-right: 17px; overflow-y: initial">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Asignar horarios</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                        (click)="cerrarModal()">×</button>
+                </div>
+
+                <div class="card-body">
+                    <h4 class="card-title"> Agregrar horario para {{estudianteSeleccionado?.nombresApellidos}}</h4>
+                    <br>
+                    <form [formGroup]="registerForm1">
+                        <div class="form-group">
+                            <div class="panel panel-default" formArrayName="estudiantes">
+                                <div class="row" *ngFor="let item of getestudaintes.controls; let pointIndex=index"
+                                    [formGroupName]="pointIndex">
+
+
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="exampleInputuname">Docente *</label>
+                                            <ng-multiselect-dropdown [placeholder]="'Seleccione Docente'"
+                                                [settings]="dropdownSettingsSingle" [data]="dropdownListPersonas"
+                                                (onSelect)="onItemSelectPersona($event)"
+                                                (onSelectAll)="onSelectAllPersona($event)"
+                                                (onDeSelect)="onDeSelectPersona($event)"
+                                                (onDeSelectAll)="onDeSelectAllPersona($event)"
+                                                formControlName="idDocente">
+                                            </ng-multiselect-dropdown>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="exampleInputuname">Horario *</label>
+                                            <ng-multiselect-dropdown [placeholder]="'Seleccione Docente'"
+                                                [settings]="dropdownSettingsSingle" [data]="dropdownListHorarios"
+                                                (onSelect)="onItemSelectHorario($event)"
+                                                (onSelectAll)="onSelectAllHorario($event)"
+                                                (onDeSelect)="onDeSelectHorario($event)"
+                                                (onDeSelectAll)="onDeSelectAllHorario($event)"
+                                                formControlName="idHorario">
+                                            </ng-multiselect-dropdown>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <a data-toggle="tooltip" data-original-title="Borrar"
+                                                (click)="eliminarCamposArray(pointIndex)">
+                                                <i class=" ti-trash"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                        <button
+                            (click)="agregarEstudiantes(estudianteSeleccionado._id,estudianteSeleccionado.nombresApellidos)"
+                            type="button" class="btn btn-info btn-circle btn-lg">
+                            <i class="ti ti-plus "></i>
+                        </button>
+
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="exampleInputuname">Observaciones</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="ti-user"></i></div>
+                                    <textarea type="text" class="form-control"
+                                        formControlName="observaciones"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <label for="exampleInputuname">Fecha Inicio *</label>
+                                    </div>
+                                    <div class="panel-body">
+                                        <input class="form-control" type="text" mwlFlatpickr [altInput]="true"
+                                            [convertModelValue]="true" formControlName="fechaInicio">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <label for="exampleInputuname">Fecha Incorporacion *</label>
+                                    </div>
+                                    <div class="panel-body">
+                                        <input class="form-control" type="text" mwlFlatpickr [altInput]="true"
+                                            [convertModelValue]="true" formControlName="FechaIncorporacion">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <div class="demo-switch-title">Tiempo Capacitacion</div>
+                                <select class="form-control custom-select" formControlName="tiempoCapacitacion">
+                                    <option value="4 meses">4 meses</option>
+                                    <option value="6 meses">6 meses</option>
+                                    <option value="6 meses">9 meses</option>
+                                    <option value="6 meses">18 meses</option>
+                                    <option value="1 año">1 año</option>
+                                    <option value="2 año">2 año</option>
+                                    <option value="3 año">3 año</option>
+                                    <option value="4 año">4 año</option>
+                                </select>
+                                <small class="form-control-feedback"> Seleccione el Tiempo </small>
+                            </div>
+                        </div>
+
+
+                    </form>
+
+
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default waves-effect" data-dismiss="modal"
+                        (click)="cerrarModal()">Close</button>
+                    <button type="button" (click)="agregar()"
+                        class="btn btn-success waves-effect waves-light">Agregar</button>
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

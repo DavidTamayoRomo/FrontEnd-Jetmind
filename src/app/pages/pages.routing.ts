@@ -54,6 +54,7 @@ import { AsignarHorariosEstudianteComponent } from './asignar-horarios-estudiant
 import { ListaasignarComponent } from './asignar-horarios-estudiante/listaasignar/listaasignar.component';
 import { AsistenciaComponent } from './asistencia/asistencia.component';
 import { ListaAsistenciaComponent } from './asistencia/lista-asistencia/lista-asistencia.component';
+import { EntrevistaInicialCHUKComponent } from './entrevista-inicial-chuk/entrevista-inicial-chuk.component';
 
 
 
@@ -145,6 +146,9 @@ const routes: Routes = [
 
             { path: 'asistencia/:id', component: AsistenciaComponent , data:{titulo:'Asistencia'} },
             { path: 'asistencias', component: ListaAsistenciaComponent , data:{titulo:'Lista Asistencia'} },
+            
+            { path: 'entrevistainicialchuk/:id/:idContrato', component: EntrevistaInicialCHUKComponent , data:{titulo:'Entrvista Inicial CH UK'} },
+            //{ path: 'listaentrevistainicialchuk', component: ListaAsistenciaComponent , data:{titulo:'Lista Asistencia'} },
         ]
     },
 ];
