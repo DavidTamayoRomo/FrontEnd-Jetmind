@@ -55,6 +55,7 @@ import { ListaasignarComponent } from './asignar-horarios-estudiante/listaasigna
 import { AsistenciaComponent } from './asistencia/asistencia.component';
 import { ListaAsistenciaComponent } from './asistencia/lista-asistencia/lista-asistencia.component';
 import { EntrevistaInicialCHUKComponent } from './entrevista-inicial-chuk/entrevista-inicial-chuk.component';
+import { ListaEntrevistaCHUKComponent } from './entrevista-inicial-chuk/lista-entrevista-chuk/lista-entrevista-chuk.component';
 
 
 
@@ -148,7 +149,7 @@ const routes: Routes = [
             { path: 'asistencias', component: ListaAsistenciaComponent , data:{titulo:'Lista Asistencia'} },
             
             { path: 'entrevistainicialchuk/:id/:idContrato', component: EntrevistaInicialCHUKComponent , data:{titulo:'Entrvista Inicial CH UK'} },
-            //{ path: 'listaentrevistainicialchuk', component: ListaAsistenciaComponent , data:{titulo:'Lista Asistencia'} },
+            { path: 'listaentrevistainicialchuk', component: ListaEntrevistaCHUKComponent , data:{titulo:'Lista de entrevista incial'} },
         ]
     },
 ];
