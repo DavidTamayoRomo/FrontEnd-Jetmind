@@ -56,6 +56,8 @@ import { AsistenciaComponent } from './asistencia/asistencia.component';
 import { ListaAsistenciaComponent } from './asistencia/lista-asistencia/lista-asistencia.component';
 import { EntrevistaInicialCHUKComponent } from './entrevista-inicial-chuk/entrevista-inicial-chuk.component';
 import { ListaEntrevistaCHUKComponent } from './entrevista-inicial-chuk/lista-entrevista-chuk/lista-entrevista-chuk.component';
+import { EntrevistaInicialILComponent } from './entrevista-inicial-il/entrevista-inicial-il.component';
+import { ListaEntrevistaILComponent } from './entrevista-inicial-il/lista-entrevista-il/lista-entrevista-il.component';
 
 
 
@@ -150,6 +152,9 @@ const routes: Routes = [
             
             { path: 'entrevistainicialchuk/:id/:idContrato', component: EntrevistaInicialCHUKComponent , data:{titulo:'Entrvista Inicial CH UK'} },
             { path: 'listaentrevistainicialchuk', component: ListaEntrevistaCHUKComponent , data:{titulo:'Lista de entrevista incial'} },
+            
+            { path: 'entrevistainicialil/:id/:idContrato', component: EntrevistaInicialILComponent , data:{titulo:'Entrvista Inicial IL'} },
+            { path: 'listaentrevistainicialil', component: ListaEntrevistaILComponent , data:{titulo:'Lista de entrevista incial'} },
         ]
     },
 ];

@@ -165,6 +165,14 @@ export class SidebarService {
       ]
     },
     {
+      titulo: 'Entrevista Incial Ilvem',
+      icono: 'mdi mdi-checkbox-multiple-marked',
+      submenu: [
+        { titulo: 'Crear', url: '/entrevistainicialil/nuevo/idcontrato' },
+        { titulo: 'Lista', url: '/listaentrevistainicialil' },
+      ]
+    },
+    {
       titulo: 'PEEA 17 Charlotte - Uk',
       icono: 'mdi mdi-buffer',
       submenu: [

@@ -74,6 +74,8 @@ import { AsistenciaComponent } from './asistencia/asistencia.component';
 import { ListaAsistenciaComponent } from './asistencia/lista-asistencia/lista-asistencia.component';
 import { EntrevistaInicialCHUKComponent } from './entrevista-inicial-chuk/entrevista-inicial-chuk.component';
 import { ListaEntrevistaCHUKComponent } from './entrevista-inicial-chuk/lista-entrevista-chuk/lista-entrevista-chuk.component';
+import { EntrevistaInicialILComponent } from './entrevista-inicial-il/entrevista-inicial-il.component';
+import { ListaEntrevistaILComponent } from './entrevista-inicial-il/lista-entrevista-il/lista-entrevista-il.component';
 
 
 
@@ -138,7 +140,9 @@ const ngWizardConfig: NgWizardConfig = {
     AsistenciaComponent,
     ListaAsistenciaComponent,
     EntrevistaInicialCHUKComponent,
-    ListaEntrevistaCHUKComponent
+    ListaEntrevistaCHUKComponent,
+    EntrevistaInicialILComponent,
+    ListaEntrevistaILComponent
     
   ],
   exports:[
