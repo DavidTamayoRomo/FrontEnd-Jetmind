@@ -182,6 +182,13 @@ export class SidebarService {
       ]
     },
     {
+      titulo: 'Agenda de entrega de informes',
+      icono: 'mdi mdi-checkbox-multiple-marked',
+      submenu: [
+        { titulo: 'Calendario', url: '/agenda-entrega-informes' },
+      ]
+    },
+    {
       titulo: 'PEEA 17 Charlotte - Uk',
       icono: 'mdi mdi-buffer',
       submenu: [

@@ -60,6 +60,7 @@ import { EntrevistaInicialILComponent } from './entrevista-inicial-il/entrevista
 import { ListaEntrevistaILComponent } from './entrevista-inicial-il/lista-entrevista-il/lista-entrevista-il.component';
 import { AgregarEstudianteComponent } from './cambio-horario/agregar-estudiante/agregar-estudiante.component';
 import { CambiarEstudianteComponent } from './cambio-horario/cambiar-estudiante/cambiar-estudiante.component';
+import { AgendaEntregaInformesComponent } from './agenda-entrega-informes/agenda-entrega-informes.component';
 
 
 
@@ -160,7 +161,8 @@ const routes: Routes = [
             
             { path: 'cambiohorario-agregar/:id', component: AgregarEstudianteComponent , data:{titulo:'Agregar - Retirar estudiantes'} },
             { path: 'cambiohorario-cambiar/:id', component: CambiarEstudianteComponent , data:{titulo:'Cambiar estudiantes'} },
-            //{ path: 'listaentrevistainicialil', component: ListaEntrevistaILComponent , data:{titulo:'Lista de entrevista incial'} },
+            
+            { path: 'agenda-entrega-informes', component: AgendaEntregaInformesComponent , data:{titulo:'Agenda de entrega de informes'} },
         ]
     },
 ];
