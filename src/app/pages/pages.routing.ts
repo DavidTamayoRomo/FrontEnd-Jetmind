@@ -58,6 +58,8 @@ import { EntrevistaInicialCHUKComponent } from './entrevista-inicial-chuk/entrev
 import { ListaEntrevistaCHUKComponent } from './entrevista-inicial-chuk/lista-entrevista-chuk/lista-entrevista-chuk.component';
 import { EntrevistaInicialILComponent } from './entrevista-inicial-il/entrevista-inicial-il.component';
 import { ListaEntrevistaILComponent } from './entrevista-inicial-il/lista-entrevista-il/lista-entrevista-il.component';
+import { AgregarEstudianteComponent } from './cambio-horario/agregar-estudiante/agregar-estudiante.component';
+import { CambiarEstudianteComponent } from './cambio-horario/cambiar-estudiante/cambiar-estudiante.component';
 
 
 
@@ -155,6 +157,10 @@ const routes: Routes = [
             
             { path: 'entrevistainicialil/:id/:idContrato', component: EntrevistaInicialILComponent , data:{titulo:'Entrvista Inicial IL'} },
             { path: 'listaentrevistainicialil', component: ListaEntrevistaILComponent , data:{titulo:'Lista de entrevista incial'} },
+            
+            { path: 'cambiohorario-agregar/:id', component: AgregarEstudianteComponent , data:{titulo:'Agregar - Retirar estudiantes'} },
+            { path: 'cambiohorario-cambiar/:id', component: CambiarEstudianteComponent , data:{titulo:'Cambiar estudiantes'} },
+            //{ path: 'listaentrevistainicialil', component: ListaEntrevistaILComponent , data:{titulo:'Lista de entrevista incial'} },
         ]
     },
 ];

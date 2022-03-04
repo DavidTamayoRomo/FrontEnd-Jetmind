@@ -173,6 +173,15 @@ export class SidebarService {
       ]
     },
     {
+      titulo: 'Cambiar horario',
+      icono: 'mdi mdi-checkbox-multiple-marked',
+      submenu: [
+        { titulo: 'Agregar', url: '/cambiohorario-agregar/nuevo' },
+        { titulo: 'Retirar', url: '/cambiohorario-retirar/nuevo' },
+        { titulo: 'Cambiar', url: '/cambiohorario-cambiar/nuevo' },
+      ]
+    },
+    {
       titulo: 'PEEA 17 Charlotte - Uk',
       icono: 'mdi mdi-buffer',
       submenu: [

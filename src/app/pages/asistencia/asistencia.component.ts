@@ -440,6 +440,8 @@ export class AsistenciaComponent implements OnInit {
     });
   }
 
+  
+
 
   /* llenarEstudiantesChechbox() {
     //Para agregar los estudiantes a la lista

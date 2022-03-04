@@ -4,6 +4,7 @@ export class AsignarHorarioEstudiante {
         public idDocente?:string,
         public idHorario?:string,
         public idEstudiantes?:any,
+        public estado?:boolean,
         public addedUser?:string,
         public modifiedUser?:string
     ){}

@@ -1,0 +1,68 @@
+<div class="card">
+
+    <form (ngSubmit)="crearAsignarHorarios()" autocomplete="off" [formGroup]="registerForm">
+
+        <div class="card-body">
+ 
+            <hr>
+            <h3>Retirar Estudiantes del Grupo</h3>
+            <div class="form-group">
+                <label for="exampleInputuname">Docente *</label>
+                <ng-multiselect-dropdown [placeholder]="'Seleccione Docente'" [settings]="dropdownSettingsSingle"
+                    [data]="dropdownListPersonas" (onSelect)="onItemSelectPersona($event)"
+                    (onSelectAll)="onSelectAllPersona($event)" (onDeSelect)="onDeSelectPersona($event)"
+                    (onDeSelectAll)="onDeSelectAllPersona($event)" formControlName="idDocente">
+                </ng-multiselect-dropdown>
+            </div>
+
+            <div class="form-group">
+                <label for="exampleInputuname">Horario *</label>
+                <ng-multiselect-dropdown [placeholder]="'Seleccione Docente'" [settings]="dropdownSettingsSingle"
+                    [data]="dropdownListHorarios" (onSelect)="onItemSelectHorario($event)"
+                    (onSelectAll)="onSelectAllHorario($event)" (onDeSelect)="onDeSelectHorario($event)"
+                    (onDeSelectAll)="onDeSelectAllHorario($event)" formControlName="idHorario">
+                </ng-multiselect-dropdown>
+            </div>
+
+            <hr>
+            <h3>Agregar Estudiantes al Grupo</h3>
+            <div class="form-group">
+                <label for="exampleInputuname">Docente *</label>
+                <ng-multiselect-dropdown [placeholder]="'Seleccione Docente'" [settings]="dropdownSettingsSingle"
+                    [data]="dropdownListPersonas" (onSelect)="onItemSelectPersona1($event)"
+                    (onSelectAll)="onSelectAllPersona1($event)" (onDeSelect)="onDeSelectPersona1($event)"
+                    (onDeSelectAll)="onDeSelectAllPersona1($event)" formControlName="idDocente1">
+                </ng-multiselect-dropdown>
+            </div>
+
+            <div class="form-group">
+                <label for="exampleInputuname">Horario *</label>
+                <ng-multiselect-dropdown [placeholder]="'Seleccione Docente'" [settings]="dropdownSettingsSingle"
+                    [data]="dropdownListHorarios" (onSelect)="onItemSelectHorario1($event)"
+                    (onSelectAll)="onSelectAllHorario1($event)" (onDeSelect)="onDeSelectHorario1($event)"
+                    (onDeSelectAll)="onDeSelectAllHorario1($event)" formControlName="idHorario1">
+                </ng-multiselect-dropdown>
+            </div> 
+            
+            <div class="form-group">
+                <label for="exampleInputuname">Estudiantes *</label>
+                <ng-multiselect-dropdown [placeholder]="'Seleccione Docente'" [settings]="dropdownSettings"
+                    [data]="dropdownListEstudiantes" (onSelect)="onItemSelectEstudiante($event)"
+                    (onSelectAll)="onSelectAllEstudiante($event)" (onDeSelect)="onDeSelectEstudiante($event)"
+                    (onDeSelectAll)="onDeSelectAllEstudiante($event)" formControlName="idEstudiantes">
+                </ng-multiselect-dropdown>
+            </div>
+
+           
+
+
+            <div>
+                <button type="submit" class="btn btn-success waves-effect waves-light m-r-10">Guardar</button>
+                <a (click)="cancelarGuardado()" class="btn btn-inverse waves-effect waves-light">Cancelar</a>
+            </div>
+
+        </div>
+    </form>
+
+
+</div>

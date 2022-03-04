@@ -76,6 +76,10 @@ import { EntrevistaInicialCHUKComponent } from './entrevista-inicial-chuk/entrev
 import { ListaEntrevistaCHUKComponent } from './entrevista-inicial-chuk/lista-entrevista-chuk/lista-entrevista-chuk.component';
 import { EntrevistaInicialILComponent } from './entrevista-inicial-il/entrevista-inicial-il.component';
 import { ListaEntrevistaILComponent } from './entrevista-inicial-il/lista-entrevista-il/lista-entrevista-il.component';
+import { CambioHorarioComponent } from './cambio-horario/cambio-horario.component';
+import { RetirarEstudianteComponent } from './cambio-horario/retirar-estudiante/retirar-estudiante.component';
+import { AgregarEstudianteComponent } from './cambio-horario/agregar-estudiante/agregar-estudiante.component';
+import { CambiarEstudianteComponent } from './cambio-horario/cambiar-estudiante/cambiar-estudiante.component';
 
 
 
@@ -142,7 +146,11 @@ const ngWizardConfig: NgWizardConfig = {
     EntrevistaInicialCHUKComponent,
     ListaEntrevistaCHUKComponent,
     EntrevistaInicialILComponent,
-    ListaEntrevistaILComponent
+    ListaEntrevistaILComponent,
+    CambioHorarioComponent,
+    RetirarEstudianteComponent,
+    AgregarEstudianteComponent,
+    CambiarEstudianteComponent
     
   ],
   exports:[

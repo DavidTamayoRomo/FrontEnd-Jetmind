@@ -62,7 +62,7 @@ export class AsignarHorariosEstudianteService {
         
         const asignarHorariosEstudiantes = resp.data.map((asignarhorarioestudiante:any) => 
         new AsignarHorarioEstudiante(asignarhorarioestudiante._id, asignarhorarioestudiante.idDocente, 
-          asignarhorarioestudiante.idHorario, asignarhorarioestudiante.idEstudiantes)
+          asignarhorarioestudiante.idHorario, asignarhorarioestudiante.idEstudiantes, asignarhorarioestudiante.estado)
         );
         
         return{
