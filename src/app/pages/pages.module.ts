@@ -81,6 +81,8 @@ import { RetirarEstudianteComponent } from './cambio-horario/retirar-estudiante/
 import { AgregarEstudianteComponent } from './cambio-horario/agregar-estudiante/agregar-estudiante.component';
 import { CambiarEstudianteComponent } from './cambio-horario/cambiar-estudiante/cambiar-estudiante.component';
 import { AgendaEntregaInformesComponent } from './agenda-entrega-informes/agenda-entrega-informes.component';
+import { ListaAgendaComponent } from './agenda-entrega-informes/lista-agenda/lista-agenda.component';
+import { CampaniaComponent } from './campania/campania.component';
 
 
 
@@ -152,7 +154,9 @@ const ngWizardConfig: NgWizardConfig = {
     RetirarEstudianteComponent,
     AgregarEstudianteComponent,
     CambiarEstudianteComponent,
-    AgendaEntregaInformesComponent
+    AgendaEntregaInformesComponent,
+    ListaAgendaComponent,
+    CampaniaComponent
     
   ],
   exports:[

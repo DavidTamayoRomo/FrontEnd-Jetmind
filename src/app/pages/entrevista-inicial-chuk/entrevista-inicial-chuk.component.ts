@@ -8,6 +8,7 @@ import { HorarioService } from '../services/horario.service';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 
 import Swal from 'sweetalert2';
+
 import { EntrevistaInicialCHUK } from './entrevista-inicial-chuk.model';
 import { EntrevistaInicialCHUKService } from '../services/entrevista-inicial-chuk.service';
 import { map } from 'rxjs/operators';

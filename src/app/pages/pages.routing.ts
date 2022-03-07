@@ -61,6 +61,7 @@ import { ListaEntrevistaILComponent } from './entrevista-inicial-il/lista-entrev
 import { AgregarEstudianteComponent } from './cambio-horario/agregar-estudiante/agregar-estudiante.component';
 import { CambiarEstudianteComponent } from './cambio-horario/cambiar-estudiante/cambiar-estudiante.component';
 import { AgendaEntregaInformesComponent } from './agenda-entrega-informes/agenda-entrega-informes.component';
+import { CampaniaComponent } from './campania/campania.component';
 
 
 
@@ -163,6 +164,9 @@ const routes: Routes = [
             { path: 'cambiohorario-cambiar/:id', component: CambiarEstudianteComponent , data:{titulo:'Cambiar estudiantes'} },
             
             { path: 'agenda-entrega-informes', component: AgendaEntregaInformesComponent , data:{titulo:'Agenda de entrega de informes'} },
+
+            { path: 'campania/:id', component: CampaniaComponent , data:{titulo:'Campaña'} },
+            //{ path: 'listacampania', component: CampaniaComponent , data:{titulo:'Campaña'} },
         ]
     },
 ];

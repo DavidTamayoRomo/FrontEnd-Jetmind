@@ -1,0 +1,68 @@
+<div class="card">
+
+    <form (ngSubmit)="crear()" autocomplete="off" [formGroup]="registerForm">
+
+        <div class="card-body">
+            <div class="form-group">
+                <div class="demo-switch-title">Estado</div>
+                <div class="switch">
+                    <label>
+                        <input type="checkbox" checked="" formControlName="estado"><span
+                            class="lever switch-col-cyan"></span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="exampleInputuname">Marcas *</label>
+                <ng-multiselect-dropdown [placeholder]="'Seleccione Marca'" [settings]="dropdownSettings"
+                    [data]="dropdownListMarcas" (onSelect)="onItemSelectmarca($event)"
+                    (onSelectAll)="onSelectAllmarca($event)" (onDeSelect)="onDeSelectmarca($event)"
+                    (onDeSelectAll)="onDeSelectAllmarca($event)" formControlName="idMarcas">
+                </ng-multiselect-dropdown>
+                <div class="text-danger"><p *ngIf="campoNoValido('idMarcas')">Ingrese al menos una marca</p></div> 
+            </div>
+
+            <div class="form-group">
+                <label for="exampleInputuname">Nombre*</label>
+                <div class="input-group">
+                    <div class="input-group-addon"><i class="ti-user"></i></div>
+                    <input type="text" class="form-control" placeholder="Nombre ciudad" formControlName="nombre">
+                </div>
+                
+            </div>
+
+            <div class="form-group">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <label for="exampleInputuname">Fecha Activacion*</label>
+                    </div>
+                    <div class="panel-body">
+                        <input class="form-control" type="text" mwlFlatpickr [altInput]="true"
+                            [convertModelValue]="true" formControlName="fecha_activacion" >
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <label for="exampleInputuname">Fecha Finalizacion*</label>
+                    </div>
+                    <div class="panel-body">
+                        <input class="form-control" type="text" mwlFlatpickr [altInput]="true"
+                            [convertModelValue]="true" formControlName="fecha_finalizacion" >
+                    </div>
+                </div>
+            </div>
+
+
+            <div>
+                <button type="submit" class="btn btn-success waves-effect waves-light m-r-10">Guardar</button>
+                <a (click)="cancelarGuardado()"  class="btn btn-inverse waves-effect waves-light">Cancelar</a>
+            </div>
+
+        </div>
+    </form>
+
+</div>

@@ -49,6 +49,14 @@ export class SidebarService {
       ]
     },
     {
+      titulo: 'Campaña',
+      icono: 'mdi mdi-timer',
+      submenu: [
+        { titulo: 'Crear ', url: '/campania/nuevo' },
+        { titulo: 'Lista ', url: '/listacampania' },
+      ]
+    },
+    {
       titulo: 'Nombre de Programas',
       icono: 'mdi mdi-book',
       submenu: [
@@ -149,11 +157,26 @@ export class SidebarService {
       ]
     },
     {
+      titulo: 'Cambiar horario',
+      icono: 'mdi mdi-alarm-multiple',
+      submenu: [
+        { titulo: 'Agregar - Retirar', url: '/cambiohorario-agregar/nuevo' },
+        { titulo: 'Cambiar Grupo', url: '/cambiohorario-cambiar/nuevo' },
+      ]
+    },
+    {
       titulo: 'Asistencia',
       icono: 'mdi mdi-checkbox-multiple-marked',
       submenu: [
         { titulo: 'Crear', url: '/asistencia/nuevo' },
         { titulo: 'Lista', url: '/asistencias' },
+      ]
+    },
+    {
+      titulo: 'Agenda de entrega de informes',
+      icono: 'mdi mdi-calendar-multiple',
+      submenu: [
+        { titulo: 'Calendario', url: '/agenda-entrega-informes' },
       ]
     },
     {
@@ -172,22 +195,8 @@ export class SidebarService {
         { titulo: 'Lista', url: '/listaentrevistainicialil' },
       ]
     },
-    {
-      titulo: 'Cambiar horario',
-      icono: 'mdi mdi-checkbox-multiple-marked',
-      submenu: [
-        { titulo: 'Agregar', url: '/cambiohorario-agregar/nuevo' },
-        { titulo: 'Retirar', url: '/cambiohorario-retirar/nuevo' },
-        { titulo: 'Cambiar', url: '/cambiohorario-cambiar/nuevo' },
-      ]
-    },
-    {
-      titulo: 'Agenda de entrega de informes',
-      icono: 'mdi mdi-checkbox-multiple-marked',
-      submenu: [
-        { titulo: 'Calendario', url: '/agenda-entrega-informes' },
-      ]
-    },
+    
+    
     {
       titulo: 'PEEA 17 Charlotte - Uk',
       icono: 'mdi mdi-buffer',
