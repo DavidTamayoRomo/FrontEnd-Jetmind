@@ -305,4 +305,9 @@ export class ContratosAsignarDirectorComponent implements OnInit {
 
   }
 
+
+  entrevistaInicial(contrato:any){
+    this.router.navigate(['/entrevistainicialchuk/nuevo/', contrato._id]);
+  }
+
 }

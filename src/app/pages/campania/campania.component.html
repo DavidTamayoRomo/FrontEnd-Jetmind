@@ -7,7 +7,7 @@
                 <div class="demo-switch-title">Estado</div>
                 <div class="switch">
                     <label>
-                        <input type="checkbox" checked="" formControlName="estado"><span
+                        <input type="checkbox"  formControlName="estado"><span
                             class="lever switch-col-cyan"></span>
                     </label>
                 </div>
@@ -18,9 +18,9 @@
                 <ng-multiselect-dropdown [placeholder]="'Seleccione Marca'" [settings]="dropdownSettings"
                     [data]="dropdownListMarcas" (onSelect)="onItemSelectmarca($event)"
                     (onSelectAll)="onSelectAllmarca($event)" (onDeSelect)="onDeSelectmarca($event)"
-                    (onDeSelectAll)="onDeSelectAllmarca($event)" formControlName="idMarcas">
+                    (onDeSelectAll)="onDeSelectAllmarca($event)" formControlName="idMarca">
                 </ng-multiselect-dropdown>
-                <div class="text-danger"><p *ngIf="campoNoValido('idMarcas')">Ingrese al menos una marca</p></div> 
+                <div class="text-danger"><p *ngIf="campoNoValido('idMarca')">Ingrese al menos una marca</p></div> 
             </div>
 
             <div class="form-group">

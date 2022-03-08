@@ -6,6 +6,8 @@ import { CampaniaService } from '../services/campania.service';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { MarcaService } from '../services/marca.service';
 
+import Swal from 'sweetalert2';
+
 @Component({
   selector: 'app-campania',
   templateUrl: './campania.component.html',
@@ -14,7 +16,7 @@ import { MarcaService } from '../services/marca.service';
 })
 export class CampaniaComponent implements OnInit {
 
-  public campaniaSeleccionada : any;
+  public campaniaSeleccionada: any;
 
   CampaniaModel = new Campania();
 
@@ -24,10 +26,10 @@ export class CampaniaComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private campaniaService:CampaniaService,
+    private campaniaService: CampaniaService,
     private activatedRoute: ActivatedRoute,
     private marcaService: MarcaService,
-    private router:Router
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -37,7 +39,7 @@ export class CampaniaComponent implements OnInit {
 
     /** Servicio que me devuelva las MARCAS de la base de datos */
     this.recuperarDatosMarcas();
-   
+
     this.dropdownSettings = {
       singleSelection: false,
       idField: 'item_id',
@@ -62,7 +64,7 @@ export class CampaniaComponent implements OnInit {
 
   }
 
-  LlenarForm(resp:any){
+  LlenarForm(resp: any) {
     const {
       estado,
       nombre,
@@ -70,7 +72,7 @@ export class CampaniaComponent implements OnInit {
       fecha_finalizacion,
       idMarca
     } = resp.data;
-    this.campaniaSeleccionada = resp.data; 
+    this.campaniaSeleccionada = resp.data;
     this.registerForm.setValue({
       estado,
       nombre,
@@ -89,7 +91,7 @@ export class CampaniaComponent implements OnInit {
   });
 
   campoNoValido(campo: any): boolean {
-    if (this.registerForm.get(campo)?.invalid  && (this.registerForm.get(campo)?.dirty || this.registerForm.get(campo)?.touched)) {
+    if (this.registerForm.get(campo)?.invalid && (this.registerForm.get(campo)?.dirty || this.registerForm.get(campo)?.touched)) {
       return true;
     }
     else {
@@ -97,11 +99,19 @@ export class CampaniaComponent implements OnInit {
     }
   }
 
-  crear(){
+  crear() {
 
-    /* if (this.ciudadSeleccionada) {
+    if (this.campaniaSeleccionada) {
       //actualizar
-      this.CiudadModel = this.registerForm.value;
+
+      this.CampaniaModel = this.registerForm.value;
+
+      let marcaLista: any = [];
+      this.marca.forEach((element: any) => {
+        marcaLista.push(element.item_id);
+      });
+      this.CampaniaModel.idMarca = marcaLista;
+
       if (this.registerForm.invalid) {
         //Formulario invalido
         const Toast = Swal.mixin({
@@ -121,8 +131,8 @@ export class CampaniaComponent implements OnInit {
         })
         return;
       } else {
-        
-        this.ciudadService.updateCiudad(this.ciudadSeleccionada._id, this.CiudadModel).subscribe((resp: any) => {
+
+        this.campaniaService.updatecampania(this.campaniaSeleccionada._id, this.CampaniaModel).subscribe((resp: any) => {
           const Toast = Swal.mixin({
             toast: true,
             position: 'top-end',
@@ -138,7 +148,7 @@ export class CampaniaComponent implements OnInit {
             icon: 'success',
             title: 'Se actualizo correctamente'
           })
-          this.router.navigateByUrl('/listaciudades');
+          this.router.navigateByUrl('/listacampania');
         }, (err: any) => {
 
           console.warn(err.error.message);
@@ -162,8 +172,18 @@ export class CampaniaComponent implements OnInit {
           })
         });
       }
-    }else{
+    } else {
       //crear
+      this.CampaniaModel = this.registerForm.value;
+
+      //ID de las Marcas
+      let marcaLista: any = [];
+      this.marca.forEach((element: any) => {
+        marcaLista.push(element.item_id);
+      });
+
+      this.CampaniaModel.idMarca = marcaLista;
+
       if (this.registerForm.invalid) {
         const Toast = Swal.mixin({
           toast: true,
@@ -181,9 +201,8 @@ export class CampaniaComponent implements OnInit {
           title: '- Campos con asterisco son obligatorios\n - Verificar campos invalidos, \n indicados con el color rojo  '
         })
         return;
-      }else{
-        this.ciudadService.crearCiudad(this.registerForm.value).subscribe((resp) => {
-          console.log("Persona creada");
+      } else {
+        this.campaniaService.crearcampania(this.CampaniaModel).subscribe((resp) => {
           const Toast = Swal.mixin({
             toast: true,
             position: 'top-end',
@@ -200,7 +219,7 @@ export class CampaniaComponent implements OnInit {
             title: 'Guardado correctamente'
           })
 
-          this.router.navigateByUrl('/listaciudades');
+          this.router.navigateByUrl('/listacampania');
         }, (err: any) => {
 
           console.warn(err.error.message);
@@ -224,15 +243,15 @@ export class CampaniaComponent implements OnInit {
           })
         });
       }
-      
-    } */
 
-    
+    }
+
+
   }
 
 
-  cancelarGuardado(){
-    this.router.navigateByUrl('/listaciudades')
+  cancelarGuardado() {
+    this.router.navigateByUrl('/listacampania')
   }
 
 
@@ -243,24 +262,18 @@ export class CampaniaComponent implements OnInit {
         nombremarcas.push({ item_id: element._id, nombre: element.nombre });
       });
       this.dropdownListMarcas = nombremarcas;
-      /* if (this.sucursalSeleccionada) {
-        this.sucursalSeleccionada.idMarcas.map((m: any) => {
-          console.log(m);
-          const findMarca = this.dropdownListMarcas.find(
-            (item: any) => item.item_id === m
-          );
-          console.log(findMarca);
-          if (findMarca) {
-            this.onItemSelectmarca(findMarca);
-            this.registerForm.get('idMarcas')?.setValue(this.marca);
-          }
-        });
-      } */
-      
-
+      if (this.campaniaSeleccionada) {
+        const findMarca = this.dropdownListMarcas.find(
+          (item: any) => item.item_id === this.campaniaSeleccionada.idMarca
+        );
+        if (findMarca) {
+          this.onItemSelectmarca(findMarca);
+          this.registerForm.get('idMarca')?.setValue(this.marca);
+        }
+      }
     });
 
-    
+
   }
 
 

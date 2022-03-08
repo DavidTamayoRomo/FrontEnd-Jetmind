@@ -37,6 +37,7 @@
                             <tr>
                                 <th class="w101">Director asignado</th>
                                 <th class="w100">Estado</th>
+                                <th class="w100">Entrevista Inicial</th>
                                 <th class="w100">Persona Responsable</th>
                                 <th class="w100">Fecha contrato</th>
                                 <th class="w100">Codigo</th>
@@ -87,6 +88,9 @@
                                     </div>
                                 </td>
 
+                                <td>
+                                    <button type="button" (click)="entrevistaInicial(contrato)" class="btn btn-rounded btn-block btn-outline-secondary">Realizar entrevista Incial</button>
+                                </td>
 
                                 <td (click)="mostrarDatosModal(contrato)">{{contrato?.personaAprueba?.nombresApellidos}}
                                 </td>

@@ -1,7 +1,7 @@
 export class Campania {
     constructor(
         public _id?:string,
-        public estado?:string,
+        public estado?:boolean,
         public nombre?:string,
         public fecha_activacion?:Date,
         public fecha_finalizacion?:Date,

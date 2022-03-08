@@ -50,7 +50,7 @@ export class SidebarService {
     },
     {
       titulo: 'Campaña',
-      icono: 'mdi mdi-timer',
+      icono: 'mdi mdi-equal-box',
       submenu: [
         { titulo: 'Crear ', url: '/campania/nuevo' },
         { titulo: 'Lista ', url: '/listacampania' },
