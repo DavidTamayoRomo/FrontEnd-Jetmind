@@ -53,6 +53,7 @@ export class ContratosAsignarDirectorComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    /**Cargar los contratos aprobados */
     this.cargarContratos();
     /** Servicio que me devuelva las ROLE de la base de datos */
     this.recuperarDatosPersonas();
@@ -115,8 +116,10 @@ export class ContratosAsignarDirectorComponent implements OnInit {
     //Obtener el id del role Director
     //Obtener el id de la marca
     //Obtener el id de ciudad
+
     console.log(this.personaService.persona);
 
+    //muestra en la lista de personas el Rol(Director general) - Ciudad(Quito) - Marca(Charlotte)
     this.personaService.getAllByRoleCiudadMarca("617c24f99f60c044346e3ffa", "613a389282cbc52ac8a87a13", "613a53447f51e7211092c8de").subscribe((resp: any) => {
       let nombrePersona: any = [];
       resp.data.forEach((element: any) => {

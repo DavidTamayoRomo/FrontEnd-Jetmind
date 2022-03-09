@@ -63,6 +63,8 @@ import { CambiarEstudianteComponent } from './cambio-horario/cambiar-estudiante/
 import { AgendaEntregaInformesComponent } from './agenda-entrega-informes/agenda-entrega-informes.component';
 import { CampaniaComponent } from './campania/campania.component';
 import { ListaCampaniaComponent } from './campania/lista-campania/lista-campania.component';
+import { RegistroLlamadasComponent } from './registro-llamadas/registro-llamadas.component';
+import { ListaRegistroLlamadasComponent } from './registro-llamadas/lista-registro-llamadas/lista-registro-llamadas.component';
 
 
 
@@ -168,6 +170,9 @@ const routes: Routes = [
 
             { path: 'campania/:id', component: CampaniaComponent , data:{titulo:'Campaña'} },
             { path: 'listacampania', component: ListaCampaniaComponent , data:{titulo:'Lista Campañas'} },
+           
+            { path: 'registrollamada/:id', component: RegistroLlamadasComponent , data:{titulo:'Registro llamadas'} },
+            { path: 'registrollamadas', component: ListaRegistroLlamadasComponent , data:{titulo:'Lista registro llamadas'} },
         ]
     },
 ];

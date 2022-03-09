@@ -84,6 +84,8 @@ import { AgendaEntregaInformesComponent } from './agenda-entrega-informes/agenda
 import { ListaAgendaComponent } from './agenda-entrega-informes/lista-agenda/lista-agenda.component';
 import { CampaniaComponent } from './campania/campania.component';
 import { ListaCampaniaComponent } from './campania/lista-campania/lista-campania.component';
+import { RegistroLlamadasComponent } from './registro-llamadas/registro-llamadas.component';
+import { ListaRegistroLlamadasComponent } from './registro-llamadas/lista-registro-llamadas/lista-registro-llamadas.component';
 
 
 
@@ -158,7 +160,9 @@ const ngWizardConfig: NgWizardConfig = {
     AgendaEntregaInformesComponent,
     ListaAgendaComponent,
     CampaniaComponent,
-    ListaCampaniaComponent
+    ListaCampaniaComponent,
+    RegistroLlamadasComponent,
+    ListaRegistroLlamadasComponent
     
   ],
   exports:[

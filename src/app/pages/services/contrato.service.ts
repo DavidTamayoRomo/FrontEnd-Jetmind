@@ -33,6 +33,13 @@ export class ContratoService {
     return this.http.get(`${base_url}/contrato/contratosAprobados`, { headers: headers });
   }
 
+  /** Get Contratos Aprobados - Ciudad - Marca */
+  getAllContratosByAprobadosCiudadMarca(ciudad:any, marca:any){
+    const headers = this.retornarHeader();
+    return this.http.get(`${base_url}/contrato/contratos/aprobados/${ciudad}/${marca}`, { headers: headers });
+  }
+  
+
   obtenerContratoById(id:string){
     const headers = this.retornarHeader();
     return this.http.get(`${base_url}/contrato/${id}`, { headers: headers })

@@ -123,14 +123,6 @@ export class SidebarService {
       ]
     },
     {
-      titulo: 'Directores',
-      icono: 'mdi mdi-earth',
-      submenu: [
-
-        { titulo: 'Asignar Director', url: '/asignardirector' },
-      ]
-    },
-    {
       titulo: 'Telemarketing',
       icono: 'mdi mdi-camera-front-variant',
       submenu: [
@@ -140,6 +132,15 @@ export class SidebarService {
         { titulo: 'Calendario', url: '/calendario' },
       ]
     },
+    {
+      titulo: 'Directores',
+      icono: 'mdi mdi-earth',
+      submenu: [
+
+        { titulo: 'Asignar Director', url: '/asignardirector' },
+      ]
+    },
+    
     {
       titulo: 'Horario',
       icono: 'mdi mdi-calendar-clock',
@@ -177,6 +178,14 @@ export class SidebarService {
       icono: 'mdi mdi-calendar-multiple',
       submenu: [
         { titulo: 'Calendario', url: '/agenda-entrega-informes' },
+      ]
+    },
+    {
+      titulo: 'registro llamadas',
+      icono: 'mdi mdi-phone-classic',
+      submenu: [
+        { titulo: 'Crear', url: '/registrollamada/nuevo' },
+        { titulo: 'Lista', url: '/registrollamadas' },
       ]
     },
     {
