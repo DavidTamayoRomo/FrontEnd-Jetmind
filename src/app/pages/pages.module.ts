@@ -88,6 +88,8 @@ import { RegistroLlamadasComponent } from './registro-llamadas/registro-llamadas
 import { ListaRegistroLlamadasComponent } from './registro-llamadas/lista-registro-llamadas/lista-registro-llamadas.component';
 import { EntregaLibrosComponent } from './entrega-libros/entrega-libros.component';
 import { ListaEntregaLibrosComponent } from './entrega-libros/lista-entrega-libros/lista-entrega-libros.component';
+import { PlataformaCharlotteComponent } from './plataforma-charlotte/plataforma-charlotte.component';
+import { ListaPlataformaCharlotteComponent } from './plataforma-charlotte/lista-plataforma-charlotte/lista-plataforma-charlotte.component';
 
 
 
@@ -166,7 +168,9 @@ const ngWizardConfig: NgWizardConfig = {
     RegistroLlamadasComponent,
     ListaRegistroLlamadasComponent,
     EntregaLibrosComponent,
-    ListaEntregaLibrosComponent
+    ListaEntregaLibrosComponent,
+    PlataformaCharlotteComponent,
+    ListaPlataformaCharlotteComponent
     
   ],
   exports:[

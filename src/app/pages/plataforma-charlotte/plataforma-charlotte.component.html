@@ -1,0 +1,79 @@
+<div class="card">
+
+    <form (ngSubmit)="crear()" autocomplete="off" [formGroup]="registerForm">
+
+        <div class="card-body">
+
+
+            <div class="form-group">
+                <label for="exampleInputuname">Estudiante *</label>
+                <ng-multiselect-dropdown [placeholder]="'Seleccione Docente'" [settings]="dropdownSettingsSingle"
+                    [data]="dropdownListEstudiantes" (onSelect)="onItemSelectEstudiante($event)"
+                    (onSelectAll)="onSelectAllEstudiante($event)" (onDeSelect)="onDeSelectEstudiante($event)"
+                    (onDeSelectAll)="onDeSelectAllEstudiante($event)" formControlName="idEstudiante">
+                </ng-multiselect-dropdown>
+            </div>
+
+
+            <div class="form-group" >
+                <div class="demo-switch-title">Nivel</div>
+                <select class="form-control custom-select" formControlName="nivel">
+                    <option value="Beginner Literacy English">Beginner Literacy English</option>
+                    <option value="Beginner English">Beginner English</option>
+                    <option value="High Beginner English">High Beginner English</option>
+                    <option value="Low Intermediate English">Low Intermediate English</option>
+                    <option value="Intermediate English">Intermediate English</option>
+                    <option value="High Intermediate English">High Intermediate English</option>
+                    <option value="Advanced English">Advanced English</option>
+                </select>
+                <small class="form-control-feedback"> Seleccione el genero </small>
+            </div>
+
+
+            <div class="form-group">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <label for="exampleInputuname">Fecha Entrega</label>
+                    </div>
+                    <div class="panel-body">
+                        <input class="form-control" type="text" mwlFlatpickr [altInput]="true"
+                            [convertModelValue]="true" formControlName="fechaEntrega">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <label for="exampleInputuname">Fecha de Activación de Plataforma</label>
+                    </div>
+                    <div class="panel-body">
+                        <input class="form-control" type="text" mwlFlatpickr [altInput]="true"
+                            [convertModelValue]="true" formControlName="fechaActivacion">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <label for="exampleInputuname">Fecha Final de Plataforma</label>
+                    </div>
+                    <div class="panel-body">
+                        <input class="form-control" type="text" mwlFlatpickr [altInput]="true"
+                            [convertModelValue]="true" formControlName="fechaFin">
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div>
+                <button type="submit" class="btn btn-success waves-effect waves-light m-r-10">Guardar</button>
+                <a (click)="cancelarGuardado()" class="btn btn-inverse waves-effect waves-light">Cancelar</a>
+            </div>
+
+        </div>
+    </form>
+
+</div>

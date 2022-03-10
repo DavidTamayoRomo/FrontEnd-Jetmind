@@ -197,6 +197,14 @@ export class SidebarService {
       ]
     },
     {
+      titulo: 'Plataforma Charlotte',
+      icono: 'mdi mdi-basket-unfill',
+      submenu: [
+        { titulo: 'Crear', url: '/platafoma-charlotte/nuevo' },
+        { titulo: 'Lista', url: '/lista-platafoma-charlotte' },
+      ]
+    },
+    {
       titulo: 'Entrevista Incial CH UK',
       icono: 'mdi mdi-checkbox-multiple-marked',
       submenu: [
