@@ -90,6 +90,8 @@ import { EntregaLibrosComponent } from './entrega-libros/entrega-libros.componen
 import { ListaEntregaLibrosComponent } from './entrega-libros/lista-entrega-libros/lista-entrega-libros.component';
 import { PlataformaCharlotteComponent } from './plataforma-charlotte/plataforma-charlotte.component';
 import { ListaPlataformaCharlotteComponent } from './plataforma-charlotte/lista-plataforma-charlotte/lista-plataforma-charlotte.component';
+import { EvaluacionCharlotteComponent } from './evaluacion-charlotte/evaluacion-charlotte.component';
+import { PlataformaIlvemComponent } from './plataforma-ilvem/plataforma-ilvem.component';
 
 
 
@@ -170,7 +172,9 @@ const ngWizardConfig: NgWizardConfig = {
     EntregaLibrosComponent,
     ListaEntregaLibrosComponent,
     PlataformaCharlotteComponent,
-    ListaPlataformaCharlotteComponent
+    ListaPlataformaCharlotteComponent,
+    EvaluacionCharlotteComponent,
+    PlataformaIlvemComponent
     
   ],
   exports:[

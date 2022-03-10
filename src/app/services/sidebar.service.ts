@@ -205,6 +205,14 @@ export class SidebarService {
       ]
     },
     {
+      titulo: 'Plataforma Ilvem',
+      icono: 'mdi mdi-basket-fill',
+      submenu: [
+        { titulo: 'Crear', url: '/platafoma-ilvem/nuevo' },
+        { titulo: 'Lista', url: '/lista-platafoma-charlotte' },
+      ]
+    },
+    {
       titulo: 'Entrevista Incial CH UK',
       icono: 'mdi mdi-checkbox-multiple-marked',
       submenu: [
