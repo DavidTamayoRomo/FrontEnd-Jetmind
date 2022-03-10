@@ -86,6 +86,8 @@ import { CampaniaComponent } from './campania/campania.component';
 import { ListaCampaniaComponent } from './campania/lista-campania/lista-campania.component';
 import { RegistroLlamadasComponent } from './registro-llamadas/registro-llamadas.component';
 import { ListaRegistroLlamadasComponent } from './registro-llamadas/lista-registro-llamadas/lista-registro-llamadas.component';
+import { EntregaLibrosComponent } from './entrega-libros/entrega-libros.component';
+import { ListaEntregaLibrosComponent } from './entrega-libros/lista-entrega-libros/lista-entrega-libros.component';
 
 
 
@@ -162,7 +164,9 @@ const ngWizardConfig: NgWizardConfig = {
     CampaniaComponent,
     ListaCampaniaComponent,
     RegistroLlamadasComponent,
-    ListaRegistroLlamadasComponent
+    ListaRegistroLlamadasComponent,
+    EntregaLibrosComponent,
+    ListaEntregaLibrosComponent
     
   ],
   exports:[

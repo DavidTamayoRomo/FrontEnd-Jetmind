@@ -65,6 +65,8 @@ import { CampaniaComponent } from './campania/campania.component';
 import { ListaCampaniaComponent } from './campania/lista-campania/lista-campania.component';
 import { RegistroLlamadasComponent } from './registro-llamadas/registro-llamadas.component';
 import { ListaRegistroLlamadasComponent } from './registro-llamadas/lista-registro-llamadas/lista-registro-llamadas.component';
+import { EntregaLibrosComponent } from './entrega-libros/entrega-libros.component';
+import { ListaEntregaLibrosComponent } from './entrega-libros/lista-entrega-libros/lista-entrega-libros.component';
 
 
 
@@ -173,6 +175,9 @@ const routes: Routes = [
            
             { path: 'registrollamada/:id', component: RegistroLlamadasComponent , data:{titulo:'Registro llamadas'} },
             { path: 'registrollamadas', component: ListaRegistroLlamadasComponent , data:{titulo:'Lista registro llamadas'} },
+            
+            { path: 'entregalibros/:id', component: EntregaLibrosComponent , data:{titulo:'Entrega libros'} },
+            { path: 'entregalibros', component: ListaEntregaLibrosComponent , data:{titulo:'Lista entrega libros'} },
         ]
     },
 ];

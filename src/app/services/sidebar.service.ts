@@ -189,6 +189,14 @@ export class SidebarService {
       ]
     },
     {
+      titulo: 'Entrega libros',
+      icono: 'mdi mdi-book-variant',
+      submenu: [
+        { titulo: 'Crear', url: '/entregalibros/nuevo' },
+        { titulo: 'Lista', url: '/entregalibros' },
+      ]
+    },
+    {
       titulo: 'Entrevista Incial CH UK',
       icono: 'mdi mdi-checkbox-multiple-marked',
       submenu: [

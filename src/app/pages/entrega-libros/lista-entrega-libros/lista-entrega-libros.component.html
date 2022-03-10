@@ -1,0 +1,83 @@
+<div class="col">
+
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="text-right">
+                    <a class="btn btn-primary" routerLink="/entregalibros/nuevo">
+                        <i class="mdi mdi-account-plus"></i>
+                        Crear Entrega Libro
+                    </a>
+                </div>
+                <div style="height: 10px;"></div>
+                <input type="text" class="form-control" placeholder="Buscar Entrega" (keyup)="buscar(txtBusqueda.value)"
+                    #txtBusqueda>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" *ngIf="cargando">
+    <div class="col-12">
+        <div class="alert alert-info text-center">
+            <h4 class="alert-heading">Cargando</h4>
+            <i class="fa fa-spin fa-refresh fa-2x"></i>
+            <p class="mb-0">Por favor espere...</p>
+        </div>
+    </div>
+</div>
+<div class="row" *ngIf="!cargando">
+
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Entrega de libros</h4>
+                <h6 class="card-subtitle">Lista de todos los libros entregados en el sistema</h6>
+                <h6 class="card-subtitle">Total de Entregas: {{totalEntregaLibros}}</h6>
+                <div class="table-responsive">
+                    <table class="table full-color-table full-inverse-table hover-table">
+                        <thead>
+                            <tr>
+                                <th class="w100">Estudiante</th>
+                                <th class="w100">Docente</th>
+                                <th class="w100">Libro</th>
+                                <th class="w100">Fecha Entrega </th>
+
+                                <th class="text-nowrap w100">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let entrega of entregalibros">
+
+                                <td>{{entrega.idEstudiante.nombresApellidos}}</td>
+                                <td>{{entrega.idDocente.nombresApellidos}}</td>
+                                <td>{{entrega.libro}}</td>
+                                <td>{{entrega.fechaEntrega | date:('dd/MM/yyyy')}}</td>
+
+                                <td class="text-nowrap">
+                                    <a [routerLink]="['/entregalibros',entrega._id]" data-toggle="tooltip"
+                                        data-original-title="Editar"> <i class="ti-pencil"></i> </a>
+                                    <a data-toggle="tooltip" data-original-title="Borrar"
+                                        (click)="borrar(entrega)">
+                                        <i class=" ti-trash"></i>
+                                    </a>
+                                </td>
+                            </tr>
+
+
+                        </tbody>
+                    </table>
+                    <div *ngIf="txtBusqueda.value.length === 0">
+                        <button (click)="paginar(-5)" class="btn btn-secondary">Anterio</button>
+                        &nbsp;
+                        <button (click)="paginar(5)" class="btn btn-secondary">Siguiente</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
