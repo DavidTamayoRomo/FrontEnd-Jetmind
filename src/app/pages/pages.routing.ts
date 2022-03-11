@@ -71,6 +71,7 @@ import { PlataformaCharlotteComponent } from './plataforma-charlotte/plataforma-
 import { ListaPlataformaCharlotteComponent } from './plataforma-charlotte/lista-plataforma-charlotte/lista-plataforma-charlotte.component';
 import { PlataformaIlvemComponent } from './plataforma-ilvem/plataforma-ilvem.component';
 import { ListaPlataformaIlvemComponent } from './plataforma-ilvem/lista-plataforma-ilvem/lista-plataforma-ilvem.component';
+import { EvaluacionCharlotteComponent } from './evaluacion-charlotte/evaluacion-charlotte.component';
 
 
 
@@ -188,6 +189,9 @@ const routes: Routes = [
             
             { path: 'platafoma-ilvem/:id', component: PlataformaIlvemComponent , data:{titulo:'Plataforma Ilvem'} },
             { path: 'lista-platafoma-ilvem', component: ListaPlataformaIlvemComponent , data:{titulo:'Lista Plataforma Ilvem'} },
+            
+            { path: 'evaluacion-charlotte/:id', component: EvaluacionCharlotteComponent , data:{titulo:'Evaluacion Charlotte'} },
+            //{ path: 'lista-evaluacion-charlotte', component: ListaPlataformaIlvemComponent , data:{titulo:'Lista Plataforma Ilvem'} },
         ]
     },
 ];

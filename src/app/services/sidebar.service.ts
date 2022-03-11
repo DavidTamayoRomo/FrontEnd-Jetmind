@@ -213,6 +213,14 @@ export class SidebarService {
       ]
     },
     {
+      titulo: 'Evaluacion Charlotte',
+      icono: 'mdi mdi-clipboard-outline',
+      submenu: [
+        { titulo: 'Crear', url: '/evaluacion-charlotte/nuevo' },
+        { titulo: 'Lista', url: '/lista-evaluacion-charlotte' },
+      ]
+    },
+    {
       titulo: 'Entrevista Incial CH UK',
       icono: 'mdi mdi-checkbox-multiple-marked',
       submenu: [

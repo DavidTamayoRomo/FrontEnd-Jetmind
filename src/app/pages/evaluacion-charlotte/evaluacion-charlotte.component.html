@@ -1,1 +1,101 @@
-<p>evaluacion-charlotte works!</p>
+<div class="card">
+
+    <form (ngSubmit)="crear()" autocomplete="off" [formGroup]="registerForm">
+
+        <div class="card-body">
+
+
+            <div class="form-group">
+                <label for="exampleInputuname">Docente *</label>
+                <ng-multiselect-dropdown [placeholder]="'Seleccione Docente'" [settings]="dropdownSettingsSingle"
+                    [data]="dropdownListPersonas" (onSelect)="onItemSelectPersona($event)"
+                    (onSelectAll)="onSelectAllPersona($event)" (onDeSelect)="onDeSelectPersona($event)"
+                    (onDeSelectAll)="onDeSelectAllPersona($event)" formControlName="idDocente">
+                </ng-multiselect-dropdown>
+            </div>
+
+            <div class="form-group">
+                <label for="exampleInputuname">Horario *</label>
+                <ng-multiselect-dropdown [placeholder]="'Seleccione Docente'" [settings]="dropdownSettingsSingle"
+                    [data]="dropdownListHorarios" (onSelect)="onItemSelectHorario($event)"
+                    (onSelectAll)="onSelectAllHorario($event)" (onDeSelect)="onDeSelectHorario($event)"
+                    (onDeSelectAll)="onDeSelectAllHorario($event)" formControlName="idHorario">
+                </ng-multiselect-dropdown>
+            </div>
+
+
+
+            <div class="form-group">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <label for="exampleInputuname">Fecha *</label>
+                    </div>
+                    <div class="panel-body">
+                        <input class="form-control" type="text" mwlFlatpickr [altInput]="true"
+                            [convertModelValue]="true" formControlName="fecha">
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <div class="panel panel-default" formArrayName="prueba">
+
+                    <div class="row" >
+                        <br>
+                        <div class="col-6" *ngFor="let item of getPrueba.controls; let pointIndex=index" [formGroupName]="pointIndex">
+                            <div class="col-md-12">
+                                <input class="form-control" formControlName="estudiante" [attr.disabled]="true">
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <div class="demo-switch-title">Nombre</div>
+                                    <select class="form-control custom-select" formControlName="nombre">
+                                        <option value="Kid">Kid</option>
+                                        <option value="Pandy">Pandy</option>
+                                        <option value="Top Notch">Top Notch</option>
+                                    </select>
+                                    <small class="form-control-feedback"> Seleccione uno </small>
+                                </div>
+                            </div>
+                            <div *ngIf="mostrarCamposSegunNombreListening(pointIndex)" class="col-md-6">
+                                <label for="">Listening</label>
+                                <input class="form-control" type="text" formControlName="listening">
+                            </div>
+                            <div *ngIf="mostrarCamposSegunNombreReading(pointIndex)" class="col-md-6">
+                                <label for="">Reading</label>
+                                <input class="form-control" type="text" formControlName="reading">
+                            </div>
+                            <div *ngIf="mostrarCamposSegunNombreGrammar(pointIndex)" class="col-md-6">
+                                <label for="">Grammar</label>
+                                <input class="form-control" type="text" formControlName="grammar">
+                            </div>
+                            <div *ngIf="mostrarCamposSegunNombreWritting(pointIndex)" class="col-md-6">
+                                <label for="">Writting</label>
+                                <input class="form-control" type="text" formControlName="writting">
+                            </div>
+                            <div *ngIf="mostrarCamposSegunNombrePlatform(pointIndex)" class="col-md-6">
+                                <label for="">Platform</label>
+                                <input class="form-control" type="text" formControlName="platform">
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+
+            </div>
+
+
+
+
+            <div>
+                <button type="submit" class="btn btn-success waves-effect waves-light m-r-10">Guardar</button>
+                <a (click)="cancelarGuardado()" class="btn btn-inverse waves-effect waves-light">Cancelar</a>
+            </div>
+
+        </div>
+    </form>
+
+</div>
