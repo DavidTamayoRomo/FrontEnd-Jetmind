@@ -56,12 +56,11 @@ export class PlataformaIlvemService {
     .pipe(
       tap( (resp:any) => {
         
-        const plataformaIlvems = resp.data.map((PlataformaIlvem:any) => 
-        new PlataformaIlvem(PlataformaIlvem._id, PlataformaIlvem.idDirector, PlataformaIlvem.idEstudiante, PlataformaIlvem.idDocente
-          , PlataformaIlvem.clave
-          , PlataformaIlvem.pin
-          , PlataformaIlvem.password
-          , PlataformaIlvem.observaciones
+        const plataformaIlvems = resp.data.map((plataformaIlvem:any) => new PlataformaIlvem(plataformaIlvem._id, plataformaIlvem.idDirector, plataformaIlvem.idEstudiante, plataformaIlvem.idDocente
+          , plataformaIlvem.clave
+          , plataformaIlvem.pin
+          , plataformaIlvem.password
+          , plataformaIlvem.observaciones
           )
         );
         

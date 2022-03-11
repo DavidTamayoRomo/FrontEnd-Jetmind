@@ -70,6 +70,7 @@ import { ListaEntregaLibrosComponent } from './entrega-libros/lista-entrega-libr
 import { PlataformaCharlotteComponent } from './plataforma-charlotte/plataforma-charlotte.component';
 import { ListaPlataformaCharlotteComponent } from './plataforma-charlotte/lista-plataforma-charlotte/lista-plataforma-charlotte.component';
 import { PlataformaIlvemComponent } from './plataforma-ilvem/plataforma-ilvem.component';
+import { ListaPlataformaIlvemComponent } from './plataforma-ilvem/lista-plataforma-ilvem/lista-plataforma-ilvem.component';
 
 
 
@@ -186,7 +187,7 @@ const routes: Routes = [
             { path: 'lista-platafoma-charlotte', component: ListaPlataformaCharlotteComponent , data:{titulo:'Lista Plataforma Charlotte'} },
             
             { path: 'platafoma-ilvem/:id', component: PlataformaIlvemComponent , data:{titulo:'Plataforma Ilvem'} },
-            //{ path: 'lista-platafoma-ilvem', component: ListaPlataformaCharlotteComponent , data:{titulo:'Lista Plataforma Ilvem'} },
+            { path: 'lista-platafoma-ilvem', component: ListaPlataformaIlvemComponent , data:{titulo:'Lista Plataforma Ilvem'} },
         ]
     },
 ];

@@ -83,18 +83,17 @@ export class PlataformaIlvemComponent implements OnInit {
       idDocente,
       clave,
       pin,
-      password,
-      observaciones
+      password
     } = resp.data;
     this.plataformaIlvemSeleccionada = resp.data;
+    console.log(this.plataformaIlvemSeleccionada);
     this.registerForm.setValue({
       idDirector,
       idEstudiante,
       idDocente,
       clave,
       pin,
-      password,
-      observaciones
+      password
     });
   }
 
@@ -104,8 +103,7 @@ export class PlataformaIlvemComponent implements OnInit {
     idDocente: [null],
     clave: [null],
     pin: [null],
-    password: [null],
-    observaciones: [null],
+    password: [null]
   });
 
   campoNoValido(campo: any): boolean {
@@ -284,7 +282,7 @@ export class PlataformaIlvemComponent implements OnInit {
         );
         if (findMarcaPersona) {
           this.onItemSelectPersona(findMarcaPersona);
-          this.registerForm.get('idDocente')?.setValue(this.persona);
+          this.registerForm.get('idDirector')?.setValue(this.persona);
         }
       }
     });
@@ -318,15 +316,13 @@ export class PlataformaIlvemComponent implements OnInit {
       });
       this.dropdownListEstudiantes = nombreEstudiantes;
       if (this.plataformaIlvemSeleccionada) {
-        this.plataformaIlvemSeleccionada.idEstudiantes.map((m: any) => {
-          const findEstudainte = this.dropdownListEstudiantes.find(
-            (item: any) => item.item_id === m
-          );
-          if (findEstudainte) {
-            this.onItemSelectEstudiante(findEstudainte);
-            this.registerForm.get('idEstudiante')?.setValue(this.estudiante);
-          }
-        });
+        const findEstudainte = this.dropdownListEstudiantes.find(
+          (item: any) => item.item_id === this.plataformaIlvemSeleccionada.idEstudiante
+        );
+        if (findEstudainte) {
+          this.onItemSelectEstudiante(findEstudainte);
+          this.registerForm.get('idEstudiante')?.setValue(this.estudiante);
+        }
       }
     });
   }

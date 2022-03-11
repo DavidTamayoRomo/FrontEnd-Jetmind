@@ -92,6 +92,7 @@ import { PlataformaCharlotteComponent } from './plataforma-charlotte/plataforma-
 import { ListaPlataformaCharlotteComponent } from './plataforma-charlotte/lista-plataforma-charlotte/lista-plataforma-charlotte.component';
 import { EvaluacionCharlotteComponent } from './evaluacion-charlotte/evaluacion-charlotte.component';
 import { PlataformaIlvemComponent } from './plataforma-ilvem/plataforma-ilvem.component';
+import { ListaPlataformaIlvemComponent } from './plataforma-ilvem/lista-plataforma-ilvem/lista-plataforma-ilvem.component';
 
 
 
@@ -174,7 +175,8 @@ const ngWizardConfig: NgWizardConfig = {
     PlataformaCharlotteComponent,
     ListaPlataformaCharlotteComponent,
     EvaluacionCharlotteComponent,
-    PlataformaIlvemComponent
+    PlataformaIlvemComponent,
+    ListaPlataformaIlvemComponent
     
   ],
   exports:[
