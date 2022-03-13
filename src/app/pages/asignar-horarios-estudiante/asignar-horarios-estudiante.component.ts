@@ -181,7 +181,7 @@ export class AsignarHorariosEstudianteComponent implements OnInit {
             icon: 'success',
             title: 'Se actualizo correctamente'
           })
-          this.router.navigateByUrl('/listaciudades');
+          this.router.navigateByUrl('/asignarhorariosestudiantes');
         }, (err: any) => {
 
           console.warn(err.error.message);
@@ -261,7 +261,7 @@ export class AsignarHorariosEstudianteComponent implements OnInit {
             title: 'Guardado correctamente'
           })
 
-          this.router.navigateByUrl('/listaciudades');
+          this.router.navigateByUrl('/asignarhorariosestudiantes');
         }, (err: any) => {
 
           console.warn(err.error.message);

@@ -277,7 +277,7 @@ export class EntrevistaInicialCHUKComponent implements OnInit {
             title: 'Guardado correctamente'
           })
 
-          this.router.navigateByUrl('/lista');
+          this.router.navigateByUrl('/listaentrevistainicialchuk');
         }, (err: any) => {
 
           console.warn(err.error.message);

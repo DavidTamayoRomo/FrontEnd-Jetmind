@@ -492,7 +492,7 @@ export class Peea17tomatisComponent implements OnInit {
             icon: 'success',
             title: 'Se actualizo correctamente'
           })
-          this.router.navigateByUrl('/lista');
+          this.router.navigateByUrl('/lista-peea-17-tomatis');
         }, (err: any) => {
 
           console.warn(err.error.message);
@@ -629,7 +629,7 @@ export class Peea17tomatisComponent implements OnInit {
               title: 'Guardado correctamente'
             })
 
-            this.router.navigateByUrl('/lista');
+            this.router.navigateByUrl('/lista-peea-17-tomatis');
           }, (err: any) => {
 
             console.warn(err.error.message);
@@ -667,7 +667,7 @@ export class Peea17tomatisComponent implements OnInit {
   }
 
   cancelarGuardado() {
-
+    this.router.navigateByUrl('/lista-peea-17-tomatis');
   }
 
   cerrarModal() {

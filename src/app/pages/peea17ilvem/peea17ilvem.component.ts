@@ -543,7 +543,7 @@ export class Peea17ilvemComponent implements OnInit {
             icon: 'success',
             title: 'Se actualizo correctamente'
           })
-          this.router.navigateByUrl('/lista');
+          this.router.navigateByUrl('/lista-peea-17-ilvem');
         }, (err: any) => {
 
           console.warn(err.error.message);
@@ -705,7 +705,7 @@ export class Peea17ilvemComponent implements OnInit {
               title: 'Guardado correctamente'
             })
 
-            this.router.navigateByUrl('/lista');
+            this.router.navigateByUrl('/lista-peea-17-ilvem');
           }, (err: any) => {
 
             console.warn(err.error.message);
@@ -735,6 +735,7 @@ export class Peea17ilvemComponent implements OnInit {
   }
 
   cancelarGuardado(){
+    this.router.navigateByUrl('/lista-peea-17-ilvem');
   }
 
   habilitarCampos(campo1:any, campo2:any){

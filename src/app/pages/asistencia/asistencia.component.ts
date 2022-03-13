@@ -226,7 +226,7 @@ export class AsistenciaComponent implements OnInit {
             icon: 'success',
             title: 'Se actualizo correctamente'
           })
-          this.router.navigateByUrl('/lista');
+          this.router.navigateByUrl('/asistencias');
         }, (err: any) => {
 
           console.warn(err.error.message);
@@ -294,7 +294,7 @@ export class AsistenciaComponent implements OnInit {
             title: 'Guardado correctamente'
           })
 
-          this.router.navigateByUrl('/lista');
+          this.router.navigateByUrl('/asistencias');
         }, (err: any) => {
 
           console.warn(err.error.message);

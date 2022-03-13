@@ -145,7 +145,7 @@ export class EntregaLibrosComponent implements OnInit {
             icon: 'success',
             title: 'Se actualizo correctamente'
           })
-          this.router.navigateByUrl('/listaciudades');
+          this.router.navigateByUrl('/entregalibros');
         }, (err: any) => {
 
           console.warn(err.error.message);
@@ -216,7 +216,7 @@ export class EntregaLibrosComponent implements OnInit {
             title: 'Guardado correctamente'
           })
 
-          this.router.navigateByUrl('/');
+          this.router.navigateByUrl('/entregalibros');
         }, (err: any) => {
 
           console.warn(err.error.message);
@@ -245,7 +245,7 @@ export class EntregaLibrosComponent implements OnInit {
   }
 
   cancelarGuardado() {
-    this.router.navigateByUrl('/')
+    this.router.navigateByUrl('/entregalibros')
   }
 
 

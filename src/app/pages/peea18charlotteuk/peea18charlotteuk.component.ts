@@ -238,7 +238,7 @@ export class Peea18charlotteukComponent implements OnInit {
             icon: 'success',
             title: 'Se actualizo correctamente'
           })
-          this.router.navigateByUrl('/lista');
+          this.router.navigateByUrl('/listapeea-18-ch-uk');
         }, (err: any) => {
 
           console.warn(err.error.message);
@@ -340,7 +340,7 @@ export class Peea18charlotteukComponent implements OnInit {
               title: 'Guardado correctamente'
             })
 
-            this.router.navigateByUrl('/lista');
+            this.router.navigateByUrl('/listapeea-18-ch-uk');
           }, (err: any) => {
 
             console.warn(err.error.message);
@@ -370,7 +370,7 @@ export class Peea18charlotteukComponent implements OnInit {
   }
 
   cancelarGuardado() {
-    this.router.navigateByUrl('/lista')
+    this.router.navigateByUrl('/listapeea-18-ch-uk')
   }
 
   cerrarModal() {

@@ -211,6 +211,26 @@ export class ContratosComponent implements OnInit {
     console.log(this.contratos2);
   }
 
+  pea17chuk(){
+    this.router.navigate(['/peea-17-ch-uk/nuevo/', this.contratoSeleccionado._id]);
+  }
+  pea18chuk(){
+    this.router.navigate(['/peea-18-ch-uk/nuevo/', this.contratoSeleccionado._id]);
+  }
+  pea17il(){
+    this.router.navigate(['/peea-17-ilvem/nuevo/', this.contratoSeleccionado._id]);
+  }
+  pea18il(){
+    this.router.navigate(['/peea-18-ilvem/nuevo/', this.contratoSeleccionado._id]);
+  }
+  pea17tm(){
+    this.router.navigate(['/peea-17-tomatis/nuevo/', this.contratoSeleccionado._id]);
+  }
+  pea18tm(){
+    this.router.navigate(['/peea-18-tomatis/nuevo/', this.contratoSeleccionado._id]);
+  }
+  
+
 
   mostrarDatosModal(contrato: any) {
     console.log('Modal contrato ', contrato);

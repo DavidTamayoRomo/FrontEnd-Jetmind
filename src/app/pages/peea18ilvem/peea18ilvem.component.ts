@@ -311,7 +311,7 @@ export class Peea18ilvemComponent implements OnInit {
             icon: 'success',
             title: 'Se actualizo correctamente'
           })
-          this.router.navigateByUrl('/lista');
+          this.router.navigateByUrl('/lista-peea-18-ilvem');
         }, (err: any) => {
 
           console.warn(err.error.message);
@@ -422,7 +422,7 @@ export class Peea18ilvemComponent implements OnInit {
               title: 'Guardado correctamente'
             })
 
-            this.router.navigateByUrl('/lista');
+            this.router.navigateByUrl('/lista-peea-18-ilvem');
           }, (err: any) => {
 
             console.warn(err.error.message);
@@ -456,7 +456,7 @@ export class Peea18ilvemComponent implements OnInit {
   }
 
   cancelarGuardado() {
-
+    this.router.navigateByUrl('/lista-peea-18-ilvem');
   }
 
   cerrarModal() {

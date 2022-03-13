@@ -205,7 +205,7 @@ export class AgregarEstudianteComponent implements OnInit {
               icon: 'success',
               title: 'Se actualizo correctamente'
             })
-            this.router.navigateByUrl('/listaciudades');
+            this.router.navigateByUrl('/asignarhorariosestudiantes');
           }, (err: any) => {
 
             console.warn(err.error.message);
@@ -233,7 +233,7 @@ export class AgregarEstudianteComponent implements OnInit {
   }
 
   cancelarGuardado() {
-    this.router.navigateByUrl('/lista')
+    this.router.navigateByUrl('/asignarhorariosestudiantes')
   }
 
   recuperarDatosPersonas() {
@@ -367,7 +367,7 @@ export class AgregarEstudianteComponent implements OnInit {
     })
   }
   onDeSelectEstudiante(item: any) {
-    this.borrarDatosEstudaintes();
+    //this.borrarDatosEstudaintes();
     /** Borrar elemento del array  */
     const index = this.findByItemIdIndexEstudiante(item.item_id);
     const newArray = (index > -1) ? [

@@ -5,8 +5,8 @@
         <div class="card-body">
 
             <div class="form-group">
-                <label for="exampleInputuname">Estudiantes *</label>
-                <ng-multiselect-dropdown [placeholder]="'Seleccione Docente'" [settings]="dropdownSettings"
+                <label for="exampleInputuname">Estudiante *</label>
+                <ng-multiselect-dropdown [placeholder]="'Seleccione Estudiante'" [settings]="dropdownSettings"
                     [data]="dropdownListEstudiantes" (onSelect)="onItemSelectEstudiante($event)"
                     (onSelectAll)="onSelectAllEstudiante($event)" (onDeSelect)="onDeSelectEstudiante($event)"
                     (onDeSelectAll)="onDeSelectAllEstudiante($event)" formControlName="idEstudiante">

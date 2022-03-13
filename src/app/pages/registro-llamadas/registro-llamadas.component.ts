@@ -155,7 +155,7 @@ export class RegistroLlamadasComponent implements OnInit {
             icon: 'success',
             title: 'Se actualizo correctamente'
           })
-          this.router.navigateByUrl('/listaciudades');
+          this.router.navigateByUrl('/registrollamadas');
         }, (err: any) => {
 
           console.warn(err.error.message);
@@ -229,7 +229,7 @@ export class RegistroLlamadasComponent implements OnInit {
             title: 'Guardado correctamente'
           })
 
-          this.router.navigateByUrl('/listaciudades');
+          this.router.navigateByUrl('/registrollamadas');
         }, (err: any) => {
 
           console.warn(err.error.message);
