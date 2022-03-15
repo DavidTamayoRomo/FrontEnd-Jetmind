@@ -93,6 +93,8 @@ import { ListaPlataformaCharlotteComponent } from './plataforma-charlotte/lista-
 import { EvaluacionCharlotteComponent } from './evaluacion-charlotte/evaluacion-charlotte.component';
 import { PlataformaIlvemComponent } from './plataforma-ilvem/plataforma-ilvem.component';
 import { ListaPlataformaIlvemComponent } from './plataforma-ilvem/lista-plataforma-ilvem/lista-plataforma-ilvem.component';
+import { ControlCalidadTelemarketingComponent } from './control-calidad-telemarketing/control-calidad-telemarketing.component';
+import { ListaControlCalidadTelemarketingComponent } from './control-calidad-telemarketing/lista-control-calidad-telemarketing/lista-control-calidad-telemarketing.component';
 
 
 
@@ -176,7 +178,9 @@ const ngWizardConfig: NgWizardConfig = {
     ListaPlataformaCharlotteComponent,
     EvaluacionCharlotteComponent,
     PlataformaIlvemComponent,
-    ListaPlataformaIlvemComponent
+    ListaPlataformaIlvemComponent,
+    ControlCalidadTelemarketingComponent,
+    ListaControlCalidadTelemarketingComponent
     
   ],
   exports:[

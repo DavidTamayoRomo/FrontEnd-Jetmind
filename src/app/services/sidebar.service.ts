@@ -129,6 +129,8 @@ export class SidebarService {
 
         { titulo: 'Crear citas', url: '/citasTelemarketing/nuevo' },
         { titulo: 'Lista citas', url: '/listacitas' },
+        { titulo: 'Control Calidad Citas Telemarketing', url: '/control-calidad-telemarketing/idcontrol/idCita' },
+        { titulo: 'Lista Control Calidad Citas Telemarketing', url: '/lista-control-calidad-telemarketing' },
         { titulo: 'Calendario', url: '/calendario' },
       ]
     },

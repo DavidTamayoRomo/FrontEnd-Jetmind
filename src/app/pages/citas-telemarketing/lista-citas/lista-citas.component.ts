@@ -6,6 +6,7 @@ import Swal from 'sweetalert2';
 import { map } from 'rxjs/operators';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { PersonaService } from '../../persona/persona.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-lista-citas',
@@ -36,6 +37,7 @@ export class ListaCitasComponent implements OnInit {
     private citasTelemarketingService: CitasTelemarketingService,
     private busquedaService: BusquedasService,
     private personaService: PersonaService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -53,6 +55,10 @@ export class ListaCitasComponent implements OnInit {
       allowSearchFilter: true,
     };
 
+  }
+
+  controlCalidad(){
+    this.router.navigate([`/control-calidad-telemarketing/nuevo/${this.citaSeleccionado._id}`]);
   }
 
   recuperarDatosPersonas() {

@@ -72,6 +72,8 @@ import { ListaPlataformaCharlotteComponent } from './plataforma-charlotte/lista-
 import { PlataformaIlvemComponent } from './plataforma-ilvem/plataforma-ilvem.component';
 import { ListaPlataformaIlvemComponent } from './plataforma-ilvem/lista-plataforma-ilvem/lista-plataforma-ilvem.component';
 import { EvaluacionCharlotteComponent } from './evaluacion-charlotte/evaluacion-charlotte.component';
+import { ControlCalidadTelemarketingComponent } from './control-calidad-telemarketing/control-calidad-telemarketing.component';
+import { ListaControlCalidadTelemarketingComponent } from './control-calidad-telemarketing/lista-control-calidad-telemarketing/lista-control-calidad-telemarketing.component';
 
 
 
@@ -127,6 +129,8 @@ const routes: Routes = [
             
             { path: 'citasTelemarketing/:id', component: CitasTelemarketingComponent , data:{titulo:'Crear Citas Telemarketing'} },
             { path: 'listacitas', component: ListaCitasComponent , data:{titulo:'Lista Citas Telemarketing'} },
+            { path: 'control-calidad-telemarketing/:id/:idCita', component: ControlCalidadTelemarketingComponent , data:{titulo:'Control de calidad Citas Telemarketing'} },
+            { path: 'lista-control-calidad-telemarketing', component: ListaControlCalidadTelemarketingComponent , data:{titulo:'Lista Control de calidad Citas Telemarketing'} },
             { path: 'calendario', component: CalendarioComponent , data:{titulo:'Calendario'} },
 
 

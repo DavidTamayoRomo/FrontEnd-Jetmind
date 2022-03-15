@@ -1,0 +1,198 @@
+<div class="card">
+
+    <form (ngSubmit)="crear()" autocomplete="off" [formGroup]="registerForm">
+
+
+        <div class="card-body">
+            <h4 class="card-title">Agregar Control calidad</h4>
+            <h6 class="card-subtitle">Ingrese todos los datos solicitados</h6>
+
+            <div formGroupName="estado">
+
+                <div class="row p-t-20">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <div class="demo-switch-title">Estado</div>
+                            <select class="form-control custom-select" formControlName="nombre">
+                                <option value="Re agendar">Re agendar</option>
+                                <option value="Ok">Ok</option>
+                                <option value="Rechazado">Rechazado</option>
+                                <option value="Re negociacion">Re negociacion</option>
+                                <option value="Cliente no atendido">Cliente no atendido</option>
+                            </select>
+                            <small class="form-control-feedback"> Seleccione el genero </small>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group" *ngIf="this.registerForm.get('estado')?.value.nombre == 'Re agendar' || this.registerForm.get('estado')?.value.nombre == 'Cliente no atendido'">
+                            <label for="exampleInputEmail1">Fecha de reagendamiento </label>
+                            <input class="form-control" type="text" mwlFlatpickr [altInput]="true"
+                                [convertModelValue]="false" [enableTime]="true" dateFormat="Y-m-d H:i"
+                                altFormat="F j, Y H:i" formControlName="fecha" [inline]="false">
+                        </div>
+                    </div>
+                </div>
+                <div class="row p-t-20" *ngIf="this.registerForm.get('estado')?.value.nombre == 'Ok'">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="exampleInputuname">Tipo Pago </label>
+                            <div class="input-group">
+                                <div class="input-group-addon"><i class="ti-user"></i></div>
+                                <input type="text" class="form-control" formControlName="tipoPago">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="exampleInputuname">Cantidad </label>
+                            <div class="input-group">
+                                <div class="input-group-addon"><i class="ti-user"></i></div>
+                                <input type="text" class="form-control" formControlName="cantidad">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="row p-t-20">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="comentario">Observaciones de la cita</label>
+                        <div class="input-group">
+                            <div class="input-group-addon"><i class=" ti-comment "></i></div>
+                            <textarea type="text" class="form-control" formControlName="observaciones"
+                                style="height: 200px;"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+
+                    </div>
+                </div>
+            </div>
+
+
+            <div formGroupName="pregunta1">
+                <div class="row p-t-20">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <div class="form-group">
+                                <div class="demo-switch-title">1. Nuestro especialista educativo estuvo puntual en la evaluación a la hora acordada</div>
+                                <select class="form-control custom-select" formControlName="respuesta">
+                                    <option value="Si">Si</option>
+                                    <option value="No">No</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <div class="form-group">
+                                <label for="comentario">Detalle</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class=" ti-comment "></i></div>
+                                    <textarea type="text" class="form-control" formControlName="detalle"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row p-t-20">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label >2. En cuanto a la valoración e información brindada, ayúdeme por favor calificando del 1 al 10, siendo:</label>
+                        <label >10 Excelente</label><br>
+                        <label >8 Muy buena</label><br>
+                        <label >5 No fue clara, falto la información</label>
+                        <div class="input-group">
+                            <div class="input-group-addon"><i class=" ti-comment "></i></div>
+                            <input max="1" min="10" type="number" class="form-control" formControlName="pregunta2">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group" >
+                        
+                    </div>
+                </div>
+
+            </div>
+
+            <div formGroupName="pregunta3">
+                <div class="row p-t-20">
+                    <label for="">3. De antemano, les doy la mas cordial bienvenida a nuestra institución. Cuantos programas de nuestro portafolio de servicios usted adquirió?</label>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <div class="form-group">
+                                <label for="comentario">Ninguna</label>
+                                <div class="form-check">
+                                    <label class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input" formControlName="ninguna">
+                                        <span class="custom-control-indicator"></span>
+                                        <span class="custom-control-description">No se vendio programa de ninguna marca</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group" *ngIf="this.registerForm.get('pregunta3')?.value.ninguna == false">
+                            <div class="form-group">
+                                <label for="exampleInputuname">Marcas </label>
+                                <ng-multiselect-dropdown [placeholder]="'Seleccione Marca'"
+                                    [settings]="dropdownSettings" [data]="dropdownListMarcas"
+                                    (onSelect)="onItemSelectmarca($event)" (onSelectAll)="onSelectAllmarca($event)"
+                                    (onDeSelect)="onDeSelectmarca($event)" (onDeSelectAll)="onDeSelectAllmarca($event)"
+                                    formControlName="marcas">
+                                </ng-multiselect-dropdown>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row p-t-20">
+                    <div class="col-md-6">
+                        <div class="form-group" *ngIf="this.registerForm.get('pregunta3')?.value.ninguna == true">
+                            <div class="form-group">
+                                <label for="comentario">Cuénteme, cual sería el motivo principal por la cual usted no tomo nuestra oferta académica, siendo la más completa y garantizada del país.</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class=" ti-comment "></i></div>
+                                    <textarea type="text" class="form-control" formControlName="motivo"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <div class="form-group" *ngIf="this.registerForm.get('pregunta3')?.value.ninguna == false">
+                                <label for="comentario">Codigo Contrato (Opcional)</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class=" ti-comment "></i></div>
+                                    <input type="text" class="form-control" formControlName="codigoContrato">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+
+            <button type="submit"
+                class="btn btn-success waves-effect waves-light m-r-10">Guardar</button>
+            <a  (click)="cancelarGuardado()"
+                class="btn btn-inverse waves-effect waves-light">Cancelar</a>
+        </div>
+    </form>
+
+</div>
