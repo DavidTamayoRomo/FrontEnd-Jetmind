@@ -39,6 +39,7 @@
     "ngx-dropzone": "^3.0.0",
     "ngx-dropzone-wrapper": "^10.0.1",
     "ngx-file-drop": "^11.3.0",
+    "pdfmake": "^0.2.4",
     "positioning": "^2.0.1",
     "rxjs": "^6.6.7",
     "sweetalert2": "^11.1.7",

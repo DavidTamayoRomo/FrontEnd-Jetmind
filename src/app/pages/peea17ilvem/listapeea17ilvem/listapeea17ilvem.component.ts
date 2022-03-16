@@ -4,6 +4,7 @@ import Swal from 'sweetalert2';
 import { Peea17ilvemService } from '../../services/peea17ilvem.service';
 import { BusquedasService } from '../../../services/busquedas.service';
 import { Peea17ilvem } from '../peea17ilvem.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-listapeea17ilvem',
@@ -21,7 +22,8 @@ export class Listapeea17ilvemComponent implements OnInit {
 
   constructor(
     private peea17ilvemService:Peea17ilvemService,
-    private busquedaService:BusquedasService
+    private busquedaService:BusquedasService,
+    private router:Router
   ) { }
 
   ngOnInit(): void {
@@ -38,6 +40,13 @@ export class Listapeea17ilvemComponent implements OnInit {
       this.peeasTemporales = resp.data;
       this.totalPeeas = resp.totalPeeas;
     });
+  }
+
+  reporte(pea:any){
+    this.router.navigate(['/reporte-peea-17-ilvem/',pea._id]);
+    setTimeout(() => {
+      this.router.navigate(['/lista-peea-17-ilvem']);
+    }, 10);
   }
 
   paginar(valor:number){

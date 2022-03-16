@@ -74,6 +74,7 @@ import { ListaPlataformaIlvemComponent } from './plataforma-ilvem/lista-platafor
 import { EvaluacionCharlotteComponent } from './evaluacion-charlotte/evaluacion-charlotte.component';
 import { ControlCalidadTelemarketingComponent } from './control-calidad-telemarketing/control-calidad-telemarketing.component';
 import { ListaControlCalidadTelemarketingComponent } from './control-calidad-telemarketing/lista-control-calidad-telemarketing/lista-control-calidad-telemarketing.component';
+import { ReportePeea17ilvemComponent } from './peea17ilvem/reporte-peea17ilvem/reporte-peea17ilvem.component';
 
 
 
@@ -152,6 +153,7 @@ const routes: Routes = [
 
             { path: 'peea-17-ilvem/:id/:idContrato', component: Peea17ilvemComponent , data:{titulo:'PEEA 17'} },
             { path: 'lista-peea-17-ilvem', component: Listapeea17ilvemComponent , data:{titulo:'Lista de PEEA 17'} },
+            { path: 'reporte-peea-17-ilvem/:id', component: ReportePeea17ilvemComponent , data:{titulo:'Reporte Lista de PEEA 17'} },
             
             { path: 'peea-18-ilvem/:id/:idContrato', component: Peea18ilvemComponent , data:{titulo:'PEEA 18'} },
             { path: 'lista-peea-18-ilvem', component: Listapeea18ilvemComponent , data:{titulo:'Lista de PEEA 18'} },
