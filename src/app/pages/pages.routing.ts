@@ -75,6 +75,7 @@ import { EvaluacionCharlotteComponent } from './evaluacion-charlotte/evaluacion-
 import { ControlCalidadTelemarketingComponent } from './control-calidad-telemarketing/control-calidad-telemarketing.component';
 import { ListaControlCalidadTelemarketingComponent } from './control-calidad-telemarketing/lista-control-calidad-telemarketing/lista-control-calidad-telemarketing.component';
 import { ReportePeea17ilvemComponent } from './peea17ilvem/reporte-peea17ilvem/reporte-peea17ilvem.component';
+import { ReportePeea18ilvemComponent } from './peea18ilvem/reporte-peea18ilvem/reporte-peea18ilvem.component';
 
 
 
@@ -157,6 +158,7 @@ const routes: Routes = [
             
             { path: 'peea-18-ilvem/:id/:idContrato', component: Peea18ilvemComponent , data:{titulo:'PEEA 18'} },
             { path: 'lista-peea-18-ilvem', component: Listapeea18ilvemComponent , data:{titulo:'Lista de PEEA 18'} },
+            { path: 'reporte-peea-18-ilvem/:id', component: ReportePeea18ilvemComponent , data:{titulo:'Reporte de PEEA 18'} },
             
             { path: 'peea-17-tomatis/:id/:idContrato', component: Peea17tomatisComponent , data:{titulo:'PEEA 17'} },
             { path: 'lista-peea-17-tomatis', component: Listapeea17tomatisComponent , data:{titulo:'Lista de PEEA 17'} },
