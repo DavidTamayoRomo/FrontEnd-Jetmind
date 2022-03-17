@@ -96,6 +96,7 @@ import { ListaPlataformaIlvemComponent } from './plataforma-ilvem/lista-platafor
 import { ControlCalidadTelemarketingComponent } from './control-calidad-telemarketing/control-calidad-telemarketing.component';
 import { ListaControlCalidadTelemarketingComponent } from './control-calidad-telemarketing/lista-control-calidad-telemarketing/lista-control-calidad-telemarketing.component';
 import { ReportePeea18ilvemComponent } from './peea18ilvem/reporte-peea18ilvem/reporte-peea18ilvem.component';
+import { ReportePeea17charlotteComponent } from './peea17charlotteuk/reporte-peea17charlotte/reporte-peea17charlotte.component';
 
 
 
@@ -182,7 +183,8 @@ const ngWizardConfig: NgWizardConfig = {
     ListaPlataformaIlvemComponent,
     ControlCalidadTelemarketingComponent,
     ListaControlCalidadTelemarketingComponent,
-    ReportePeea18ilvemComponent
+    ReportePeea18ilvemComponent,
+    ReportePeea17charlotteComponent
     
   ],
   exports:[

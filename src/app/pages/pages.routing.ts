@@ -76,6 +76,7 @@ import { ControlCalidadTelemarketingComponent } from './control-calidad-telemark
 import { ListaControlCalidadTelemarketingComponent } from './control-calidad-telemarketing/lista-control-calidad-telemarketing/lista-control-calidad-telemarketing.component';
 import { ReportePeea17ilvemComponent } from './peea17ilvem/reporte-peea17ilvem/reporte-peea17ilvem.component';
 import { ReportePeea18ilvemComponent } from './peea18ilvem/reporte-peea18ilvem/reporte-peea18ilvem.component';
+import { ReportePeea17charlotteComponent } from './peea17charlotteuk/reporte-peea17charlotte/reporte-peea17charlotte.component';
 
 
 
@@ -148,6 +149,7 @@ const routes: Routes = [
             
             { path: 'peea-17-ch-uk/:id/:idContrato', component: Peea17charlotteukComponent , data:{titulo:'PEEA 17'} },
             { path: 'listapeea-17-ch-uk', component: ListaComponent , data:{titulo:'Lista de PEEA 17'} },
+            { path: 'reporte-peea-17-ch-uk/:id', component: ReportePeea17charlotteComponent , data:{titulo:'Lista de PEEA 17'} },
             
             { path: 'peea-18-ch-uk/:id/:idContrato', component: Peea18charlotteukComponent , data:{titulo:'PEEA 18'} },
             { path: 'listapeea-18-ch-uk', component: Listapeea18chukComponent  , data:{titulo:'Lista de PEEA 18'} },

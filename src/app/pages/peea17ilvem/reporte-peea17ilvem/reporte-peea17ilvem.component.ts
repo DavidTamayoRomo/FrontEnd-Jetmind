@@ -81,7 +81,6 @@ export class ReportePeea17ilvemComponent implements OnInit {
           bold: true
         },
         '\n\n',
-
         {
           text: [
             { text: 'Nombre: ', style: 'header', bold: true, fontSize: 12, color: 'black' },
