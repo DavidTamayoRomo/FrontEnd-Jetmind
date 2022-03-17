@@ -5,6 +5,7 @@ import { BusquedasService } from '../../../services/busquedas.service';
 import { Peea18chukService } from '../../services/peea18chuk.service';
 
 import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-listapeea18chuk',
@@ -23,7 +24,8 @@ export class Listapeea18chukComponent implements OnInit {
 
   constructor(
     private peea18chukService:Peea18chukService,
-    private busquedaService:BusquedasService
+    private busquedaService:BusquedasService,
+    private router:Router
   ) { }
 
   ngOnInit(): void {
@@ -86,6 +88,13 @@ export class Listapeea18chukComponent implements OnInit {
         
       }
     })
+  }
+
+  reporte(pea: any) {
+    this.router.navigate(['/reporte-peea-18-ch-uk/', pea._id]);
+    setTimeout(() => {
+      this.router.navigate(['/listapeea-18-ch-uk']);
+    }, 10);
   }
 
 }

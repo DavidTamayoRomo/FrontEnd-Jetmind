@@ -48,6 +48,7 @@
                                 <th class="w100">Pregunta 4</th>
 
                                 <th class="text-nowrap w100">Action</th>
+                                <th class="w100">Descargar PDF</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -66,6 +67,10 @@
                                         (click)="borrar(pea)">
                                         <i class=" ti-trash"></i>
                                     </a>
+                                </td>
+                                <td>
+                                    <button (click)="reporte(pea)" type="button" class="btn btn-info btn-circle btn-lg">
+                                        <i class="fa fa-file-pdf-o"></i></button>
                                 </td>
                             </tr>
 
