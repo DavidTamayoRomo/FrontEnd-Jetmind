@@ -99,6 +99,7 @@ import { ReportePeea18ilvemComponent } from './peea18ilvem/reporte-peea18ilvem/r
 import { ReportePeea17charlotteComponent } from './peea17charlotteuk/reporte-peea17charlotte/reporte-peea17charlotte.component';
 import { ReportePeea18charlotteComponent } from './peea18charlotteuk/reporte-peea18charlotte/reporte-peea18charlotte.component';
 import { ReportePeea17tomatisComponent } from './peea17tomatis/reporte-peea17tomatis/reporte-peea17tomatis.component';
+import { ReportePeea18tomatisComponent } from './peea18tomatis/reporte-peea18tomatis/reporte-peea18tomatis.component';
 
 
 
@@ -188,7 +189,8 @@ const ngWizardConfig: NgWizardConfig = {
     ReportePeea18ilvemComponent,
     ReportePeea17charlotteComponent,
     ReportePeea18charlotteComponent,
-    ReportePeea17tomatisComponent
+    ReportePeea17tomatisComponent,
+    ReportePeea18tomatisComponent
     
   ],
   exports:[
