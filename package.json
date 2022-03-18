@@ -24,6 +24,7 @@
     "@sweetalert2/theme-dark": "^5.0.5",
     "angular-calendar": "^0.29.0",
     "angular-draggable-droppable": "^6.0.0",
+    "angular-emojis": "^1.0.0",
     "angular-resizable-element": "^5.0.0",
     "angularx-flatpickr": "^6.6.0",
     "bootstrap": "^5.1.3",

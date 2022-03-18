@@ -81,7 +81,11 @@
                                     </div>
                                     
                                 </td>
-                                
+
+                                <td>
+                                    <button (click)="reporte(entrevista)" type="button" class="btn btn-info btn-circle btn-lg">
+                                        <i class="fa fa-file-pdf-o"></i></button>
+                                </td>
 
                                 <td class="text-nowrap">
                                     <a [routerLink]="['/ciudad',entrevista._id]" data-toggle="tooltip"

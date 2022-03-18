@@ -100,6 +100,8 @@ import { ReportePeea17charlotteComponent } from './peea17charlotteuk/reporte-pee
 import { ReportePeea18charlotteComponent } from './peea18charlotteuk/reporte-peea18charlotte/reporte-peea18charlotte.component';
 import { ReportePeea17tomatisComponent } from './peea17tomatis/reporte-peea17tomatis/reporte-peea17tomatis.component';
 import { ReportePeea18tomatisComponent } from './peea18tomatis/reporte-peea18tomatis/reporte-peea18tomatis.component';
+import { ReproteEntrevistaInicialChukComponent } from './entrevista-inicial-chuk/reprote-entrevista-inicial-chuk/reprote-entrevista-inicial-chuk.component';
+import { AngularEmojisModule } from 'angular-emojis';
 
 
 
@@ -190,7 +192,8 @@ const ngWizardConfig: NgWizardConfig = {
     ReportePeea17charlotteComponent,
     ReportePeea18charlotteComponent,
     ReportePeea17tomatisComponent,
-    ReportePeea18tomatisComponent
+    ReportePeea18tomatisComponent,
+    ReproteEntrevistaInicialChukComponent
     
   ],
   exports:[
@@ -216,6 +219,7 @@ const ngWizardConfig: NgWizardConfig = {
       provide: DateAdapter,
       useFactory: adapterFactory,
     }),
+    AngularEmojisModule,
     
   ],
  

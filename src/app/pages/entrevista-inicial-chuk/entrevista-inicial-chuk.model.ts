@@ -12,6 +12,7 @@ export class EntrevistaInicialCHUK {
         public pregunta6?:string,
         public pregunta7?:string,
         public pregunta8?:string,
+        //public pregunta9?:string//Agregar 9
         public addedUser?:string,
         public modifiedUser?:string
     ){}
