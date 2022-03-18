@@ -78,6 +78,7 @@ import { ReportePeea17ilvemComponent } from './peea17ilvem/reporte-peea17ilvem/r
 import { ReportePeea18ilvemComponent } from './peea18ilvem/reporte-peea18ilvem/reporte-peea18ilvem.component';
 import { ReportePeea17charlotteComponent } from './peea17charlotteuk/reporte-peea17charlotte/reporte-peea17charlotte.component';
 import { ReportePeea18charlotteComponent } from './peea18charlotteuk/reporte-peea18charlotte/reporte-peea18charlotte.component';
+import { ReportePeea17tomatisComponent } from './peea17tomatis/reporte-peea17tomatis/reporte-peea17tomatis.component';
 
 
 
@@ -166,6 +167,7 @@ const routes: Routes = [
             
             { path: 'peea-17-tomatis/:id/:idContrato', component: Peea17tomatisComponent , data:{titulo:'PEEA 17'} },
             { path: 'lista-peea-17-tomatis', component: Listapeea17tomatisComponent , data:{titulo:'Lista de PEEA 17'} },
+            { path: 'reporte-peea-17-toamtis/:id', component: ReportePeea17tomatisComponent , data:{titulo:'Reporte de PEEA 17'} },
            
             { path: 'peea-18-tomatis/:id/:idContrato', component: Peea18tomatisComponent , data:{titulo:'PEEA 18'} },
             { path: 'lista-peea-18-tomatis', component: Listapeea18tomatisComponent , data:{titulo:'Lista de PEEA 18'} },

@@ -4,6 +4,7 @@ import { BusquedasService } from '../../../services/busquedas.service';
 
 import Swal from 'sweetalert2';
 import { Peea17tomatis } from '../peea17tomatis.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-listapeea17tomatis',
@@ -22,7 +23,8 @@ export class Listapeea17tomatisComponent implements OnInit {
 
   constructor(
     private peea17tomatisService:Peea17tomatisService,
-    private busquedaService:BusquedasService
+    private busquedaService:BusquedasService,
+    private router:Router
   ) { }
 
   ngOnInit(): void {
@@ -85,6 +87,13 @@ export class Listapeea17tomatisComponent implements OnInit {
         
       }
     })
+  }
+
+  reporte(pea:any){
+    this.router.navigate(['/reporte-peea-17-toamtis/',pea._id]);
+    setTimeout(() => {
+      this.router.navigate(['/lista-peea-17-tomatis']);
+    }, 10);
   }
 
 }

@@ -98,6 +98,7 @@ import { ListaControlCalidadTelemarketingComponent } from './control-calidad-tel
 import { ReportePeea18ilvemComponent } from './peea18ilvem/reporte-peea18ilvem/reporte-peea18ilvem.component';
 import { ReportePeea17charlotteComponent } from './peea17charlotteuk/reporte-peea17charlotte/reporte-peea17charlotte.component';
 import { ReportePeea18charlotteComponent } from './peea18charlotteuk/reporte-peea18charlotte/reporte-peea18charlotte.component';
+import { ReportePeea17tomatisComponent } from './peea17tomatis/reporte-peea17tomatis/reporte-peea17tomatis.component';
 
 
 
@@ -186,7 +187,8 @@ const ngWizardConfig: NgWizardConfig = {
     ListaControlCalidadTelemarketingComponent,
     ReportePeea18ilvemComponent,
     ReportePeea17charlotteComponent,
-    ReportePeea18charlotteComponent
+    ReportePeea18charlotteComponent,
+    ReportePeea17tomatisComponent
     
   ],
   exports:[
