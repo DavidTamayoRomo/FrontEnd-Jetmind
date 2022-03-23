@@ -62,7 +62,8 @@ export class ProgramaService {
       .pipe(
         tap((resp: any) => {
 
-          const programas = resp.data.map((programa: any) => new Programa( programa._id, programa.idMarca, programa.idCiudad, programa.idSucursal, programa.idNombrePrograma, programa.tipo, programa.modalidad, programa.idEstudiante) );
+          const programas = resp.data.map((programa: any) => new Programa( programa._id, programa.idMarca, programa.idCiudad, 
+            programa.idSucursal, programa.idNombrePrograma, programa.tipo, programa.modalidad, programa.idEstudiante) );
 
           return{
             total:resp.totalPrograma,

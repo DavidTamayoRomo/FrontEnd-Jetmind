@@ -81,6 +81,7 @@ import { ReportePeea18charlotteComponent } from './peea18charlotteuk/reporte-pee
 import { ReportePeea17tomatisComponent } from './peea17tomatis/reporte-peea17tomatis/reporte-peea17tomatis.component';
 import { ReportePeea18tomatisComponent } from './peea18tomatis/reporte-peea18tomatis/reporte-peea18tomatis.component';
 import { ReproteEntrevistaInicialChukComponent } from './entrevista-inicial-chuk/reprote-entrevista-inicial-chuk/reprote-entrevista-inicial-chuk.component';
+import { ReporteContratoComponent } from './contrato-form/reporte-contrato/reporte-contrato.component';
 
 
 
@@ -119,6 +120,7 @@ const routes: Routes = [
 
             { path: 'contrato/:id', component: ContratoComponent, data:{titulo:'Contrato'} },
             { path: 'listacontratos', component:ContratosComponent , data:{titulo:'Lista de los contratos'} },
+            { path: 'reporte-contrato/:id', component:ReporteContratoComponent , data:{titulo:'contratos'} },
             
             { path: 'contrato1/:id', component: ContratoFormComponent, data:{titulo:'Contrato'} },
             //{ path: 'listacontratos', component: , data:{titulo:'Lista de contratos'} },

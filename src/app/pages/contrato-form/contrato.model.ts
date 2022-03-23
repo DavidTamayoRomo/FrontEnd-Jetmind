@@ -3,7 +3,7 @@ export class Contrato {
         public _id?:string,
         public fecha?:string,
         public estado?:string,
-        public idRepresentante?:boolean,
+        public idRepresentante?:any,
         public tipoPago?:string,
         public estadoVenta?:string,
         public abono?:Array<any>,
@@ -18,6 +18,7 @@ export class Contrato {
         public voucher?:Array<string>,
         public personaAprueba?:string,
         public codigo?:string,
+        public marcasVendidas?:any,
         public addedUser?:string,
         public modifiedUser?:string
     ){}

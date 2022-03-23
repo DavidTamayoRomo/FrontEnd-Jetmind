@@ -7,7 +7,7 @@ export class Programa {
         public idNombrePrograma?: Array<string>,     
         public tipo?:string,
         public modalidad?:string,
-        public idEstudiante?:Array<string>,
+        public idEstudiante?:any,
         public addedUser?:string,
         public modifiedUser?:string
     ){}

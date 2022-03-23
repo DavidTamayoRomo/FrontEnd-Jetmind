@@ -75,7 +75,8 @@ export class ContratoService {
         const contratos = resp.data.map((contrato:any) => new Contrato(contrato._id, contrato.fecha, 
           contrato.estado, contrato.idRepresentante, contrato.tipoPago,contrato.estadoVenta,contrato.abono
           ,contrato.valorMatricula,contrato.valorTotal,contrato.numeroCuotas,contrato.formaPago,contrato.comentario,
-          contrato.directorAsignado,contrato.fechaAprobacion, contrato.voucher));
+          contrato.directorAsignado,contrato.fechaAprobacion, contrato.voucher, contrato.personaAprueba, contrato.codigo
+          , contrato.marcasVendidas));
         
         return{
           total:resp.totalContratos,
@@ -94,7 +95,8 @@ export class ContratoService {
         const contratos = resp.data.map((contrato:any) => new Contrato(contrato._id, contrato.fecha, 
           contrato.estado, contrato.idRepresentante, contrato.tipoPago,contrato.estadoVenta,contrato.abono
           ,contrato.valorMatricula,contrato.valorTotal,contrato.numeroCuotas,contrato.formaPago,contrato.comentario,
-          contrato.directorAsignado,contrato.fechaAprobacion, contrato.voucher));
+          contrato.directorAsignado,contrato.fechaAprobacion, contrato.voucher, contrato.personaAprueba, contrato.codigo
+          , contrato.marcasVendidas));
         
         return{
           total:resp.totalContratos,

@@ -229,6 +229,15 @@ export class ContratosComponent implements OnInit {
   pea18tm(){
     this.router.navigate(['/peea-18-tomatis/nuevo/', this.contratoSeleccionado._id]);
   }
+
+
+  generarPDF(){
+
+    this.router.navigate(['/reporte-contrato/', this.contratoSeleccionado._id]);
+    setTimeout(() => {
+      this.router.navigate(['/listacontratos']);
+    }, 10);
+  }
   
 
 

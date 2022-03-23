@@ -270,7 +270,9 @@ export class ContratoComponent implements OnInit {
                                         icon: 'success',
                                         title: 'Se creo el representante correctamente',
                                       });
+                                      let listaMarcasContratos = [];
                                       estudiantes.forEach((objetoEstudiantePrograma: any) => {
+
                                         Object.assign(objetoEstudiantePrograma.estudiante, { idRepresentante: [resp.data._id] });
                                         setTimeout(() => {
                                           //crea estudiate
@@ -286,6 +288,10 @@ export class ContratoComponent implements OnInit {
                                             let marca: any = [];
                                             objetoEstudiantePrograma.programa.idMarca.forEach((element: any) => {
                                               marca.push(element.item_id);
+
+                                              //ver las marcas q existen en el contrato
+                                              listaMarcasContratos.push(element);
+
                                             });
                                             let nombrePrograma: any = [];
                                             objetoEstudiantePrograma.programa.idNombrePrograma.forEach((element: any) => {
@@ -329,12 +335,11 @@ export class ContratoComponent implements OnInit {
 
                                       });
 
-
                                       //Crear contrato
 
                                       this.ContratoModel = contrato;
 
-                                      
+
                                       if (abonolocalStorage) {
                                         let objetoAbono = abonolocalStorage;
                                         if (contrato.tipoPago == "Plan" && contrato.estadoVenta == "OK") {
@@ -379,6 +384,12 @@ export class ContratoComponent implements OnInit {
                                       Object.assign(this.ContratoModel, { idRepresentante: resp.data._id, fechaAprobacion: "", estadoPrograma: "Cliente no atendido" });
 
                                       setTimeout(() => {
+
+                                        //lista de marcas que se va a guardar en el contrato (para no repetir las marcas)
+                                        let hash = {};
+                                        listaMarcasContratos = listaMarcasContratos.filter(o => hash[o.item_id] ? false : hash[o.item_id] = true);
+                                        this.ContratoModel.marcasVendidas = listaMarcasContratos;
+
                                         let respuestaContrato: any;
                                         this.contratoService.crearContrato(this.ContratoModel).subscribe((resp: any) => {
                                           console.log(resp);
@@ -386,7 +397,7 @@ export class ContratoComponent implements OnInit {
                                           //Carga de imagenes al contrato
                                           respuestaContrato = resp.data;
                                           respuestaContrato.voucher = voucher;
-                                          this.contratoService.updateVouchersContrato(respuestaContrato._id,respuestaContrato).subscribe((resp: any) => {
+                                          this.contratoService.updateVouchersContrato(respuestaContrato._id, respuestaContrato).subscribe((resp: any) => {
                                             console.log(resp);
                                           });
 
