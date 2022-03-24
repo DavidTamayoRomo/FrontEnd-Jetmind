@@ -12,6 +12,13 @@ export const claves = {
   clavePersonaPrimeraVez:'DavidHack1'
 }
 
+export const marcas = {
+  marca1:'CHARLOTTE',
+  marca2:'ILVEM',
+  marca3:'TOMATIS',
+  marca4:'UK ENGLISH INSTITUTE'
+}
+
 /*
  * For easier debugging in development mode, you can import the following file
  * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.
