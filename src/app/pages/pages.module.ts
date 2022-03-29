@@ -103,6 +103,7 @@ import { ReportePeea18tomatisComponent } from './peea18tomatis/reporte-peea18tom
 import { ReproteEntrevistaInicialChukComponent } from './entrevista-inicial-chuk/reprote-entrevista-inicial-chuk/reprote-entrevista-inicial-chuk.component';
 import { AngularEmojisModule } from 'angular-emojis';
 import { ReporteContratoComponent } from './contrato-form/reporte-contrato/reporte-contrato.component';
+import { ReporteEntrevistaInicialIlComponent } from './entrevista-inicial-il/reporte-entrevista-inicial-il/reporte-entrevista-inicial-il.component';
 
 
 
@@ -195,7 +196,8 @@ const ngWizardConfig: NgWizardConfig = {
     ReportePeea17tomatisComponent,
     ReportePeea18tomatisComponent,
     ReproteEntrevistaInicialChukComponent,
-    ReporteContratoComponent
+    ReporteContratoComponent,
+    ReporteEntrevistaInicialIlComponent
     
   ],
   exports:[

@@ -12,6 +12,11 @@ import Swal from 'sweetalert2';
 import { EntrevistaInicialCHUK } from './entrevista-inicial-chuk.model';
 import { EntrevistaInicialCHUKService } from '../services/entrevista-inicial-chuk.service';
 import { map } from 'rxjs/operators';
+import { ProgramaService } from '../services/programa.service';
+import { MarcaService } from '../services/marca.service';
+
+import { marcas } from "src/environments/environment";
+const variableMarcas = marcas;
 
 @Component({
   selector: 'app-entrevista-inicial-chuk',
@@ -23,13 +28,13 @@ export class EntrevistaInicialCHUKComponent implements OnInit {
 
   public mostraModal: boolean = true;
 
-  public idContrato:string;
+  public idContrato: string;
 
-  public estudiantes: any;
+  public estudiantes: any = [];
   public estudiantes1: any = [];
   public estudianteSeleccionado: any;
-  public entrevistaInialCHUKSeleccionada: any=[];
-  
+  public entrevistaInialCHUKSeleccionada: any = [];
+
   entrevistaInialCHUKModel = new EntrevistaInicialCHUK();
 
   public arrayDocentesHorararios: any = [];
@@ -57,6 +62,8 @@ export class EntrevistaInicialCHUKComponent implements OnInit {
     private estudianteService: EstudianteService,
     private personaService: PersonaService,
     private horariosService: HorarioService,
+    private programaService: ProgramaService,
+    private marcaService: MarcaService,
   ) { }
 
   ngOnInit(): void {
@@ -141,30 +148,57 @@ export class EntrevistaInicialCHUKComponent implements OnInit {
   estudiantesContrato(idContrato: any) {
     this.contratoService.obtenerContratoById(idContrato).subscribe((resp: any) => {
       this.estudianteService.getAllEstudiantesByIdRepresentante(resp.data.idRepresentante).subscribe((resp: any) => {
-        this.estudiantes = resp.data;
-        this.estudiantes.map((estudiante: any) => {
-          //this.arrayDocentesHorararios.push({idDocente:[{item_id:'',nombre:''}],idHorario:[{item_id:'',nombre:''}]});
-          this.arrayDocentesHorararios.push([{
-            "idEstudainte": "",
-            "nombreEstudiante": "",
-            "idDocente": [
-              {
-                "item_id": "",
-                "nombre": ""
-              }
-            ],
-            "idHorario": [
-              {
-                "item_id": "",
-                "nombre": ""
-              }
-            ]
-          }]);
+        resp.data.map((estudiante: any) => {
+          this.programaService.obtenerProgramaByIdEstudiante(estudiante._id).subscribe((resp: any) => {
+            resp.data[0].idNombrePrograma.map((progra: any) => {
+              this.marcaService.obtenerMarcaById(progra.idMarca).subscribe((resp: any) => {
+                if (resp.data.nombre == variableMarcas.marca1 ) {
+                  //CHARLOTTE O UK
+                  this.estudiantes.push(estudiante);
+                  this.arrayDocentesHorararios.push([{
+                    "idEstudainte": "",
+                    "nombreEstudiante": "",
+                    "idDocente": [
+                      {
+                        "item_id": "",
+                        "nombre": ""
+                      }
+                    ],
+                    "idHorario": [
+                      {
+                        "item_id": "",
+                        "nombre": ""
+                      }
+                    ]
+                  }]);
+
+
+
+                }
+              });
+            })
+          });
+
+
+
         });
+
+
+
       });
     }
     );
     console.log(this.arrayDocentesHorararios);
+
+   /*  setTimeout(() => {
+      console.log(this.estudiantes);
+      const tabla = {};
+      const unico = this.estudiantes.filter((indice) => {
+        return tabla.hasOwnProperty(indice) ? false : (tabla[indice] = true);
+      });
+      this.estudiantes = unico;
+      console.log('Entre');
+    }, 3000);  */
   }
 
 
@@ -174,11 +208,30 @@ export class EntrevistaInicialCHUKComponent implements OnInit {
 
 
     //if (this.entrevistaInialCHUKSeleccionada) {
+
+    /* //actualizar
+    this.CiudadModel = this.registerForm.value;
+    if (this.registerForm.invalid) {
+      //Formulario invalido
+      const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener('mouseenter', Swal.stopTimer)
+          toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+      })
+      Toast.fire({
+        icon: 'error',
+        title: 'Verificar campos invalidos \n Indicados con el color rojo'
+      })
+      return;
+    } else {
       
-      /* //actualizar
-      this.CiudadModel = this.registerForm.value;
-      if (this.registerForm.invalid) {
-        //Formulario invalido
+      this.ciudadService.updateCiudad(this.ciudadSeleccionada._id, this.CiudadModel).subscribe((resp: any) => {
         const Toast = Swal.mixin({
           toast: true,
           position: 'top-end',
@@ -191,63 +244,62 @@ export class EntrevistaInicialCHUKComponent implements OnInit {
           }
         })
         Toast.fire({
-          icon: 'error',
-          title: 'Verificar campos invalidos \n Indicados con el color rojo'
+          icon: 'success',
+          title: 'Se actualizo correctamente'
         })
-        return;
-      } else {
-        
-        this.ciudadService.updateCiudad(this.ciudadSeleccionada._id, this.CiudadModel).subscribe((resp: any) => {
-          const Toast = Swal.mixin({
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-              toast.addEventListener('mouseenter', Swal.stopTimer)
-              toast.addEventListener('mouseleave', Swal.resumeTimer)
-            }
-          })
-          Toast.fire({
-            icon: 'success',
-            title: 'Se actualizo correctamente'
-          })
-          this.router.navigateByUrl('/listaciudades');
-        }, (err: any) => {
+        this.router.navigateByUrl('/listaciudades');
+      }, (err: any) => {
 
-          console.warn(err.error.message);
+        console.warn(err.error.message);
 
-          const Toast = Swal.mixin({
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-              toast.addEventListener('mouseenter', Swal.stopTimer)
-              toast.addEventListener('mouseleave', Swal.resumeTimer)
-            }
-          })
-
-          //TODO: Mostrar error cuando es administrador. Dato que muestra el error completo=  err.error.message
-          Toast.fire({
-            icon: 'error',
-            title: 'ERROR: ' + err.error.statusCode + '\nContactese con su proveedor de software '
-          })
-        });
-      } */
-    //}else{
-      //crear
-
-      this.entrevistaInialCHUKModel = this.registerForm.value;
-      this.entrevistaInialCHUKModel.idContrato = this.idContrato;
-      if (this.registerForm.invalid) {
         const Toast = Swal.mixin({
           toast: true,
           position: 'top-end',
           showConfirmButton: false,
-          timer: 6000,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+          }
+        })
+
+        //TODO: Mostrar error cuando es administrador. Dato que muestra el error completo=  err.error.message
+        Toast.fire({
+          icon: 'error',
+          title: 'ERROR: ' + err.error.statusCode + '\nContactese con su proveedor de software '
+        })
+      });
+    } */
+    //}else{
+    //crear
+
+    this.entrevistaInialCHUKModel = this.registerForm.value;
+    this.entrevistaInialCHUKModel.idContrato = this.idContrato;
+    if (this.registerForm.invalid) {
+      const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 6000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener('mouseenter', Swal.stopTimer)
+          toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+      })
+      Toast.fire({
+        icon: 'error',
+        title: '- Campos con asterisco son obligatorios\n - Verificar campos invalidos, \n indicados con el color rojo  '
+      })
+      return;
+    } else {
+      this.entrevistaInicialCHUKService.crearEntrevista(this.entrevistaInialCHUKModel).subscribe((resp) => {
+        const Toast = Swal.mixin({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 3000,
           timerProgressBar: true,
           didOpen: (toast) => {
             toast.addEventListener('mouseenter', Swal.stopTimer)
@@ -255,53 +307,35 @@ export class EntrevistaInicialCHUKComponent implements OnInit {
           }
         })
         Toast.fire({
-          icon: 'error',
-          title: '- Campos con asterisco son obligatorios\n - Verificar campos invalidos, \n indicados con el color rojo  '
+          icon: 'success',
+          title: 'Guardado correctamente'
         })
-        return;
-      }else{
-        this.entrevistaInicialCHUKService.crearEntrevista(this.entrevistaInialCHUKModel).subscribe((resp) => {
-          const Toast = Swal.mixin({
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-              toast.addEventListener('mouseenter', Swal.stopTimer)
-              toast.addEventListener('mouseleave', Swal.resumeTimer)
-            }
-          })
-          Toast.fire({
-            icon: 'success',
-            title: 'Guardado correctamente'
-          })
 
-          this.router.navigateByUrl('/listaentrevistainicialchuk');
-        }, (err: any) => {
+        this.router.navigateByUrl('/listaentrevistainicialchuk');
+      }, (err: any) => {
 
-          console.warn(err.error.message);
+        console.warn(err.error.message);
 
-          const Toast = Swal.mixin({
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-              toast.addEventListener('mouseenter', Swal.stopTimer)
-              toast.addEventListener('mouseleave', Swal.resumeTimer)
-            }
-          })
+        const Toast = Swal.mixin({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+          }
+        })
 
-          //TODO: Mostrar error cuando es administrador. Dato que muestra el error completo=  err.error.message
-          Toast.fire({
-            icon: 'error',
-            title: 'ERROR: ' + err.error.statusCode + '\nContactese con su proveedor de software '
-          })
-        });
-      }
-      
+        //TODO: Mostrar error cuando es administrador. Dato que muestra el error completo=  err.error.message
+        Toast.fire({
+          icon: 'error',
+          title: 'ERROR: ' + err.error.statusCode + '\nContactese con su proveedor de software '
+        })
+      });
+    }
+
     //}
 
 
@@ -319,7 +353,7 @@ export class EntrevistaInicialCHUKComponent implements OnInit {
     pregunta7: [null],
     pregunta8: [null],
     pregunta9: [null],
-    estudiantes1:[this.estudiantes1]
+    estudiantes1: [this.estudiantes1]
   });
 
   public registerForm1 = this.fb.group({
@@ -354,7 +388,7 @@ export class EntrevistaInicialCHUKComponent implements OnInit {
         idHorario: [null],
       }
     ));
-   
+
   }
 
 
@@ -363,7 +397,7 @@ export class EntrevistaInicialCHUKComponent implements OnInit {
   }
 
 
-  abrirModal(estudiante: any, index:any) {
+  abrirModal(estudiante: any, index: any) {
     this.mostraModal = false;
     this.estudianteSeleccionado = estudiante;
     this.posicion = index;
@@ -376,14 +410,14 @@ export class EntrevistaInicialCHUKComponent implements OnInit {
 
   agregar() {
     this.estudiantes1.push(this.registerForm1.value);
-    let formArray:any = this.registerForm1.value;
+    let formArray: any = this.registerForm1.value;
     console.log(formArray.estudiantes);
-    this.arrayDocentesHorararios[this.posicion]=formArray.estudiantes;
+    this.arrayDocentesHorararios[this.posicion] = formArray.estudiantes;
     console.log(this.arrayDocentesHorararios);
-    
+
     this.cerrarModal();
-    
-    
+
+
   }
 
   limpiarArrayCampos() {
@@ -392,7 +426,7 @@ export class EntrevistaInicialCHUKComponent implements OnInit {
     this.limpiarCampos();
   }
 
-  limpiarCampos() { 
+  limpiarCampos() {
     this.registerForm1.reset();
   }
 

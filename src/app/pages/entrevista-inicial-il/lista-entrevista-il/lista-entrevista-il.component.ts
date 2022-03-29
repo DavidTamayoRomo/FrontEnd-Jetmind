@@ -4,6 +4,7 @@ import { entrevistainicialilvemService } from '../../services/entrevista-inicial
 import { BusquedasService } from '../../../services/busquedas.service';
 
 import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-lista-entrevista-il',
@@ -22,7 +23,8 @@ export class ListaEntrevistaILComponent implements OnInit {
 
   constructor(
     private entrevistaInicialService: entrevistainicialilvemService,
-    private busquedaService: BusquedasService
+    private busquedaService: BusquedasService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -86,6 +88,13 @@ export class ListaEntrevistaILComponent implements OnInit {
 
       }
     })
+  }
+
+  reporte(entrevistainicialchil: any) {
+    this.router.navigate(['/reporte-entrevistainicialil/', entrevistainicialchil._id]);
+    /* setTimeout(() => {
+      this.router.navigate(['/listaentrevistainicialil']);
+    }, 10); */
   }
 
 }

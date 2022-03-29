@@ -8,8 +8,13 @@ import { HorarioService } from '../services/horario.service';
 import { EntrevistaInicialIL } from './entrevista-inicial-il.model';
 import { entrevistainicialilvemService } from '../services/entrevista-inicial-il.service';
 
+import { marcas } from "src/environments/environment";
+const variableMarcas = marcas;
+
 import Swal from 'sweetalert2';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
+import { ProgramaService } from '../services/programa.service';
+import { MarcaService } from '../services/marca.service';
 
 @Component({
   selector: 'app-entrevista-inicial-il',
@@ -23,7 +28,7 @@ export class EntrevistaInicialILComponent implements OnInit {
 
   public idContrato:string;
 
-  public estudiantes: any;
+  public estudiantes: any= [];
   public estudiantes1: any = [];
   public estudianteSeleccionado: any;
   public entrevistaInialCHUKSeleccionada: any=[];
@@ -55,6 +60,8 @@ export class EntrevistaInicialILComponent implements OnInit {
     private estudianteService: EstudianteService,
     private personaService: PersonaService,
     private horariosService: HorarioService,
+    private programaService: ProgramaService,
+    private marcaService: MarcaService,
   ) { }
 
   ngOnInit(): void {
@@ -139,25 +146,40 @@ export class EntrevistaInicialILComponent implements OnInit {
   estudiantesContrato(idContrato: any) {
     this.contratoService.obtenerContratoById(idContrato).subscribe((resp: any) => {
       this.estudianteService.getAllEstudiantesByIdRepresentante(resp.data.idRepresentante).subscribe((resp: any) => {
-        this.estudiantes = resp.data;
-        this.estudiantes.map((estudiante: any) => {
-          //this.arrayDocentesHorararios.push({idDocente:[{item_id:'',nombre:''}],idHorario:[{item_id:'',nombre:''}]});
-          this.arrayDocentesHorararios.push([{
-            "idEstudainte": "",
-            "nombreEstudiante": "",
-            "idDocente": [
-              {
-                "item_id": "",
-                "nombre": ""
-              }
-            ],
-            "idHorario": [
-              {
-                "item_id": "",
-                "nombre": ""
-              }
-            ]
-          }]);
+        //this.estudiantes = resp.data;
+        resp.data.map((estudiante: any) => {
+          this.programaService.obtenerProgramaByIdEstudiante(estudiante._id).subscribe((resp: any) => {
+            resp.data[0].idNombrePrograma.map((progra: any) => {
+              this.marcaService.obtenerMarcaById(progra.idMarca).subscribe((resp: any) => {
+                console.log(resp.data.nombre);
+                if (resp.data.nombre == variableMarcas.marca2) {
+                  //CHARLOTTE O UK
+                  this.estudiantes.push(estudiante);
+                  this.arrayDocentesHorararios.push([{
+                    "idEstudainte": "",
+                    "nombreEstudiante": "",
+                    "idDocente": [
+                      {
+                        "item_id": "",
+                        "nombre": ""
+                      }
+                    ],
+                    "idHorario": [
+                      {
+                        "item_id": "",
+                        "nombre": ""
+                      }
+                    ]
+                  }]);
+
+                  
+
+                }
+              });
+            })
+          });
+          
+          
         });
       });
     }

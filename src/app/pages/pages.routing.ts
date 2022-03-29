@@ -82,6 +82,7 @@ import { ReportePeea17tomatisComponent } from './peea17tomatis/reporte-peea17tom
 import { ReportePeea18tomatisComponent } from './peea18tomatis/reporte-peea18tomatis/reporte-peea18tomatis.component';
 import { ReproteEntrevistaInicialChukComponent } from './entrevista-inicial-chuk/reprote-entrevista-inicial-chuk/reprote-entrevista-inicial-chuk.component';
 import { ReporteContratoComponent } from './contrato-form/reporte-contrato/reporte-contrato.component';
+import { ReporteEntrevistaInicialIlComponent } from './entrevista-inicial-il/reporte-entrevista-inicial-il/reporte-entrevista-inicial-il.component';
 
 
 
@@ -186,9 +187,10 @@ const routes: Routes = [
             { path: 'entrevistainicialchuk/:id/:idContrato', component: EntrevistaInicialCHUKComponent , data:{titulo:'Entrvista Inicial CH UK'} },
             { path: 'listaentrevistainicialchuk', component: ListaEntrevistaCHUKComponent , data:{titulo:'Lista de entrevista incial'} },
             { path: 'reporte-entrevistainicialchuk/:id', component: ReproteEntrevistaInicialChukComponent , data:{titulo:'Entrevista'} },
-
+            
             { path: 'entrevistainicialil/:id/:idContrato', component: EntrevistaInicialILComponent , data:{titulo:'Entrvista Inicial IL'} },
             { path: 'listaentrevistainicialil', component: ListaEntrevistaILComponent , data:{titulo:'Lista de entrevista incial'} },
+            { path: 'reporte-entrevistainicialil/:id', component: ReporteEntrevistaInicialIlComponent , data:{titulo:'Entrevista IL'} },
             
             { path: 'cambiohorario-agregar/:id', component: AgregarEstudianteComponent , data:{titulo:'Agregar - Retirar estudiantes'} },
             { path: 'cambiohorario-cambiar/:id', component: CambiarEstudianteComponent , data:{titulo:'Cambiar estudiantes'} },
