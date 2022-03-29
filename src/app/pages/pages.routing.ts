@@ -185,7 +185,7 @@ const routes: Routes = [
             
             { path: 'entrevistainicialchuk/:id/:idContrato', component: EntrevistaInicialCHUKComponent , data:{titulo:'Entrvista Inicial CH UK'} },
             { path: 'listaentrevistainicialchuk', component: ListaEntrevistaCHUKComponent , data:{titulo:'Lista de entrevista incial'} },
-            { path: 'entrevistainicialchuk/:id', component: ReproteEntrevistaInicialChukComponent , data:{titulo:'Entrevista'} },
+            { path: 'reporte-entrevistainicialchuk/:id', component: ReproteEntrevistaInicialChukComponent , data:{titulo:'Entrevista'} },
 
             { path: 'entrevistainicialil/:id/:idContrato', component: EntrevistaInicialILComponent , data:{titulo:'Entrvista Inicial IL'} },
             { path: 'listaentrevistainicialil', component: ListaEntrevistaILComponent , data:{titulo:'Lista de entrevista incial'} },

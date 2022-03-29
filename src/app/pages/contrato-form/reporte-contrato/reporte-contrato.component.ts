@@ -469,6 +469,7 @@ export class ReporteContratoComponent implements OnInit {
             text: this.cuartaTM
           },
           '\n\n',
+
           {
             image: this.imagenUK,
             width: 150,

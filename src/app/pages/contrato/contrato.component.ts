@@ -311,7 +311,7 @@ export class ContratoComponent implements OnInit {
                                                 console.log(resp);
                                                 console.log("Programa creado");
                                               });
-                                            }, 900);
+                                            }, 100);
 
                                           });
                                           const Toast = Swal.mixin({
@@ -329,7 +329,7 @@ export class ContratoComponent implements OnInit {
                                             icon: 'success',
                                             title: 'Se crearon los estudiantes correctamente',
                                           });
-                                        }, 900);
+                                        }, 500);
 
 
 
