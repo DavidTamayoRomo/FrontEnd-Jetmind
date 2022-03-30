@@ -1,0 +1,71 @@
+<div class="card">
+    <form autocomplete="off" [formGroup]="registerForm">
+        <div class="col-12">
+            <div class="row">
+    
+                <div class="col-9">
+                    <div class="panel-body">
+                        <input class="form-control" type="text" mwlFlatpickr [altInput]="true" [convertModelValue]="false"
+                            [enableTime]="true" dateFormat="Y-m-d H:i" altFormat="F j, Y H:i" [inline]="false" mode="range"
+                            formControlName="rangoFechas">
+                    </div>
+                </div>
+                <div class="col-3">
+                    <button (click)="valorRangoFechas()">Buscar</button>
+                </div>
+    
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="form-group">
+                        <label for="exampleInputuname">Tipo Pago *</label>
+                        <ng-multiselect-dropdown [placeholder]="'Seleccione Tipo Pago'" [settings]="dropdownSettings"
+                            [data]="dropdownListTipoPago" (onSelect)="onItemSelectTipoPago($event)"
+                            (onSelectAll)="onSelectAllTipoPago($event)" (onDeSelect)="onDeSelectTipoPago($event)"
+                            (onDeSelectAll)="onDeSelectAllTipoPago($event)" formControlName="idTipoPago">
+                        </ng-multiselect-dropdown>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="form-group">
+                        <label for="exampleInputuname">Estado Venta *</label>
+                        <ng-multiselect-dropdown [placeholder]="'Seleccione Tipo Pago'" [settings]="dropdownSettings"
+                            [data]="dropdownListEstadoVenta" (onSelect)="onItemSelectEstadoVenta($event)"
+                            (onSelectAll)="onSelectAllEstadoVenta($event)" (onDeSelect)="onDeSelectEstadoVenta($event)"
+                            (onDeSelectAll)="onDeSelectAllEstadoVenta($event)" formControlName="idEstadoVenta">
+                        </ng-multiselect-dropdown>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </form>
+</div>
+<div class="card">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Asesor</th>
+                        <th>Ventas Realizadas</th>
+                        <th>Monto Total</th>
+                        <th>Monto Matriculas</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let dato of datos; let index=index"> 
+                        <td>{{index}}</td>
+                        <td>{{dato._id?.nombresApellidos}}</td>
+                        <td>{{dato.totalVentas}}</td>
+                        <td>{{dato.montoAsesortotal}}</td>
+                        <td>{{dato.montoAsesorMatriculas}}</td>
+                        <td><span class="label label-danger">admin</span> </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

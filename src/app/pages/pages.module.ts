@@ -105,6 +105,7 @@ import { AngularEmojisModule } from 'angular-emojis';
 import { ReporteContratoComponent } from './contrato-form/reporte-contrato/reporte-contrato.component';
 import { ReporteEntrevistaInicialIlComponent } from './entrevista-inicial-il/reporte-entrevista-inicial-il/reporte-entrevista-inicial-il.component';
 import { ReporteCitasTelemarketingComponent } from './citas-telemarketing/reporte-citas-telemarketing/reporte-citas-telemarketing.component';
+import { ReporteVentasContratoComponent } from './contrato/reporte-ventas-contrato/reporte-ventas-contrato.component';
 
 
 
@@ -199,7 +200,8 @@ const ngWizardConfig: NgWizardConfig = {
     ReproteEntrevistaInicialChukComponent,
     ReporteContratoComponent,
     ReporteEntrevistaInicialIlComponent,
-    ReporteCitasTelemarketingComponent
+    ReporteCitasTelemarketingComponent,
+    ReporteVentasContratoComponent
     
   ],
   exports:[

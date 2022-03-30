@@ -104,6 +104,7 @@ export class SidebarService {
       submenu: [
         { titulo: 'Contrato', url: '/contrato/nuevo' },
         { titulo: 'Lista Contratos', url: '/listacontratos' },
+        { titulo: 'Reporte Contratos', url: '/reporte-venta-contrato' },
         /* { titulo: 'Contratos 1',url: '/contrato1/nuevo' }, */
       ]
     },

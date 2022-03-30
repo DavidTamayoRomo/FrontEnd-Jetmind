@@ -64,6 +64,11 @@ export class ContratoService {
     const headers = this.retornarHeader();
     return this.http.delete(`${base_url}/contrato/${contrato._id}`, { headers: headers });
   }
+  
+  reporteVentascontrato( datos:any){
+    const headers = this.retornarHeader();
+    return this.http.post(`${base_url}/contrato/reporte-ventas`, datos ,{ headers: headers });
+  }
 
 
   cargarContratos (skip: number = 0){

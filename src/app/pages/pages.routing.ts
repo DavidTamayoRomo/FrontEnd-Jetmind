@@ -84,6 +84,7 @@ import { ReproteEntrevistaInicialChukComponent } from './entrevista-inicial-chuk
 import { ReporteContratoComponent } from './contrato-form/reporte-contrato/reporte-contrato.component';
 import { ReporteEntrevistaInicialIlComponent } from './entrevista-inicial-il/reporte-entrevista-inicial-il/reporte-entrevista-inicial-il.component';
 import { ReporteCitasTelemarketingComponent } from './citas-telemarketing/reporte-citas-telemarketing/reporte-citas-telemarketing.component';
+import { ReporteVentasContratoComponent } from './contrato/reporte-ventas-contrato/reporte-ventas-contrato.component';
 
 
 
@@ -123,6 +124,7 @@ const routes: Routes = [
             { path: 'contrato/:id', component: ContratoComponent, data:{titulo:'Contrato'} },
             { path: 'listacontratos', component:ContratosComponent , data:{titulo:'Lista de los contratos'} },
             { path: 'reporte-contrato/:id', component:ReporteContratoComponent , data:{titulo:'contratos'} },
+            { path: 'reporte-venta-contrato', component:ReporteVentasContratoComponent , data:{titulo:'Reporte ventas'} },
             
             { path: 'contrato1/:id', component: ContratoFormComponent, data:{titulo:'Contrato'} },
             //{ path: 'listacontratos', component: , data:{titulo:'Lista de contratos'} },
