@@ -47,6 +47,12 @@ export class CitasTelemarketingService {
     return this.http.delete(`${base_url}/citastelemarketing/${telemarketing._id}`, { headers: headers });
   }
 
+  citasTelemarketingByDateGroup( data:any){
+    const headers = this.retornarHeader();
+    return this.http.post(`${base_url}/citastelemarketing/reporteDiario`,data, { headers: headers });
+  }
+
+
 
   cargarCitasTelemarketing (skip: number = 0){
     const headers = this.retornarHeader();

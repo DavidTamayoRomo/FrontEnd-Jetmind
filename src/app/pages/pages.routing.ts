@@ -83,6 +83,7 @@ import { ReportePeea18tomatisComponent } from './peea18tomatis/reporte-peea18tom
 import { ReproteEntrevistaInicialChukComponent } from './entrevista-inicial-chuk/reprote-entrevista-inicial-chuk/reprote-entrevista-inicial-chuk.component';
 import { ReporteContratoComponent } from './contrato-form/reporte-contrato/reporte-contrato.component';
 import { ReporteEntrevistaInicialIlComponent } from './entrevista-inicial-il/reporte-entrevista-inicial-il/reporte-entrevista-inicial-il.component';
+import { ReporteCitasTelemarketingComponent } from './citas-telemarketing/reporte-citas-telemarketing/reporte-citas-telemarketing.component';
 
 
 
@@ -139,6 +140,7 @@ const routes: Routes = [
             
             { path: 'citasTelemarketing/:id', component: CitasTelemarketingComponent , data:{titulo:'Crear Citas Telemarketing'} },
             { path: 'listacitas', component: ListaCitasComponent , data:{titulo:'Lista Citas Telemarketing'} },
+            { path: 'citasTelemarketing-reporte', component: ReporteCitasTelemarketingComponent , data:{titulo:'Lista Citas Telemarketing'} },
             { path: 'control-calidad-telemarketing/:id/:idCita', component: ControlCalidadTelemarketingComponent , data:{titulo:'Control de calidad Citas Telemarketing'} },
             { path: 'lista-control-calidad-telemarketing', component: ListaControlCalidadTelemarketingComponent , data:{titulo:'Lista Control de calidad Citas Telemarketing'} },
             { path: 'calendario', component: CalendarioComponent , data:{titulo:'Calendario'} },
