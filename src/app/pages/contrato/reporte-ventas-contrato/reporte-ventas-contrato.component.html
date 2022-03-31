@@ -2,18 +2,18 @@
     <form autocomplete="off" [formGroup]="registerForm">
         <div class="col-12">
             <div class="row">
-    
+
                 <div class="col-9">
                     <div class="panel-body">
-                        <input class="form-control" type="text" mwlFlatpickr [altInput]="true" [convertModelValue]="false"
-                            [enableTime]="true" dateFormat="Y-m-d H:i" altFormat="F j, Y H:i" [inline]="false" mode="range"
-                            formControlName="rangoFechas">
+                        <input class="form-control" type="text" mwlFlatpickr [altInput]="true"
+                            [convertModelValue]="false" [enableTime]="true" dateFormat="Y-m-d H:i"
+                            altFormat="F j, Y H:i" [inline]="false" mode="range" formControlName="rangoFechas">
                     </div>
                 </div>
                 <div class="col-3">
                     <button (click)="valorRangoFechas()">Buscar</button>
                 </div>
-    
+
             </div>
 
             <div class="row">
@@ -37,7 +37,7 @@
                         </ng-multiselect-dropdown>
                     </div>
                 </div>
-                
+
             </div>
         </div>
     </form>
@@ -56,16 +56,100 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let dato of datos; let index=index"> 
-                        <td>{{index}}</td>
+                    <tr *ngFor="let dato of datos; let index=index">
+                        <td>{{index+1}}</td>
                         <td>{{dato._id?.nombresApellidos}}</td>
                         <td>{{dato.totalVentas}}</td>
                         <td>{{dato.montoAsesortotal}}</td>
                         <td>{{dato.montoAsesorMatriculas}}</td>
-                        <td><span class="label label-danger">admin</span> </td>
+                        <td (click)="detalle(dato)"><span class="label label-info">Detalle</span> </td>
                     </tr>
                 </tbody>
             </table>
         </div>
     </div>
 </div>
+
+<div class="card">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>Total matriculas: {{sumaMatriculas}}</td>
+                        <td>Total : {{sumaTotal}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
+
+<!-- Modal para agregar  -->
+
+<div class="fondo-modal-imagen animated fadeIn fast" [class.oculto]="mostraModal">
+    <div id="responsive-modal" class="modal fade show" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+        style="display: block;padding-right: 17px; overflow-y: initial">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Agregar abono</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                        (click)="cerrarModal()">×</button>
+                </div>
+
+                <div class="card-body">
+                    <h4 class="card-title">Detalle de ventas</h4>
+                    <br>
+
+                    <div *ngFor="let data of datosModal?.datos" class="alert alert-primary" role="alert">
+                        <h4 class="alert-heading">{{data?.codigo}}</h4>
+                        <p>Estado: {{data?.estado}}</p>
+                        <p>Tipo de Pago: {{data?.tipoPago}}</p>
+                        <p>Estado de la Venta: {{data?.estadoVenta}}</p>
+                        <p>Valor de la Matricula: {{data?.valorMatricula}}</p>
+                        <p>Valor Total: {{data?.valorTotal}}</p>
+                        <p *ngIf="data?.tipoPago == 'Plan'">Numero Cuotas: {{data?.numeroCuotas}}</p>
+                        <p>Forma de Pago: {{data?.formaPago}}</p>
+                        <hr>
+
+                        <table class="table" *ngIf="data?.abono != [null]">
+                            <thead>
+                                <th>Monto</th>
+                                <th>Estado</th>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let abonos of data?.abono">
+                                    <td>{{abonos?.monto}}</td>
+                                    <td>{{abonos?.estado}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default waves-effect" data-dismiss="modal"
+                            (click)="cerrarModal()">Close</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>

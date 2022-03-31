@@ -11,20 +11,26 @@ import { ContratoService } from '../../services/contrato.service';
 })
 export class ReporteVentasContratoComponent implements OnInit {
 
-  public datos:any;
+  public datos: any;
+  public datosModal: any;
 
-  public fechaInicio:Date= new Date(2021,1,1, 0, 0);
-  public fechaFin:Date= new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate(), 23, 59);
+  public fechaInicio: Date = new Date(2021, 1, 1, 0, 0);
+  public fechaFin: Date = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate(), 23, 59);
   public TipoPago: any = [];
   public EstadoVenta: any = [];
- 
+
+  public sumaTotal: any = 0;
+  public sumaMatriculas: any = 0;
+
 
   public dropdownSettings: IDropdownSettings = {};
   public dropdownListTipoPago: any = [];
   public dropdownListEstadoVenta: any = [];
 
+  public mostraModal: boolean = true;
+
   constructor(
-    private constratoService:ContratoService,
+    private constratoService: ContratoService,
     private fb: FormBuilder,
   ) { }
 
@@ -41,12 +47,12 @@ export class ReporteVentasContratoComponent implements OnInit {
       allowSearchFilter: true
     };
 
-    this.dropdownListTipoPago=[
+    this.dropdownListTipoPago = [
       { item_id: 'Plan', nombre: 'Plan' },
       { item_id: 'Contado', nombre: 'Contado' },
     ]
-    this.dropdownListEstadoVenta=[
-      { item_id: 'Ok', nombre: 'Ok' },
+    this.dropdownListEstadoVenta = [
+      { item_id: 'OK', nombre: 'OK' },
       { item_id: 'Abono', nombre: 'Abono' },
       { item_id: 'Saldo', nombre: 'Saldo' },
     ]
@@ -60,38 +66,68 @@ export class ReporteVentasContratoComponent implements OnInit {
     idEstadoVenta: [null],
   });
 
-  obtenerReporteVentasContrato(){
-    this.constratoService.reporteVentascontrato({fechainicio:this.fechaInicio, fechafin:this.fechaFin}).subscribe((resp:any)=>{
+  obtenerReporteVentasContrato() {
+    this.sumaTotal = 0;
+    this.sumaMatriculas = 0;
+
+    this.constratoService.reporteVentascontrato({ fechainicio: this.fechaInicio, fechafin: this.fechaFin }).subscribe((resp: any) => {
       console.log(resp);
+
       this.datos = resp.data;
+      resp.data.map((resp: any) => {
+        this.sumaTotal += resp.montoAsesortotal;
+        this.sumaMatriculas += resp.montoAsesorMatriculas;
+      })
     });
   }
 
-  valorRangoFechas(){
+  valorRangoFechas() {
+    this.sumaTotal = 0;
+    this.sumaMatriculas = 0;
     //obtener el valor de rangoFechas
     let rangoFechas = this.registerForm.get('rangoFechas').value;
     let separarFecha = rangoFechas.split(' to ');
     this.fechaInicio = new Date(separarFecha[0]);
     this.fechaFin = new Date(separarFecha[1]);
-    let tipopago:any=[];
-    this.TipoPago.map((resp:any)=>{
+    let tipopago: any = [];
+    this.TipoPago.map((resp: any) => {
       tipopago.push(resp.nombre);
     });
-    let estadoventa:any=[];
-    this.EstadoVenta.map((resp:any)=>{
+    let estadoventa: any = [];
+    this.EstadoVenta.map((resp: any) => {
       estadoventa.push(resp.nombre);
     });
     let datos = {
-      fechainicio:this.fechaInicio,
-      fechafin:this.fechaFin,
-      TipoPago:tipopago,
-      EstadoVenta:estadoventa
+      fechainicio: this.fechaInicio,
+      fechafin: this.fechaFin,
+      TipoPago: tipopago,
+      EstadoVenta: estadoventa
     }
-    this.constratoService.reporteVentascontrato(datos).subscribe((resp:any)=>{
-      console.log(resp);
+    this.constratoService.reporteVentascontrato(datos).subscribe((resp: any) => {
       this.datos = resp.data;
+      resp.data.map((resp: any) => {
+        this.sumaTotal += resp.montoAsesortotal;
+        this.sumaMatriculas += resp.montoAsesorMatriculas;
+      })
     });
   }
+
+
+  detalle(data:any){
+    this.abrirModal();
+    console.log(data);
+    this.datosModal = data;
+  }
+
+  abrirModal() {
+    this.mostraModal = false;
+
+  }
+
+  cerrarModal() {
+    this.mostraModal = true;
+  }
+
 
 
 
@@ -129,7 +165,7 @@ export class ReporteVentasContratoComponent implements OnInit {
   }
 
 
-   /** EstadoVenta */
+  /** EstadoVenta */
   /** Item Seleccionado */
   onItemSelectEstadoVenta(item: any) {
     this.EstadoVenta.push(item);
