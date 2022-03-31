@@ -71,7 +71,7 @@ export class ReproteEntrevistaInicialChukComponent implements OnInit {
 
   createPDF(estudiante: any, representante: any, contrato: any, entrevista: any) {
 
-    let array = [];
+    /* let array = [];
     if (entrevista.pregunta1 === 'Si') {
       //array[0] = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAC8AAAArCAYAAADottG6AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAALNSURBVGhD7di9b9pAGAZwwGASSGsSJ52yZPKCOnSIOrKzeMiEOrO0S6WIhUqRMkTqEAmJIUollAGxRWxdUOYs/ANMWZg8Vx08PeWFM/7I+ewDFxOJR3qlKIlyvwf57HMyeMPZ4dPKDp9WdvhkY+Hl5S/7Wpwtw1vo1zVkFAPNkcW+F54twjN4JrMYRYfZFxfYErwHXsoi/znLSmiodSew2W8Fkz7enqLnge/dl/HhuYzKt9yywPnNmFsgXTwXfrCcoysF2XkBBcb3ZwS3cXr4CLgzx508cqzAaWM4u8DcpIOPCZ/PsAj1jPAZKEYLY8/1s3m8JLxQWcDVatsHp2wW74PnsP8ggqvIl8LhFCm8NfqKi9brjRMrEvCTRxeund9w4ZTYeKtvQlfoD/J3vjD2BN1asnBKDLyNSbcGjRZejkQBGfjAA691MRHAKRF4G+N2FSpD574UcXjr3rqMFv/hsYwM/KEARQJOEeAtjJoGFAbPX+7jhC3kvfeGFgjAS4OY8HoP0xhwSgh+dtYwdQbPoth5vbD+UwkvIAO/LyC3hPd9D6GocPB/8HjBFp7B936FL8wtsBJcgW7KwSncT96e9lDXFp9G5lMBlSf+4jRuARXV1gC3MeHHd+6ltwqcEnrN+woYEQWunQMUGwl48LwiE8GGDRQ4y0Mb8TE0ywJRcMFBSzZCPCVY4P1vPopGvy7g4JH/MxrfXao5WgtOicRT/AUUvBvycaLxbe4E4JRYeIqvwOzSKAs+4eC4e2IGlz1aCBIbTwkWEF3bzvjgUU9kyUjhKcECoke+fuW8h85uo+1k4RRp/DxWH6ausAL8F4qjH/8XTlkNT7GGaJyyAvQkvnMKlHF4Gf3mn0RWx1OsEZqGW6DYKW0MTlkPT7HHaFdVBnZG/M+ipLI+nuI9jG0ITkkGP4+FYeMjzN50I3BKgvjNZ4dPKzt8WnnDeOAf8bM6Aqkm1qoAAAAASUVORK5CYII=';
     }
@@ -98,126 +98,116 @@ export class ReproteEntrevistaInicialChukComponent implements OnInit {
     }
     if (entrevista.pregunta8 === 'Si') {
       
-    }
+    } */
 
-    const pdfDefinition: any = {
+    let estudiantesEntrevista :any = [];
+    entrevista.estudiantes1.map((resp:any)=>{
+      this.estudianteService.obtenerEstudianteById(resp.estudiantes[0].idEstudainte).subscribe((resp2:any)=>{
+        estudiantesEntrevista.push([resp.estudiantes[0].nombreEstudiante, resp2.data.cedula, this.calcularEdad(resp2.data.fechaNacimiento),
+         resp.tiempoCapacitacion, resp.observaciones],);
+      });
+    });
 
-      content: [
+    setTimeout(() => {
+      const pdfDefinition: any = {
 
-        {
-          image:this.imagenCH,
-          width: 200,
-          alignment: 'center',
-        },
-        '\n\n',
-        {
-          text: 'ENTREVISTA INICIAL ',
-          style: 'header',
-          alignment: 'center',
-          color: '#E84B20',
-          bold: true,
-          fontsize: 26,
-        },
-        '\n\n',
-        {
-          text: 'DATOS PERSONALES DEL ESTUDIANTE',
-          style: 'header',
-          alignment: 'center',
-          color: '#E84B20',
-          bold: true
-        },
-        '\n\n',
-        
-        {
-          columns: [
-            {
-              text: [
-                { text: 'Nombre Representante: ', style: 'header', bold: true, fontSize: 12, color: 'black' },
-                `${representante?.nombresApellidos}`,
-              ]
-            },
-            {
-              text: [
-                { text: 'Cedula: ', style: 'header', bold: true, fontSize: 12 },
-                `${representante?.cedula}`,
-              ]
-            },
-          ]
-        },
-        '\n\n',
-        {
-          columns: [
-            {
-              text: [
-                { text: 'Nombre Estudiante: ', style: 'header', bold: true, fontSize: 12, color: 'black' },
-                `${estudiante?.nombresApellidos}`,
-              ]
-            },
-            {
-              text: [
-                { text: 'Cedula: ', style: 'header', bold: true, fontSize: 12 },
-                `${estudiante?.cedula}`,
-              ]
-            },
-          ]
-        },
-        '\n\n',
-        {
-          columns: [
-            {
-              text: [
-                { text: 'Edad: ', style: 'header', bold: true, fontSize: 12 },
-                `${this.calcularEdad(estudiante?.fechaNacimiento)}`,
-              ]
-            },
-            {
-              text: [
-                { text: 'Fecha de Nacimiento: ', style: 'header', bold: true, fontSize: 12 },
-                `${estudiante?.fechaNacimiento}`,
-              ]
-            },
-          ]
-        },
-        '\n',
-        {
-          text: [
-            { text: 'Dirección: ', style: 'header', bold: true, fontSize: 12, color: 'black' },
-            `${representante?.direccion}`,
-          ]
-        },
-        '\n\n',
-        {
-          text: 'ASUNTOS TRATADOS',
-          style: 'header',
-          color: '#E84B20',
-          bold: true
-        },
-        '\n\n',
-        {
-          style: 'tableExample',
-          table: {
-            body: [
-              ['Pregunta','Respuesta'],
-              ['Apoyo Académico (R.I.N) ',`${entrevista.pregunta1}`],
-              ['Evaluaciones continuas', `${entrevista.pregunta2}`],
-              ['Talleres y conferencias virtuales con psicólogos de amplia trayectoria',`${entrevista.pregunta3}`],
-              ['Certificado', `${entrevista.pregunta4}`],
-              ['¿Asiste a escuela o colegio bilingüe? ', `${entrevista.pregunta5}`],
-              ['¿En casa alguien habla inglés?', `${entrevista.pregunta6}`],
-              ['¿Ha estudiando inglés anteriormente?',`${entrevista.pregunta7}`],
-              ['¿Tiene algún problema de aprendizaje?', `${entrevista.pregunta8}`],
-              ['¿Por qué ha decidido estudiar inglés?', `${entrevista.pregunta8}`],
+        content: [
+  
+          {
+            image:this.imagenCH,
+            width: 200,
+            alignment: 'center',
+          },
+          '\n\n',
+          {
+            text: 'ENTREVISTA INICIAL ',
+            style: 'header',
+            alignment: 'center',
+            color: '#E84B20',
+            bold: true,
+            fontsize: 26,
+          },
+          '\n\n',
+          {
+            text: 'DATOS PERSONALES DEL ESTUDIANTE',
+            style: 'header',
+            alignment: 'center',
+            color: '#E84B20',
+            bold: true
+          },
+          '\n\n',
+          
+          {
+            columns: [
+              {
+                text: [
+                  { text: 'Nombre Representante: ', style: 'header', bold: true, fontSize: 12, color: 'black' },
+                  `${representante?.nombresApellidos}`,
+                ]
+              },
+              {
+                text: [
+                  { text: 'Cedula: ', style: 'header', bold: true, fontSize: 12 },
+                  `${representante?.cedula}`,
+                ]
+              },
             ]
-          }
-        },
-        '\n',
+          },
+          '\n\n',
+          {
+            style: 'tableExample',
+            table: {
+              body: [
+                ['Nombre','Cedula','Edad','tiempoCapacitacion','Observaciones'],
+                ...estudiantesEntrevista,
+              ]
+            }
+          },
+          '\n\n',
+          {
+            text: [
+              { text: 'Dirección: ', style: 'header', bold: true, fontSize: 12, color: 'black' },
+              `${representante?.direccion}`,
+            ]
+          },
+          '\n\n',
+          {
+            text: 'ASUNTOS TRATADOS',
+            style: 'header',
+            color: '#E84B20',
+            bold: true
+          },
+          '\n\n',
+          {
+            style: 'tableExample',
+            table: {
+              body: [
+                ['Pregunta','Respuesta'],
+                ['Apoyo Académico (R.I.N) ',`${entrevista?.pregunta1}`],
+                ['Evaluaciones continuas', `${entrevista?.pregunta2}`],
+                ['Talleres y conferencias virtuales con psicólogos de amplia trayectoria',`${entrevista?.pregunta3}`],
+                ['Certificado', `${entrevista?.pregunta4}`],
+                ['¿Asiste a escuela o colegio bilingüe? ', `${entrevista?.pregunta5}`],
+                ['¿En casa alguien habla inglés?', `${entrevista?.pregunta6}`],
+                ['¿Ha estudiando inglés anteriormente?',`${entrevista?.pregunta7}`],
+                ['¿Tiene algún problema de aprendizaje?', `${entrevista?.pregunta8}`],
+                ['¿Por qué ha decidido estudiar inglés?', `${entrevista?.pregunta8}`],
+              ]
+            }
+          },
+          '\n',
+  
+        ]
+  
+      }
 
-      ]
 
-    }
+      const pdf = pdfMake.createPdf(pdfDefinition);
+      pdf.open();
+    }, 500);
+    
 
-    const pdf = pdfMake.createPdf(pdfDefinition);
-    pdf.open();
+    
 
   }
 

@@ -240,7 +240,14 @@ export class SidebarService {
         { titulo: 'Lista', url: '/listaentrevistainicialil' },
       ]
     },
-    
+    {
+      titulo: 'Entrevista Incial TOMATIS',
+      icono: 'mdi mdi-checkbox-multiple-marked',
+      submenu: [
+        { titulo: 'Crear', url: '/entrevistainicialtm/nuevo/idcontrato' },
+        { titulo: 'Lista', url: '/listaentrevistainicialchuk' },
+      ]
+    },
     
     {
       titulo: 'PEEA 17 Charlotte - Uk',

@@ -297,7 +297,7 @@ export class EntrevistaInicialILComponent implements OnInit {
             title: 'Guardado correctamente'
           })
 
-          this.router.navigateByUrl('/lista');
+          this.router.navigateByUrl('/listaentrevistainicialil');
         }, (err: any) => {
 
           console.warn(err.error.message);

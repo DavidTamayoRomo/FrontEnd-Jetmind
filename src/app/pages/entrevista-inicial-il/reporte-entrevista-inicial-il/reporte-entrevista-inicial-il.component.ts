@@ -72,134 +72,120 @@ export class ReporteEntrevistaInicialIlComponent implements OnInit {
 
   createPDF(estudiante: any, representante: any, contrato: any, entrevista: any) {
 
-    let array = [];
+    let estudiantesEntrevista :any = [];
+    entrevista.estudiantes1.map((resp:any)=>{
+      this.estudianteService.obtenerEstudianteById(resp.estudiantes[0].idEstudainte).subscribe((resp2:any)=>{
+        estudiantesEntrevista.push([resp.estudiantes[0].nombreEstudiante, resp2.data.cedula, this.calcularEdad(resp2.data.fechaNacimiento),
+         resp.tiempoCapacitacion, resp.observaciones],);
+      });
+    });
 
 
-    const pdfDefinition: any = {
 
-      content: [
+    setTimeout(() => {
+      const pdfDefinition: any = {
 
-        {
-          image:this.imagenIL,
-          width: 200,
-          alignment: 'center',
-        },
-        '\n\n',
-        {
-          text: 'ENTREVISTA INICIAL ILVEM',
-          style: 'header',
-          alignment: 'center',
-          color: '#E84B20',
-          bold: true,
-          fontsize: 26,
-        },
-        '\n\n',
-        {
-          text: 'DATOS PERSONALES DEL ESTUDIANTE',
-          style: 'header',
-          alignment: 'center',
-          color: '#E84B20',
-          bold: true
-        },
-        '\n\n',
-        
-        {
-          columns: [
-            {
-              text: [
-                { text: 'Nombre Representante: ', style: 'header', bold: true, fontSize: 12, color: 'black' },
-                `${representante?.nombresApellidos}`,
-              ]
-            },
-            {
-              text: [
-                { text: 'Cedula: ', style: 'header', bold: true, fontSize: 12 },
-                `${representante?.cedula}`,
-              ]
-            },
-          ]
-        },
-        '\n\n',
-        {
-          columns: [
-            {
-              text: [
-                { text: 'Nombre Estudiante: ', style: 'header', bold: true, fontSize: 12, color: 'black' },
-                `${estudiante?.nombresApellidos}`,
-              ]
-            },
-            {
-              text: [
-                { text: 'Cedula: ', style: 'header', bold: true, fontSize: 12 },
-                `${estudiante?.cedula}`,
-              ]
-            },
-          ]
-        },
-        '\n\n',
-        {
-          columns: [
-            {
-              text: [
-                { text: 'Edad: ', style: 'header', bold: true, fontSize: 12 },
-                `${this.calcularEdad(estudiante?.fechaNacimiento)}`,
-              ]
-            },
-            {
-              text: [
-                { text: 'Fecha de Nacimiento: ', style: 'header', bold: true, fontSize: 12 },
-                `${estudiante?.fechaNacimiento}`,
-              ]
-            },
-          ]
-        },
-        '\n',
-        {
-          text: [
-            { text: 'Dirección: ', style: 'header', bold: true, fontSize: 12, color: 'black' },
-            `${representante?.direccion}`,
-          ]
-        },
-        '\n\n',
-        {
-          text: 'ASUNTOS TRATADOS',
-          style: 'header',
-          color: '#E84B20',
-          bold: true
-        },
-        '\n\n',
-        {
-          style: 'tableExample',
-          table: {
-            body: [
-              ['Pregunta','Respuesta'],
-              ['Apoyo escolar (10mo de básica) Matemáticas, Lenguaje, CCSS, CCNN todo el año, 1 vez a la semana. Horarios establecidos por la institución, separar los 5 primeros días de cada mes ',`${entrevista.pregunta1}`],
-              ['Cambios de Profesores ', `${entrevista.pregunta2}`],
-              ['Cambios de horario siempre que haya disponibilidad ',`${entrevista.pregunta3}`],
-              ['Costos de finalización de la capacitación (certificados)', `${entrevista.pregunta4}`],
-              ['¿Qué lo motivó a tomar la capacitación?', `${entrevista.pregunta5}`],
-              ['Observaciones', `${entrevista.pregunta6}`],
+        content: [
+  
+          {
+            image:this.imagenIL,
+            width: 200,
+            alignment: 'center',
+          },
+          '\n\n',
+          {
+            text: 'ENTREVISTA INICIAL ILVEM',
+            style: 'header',
+            alignment: 'center',
+            color: '#E84B20',
+            bold: true,
+            fontsize: 26,
+          },
+          '\n\n',
+          {
+            text: 'DATOS PERSONALES DEL ESTUDIANTE',
+            style: 'header',
+            alignment: 'center',
+            color: '#E84B20',
+            bold: true
+          },
+          '\n\n',
+          
+          {
+            columns: [
+              {
+                text: [
+                  { text: 'Nombre Representante: ', style: 'header', bold: true, fontSize: 12, color: 'black' },
+                  `${representante?.nombresApellidos}`,
+                ]
+              },
+              {
+                text: [
+                  { text: 'Cedula: ', style: 'header', bold: true, fontSize: 12 },
+                  `${representante?.cedula}`,
+                ]
+              },
             ]
+          },
+          '\n\n',
+            {
+              style: 'tableExample',
+              table: {
+                body: [
+                  ['Nombre','Cedula','Edad','tiempoCapacitacion','Observaciones'],
+                  ...estudiantesEntrevista,
+                ]
+              }
+            },
+          '\n',
+          {
+            text: [
+              { text: 'Dirección: ', style: 'header', bold: true, fontSize: 12, color: 'black' },
+              `${representante?.direccion}`,
+            ]
+          },
+          '\n\n',
+          {
+            text: 'ASUNTOS TRATADOS',
+            style: 'header',
+            color: '#E84B20',
+            bold: true
+          },
+          '\n\n',
+          {
+            style: 'tableExample',
+            table: {
+              body: [
+                ['Pregunta','Respuesta'],
+                ['Apoyo escolar (10mo de básica) Matemáticas, Lenguaje, CCSS, CCNN todo el año, 1 vez a la semana. Horarios establecidos por la institución, separar los 5 primeros días de cada mes ',`${entrevista.pregunta1}`],
+                ['Cambios de Profesores ', `${entrevista?.pregunta2}`],
+                ['Cambios de horario siempre que haya disponibilidad ',`${entrevista?.pregunta3}`],
+                ['Costos de finalización de la capacitación (certificados)', `${entrevista?.pregunta4}`],
+                ['¿Qué lo motivó a tomar la capacitación?', `${entrevista?.pregunta5}`],
+                ['Observaciones', `${entrevista?.pregunta6}`],
+              ]
+            }
+          },
+          '\n',
+          {
+            text: 'ACUERDOS',
+            style: 'header',
+            color: '#E84B20',
+            bold: true
+          },
+          '\n\n',
+          {
+            text:'- Puntualidad\n - Respetar los horarios establecidos\n - Reforzar en casa\n - Conectarse de manera regular '
           }
-        },
-        '\n',
-        {
-          text: 'ACUERDOS',
-          style: 'header',
-          color: '#E84B20',
-          bold: true
-        },
-        '\n\n',
-        {
-          text:'- Puntualidad\n - Respetar los horarios establecidos\n - Reforzar en casa\n - Conectarse de manera regular '
-        }
-
-      ]
-
-    }
-
-    const pdf = pdfMake.createPdf(pdfDefinition);
-    pdf.open();
+  
+        ]
+  
+      }
+  
+      const pdf = pdfMake.createPdf(pdfDefinition);
+      pdf.open();
+    }, 500);
+    
 
   }
 

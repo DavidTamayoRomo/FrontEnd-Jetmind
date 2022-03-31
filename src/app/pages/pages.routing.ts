@@ -85,6 +85,7 @@ import { ReporteContratoComponent } from './contrato-form/reporte-contrato/repor
 import { ReporteEntrevistaInicialIlComponent } from './entrevista-inicial-il/reporte-entrevista-inicial-il/reporte-entrevista-inicial-il.component';
 import { ReporteCitasTelemarketingComponent } from './citas-telemarketing/reporte-citas-telemarketing/reporte-citas-telemarketing.component';
 import { ReporteVentasContratoComponent } from './contrato/reporte-ventas-contrato/reporte-ventas-contrato.component';
+import { EntrevistaInicialTmComponent } from './entrevista-inicial-tm/entrevista-inicial-tm.component';
 
 
 
@@ -195,6 +196,10 @@ const routes: Routes = [
             { path: 'entrevistainicialil/:id/:idContrato', component: EntrevistaInicialILComponent , data:{titulo:'Entrvista Inicial IL'} },
             { path: 'listaentrevistainicialil', component: ListaEntrevistaILComponent , data:{titulo:'Lista de entrevista incial'} },
             { path: 'reporte-entrevistainicialil/:id', component: ReporteEntrevistaInicialIlComponent , data:{titulo:'Entrevista IL'} },
+            
+            { path: 'entrevistainicialtm/:id/:idContrato', component: EntrevistaInicialTmComponent , data:{titulo:'Entrvista Inicial Tomatis'} },
+            //{ path: 'listaentrevistainicialtm', component: ListaEntrevistaILComponent , data:{titulo:'Lista de entrevista incial'} },
+            //{ path: 'reporte-entrevistainicialtm/:id', component: ReporteEntrevistaInicialIlComponent , data:{titulo:'Entrevista IL'} },
             
             { path: 'cambiohorario-agregar/:id', component: AgregarEstudianteComponent , data:{titulo:'Agregar - Retirar estudiantes'} },
             { path: 'cambiohorario-cambiar/:id', component: CambiarEstudianteComponent , data:{titulo:'Cambiar estudiantes'} },

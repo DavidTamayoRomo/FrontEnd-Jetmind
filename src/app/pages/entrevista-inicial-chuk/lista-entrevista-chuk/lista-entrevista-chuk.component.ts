@@ -90,11 +90,11 @@ export class ListaEntrevistaCHUKComponent implements OnInit {
     })
   }
 
-  reporte(entrevistainicialil: any) {
-    this.router.navigate(['/reporte-entrevistainicialil/', entrevistainicialil._id]);
-    /* setTimeout(() => {
-      this.router.navigate(['/listaentrevistainicialil']);
-    }, 10); */
+  reporte(entrevistainicialchuk: any) {
+    this.router.navigate(['/reporte-entrevistainicialchuk/', entrevistainicialchuk._id]);
+    setTimeout(() => {
+      this.router.navigate(['/listaentrevistainicialchuk']);
+    }, 10); 
   }
 
 

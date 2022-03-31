@@ -1,30 +1,29 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormArray } from '@angular/forms';
+import { FormArray, FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ContratoService } from '../services/contrato.service';
-import { EstudianteService } from '../services/estudiante.service';
-import { PersonaService } from '../persona/persona.service';
-import { HorarioService } from '../services/horario.service';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
+import { PersonaService } from '../persona/persona.service';
+import { ContratoService } from '../services/contrato.service';
+import { EntrevistaInicialTmService } from '../services/entrevista-inicial-tm.service';
+import { EstudianteService } from '../services/estudiante.service';
+import { HorarioService } from '../services/horario.service';
+import { MarcaService } from '../services/marca.service';
+import { ProgramaService } from '../services/programa.service';
+import { EntrevistaInicialTM } from './entrevista-inicial-tm.model';
+
 
 import Swal from 'sweetalert2';
-
-import { EntrevistaInicialCHUK } from './entrevista-inicial-chuk.model';
-import { EntrevistaInicialCHUKService } from '../services/entrevista-inicial-chuk.service';
-import { map } from 'rxjs/operators';
-import { ProgramaService } from '../services/programa.service';
-import { MarcaService } from '../services/marca.service';
 
 import { marcas } from "src/environments/environment";
 const variableMarcas = marcas;
 
 @Component({
-  selector: 'app-entrevista-inicial-chuk',
-  templateUrl: './entrevista-inicial-chuk.component.html',
+  selector: 'app-entrevista-inicial-tm',
+  templateUrl: './entrevista-inicial-tm.component.html',
   styles: [
   ]
 })
-export class EntrevistaInicialCHUKComponent implements OnInit {
+export class EntrevistaInicialTmComponent implements OnInit {
 
   public mostraModal: boolean = true;
 
@@ -35,7 +34,7 @@ export class EntrevistaInicialCHUKComponent implements OnInit {
   public estudianteSeleccionado: any;
   public entrevistaInialCHUKSeleccionada: any = [];
 
-  entrevistaInialCHUKModel = new EntrevistaInicialCHUK();
+  entrevistaInialCHUKModel = new EntrevistaInicialTM();
 
   public arrayDocentesHorararios: any = [];
 
@@ -50,14 +49,13 @@ export class EntrevistaInicialCHUKComponent implements OnInit {
   public dropdownSettings: IDropdownSettings = {};
   public dropdownSettingsSingle: IDropdownSettings = {};
 
-
   public posicion: number = 0;
 
   constructor(
     private fb: FormBuilder,
     private activatedRoute: ActivatedRoute,
     private router: Router,
-    private entrevistaInicialCHUKService: EntrevistaInicialCHUKService,
+    private entrevistaInicialCHUKService: EntrevistaInicialTmService,
     private contratoService: ContratoService,
     private estudianteService: EstudianteService,
     private personaService: PersonaService,
@@ -94,9 +92,7 @@ export class EntrevistaInicialCHUKComponent implements OnInit {
       unSelectAllText: 'UnSelect All',
       allowSearchFilter: true,
     };
-
   }
-
 
   recuperarDatosPersonas() {
     this.personaService.getAllPersonasSinLimite().subscribe((resp: any) => {
@@ -105,17 +101,7 @@ export class EntrevistaInicialCHUKComponent implements OnInit {
         nombrePersonas.push({ item_id: element._id, nombre: element.nombresApellidos });
       });
       this.dropdownListPersonas = nombrePersonas;
-      /* if (this.asignarSeleccionada) {
 
-        const findMarcaPersona = this.dropdownListPersonas.find(
-          (item: any) => item.item_id === this.asignarSeleccionada.idDocente
-        );
-        if (findMarcaPersona) {
-          this.onItemSelectPersona(findMarcaPersona);
-          this.registerForm.get('idDocente')?.setValue(this.persona);
-        }
-
-      } */
 
     });
 
@@ -128,22 +114,11 @@ export class EntrevistaInicialCHUKComponent implements OnInit {
       });
       this.dropdownListHorarios = nombreHorarios;
 
-      /* if (this.asignarSeleccionada) {
 
-        const findHorario = this.dropdownListHorarios.find(
-          (item: any) => item.item_id === this.asignarSeleccionada.idHorario
-        );
-        if (findHorario) {
-          this.onItemSelectHorario(findHorario);
-          this.registerForm.get('idHorario')?.setValue(this.horario);
-        }
-
-      } */
 
     });
 
   }
-
 
   estudiantesContrato(idContrato: any) {
     this.contratoService.obtenerContratoById(idContrato).subscribe((resp: any) => {
@@ -152,8 +127,8 @@ export class EntrevistaInicialCHUKComponent implements OnInit {
           this.programaService.obtenerProgramaByIdEstudiante(estudiante._id).subscribe((resp: any) => {
             resp.data[0].idNombrePrograma.map((progra: any) => {
               this.marcaService.obtenerMarcaById(progra.idMarca).subscribe((resp: any) => {
-                if (resp.data.nombre == variableMarcas.marca1 ) {
-                  //CHARLOTTE O UK
+                if (resp.data.nombre == variableMarcas.marca3) {
+                  //Tomatis
                   this.estudiantes.push(estudiante);
                   this.arrayDocentesHorararios.push([{
                     "idEstudainte": "",
@@ -171,108 +146,60 @@ export class EntrevistaInicialCHUKComponent implements OnInit {
                       }
                     ]
                   }]);
-
-
-
                 }
               });
             })
           });
-
-
-
         });
-
-
-
       });
     }
     );
-    console.log(this.arrayDocentesHorararios);
-
-   /*  setTimeout(() => {
-      console.log(this.estudiantes);
-      const tabla = {};
-      const unico = this.estudiantes.filter((indice) => {
-        return tabla.hasOwnProperty(indice) ? false : (tabla[indice] = true);
-      });
-      this.estudiantes = unico;
-      console.log('Entre');
-    }, 3000);  */
   }
 
+  public registerForm = this.fb.group({
+    idContrato: [null],
+    observaciones: [null],
+    estudiantes1: [this.estudiantes1]
+  });
 
+  public registerForm1 = this.fb.group({
+    observaciones: [null],
+    fechaInicio: [null],
+    FechaIncorporacion: [null],
+    tiempoCapacitacion: [null],
+    pregunta1: [null],
+    pregunta2: [null],
+    pregunta3: [null],
+    //TODO: Ver si pongo aqui la fase para enviar a la tabla datos tomatis
+    estudiantes: this.fb.array([
+      this.fb.group({
+        idEstudainte: [null],
+        nombreEstudiante: [null],
+        idDocente: [null],
+        idHorario: [null],
+      })
+    ])
+
+  });
+
+  get getestudaintes() {
+    return this.registerForm1.get('estudiantes') as FormArray;
+  }
+
+  agregarEstudiantes(idEstudiante: any, nombreEstudiante: any) {
+    const estudianteForm = <FormArray>this.registerForm1.controls['estudiantes'];
+    estudianteForm.push(this.fb.group(
+      {
+        idEstudainte: [idEstudiante],
+        nombreEstudiante: [nombreEstudiante],
+        idDocente: [null],
+        idHorario: [null],
+      }
+    ));
+  }
 
   crear() {
-    console.log(this.registerForm.value);
 
-
-    //if (this.entrevistaInialCHUKSeleccionada) {
-
-    /* //actualizar
-    this.CiudadModel = this.registerForm.value;
-    if (this.registerForm.invalid) {
-      //Formulario invalido
-      const Toast = Swal.mixin({
-        toast: true,
-        position: 'top-end',
-        showConfirmButton: false,
-        timer: 3000,
-        timerProgressBar: true,
-        didOpen: (toast) => {
-          toast.addEventListener('mouseenter', Swal.stopTimer)
-          toast.addEventListener('mouseleave', Swal.resumeTimer)
-        }
-      })
-      Toast.fire({
-        icon: 'error',
-        title: 'Verificar campos invalidos \n Indicados con el color rojo'
-      })
-      return;
-    } else {
-      
-      this.ciudadService.updateCiudad(this.ciudadSeleccionada._id, this.CiudadModel).subscribe((resp: any) => {
-        const Toast = Swal.mixin({
-          toast: true,
-          position: 'top-end',
-          showConfirmButton: false,
-          timer: 3000,
-          timerProgressBar: true,
-          didOpen: (toast) => {
-            toast.addEventListener('mouseenter', Swal.stopTimer)
-            toast.addEventListener('mouseleave', Swal.resumeTimer)
-          }
-        })
-        Toast.fire({
-          icon: 'success',
-          title: 'Se actualizo correctamente'
-        })
-        this.router.navigateByUrl('/listaciudades');
-      }, (err: any) => {
-
-        console.warn(err.error.message);
-
-        const Toast = Swal.mixin({
-          toast: true,
-          position: 'top-end',
-          showConfirmButton: false,
-          timer: 3000,
-          timerProgressBar: true,
-          didOpen: (toast) => {
-            toast.addEventListener('mouseenter', Swal.stopTimer)
-            toast.addEventListener('mouseleave', Swal.resumeTimer)
-          }
-        })
-
-        //TODO: Mostrar error cuando es administrador. Dato que muestra el error completo=  err.error.message
-        Toast.fire({
-          icon: 'error',
-          title: 'ERROR: ' + err.error.statusCode + '\nContactese con su proveedor de software '
-        })
-      });
-    } */
-    //}else{
-    //crear
 
     this.entrevistaInialCHUKModel = this.registerForm.value;
     this.entrevistaInialCHUKModel.idContrato = this.idContrato;
@@ -341,56 +268,6 @@ export class EntrevistaInicialCHUKComponent implements OnInit {
 
   }
 
-  public registerForm = this.fb.group({
-    idContrato: [null],
-    fecha: [new Date()],
-    pregunta1: [null],
-    pregunta2: [null],
-    pregunta3: [null],
-    pregunta4: [null],
-    pregunta5: [null],
-    pregunta6: [null],
-    pregunta7: [null],
-    pregunta8: [null],
-    pregunta9: [null],
-    estudiantes1: [this.estudiantes1]
-  });
-
-  public registerForm1 = this.fb.group({
-    observaciones: [null],
-    fechaInicio: [null],
-    FechaIncorporacion: [null],
-    tiempoCapacitacion: [null],
-    estudiantes: this.fb.array([
-      this.fb.group({
-        idEstudainte: [null],
-        nombreEstudiante: [null],
-        idDocente: [null],
-        idHorario: [null],
-      })
-    ])
-
-  });
-
-  get getestudaintes() {
-    return this.registerForm1.get('estudiantes') as FormArray;
-  }
-
-
-
-  agregarEstudiantes(idEstudiante: any, nombreEstudiante: any) {
-    const estudianteForm = <FormArray>this.registerForm1.controls['estudiantes'];
-    estudianteForm.push(this.fb.group(
-      {
-        idEstudainte: [idEstudiante],
-        nombreEstudiante: [nombreEstudiante],
-        idDocente: [null],
-        idHorario: [null],
-      }
-    ));
-  }
-
-
   cancelarGuardado() {
 
   }
@@ -410,8 +287,8 @@ export class EntrevistaInicialCHUKComponent implements OnInit {
   agregar() {
     this.estudiantes1.push(this.registerForm1.value);
     let formArray: any = this.registerForm1.value;
-    console.log(formArray.estudiantes);
-    this.arrayDocentesHorararios[this.posicion] = formArray.estudiantes;
+    console.log(formArray);
+    this.arrayDocentesHorararios[this.posicion] = formArray;
     console.log(this.arrayDocentesHorararios);
 
     this.cerrarModal();
@@ -435,7 +312,7 @@ export class EntrevistaInicialCHUKComponent implements OnInit {
   }
 
 
-
+  
   /** Persona */
   /** Item Seleccionado */
   onItemSelectPersona(item: any) {
@@ -493,5 +370,7 @@ export class EntrevistaInicialCHUKComponent implements OnInit {
   onDeSelectAllHorario(items: any) {
     this.horario = items;
   }
+
+
 
 }

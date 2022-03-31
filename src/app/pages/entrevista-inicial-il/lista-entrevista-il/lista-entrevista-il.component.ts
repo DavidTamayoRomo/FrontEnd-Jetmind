@@ -92,9 +92,9 @@ export class ListaEntrevistaILComponent implements OnInit {
 
   reporte(entrevistainicialchil: any) {
     this.router.navigate(['/reporte-entrevistainicialil/', entrevistainicialchil._id]);
-    /* setTimeout(() => {
+    setTimeout(() => {
       this.router.navigate(['/listaentrevistainicialil']);
-    }, 10); */
+    }, 10);
   }
 
 }
