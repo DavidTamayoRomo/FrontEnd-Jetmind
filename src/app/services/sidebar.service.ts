@@ -245,7 +245,7 @@ export class SidebarService {
       icono: 'mdi mdi-checkbox-multiple-marked',
       submenu: [
         { titulo: 'Crear', url: '/entrevistainicialtm/nuevo/idcontrato' },
-        { titulo: 'Lista', url: '/listaentrevistainicialchuk' },
+        { titulo: 'Lista', url: '/listaentrevistainicialtm' },
       ]
     },
     

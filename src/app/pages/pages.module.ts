@@ -107,6 +107,8 @@ import { ReporteEntrevistaInicialIlComponent } from './entrevista-inicial-il/rep
 import { ReporteCitasTelemarketingComponent } from './citas-telemarketing/reporte-citas-telemarketing/reporte-citas-telemarketing.component';
 import { ReporteVentasContratoComponent } from './contrato/reporte-ventas-contrato/reporte-ventas-contrato.component';
 import { EntrevistaInicialTmComponent } from './entrevista-inicial-tm/entrevista-inicial-tm.component';
+import { ListaEntrevistaTmComponent } from './entrevista-inicial-tm/lista-entrevista-tm/lista-entrevista-tm.component';
+import { ReporteEntrevistaTmComponent } from './entrevista-inicial-tm/reporte-entrevista-tm/reporte-entrevista-tm.component';
 
 
 
@@ -203,7 +205,9 @@ const ngWizardConfig: NgWizardConfig = {
     ReporteEntrevistaInicialIlComponent,
     ReporteCitasTelemarketingComponent,
     ReporteVentasContratoComponent,
-    EntrevistaInicialTmComponent
+    EntrevistaInicialTmComponent,
+    ListaEntrevistaTmComponent,
+    ReporteEntrevistaTmComponent
     
   ],
   exports:[
