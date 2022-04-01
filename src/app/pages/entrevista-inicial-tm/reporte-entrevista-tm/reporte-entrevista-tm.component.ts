@@ -76,11 +76,15 @@ export class ReporteEntrevistaTmComponent implements OnInit {
 
     let estudiantesEntrevista: any = [];
     let asuntosTratados: any = [];
+    let docenteHorario:any = [];
     entrevista.estudiantes1.map((resp: any) => {
       this.estudianteService.obtenerEstudianteById(resp.estudiantes[0].idEstudainte).subscribe((resp2: any) => {
         estudiantesEntrevista.push([resp.estudiantes[0].nombreEstudiante, resp2.data.cedula, this.calcularEdad(resp2.data.fechaNacimiento),
         resp.tiempoCapacitacion, resp.observaciones]);
         asuntosTratados.push([resp.estudiantes[0].nombreEstudiante, resp.pregunta1, resp.pregunta2, resp.pregunta3]);
+      });
+      resp.estudiantes.map((resp3:any)=>{
+        docenteHorario.push([resp.estudiantes[0].nombreEstudiante, resp3.idDocente[0].nombre, resp3.idHorario[0].nombre]);
       });
     });
 
@@ -162,6 +166,23 @@ export class ReporteEntrevistaTmComponent implements OnInit {
               body: [
                 ['Nombre', 'Recomendaciones del Especialista', 'Motivo de la Consulta', 'Observaciones Durante la Entrevista'],
                 ...asuntosTratados,
+              ]
+            }
+          },
+          '\n\n',
+          {
+            text: 'HORARIOS ASIGNADOS',
+            style: 'header',
+            color: '#E84B20',
+            bold: true
+          },
+          '\n\n',
+          {
+            style: 'tableExample',
+            table: {
+              body: [
+                ['Estudiante','Docente','Horario'],
+                ...docenteHorario
               ]
             }
           },

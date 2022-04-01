@@ -73,10 +73,14 @@ export class ReporteEntrevistaInicialIlComponent implements OnInit {
   createPDF(estudiante: any, representante: any, contrato: any, entrevista: any) {
 
     let estudiantesEntrevista :any = [];
+    let docenteHorario:any = [];
     entrevista.estudiantes1.map((resp:any)=>{
       this.estudianteService.obtenerEstudianteById(resp.estudiantes[0].idEstudainte).subscribe((resp2:any)=>{
         estudiantesEntrevista.push([resp.estudiantes[0].nombreEstudiante, resp2.data.cedula, this.calcularEdad(resp2.data.fechaNacimiento),
          resp.tiempoCapacitacion, resp.observaciones],);
+      });
+      resp.estudiantes.map((resp3:any)=>{
+        docenteHorario.push([resp.estudiantes[0].nombreEstudiante, resp3.idDocente[0].nombre, resp3.idHorario[0].nombre]);
       });
     });
 
@@ -166,6 +170,24 @@ export class ReporteEntrevistaInicialIlComponent implements OnInit {
               ]
             }
           },
+          '\n\n',
+          {
+            text: 'HORARIOS ASIGNADOS',
+            style: 'header',
+            color: '#E84B20',
+            bold: true
+          },
+          '\n\n',
+          {
+            style: 'tableExample',
+            table: {
+              body: [
+                ['Estudiante','Docente','Horario'],
+                ...docenteHorario
+              ]
+            }
+          },
+          '\n',
           '\n',
           {
             text: 'ACUERDOS',
