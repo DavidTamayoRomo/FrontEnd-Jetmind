@@ -58,8 +58,8 @@
                                 <th class="w100">Valor Matricula</th>
                                 <th class="w100">Valor Total</th>
                                 <th class="w100">Forma de pago</th>
-                                <th class="w100">Vouchers</th>
-                                <th class="w100">Observaciones</th>
+                                <!-- <th class="w100">Vouchers</th> -->
+                                <!-- <th class="w100">Observaciones</th> -->
                                 <th class="w100">Fecha Aprobacion</th>
 
                             </tr>
@@ -115,13 +115,13 @@
                                 <td (click)="mostrarDatosModal(contrato)">{{contrato?.valorMatricula}}</td>
                                 <td (click)="mostrarDatosModal(contrato)">{{contrato?.valorTotal}}</td>
                                 <td (click)="mostrarDatosModal(contrato)">{{contrato?.formaPago}}</td>
-                                <td (click)="mostrarDatosModal(contrato)">
+                                <!-- <td (click)="mostrarDatosModal(contrato)">
                                     <div *ngFor="let imagenC of contrato?.voucher">
                                         <img [src]="imagenC | imagen:'contratos'" class="avatar" >
-                                    </div>
+                                    </div>  
                                     
-                                </td>
-                                <td (click)="mostrarDatosModal(contrato)">{{contrato?.comentario}}</td>
+                                </td> --> 
+                                <!-- <td (click)="mostrarDatosModal(contrato)">{{contrato?.comentario}}</td>  -->
                                 <td *ngIf="contrato?.fechaAprobacion != '1989-12-31'"
                                     (click)="mostrarDatosModal(contrato)">{{contrato?.fechaAprobacion}}</td>
                                 <td *ngIf="contrato?.fechaAprobacion == '1989-12-31'"
@@ -207,6 +207,11 @@
                         </div>
                         
                     </div>
+
+                    <ng-image-slider [images]="imageObject" [imagePopup]="false" 
+                    [imageSize]="{width: '400px', height: '300px', space: 4}"
+                    #nav></ng-image-slider>
+                    
 
                     <div class="row p-t-20">
                         <div class="col-md-6">

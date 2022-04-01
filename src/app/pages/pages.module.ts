@@ -109,6 +109,7 @@ import { ReporteVentasContratoComponent } from './contrato/reporte-ventas-contra
 import { EntrevistaInicialTmComponent } from './entrevista-inicial-tm/entrevista-inicial-tm.component';
 import { ListaEntrevistaTmComponent } from './entrevista-inicial-tm/lista-entrevista-tm/lista-entrevista-tm.component';
 import { ReporteEntrevistaTmComponent } from './entrevista-inicial-tm/reporte-entrevista-tm/reporte-entrevista-tm.component';
+import { NgImageSliderModule } from 'ng-image-slider';
 
 
 
@@ -234,7 +235,7 @@ const ngWizardConfig: NgWizardConfig = {
       useFactory: adapterFactory,
     }),
     AngularEmojisModule,
-    
+    NgImageSliderModule,
   ],
  
 })

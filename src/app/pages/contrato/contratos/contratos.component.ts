@@ -13,6 +13,7 @@ import { EstudianteService } from '../../services/estudiante.service';
 import { map } from 'rxjs/operators';
 import { VerificacionService } from '../../services/verificacion.service';
 import { Verificacion } from '../../verificacion/verificacion.model';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-contratos',
@@ -87,6 +88,9 @@ export class ContratosComponent implements OnInit {
     this.recuperarAtributosContratos();
   }
 
+
+
+
   cargarContratos() {
     this.cargando = true;
     this.contratoService.cargarContratos(this.desde).subscribe((resp: any) => {
@@ -98,6 +102,10 @@ export class ContratosComponent implements OnInit {
       console.log(this.contratos);
     });
   }
+
+  imageObject: Array<object> = [
+    
+  ];
 
   paginar(valor: number) {
     this.desde += valor;
@@ -178,7 +186,7 @@ export class ContratosComponent implements OnInit {
   /** CONTRATO */
   /** Item Seleccionado */
   onItemSelectContrato(item: any) {
-    this.contratos2=[item];
+    this.contratos2 = [item];
     console.log(this.contratos2);
   }
   /** Todos los items Seleccionados */
@@ -211,40 +219,49 @@ export class ContratosComponent implements OnInit {
     console.log(this.contratos2);
   }
 
-  pea17chuk(){
+  pea17chuk() {
     this.router.navigate(['/peea-17-ch-uk/nuevo/', this.contratoSeleccionado._id]);
   }
-  pea18chuk(){
+  pea18chuk() {
     this.router.navigate(['/peea-18-ch-uk/nuevo/', this.contratoSeleccionado._id]);
   }
-  pea17il(){
+  pea17il() {
     this.router.navigate(['/peea-17-ilvem/nuevo/', this.contratoSeleccionado._id]);
   }
-  pea18il(){
+  pea18il() {
     this.router.navigate(['/peea-18-ilvem/nuevo/', this.contratoSeleccionado._id]);
   }
-  pea17tm(){
+  pea17tm() {
     this.router.navigate(['/peea-17-tomatis/nuevo/', this.contratoSeleccionado._id]);
   }
-  pea18tm(){
+  pea18tm() {
     this.router.navigate(['/peea-18-tomatis/nuevo/', this.contratoSeleccionado._id]);
   }
 
 
-  generarPDF(){
+  generarPDF() {
 
     this.router.navigate(['/reporte-contrato/', this.contratoSeleccionado._id]);
     setTimeout(() => {
       this.router.navigate(['/listacontratos']);
     }, 10);
   }
-  
+
 
 
   mostrarDatosModal(contrato: any) {
     console.log('Modal contrato ', contrato);
     this.mostraModal = false;
     this.contratoSeleccionado = contrato;
+    this.imageObject = [{}];
+    this.contratoSeleccionado?.voucher.map((resp:any)=>{
+      this.imageObject.push({
+        image: `${environment.base_url}/utils/uploads/contratos/${resp}`,
+        thumbImage: `${environment.base_url}/utils/uploads/contratos/${resp}` ,
+        title: 'Voucher'
+      });
+    });
+    
 
 
     this.atributostablaContrato = {
