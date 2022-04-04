@@ -250,17 +250,29 @@ export class ContratosComponent implements OnInit {
 
 
   mostrarDatosModal(contrato: any) {
-    console.log('Modal contrato ', contrato);
+    //console.log('Modal contrato ', contrato);
     this.mostraModal = false;
     this.contratoSeleccionado = contrato;
-    this.imageObject = [{}];
-    this.contratoSeleccionado?.voucher.map((resp:any)=>{
+    this.imageObject = [];
+    console.log('este es el q impr',this.contratoSeleccionado?.voucher);
+    if (this.contratoSeleccionado?.voucher.length < 1) {
+      console.log('no hay voucher');
       this.imageObject.push({
-        image: `${environment.base_url}/utils/uploads/contratos/${resp}`,
-        thumbImage: `${environment.base_url}/utils/uploads/contratos/${resp}` ,
+        image: ``,
+        thumbImage: `` ,
         title: 'Voucher'
+      });;
+    }else{
+      console.log('voucher');
+      this.contratoSeleccionado?.voucher.map((resp:any)=>{
+        this.imageObject.push({
+          image: `${environment.base_url}/utils/uploads/contratos/${resp}`,
+          thumbImage: `${environment.base_url}/utils/uploads/contratos/${resp}` ,
+          title: 'Voucher'
+        });
       });
-    });
+    }
+    
     
 
 
@@ -273,16 +285,16 @@ export class ContratosComponent implements OnInit {
         , contrato.valorTotal, contrato.formaPago,
         , contrato.fechaAprobacion, contrato.comentario]
     };
-    console.log(contrato.idRepresentante?._id);
+    //console.log(contrato.idRepresentante?._id);
 
     this.representanteService.obtenerRepresentanteById(contrato.idRepresentante?._id).subscribe((resp: any) => {
       this.datosRepresentante = resp.data;
-      console.log(resp.data);
+      //console.log(resp.data);
     });
 
     this.estudianteService.getAllEstudiantesByIdRepresentante(contrato.idRepresentante?._id).subscribe((resp: any) => {
       this.datosEstudiantes = resp.data;
-      console.log(resp.data);
+      //console.log(resp.data);
     });
 
   }

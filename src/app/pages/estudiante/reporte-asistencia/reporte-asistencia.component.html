@@ -1,0 +1,230 @@
+<div class="container">
+
+    <div style="margin-top: 30px;"></div>
+
+
+
+    <div class="card">
+        <div class="card-body">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm">
+
+                        <img src='https://ilvemecuador.com/contenido/uploads/2021/02/usuario.png'
+                            style='max-width: 150px; margin: 0 auto; '>
+
+                        <br><br>
+                        <h3>
+                            {{estudiante?.nombresApellidos}}
+                        </h3>
+
+                    </div>
+                    <div class="col-sm">
+                        <div style='background-color: ffffff;margin: auto; align-content: center;'>
+                            <img src='https://ilvemecuador.com/contenido/uploads/2021/02/Header_Mails-02.png'
+                                style='max-width: 100%; margin: 0px; display: block'>
+                        </div>
+                        <ul class="list-group">
+                            <li class="list-group-item"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                    fill="currentColor" class="bi bi-toggle-off" viewBox="0 0 16 16">
+                                    <path
+                                        d="M11 4a4 4 0 0 1 0 8H8a4.992 4.992 0 0 0 2-4 4.992 4.992 0 0 0-2-4h3zm-6 8a4 4 0 1 1 0-8 4 4 0 0 1 0 8zM0 8a5 5 0 0 0 5 5h6a5 5 0 0 0 0-10H5a5 5 0 0 0-5 5z" />
+                                </svg>
+                                {{estudiante?.estado}}
+                            </li>
+                            <li class="list-group-item"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                    fill="currentColor" class="bi bi-person-badge-fill" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd"
+                                        d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511z" />
+                                </svg>
+                                {{estudiante?.telefono}}
+                            </li>
+                            <li class="list-group-item"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                    fill="currentColor" class="bi bi-person-badge" viewBox="0 0 16 16">
+                                    <path
+                                        d="M6.5 2a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3zM11 8a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+                                    <path
+                                        d="M4.5 0A2.5 2.5 0 0 0 2 2.5V14a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2.5A2.5 2.5 0 0 0 11.5 0h-7zM3 2.5A1.5 1.5 0 0 1 4.5 1h7A1.5 1.5 0 0 1 13 2.5v10.795a4.2 4.2 0 0 0-.776-.492C11.392 12.387 10.063 12 8 12s-3.392.387-4.224.803a4.2 4.2 0 0 0-.776.492V2.5z" />
+                                </svg>
+
+                                {{estudiante?.cedula}}
+                            </li>
+                            <li class="list-group-item"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                    fill="currentColor" class="bi bi-envelope-open-fill" viewBox="0 0 16 16">
+                                    <path
+                                        d="M8.941.435a2 2 0 0 0-1.882 0l-6 3.2A2 2 0 0 0 0 5.4v.313l6.709 3.933L8 8.928l1.291.717L16 5.715V5.4a2 2 0 0 0-1.059-1.765l-6-3.2zM16 6.873l-5.693 3.337L16 13.372v-6.5zm-.059 7.611L8 10.072.059 14.484A2 2 0 0 0 2 16h12a2 2 0 0 0 1.941-1.516zM0 13.373l5.693-3.163L0 6.873v6.5z" />
+                                </svg>
+                                {{estudiante?.email}}
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+
+        <div class="col-sm">
+
+            <div class="card border-left-primary shadow h-100 py-2">
+
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                <span style="width: 250px; height: 50px; font-size: 30px;"
+                                    class="badge  rounded-pill bg-success ">Asistencias </span>
+                            </div>
+                            <div class="h1 mb-0 font-weight-bold text-gray-800">
+                                {{contadorAsistencias}}
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor"
+                                class="bi bi-calendar-check" viewBox="0 0 16 16">
+                                <path
+                                    d="M10.854 7.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 9.793l2.646-2.647a.5.5 0 0 1 .708 0z" />
+                                <path
+                                    d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm">
+
+        </div>
+        <div class="col-sm">
+
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                <span style="width: 250px; height: 50px; font-size: 30px;"
+                                    class="badge rounded-pill bg-warning text-dark">Ausencias </span>
+                            </div>
+                            <div class="h1 mb-0 font-weight-bold text-gray-800">
+                                {{ contadorAusencias }}
+                            </div>
+                        </div>
+                        <div class="col-auto">
+
+                            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor"
+                                class="bi bi-calendar-minus" viewBox="0 0 16 16">
+                                <path d="M5.5 9.5A.5.5 0 0 1 6 9h4a.5.5 0 0 1 0 1H6a.5.5 0 0 1-.5-.5z" />
+                                <path
+                                    d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <div class="card">
+        <div class="card-body">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm">
+                        Horarios
+                        <div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div style="margin-top: 30px;"></div>
+
+    <div class="card">
+        <div class="card-body">
+            <h3>Asistencias</h3>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+
+                            <th scope="col">Docente</th>
+                            <th scope="col">Horario</th>
+                            <th scope="col">Fecha</th>
+                            <th scope="col">Comentario</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let asistencia of asistencias">
+                            <td *ngIf="asistencia?.prueba?.estado == true">
+                                {{asistencia?.docente[0]?.nombresApellidos}}
+                            </td>
+                            <td *ngIf="asistencia?.prueba?.estado == true">
+                                {{asistencia?.horario[0]?.nombre}} - {{asistencia?.horario[0]?.modalidad}} -
+                                {{asistencia?.horario[0]?.dias}} - {{asistencia?.horario[0]?.horaInicio}} -
+                                {{asistencia?.horario[0]?.horaFin}}
+                            </td>
+                            <td *ngIf="asistencia?.prueba?.estado == true">
+                                {{asistencia?.fecha | date: 'dd/MM/yyyy'}}
+                            </td>
+                            <td *ngIf="asistencia?.prueba?.estado == true">
+                                {{asistencia?.prueba?.comentario}}
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body ">
+            <h3>Ausencia</h3>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+
+                            <th scope="col">Docente</th>
+                            <th scope="col">Horario</th>
+                            <th scope="col">Fecha</th>
+                            <th scope="col">Comentario</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr *ngFor="let asistencia of asistencias">
+                            <td *ngIf="asistencia?.prueba?.estado == false">
+                                {{asistencia?.docente[0]?.nombresApellidos}}
+                            </td>
+                            <td *ngIf="asistencia?.prueba?.estado == false">
+                                {{asistencia?.horario[0]?.nombre}} - {{asistencia?.horario[0]?.modalidad}} -
+                                {{asistencia?.horario[0]?.dias}} - {{asistencia?.horario[0]?.horaInicio}} -
+                                {{asistencia?.horario[0]?.horaFin}}
+                            </td>
+                            <td *ngIf="asistencia?.prueba?.estado == false">
+                                {{asistencia?.fecha | date: 'dd/MM/yyyy'}}
+                            </td>
+                            <td *ngIf="asistencia?.prueba?.estado == false">
+                                {{asistencia?.prueba?.comentario}}
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <div style="margin-top: 30px;"></div>
+</div>

@@ -140,4 +140,8 @@ export class EstudiantesComponent implements OnInit {
 
   }
 
+  reporteAsistencia(estudiante: any) {
+    this.router.navigate(['/reporte-asistencia-estudiante/', estudiante._id]);
+  }
+
 }

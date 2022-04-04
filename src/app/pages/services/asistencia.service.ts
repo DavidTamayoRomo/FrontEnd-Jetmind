@@ -48,6 +48,11 @@ export class AsistenciaService {
     return this.http.delete(`${base_url}/asistencia/${asistencia._id}`, { headers: headers });
   }
 
+  asistenciaByEstudiante( idEstudiante:any){
+    const headers = this.retornarHeader();
+    return this.http.get(`${base_url}/asistencia/byEstudainte/${idEstudiante}`, { headers: headers });
+  }
+
 
   cargarAsistencias (skip: number = 0){
     const headers = this.retornarHeader();

@@ -110,6 +110,7 @@ import { EntrevistaInicialTmComponent } from './entrevista-inicial-tm/entrevista
 import { ListaEntrevistaTmComponent } from './entrevista-inicial-tm/lista-entrevista-tm/lista-entrevista-tm.component';
 import { ReporteEntrevistaTmComponent } from './entrevista-inicial-tm/reporte-entrevista-tm/reporte-entrevista-tm.component';
 import { NgImageSliderModule } from 'ng-image-slider';
+import { ReporteAsistenciaComponent } from './estudiante/reporte-asistencia/reporte-asistencia.component';
 
 
 
@@ -208,7 +209,8 @@ const ngWizardConfig: NgWizardConfig = {
     ReporteVentasContratoComponent,
     EntrevistaInicialTmComponent,
     ListaEntrevistaTmComponent,
-    ReporteEntrevistaTmComponent
+    ReporteEntrevistaTmComponent,
+    ReporteAsistenciaComponent
     
   ],
   exports:[

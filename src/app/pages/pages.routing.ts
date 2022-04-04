@@ -88,6 +88,7 @@ import { ReporteVentasContratoComponent } from './contrato/reporte-ventas-contra
 import { EntrevistaInicialTmComponent } from './entrevista-inicial-tm/entrevista-inicial-tm.component';
 import { ListaEntrevistaTmComponent } from './entrevista-inicial-tm/lista-entrevista-tm/lista-entrevista-tm.component';
 import { ReporteEntrevistaTmComponent } from './entrevista-inicial-tm/reporte-entrevista-tm/reporte-entrevista-tm.component';
+import { ReporteAsistenciaComponent } from './estudiante/reporte-asistencia/reporte-asistencia.component';
 
 
 
@@ -120,6 +121,8 @@ const routes: Routes = [
             
             { path: 'estudiante/:id', component: EstudianteComponent, data:{titulo:'Estudiante'} },
             { path: 'listaestudiantes', component:EstudiantesComponent , data:{titulo:'Lista de estudiantes'} },
+            { path: 'reporte-asistencia-estudiante/:id', component:ReporteAsistenciaComponent , data:{titulo:'Asistencia del estudiante'} },
+
             
             { path: 'nombrePrograma/:id', component: NombreProgramaComponent, data:{titulo:'Nombre Programa'} },
             { path: 'listanombreprogramas', component:NombreProgramasComponent , data:{titulo:'Lista de los programas'} },
