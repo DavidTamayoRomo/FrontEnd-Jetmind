@@ -89,6 +89,7 @@ import { EntrevistaInicialTmComponent } from './entrevista-inicial-tm/entrevista
 import { ListaEntrevistaTmComponent } from './entrevista-inicial-tm/lista-entrevista-tm/lista-entrevista-tm.component';
 import { ReporteEntrevistaTmComponent } from './entrevista-inicial-tm/reporte-entrevista-tm/reporte-entrevista-tm.component';
 import { ReporteAsistenciaComponent } from './estudiante/reporte-asistencia/reporte-asistencia.component';
+import { DocenteReporteComponent } from './persona/docente/docente-reporte/docente-reporte.component';
 
 
 
@@ -106,6 +107,7 @@ const routes: Routes = [
             //{ path: 'persona', component: PersonaComponent, data:{titulo:'Persona'} },
             { path: 'persona/:id', component: PersonaComponent, data:{titulo:'Actualizar Persona'} },
             { path: 'listapersonas', component: ListaPersonasComponent, data:{titulo:'Lista Personas'} },
+            { path: 'reporte-docente-horarios', component: DocenteReporteComponent, data:{titulo:'Reporte de docentes horarios'} },
 
             { path: 'ciudad/:id', component: CiudadComponent, data:{titulo:'Ciudad'} },
             { path: 'listaciudades', component: CiudadesComponent, data:{titulo:'Lista de ciudades'} },

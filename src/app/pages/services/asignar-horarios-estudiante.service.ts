@@ -52,6 +52,11 @@ export class AsignarHorariosEstudianteService {
     const headers = this.retornarHeader();
     return this.http.delete(`${base_url}/asignarhorarioestudiante/${asignarhorarioestudiante._id}`, { headers: headers });
   }
+  
+  docentehorarioPorDia( dia:string, estado:boolean, sucursal:string){
+    const headers = this.retornarHeader();
+    return this.http.get(`${base_url}/asignarhorarioestudiante/docente-horarios/${dia}/${estado}/${sucursal}`, { headers: headers });
+  }
 
 
   cargarAsignarHorariosEstudiantes (skip: number = 0){
