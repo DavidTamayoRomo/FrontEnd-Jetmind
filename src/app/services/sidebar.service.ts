@@ -71,6 +71,7 @@ export class SidebarService {
       submenu: [
         { titulo: 'Persona', url: '/persona/nuevo' },
         { titulo: 'Lista Personas', url: '/listapersonas' },
+        { titulo: 'Reporte Docentes', url: '/reporte-docente-horarios' },
       ]
     },
     {

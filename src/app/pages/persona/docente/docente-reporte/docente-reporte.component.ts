@@ -46,7 +46,7 @@ export class DocenteReporteComponent implements OnInit {
       resp.data.forEach((element: any) => {
         nombreSucursal.push({ item_id: element._id, nombre: element.nombre });
       });
-      this.dropdownListSucursales = nombreSucursal;    
+      this.dropdownListSucursales = nombreSucursal;
     });
   }
 
@@ -59,10 +59,17 @@ export class DocenteReporteComponent implements OnInit {
   busqueda() {
     //obtener el valor del dia
     let dato = this.registerForm.get('dia').value;
-    this.asignarHorarioEstudianteService.docentehorarioPorDia(dato, true,'todas').subscribe((resp: any) => {
-      console.log(resp);
-      this.docenteHorario = resp.data;
-    });
+
+    if (this.sucursal.length == 0) {
+      this.asignarHorarioEstudianteService.docentehorarioPorDia(dato, true, 'todas').subscribe((resp: any) => {
+        this.docenteHorario = resp.data;
+      });
+
+    } else {
+      this.asignarHorarioEstudianteService.docentehorarioPorDia(dato, true, this.sucursal[0].item_id).subscribe((resp: any) => {
+        this.docenteHorario = resp.data;
+      });
+    }
 
   }
 
@@ -71,38 +78,41 @@ export class DocenteReporteComponent implements OnInit {
   /** SUCRUSAL */
   /** Item Seleccionado */
   onItemSelectsucursal(item: any) {
-    this.sucursal=[item];
-    console.log(this.sucursal);
+    this.sucursal = [item];
 
     let dato = this.registerForm.get('dia').value;
-    this.asignarHorarioEstudianteService.docentehorarioPorDia(dato, true,this.sucursal[0].item_id).subscribe((resp: any) => {
-      console.log(resp);
-      this.docenteHorario = resp.data;
-    });
+    if (dato == null) {
+      //Dar un valor al input dia
+      this.registerForm.get('dia').setValue('Lunes');
+      this.asignarHorarioEstudianteService.docentehorarioPorDia('Lunes', true, 'todas').subscribe((resp: any) => {
+        this.docenteHorario = resp.data;
+      });
+    } else {
+      this.asignarHorarioEstudianteService.docentehorarioPorDia(dato, true, this.sucursal[0].item_id).subscribe((resp: any) => {
+        this.docenteHorario = resp.data;
+      });
+    }
 
   }
   /** Todos los items Seleccionados */
   onSelectAllsucursal(items: any) {
     this.sucursal = items;
-    console.log(this.sucursal);
   }
   /** Deselccionar item */
- 
+
   onDeSelectsucursal(item: any) {
     /** Borrar elemento del array  */
     this.sucursal = [];
-
+    
     let dato = this.registerForm.get('dia').value;
-    this.asignarHorarioEstudianteService.docentehorarioPorDia(dato, true,this.sucursal[0].item_id).subscribe((resp: any) => {
-      console.log(resp);
+    this.asignarHorarioEstudianteService.docentehorarioPorDia(dato, true, 'todas').subscribe((resp: any) => {
       this.docenteHorario = resp.data;
     });
-    
+
   }
   /** Deselccionar todos los items */
   onDeSelectAllsucursal(items: any) {
     this.sucursal = items;
-    console.log(this.sucursal);
   }
 
 }
