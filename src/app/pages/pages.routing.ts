@@ -91,6 +91,7 @@ import { ReporteEntrevistaTmComponent } from './entrevista-inicial-tm/reporte-en
 import { ReporteAsistenciaComponent } from './estudiante/reporte-asistencia/reporte-asistencia.component';
 import { DocenteReporteComponent } from './persona/docente/docente-reporte/docente-reporte.component';
 import { AsistenciaTomatisComponent } from './asistencia/asistencia-tomatis/asistencia-tomatis.component';
+import { AsistenciaRecuperacionComponent } from './asistencia/asistencia-recuperacion/asistencia-recuperacion.component';
 
 
 
@@ -196,6 +197,7 @@ const routes: Routes = [
 
             { path: 'asistencia/:id', component: AsistenciaComponent , data:{titulo:'Asistencia'} },
             { path: 'asistencia-tomatis/:id', component: AsistenciaTomatisComponent , data:{titulo:'Asistencia'} },
+            { path: 'asistencia-recuperacion/:id', component: AsistenciaRecuperacionComponent , data:{titulo:'Asistencia Recuperacion'} },
             { path: 'asistencias', component: ListaAsistenciaComponent , data:{titulo:'Lista Asistencia'} },
             
             { path: 'entrevistainicialchuk/:id/:idContrato', component: EntrevistaInicialCHUKComponent , data:{titulo:'Entrvista Inicial CH UK'} },

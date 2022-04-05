@@ -176,6 +176,7 @@ export class SidebarService {
       submenu: [
         { titulo: 'Crear', url: '/asistencia/nuevo' },
         { titulo: 'Crear tomatis', url: '/asistencia-tomatis/nuevo' },
+        { titulo: 'Recuperacion', url: '/asistencia-recuperacion/nuevo' },
         { titulo: 'Lista', url: '/asistencias' },
       ]
     },
