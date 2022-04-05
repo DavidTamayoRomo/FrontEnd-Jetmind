@@ -1,0 +1,92 @@
+<div class="card">
+
+    <form (ngSubmit)="crear()" autocomplete="off" [formGroup]="registerForm">
+
+        <div class="card-body">
+
+
+            <div class="form-group">
+                <label for="exampleInputuname">Docente *</label>
+                <ng-multiselect-dropdown [placeholder]="'Seleccione Docente'" [settings]="dropdownSettingsSingle"
+                    [data]="dropdownListPersonas" (onSelect)="onItemSelectPersona($event)"
+                    (onSelectAll)="onSelectAllPersona($event)" (onDeSelect)="onDeSelectPersona($event)"
+                    (onDeSelectAll)="onDeSelectAllPersona($event)" formControlName="idDocente">
+                </ng-multiselect-dropdown>
+            </div>
+
+            <div class="form-group">
+                <label for="exampleInputuname">Horario *</label>
+                <ng-multiselect-dropdown [placeholder]="'Seleccione Docente'" [settings]="dropdownSettingsSingle"
+                    [data]="dropdownListHorarios" (onSelect)="onItemSelectHorario($event)"
+                    (onSelectAll)="onSelectAllHorario($event)" (onDeSelect)="onDeSelectHorario($event)"
+                    (onDeSelectAll)="onDeSelectAllHorario($event)" formControlName="idHorario">
+                </ng-multiselect-dropdown>
+            </div>
+
+            <div class="form-group">
+                <label for="exampleInputuname">Tema tratado *</label>
+                <div class="input-group">
+                    <div class="input-group-addon"><i class="ti-user"></i></div>
+                    <input type="text" class="form-control" placeholder="Tema tratado" formControlName="temaTratado">
+                </div>
+                <div class="text-danger">
+                    <p *ngIf="campoNoValido('nombre')">El Nombre de la ciudad es obligatorio</p>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <label for="exampleInputuname">Fecha *</label>
+                    </div>
+                    <div class="panel-body">
+                        <input class="form-control" type="text" mwlFlatpickr [altInput]="true"
+                            [convertModelValue]="true" formControlName="fecha">
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <div class="panel panel-default" formArrayName="prueba">
+                    <div class="row" *ngFor="let item of getPrueba.controls; let pointIndex=index"
+                        [formGroupName]="pointIndex">
+                        <div class="col-md-6">
+                            <label class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" formControlName="estado" checked>
+                                <span class="custom-control-indicator"></span>
+                                <input class="form-control" formControlName="estudiante" [attr.disabled]="true">
+                            </label>
+                        </div>
+
+                        <div class="col-md-3">
+                            <select class="form-control custom-select" formControlName="fase">
+                                <option value="F1">F1</option>
+                                <option value="F2">F2</option>
+                                <option value="F3">F3</option>
+                                <option value="INT1">INT1</option>
+                                <option value="INT2">INT2</option>
+                                <option value="INT3">INT3</option>
+                                <option value="Terapia Lenguaje">Terapia Lenguaje</option>
+                                <option value="Baby Tomatis">Baby Tomatis</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-3">
+                            <input class="form-control" type="text" formControlName="comentario">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div>
+                <button type="submit" class="btn btn-success waves-effect waves-light m-r-10">Guardar</button>
+                <a (click)="cancelarGuardado()" class="btn btn-inverse waves-effect waves-light">Cancelar</a>
+            </div>
+
+        </div>
+    </form>
+
+</div>

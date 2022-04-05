@@ -175,6 +175,7 @@ export class SidebarService {
       icono: 'mdi mdi-checkbox-multiple-marked',
       submenu: [
         { titulo: 'Crear', url: '/asistencia/nuevo' },
+        { titulo: 'Crear tomatis', url: '/asistencia-tomatis/nuevo' },
         { titulo: 'Lista', url: '/asistencias' },
       ]
     },

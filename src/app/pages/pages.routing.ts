@@ -90,6 +90,7 @@ import { ListaEntrevistaTmComponent } from './entrevista-inicial-tm/lista-entrev
 import { ReporteEntrevistaTmComponent } from './entrevista-inicial-tm/reporte-entrevista-tm/reporte-entrevista-tm.component';
 import { ReporteAsistenciaComponent } from './estudiante/reporte-asistencia/reporte-asistencia.component';
 import { DocenteReporteComponent } from './persona/docente/docente-reporte/docente-reporte.component';
+import { AsistenciaTomatisComponent } from './asistencia/asistencia-tomatis/asistencia-tomatis.component';
 
 
 
@@ -194,6 +195,7 @@ const routes: Routes = [
             { path: 'asignarhorariosestudiantes', component: ListaasignarComponent , data:{titulo:'Lista de Asignar Horario Estudiante'} },
 
             { path: 'asistencia/:id', component: AsistenciaComponent , data:{titulo:'Asistencia'} },
+            { path: 'asistencia-tomatis/:id', component: AsistenciaTomatisComponent , data:{titulo:'Asistencia'} },
             { path: 'asistencias', component: ListaAsistenciaComponent , data:{titulo:'Lista Asistencia'} },
             
             { path: 'entrevistainicialchuk/:id/:idContrato', component: EntrevistaInicialCHUKComponent , data:{titulo:'Entrvista Inicial CH UK'} },
