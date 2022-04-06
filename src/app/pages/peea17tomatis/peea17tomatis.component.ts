@@ -572,6 +572,20 @@ export class Peea17tomatisComponent implements OnInit {
       } else {
         this.Peea17tomatisModel = this.registerForm.value;
         this.Peea17tomatisModel.idContrato = this.activatedRoute.snapshot.paramMap.get('idContrato')?.toString();
+
+        //actualizar datos del contrato
+        this.contratoService.obtenerContratoById(this.Peea17tomatisModel.idContrato).subscribe((resp: any) => {
+          let datos = resp.data;
+          if (datos.pea) {
+            datos.pea.push({nombreEstudiante: this.estudiante[0].nombre, marca:'TOMATIS', nombrePea:'PEEA 17 TOMATIS'});
+          }else{
+            datos.pea = [{nombreEstudiante: this.estudiante[0].nombre, marca:'TOMATIS', nombrePea:'PEEA 17 TOMATIS'}];
+          }
+          this.contratoService.updatecontrato(this.Peea17tomatisModel.idContrato,datos).subscribe((resp: any) => {
+            console.log(resp);
+          });
+        });
+
         this.Peea17tomatisModel.idEstudiante = this.estudiante[0].item_id;
         this.Peea17tomatisModel.pregunta33 = {
           respuesta: this.registerForm.get('pregunta33')?.value,

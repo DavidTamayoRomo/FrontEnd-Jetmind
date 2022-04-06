@@ -295,6 +295,20 @@ export class EntrevistaInicialCHUKComponent implements OnInit {
       return;
     } else {
       this.entrevistaInicialCHUKService.crearEntrevista(this.entrevistaInialCHUKModel).subscribe((resp) => {
+
+        //actualizar datos del contrato
+        this.contratoService.obtenerContratoById(this.entrevistaInialCHUKModel.idContrato).subscribe((resp: any) => {
+          let datos = resp.data;
+          if (datos.entrevistaInicial) {
+            datos.entrevistaInicial.push({ marca:'Charlotte'});
+          }else{
+            datos.entrevistaInicial = [{marca:'Charlotte'}];
+          }
+          this.contratoService.updatecontrato(this.entrevistaInialCHUKModel.idContrato,datos).subscribe((resp: any) => {
+            console.log(resp);
+          });
+        });
+
         const Toast = Swal.mixin({
           toast: true,
           position: 'top-end',

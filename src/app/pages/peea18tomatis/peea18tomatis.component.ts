@@ -258,7 +258,7 @@ export class Peea18tomatisComponent implements OnInit {
     });
 
     if (pregunta20 != []) {
-      pregunta20.map((resp:any)=>{
+      pregunta20.map((resp: any) => {
         if (resp == 'Nerviosos') {
           //this.Nerviosos?.nativeElement.value = true;
         }
@@ -274,6 +274,10 @@ export class Peea18tomatisComponent implements OnInit {
       this.Peea18tomatisModel = this.registerForm.value;
 
       this.Peea18tomatisModel.idContrato = this.activatedRoute.snapshot.paramMap.get('idContrato')?.toString();
+
+
+
+
       this.Peea18tomatisModel.idEstudiante = this.estudiante[0].item_id;
       if (this.Nerviosos?.nativeElement.checked) {
         this.lista.push("Nerviosos");
@@ -435,6 +439,20 @@ export class Peea18tomatisComponent implements OnInit {
 
         this.Peea18tomatisModel = this.registerForm.value;
         this.Peea18tomatisModel.idContrato = this.activatedRoute.snapshot.paramMap.get('idContrato')?.toString();
+
+        //actualizar datos del contrato
+        this.contratoService.obtenerContratoById(this.Peea18tomatisModel.idContrato).subscribe((resp: any) => {
+          let datos = resp.data;
+          if (datos.pea) {
+            datos.pea.push({ nombreEstudiante: this.estudiante[0].nombre, marca: 'TOMATIS', nombrePea: 'PEEA 18 TOMATIS' });
+          } else {
+            datos.pea = [{ nombreEstudiante: this.estudiante[0].nombre, marca: 'TOMATIS', nombrePea: 'PEEA 18 TOMATIS' }];
+          }
+          this.contratoService.updatecontrato(this.Peea18tomatisModel.idContrato, datos).subscribe((resp: any) => {
+            console.log(resp);
+          });
+        });
+
         this.Peea18tomatisModel.idEstudiante = this.estudiante[0].item_id;
         if (this.Nerviosos?.nativeElement.checked) {
           this.lista.push("Nerviosos");
@@ -579,7 +597,7 @@ export class Peea18tomatisComponent implements OnInit {
   }
 
 
-/** estudiante */
+  /** estudiante */
   /** Item Seleccionado */
   onItemSelectEstudiante(item: any) {
     this.estudiante = [item];
@@ -598,5 +616,5 @@ export class Peea18tomatisComponent implements OnInit {
     this.estudiante = items;
   }
 
-  
+
 }

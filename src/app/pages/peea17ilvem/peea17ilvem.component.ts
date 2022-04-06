@@ -622,7 +622,23 @@ export class Peea17ilvemComponent implements OnInit {
         return;
       } else {
         this.Peea17ilvemModel = this.registerForm.value;
+
+        
+
         this.Peea17ilvemModel.idContrato = this.activatedRoute.snapshot.paramMap.get('idContrato')?.toString();
+
+        //actualizar datos del contrato
+        this.contratoService.obtenerContratoById(this.Peea17ilvemModel.idContrato).subscribe((resp: any) => {
+          let datos = resp.data;
+          if (datos.pea) {
+            datos.pea.push({nombreEstudiante: this.estudiante[0].nombre, marca:'ILVEM', nombrePea:'PEEA 17 ILVEM'});
+          }else{
+            datos.pea = [{nombreEstudiante: this.estudiante[0].nombre, marca:'ILVEM', nombrePea:'PEEA 17 ILVEM'}];
+          }
+          this.contratoService.updatecontrato(this.Peea17ilvemModel.idContrato,datos).subscribe((resp: any) => {
+            console.log(resp);
+          });
+        });
         
         this.Peea17ilvemModel.idEstudiante = this.estudiante[0].item_id;
 

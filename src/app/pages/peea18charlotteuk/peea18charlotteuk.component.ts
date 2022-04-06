@@ -47,7 +47,7 @@ export class Peea18charlotteukComponent implements OnInit {
   @ViewChild('radio4') radio4: ElementRef;
   @ViewChild('radio5') radio5: ElementRef;
   @ViewChild('radio6') radio6: ElementRef;
-  
+
 
 
   constructor(
@@ -140,7 +140,7 @@ export class Peea18charlotteukComponent implements OnInit {
       console.log("Si");
       this.radio1.nativeElement.checked = true;
       this.visual.nativeElement.value = pregunta8.observacion;
-    }else{
+    } else {
       this.radio2.nativeElement.checked = true;
       this.visual.nativeElement.style.display = "none";
     }
@@ -201,40 +201,43 @@ export class Peea18charlotteukComponent implements OnInit {
       this.Peea18chukModel = this.registerForm.value;
 
       this.Peea18chukModel.idContrato = this.activatedRoute.snapshot.paramMap.get('idContrato')?.toString();
-        if (this.visual.nativeElement.value != '') {
-          console.log(this.visual.nativeElement.value);
-          this.Peea18chukModel.pregunta8 = {
-            respuesta: "Si",
-            observacion: this.visual.nativeElement.value
-          }
-        }else{
-          this.Peea18chukModel.pregunta8 = this.Peea18chukModel1.pregunta8;
+
+
+
+      if (this.visual.nativeElement.value != '') {
+        console.log(this.visual.nativeElement.value);
+        this.Peea18chukModel.pregunta8 = {
+          respuesta: "Si",
+          observacion: this.visual.nativeElement.value
         }
+      } else {
+        this.Peea18chukModel.pregunta8 = this.Peea18chukModel1.pregunta8;
+      }
 
-        if (this.auditiva.nativeElement.value != '') {
-          console.log(this.auditiva.nativeElement.value);
-          this.Peea18chukModel.pregunta9 = {
-            respuesta: "Si",
-            observacion: this.auditiva.nativeElement.value
-          }
-        }else{
-          this.Peea18chukModel.pregunta9 = this.Peea18chukModel1.pregunta9;
+      if (this.auditiva.nativeElement.value != '') {
+        console.log(this.auditiva.nativeElement.value);
+        this.Peea18chukModel.pregunta9 = {
+          respuesta: "Si",
+          observacion: this.auditiva.nativeElement.value
         }
+      } else {
+        this.Peea18chukModel.pregunta9 = this.Peea18chukModel1.pregunta9;
+      }
 
-        if (this.aprendizaje.nativeElement.value != '') {
-          console.log(this.aprendizaje.nativeElement.value);
-          this.Peea18chukModel.pregunta10 =
-          {
-            respuesta: "Si",
-            observacion: this.aprendizaje.nativeElement.value
-          };
-        }else{
-          this.Peea18chukModel.pregunta10 = this.Peea18chukModel1.pregunta10;
-        }
+      if (this.aprendizaje.nativeElement.value != '') {
+        console.log(this.aprendizaje.nativeElement.value);
+        this.Peea18chukModel.pregunta10 =
+        {
+          respuesta: "Si",
+          observacion: this.aprendizaje.nativeElement.value
+        };
+      } else {
+        this.Peea18chukModel.pregunta10 = this.Peea18chukModel1.pregunta10;
+      }
 
-        
 
-        this.Peea18chukModel.pregunta5 = this.peeas;
+
+      this.Peea18chukModel.pregunta5 = this.peeas;
 
       if (this.registerForm.invalid) {
         //Formulario invalido
@@ -318,6 +321,20 @@ export class Peea18charlotteukComponent implements OnInit {
       } else {
         this.Peea18chukModel = this.registerForm.value;
         this.Peea18chukModel.idContrato = this.activatedRoute.snapshot.paramMap.get('idContrato')?.toString();
+
+        //actualizar datos del contrato
+        this.contratoService.obtenerContratoById(this.Peea18chukModel.idContrato).subscribe((resp: any) => {
+          let datos = resp.data;
+          if (datos.pea) {
+            datos.pea.push({ nombreEstudiante: this.estudiante[0].nombre, marca: 'Charlotte', nombrePea: 'PEEA 18 Charlotte' });
+          } else {
+            datos.pea = [{ nombreEstudiante: this.estudiante[0].nombre, marca: 'Charlotte', nombrePea: 'PEEA 18 Charlotte' }];
+          }
+          this.contratoService.updatecontrato(this.Peea18chukModel.idContrato, datos).subscribe((resp: any) => {
+            console.log(resp);
+          });
+        });
+
         this.Peea18chukModel.idEstudiante = this.estudiante[0].item_id;
         if (this.visual.nativeElement.value != '') {
           console.log(this.visual.nativeElement.value);
@@ -325,7 +342,7 @@ export class Peea18charlotteukComponent implements OnInit {
             respuesta: "Si",
             observacion: this.visual.nativeElement.value
           }
-        }else{
+        } else {
           this.Peea18chukModel.pregunta8 = this.Peea18chukModel1.pregunta8;
         }
 
@@ -335,7 +352,7 @@ export class Peea18charlotteukComponent implements OnInit {
             respuesta: "Si",
             observacion: this.auditiva.nativeElement.value
           }
-        }else{
+        } else {
           this.Peea18chukModel.pregunta9 = this.Peea18chukModel1.pregunta9;
         }
 
@@ -346,7 +363,7 @@ export class Peea18charlotteukComponent implements OnInit {
             respuesta: "Si",
             observacion: this.aprendizaje.nativeElement.value
           };
-        }else{
+        } else {
           this.Peea18chukModel.pregunta10 = this.Peea18chukModel1.pregunta10;
         }
 
@@ -354,7 +371,7 @@ export class Peea18charlotteukComponent implements OnInit {
         this.Peea18chukModel.pregunta5 = this.peeas;
 
 
-      
+
 
         setTimeout(() => {
           this.peea18chukService.crearPeea18chuk(this.Peea18chukModel).subscribe((resp) => {
@@ -454,9 +471,9 @@ export class Peea18charlotteukComponent implements OnInit {
         this.aprendizaje.nativeElement.style.display = "none";
       }
     }
-    
-    
-    
+
+
+
 
   }
 

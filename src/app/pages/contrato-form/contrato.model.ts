@@ -19,6 +19,8 @@ export class Contrato {
         public personaAprueba?:string,
         public codigo?:string,
         public marcasVendidas?:any,
+        public pea?:any,
+        public entrevistaInicial?:any,
         public addedUser?:string,
         public modifiedUser?:string
     ){}

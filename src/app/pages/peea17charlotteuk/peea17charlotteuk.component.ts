@@ -444,6 +444,19 @@ export class Peea17charlotteukComponent implements OnInit {
         setTimeout(() => {
           this.peea17chukService.crearPeea17chuk(this.Peea17chukModel).subscribe((resp) => {
 
+            //actualizar datos del contrato
+            this.contratoService.obtenerContratoById(this.Peea17chukModel.idContrato).subscribe((resp: any) => {
+              let datos = resp.data;
+              if (datos.pea) {
+                datos.pea.push({nombreEstudiante: this.estudiante[0].nombre, marca:'Charlotte', nombrePea:'PEEA 17 Charlotte'});
+              }else{
+                datos.pea = [{nombreEstudiante: this.estudiante[0].nombre, marca:'Charlotte', nombrePea:'PEEA 17 Charlotte'}];
+              }
+              this.contratoService.updatecontrato(this.Peea17chukModel.idContrato,datos).subscribe((resp: any) => {
+                console.log(resp);
+              });
+            });
+
             const Toast = Swal.mixin({
               toast: true,
               position: 'top-end',

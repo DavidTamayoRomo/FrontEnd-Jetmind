@@ -35,10 +35,12 @@
                     <table class="table full-color-table full-inverse-table hover-table">
                         <thead>
                             <tr>
+                                
                                 <th class="w101">Director asignado</th>
                                 <th class="w100">Estado</th>
+                                <th>PEEA</th>
+                                <th>Datos Entrevista inicial</th>
                                 <th class="w100">Entrevista Inicial</th>
-                                <th class="w100">Persona Responsable</th>
                                 <th class="w100">Fecha contrato</th>
                                 <th class="w100">Codigo</th>
                                 <th class="w100">Representante</th>
@@ -47,8 +49,6 @@
                                 <th class="w100">Valor Matricula</th>
                                 <th class="w100">Valor Total</th>
                                 <th class="w100">Forma de pago</th>
-                                <th class="w100">Vouchers</th>
-                                <th class="w100">Observaciones</th>
                                 <th class="w100">Fecha Aprobacion</th>
 
                             </tr>
@@ -63,8 +63,7 @@
                                             (onSelectAll)="onSelectAllpersona($event)"
                                             (onDeSelect)="onDeSelectpersona($event)"
                                             (onDeSelectAll)="onDeSelectAllpersona($event)"
-                                            [(ngModel)]="contrato.directorAsignado"
-                                            (click)="enviarContrato(contrato)">
+                                            [(ngModel)]="contrato.directorAsignado" (click)="enviarContrato(contrato)">
                                         </ng-multiselect-dropdown>
                                     </div>
 
@@ -79,34 +78,53 @@
                                     </button>
                                     <div class="dropdown-menu animated slideInUp" x-placement="top-start"
                                         style="position: absolute; transform: translate3d(0px, -2px, 0px); top: 0px; left: 0px; will-change: transform;">
-                                        <a class="dropdown-item" (click)="actualizarEstadoPrograma('Cliente no atendido', contrato)">Cliente no atendido</a>
-                                        <a class="dropdown-item" (click)="actualizarEstadoPrograma('Entrevista realizada', contrato)">Entrevista realizada</a>
-                                        <a class="dropdown-item" (click)="actualizarEstadoPrograma('Entrevista Agendada', contrato)">Entrevista Agendada</a>
-                                        <a class="dropdown-item" (click)="actualizarEstadoPrograma('Primero TOMATIS', contrato)">Primero TOMATIS</a>
-                                        <a class="dropdown-item" (click)="actualizarEstadoPrograma('Primero CHARLOTTE', contrato)">Primero CHARLOTTE</a>
-                                        <a class="dropdown-item" (click)="actualizarEstadoPrograma('No pagado', contrato)">No pagado</a>
+                                        <a class="dropdown-item"
+                                            (click)="actualizarEstadoPrograma('Cliente no atendido', contrato)">Cliente
+                                            no atendido</a>
+                                        <a class="dropdown-item"
+                                            (click)="actualizarEstadoPrograma('Entrevista realizada', contrato)">Entrevista
+                                            realizada</a>
+                                        <a class="dropdown-item"
+                                            (click)="actualizarEstadoPrograma('Entrevista Agendada', contrato)">Entrevista
+                                            Agendada</a>
+                                        <a class="dropdown-item"
+                                            (click)="actualizarEstadoPrograma('Primero TOMATIS', contrato)">Primero
+                                            TOMATIS</a>
+                                        <a class="dropdown-item"
+                                            (click)="actualizarEstadoPrograma('Primero CHARLOTTE', contrato)">Primero
+                                            CHARLOTTE</a>
+                                        <a class="dropdown-item"
+                                            (click)="actualizarEstadoPrograma('No pagado', contrato)">No pagado</a>
                                     </div>
                                 </td>
-
+                                <td >
+                                    <div *ngFor="let dato of contrato?.pea">
+                                        {{dato.nombrePea}} realizado: {{dato.marca}}
+                                    </div>
+                                </td>
                                 <td>
-                                    <button type="button" (click)="entrevistaInicial(contrato)" class="btn btn-rounded btn-block btn-outline-secondary">Realizar entrevista Incial</button>
+                                    <div *ngFor="let dato of contrato?.entrevistaInicial">
+                                        {{dato.marca}}
+                                    </div>
+                                </td>
+                                <td>
+                                    <button type="button" (click)="entrevistaInicial(contrato)"
+                                        class="btn btn-rounded btn-block btn-outline-secondary">Realizar entrevista
+                                        Incial</button>
                                 </td>
 
-                                <td (click)="mostrarDatosModal(contrato)">{{contrato?.personaAprueba?.nombresApellidos}}
-                                </td>
-                                <td>{{contrato?.createdAt}}</td>
-                                <td>{{contrato?.codigo}}</td>
-                                <td>
-                                    {{contrato?.idRepresentante?.nombresApellidos}}</td>
-                                <td>{{contrato?.idRepresentante?.cedula}}</td>
-                                <td>{{contrato?.addedUser?.nombresApellidos}}</td>
-                                <td>{{contrato?.valorMatricula}}</td>
-                                <td>{{contrato?.valorTotal}}</td>
-                                <td>{{contrato?.formaPago}}</td>
-                                <td>{{contrato?.voucher}}</td>
-                                <td>{{contrato?.comentario}}</td>
-                                <td *ngIf="contrato?.fechaAprobacion != '1989-12-31'">{{contrato?.fechaAprobacion}}</td>
-                                <td *ngIf="contrato?.fechaAprobacion == '1989-12-31'">Pendiente</td>
+                                <td (click)="mostrarDatosModal(contrato)">{{contrato?.createdAt}}</td>
+                                <td (click)="mostrarDatosModal(contrato)">{{contrato?.codigo}}</td>
+                                <td (click)="mostrarDatosModal(contrato)">{{contrato?.idRepresentante?.nombresApellidos}}</td>
+                                <td (click)="mostrarDatosModal(contrato)">{{contrato?.idRepresentante?.cedula}}</td>
+                                <td (click)="mostrarDatosModal(contrato)">{{contrato?.addedUser?.nombresApellidos}}</td>
+                                <td (click)="mostrarDatosModal(contrato)">{{contrato?.valorMatricula}}</td>
+                                <td (click)="mostrarDatosModal(contrato)">{{contrato?.valorTotal}}</td>
+                                <td (click)="mostrarDatosModal(contrato)">{{contrato?.formaPago}}</td>
+                                <td (click)="mostrarDatosModal(contrato)"
+                                    *ngIf="contrato?.fechaAprobacion != '1989-12-31'">{{contrato?.fechaAprobacion}}</td>
+                                <td (click)="mostrarDatosModal(contrato)"
+                                    *ngIf="contrato?.fechaAprobacion == '1989-12-31'">Pendiente</td>
 
 
                             </tr>
@@ -143,13 +161,13 @@
                     <h4 class="card-title">Acciones</h4>
                     <h6 class="card-subtitle">Datos del contrato</h6>
                     <div class="row button-group">
-                        
+
                         <div class="col-md-4">
                             <button type="button" class="btn btn-block btn-outline-success"><i
                                     class="fa fa-file-pdf-o"></i> PDF</button>
                         </div>
-                        
-                      
+
+
                     </div>
 
                     <div class="row p-t-20">
@@ -233,19 +251,25 @@
                                         <tbody>
                                             <tr *ngFor="let estudiante of datosEstudiantes;let indice=index">
                                                 <td>
-                                                    <button type="button"
-                                        class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                                        aria-expanded="false">
-                                        {{estudiante.estado}}
-                                    </button>
-                                    <div class="dropdown-menu animated slideInUp" x-placement="top-start"
-                                        style="position: absolute; transform: translate3d(0px, -2px, 0px); top: 0px; left: 0px; will-change: transform;">
-                                        <a class="dropdown-item" (click)="actualizarEstadoEstudiante('Activo', estudiante)">Activo</a>
-                                        <a class="dropdown-item" (click)="actualizarEstadoEstudiante('Incorporado', estudiante)">Incorporado</a>
-                                        <a class="dropdown-item" (click)="actualizarEstadoEstudiante('Retirado', estudiante)">Retirado</a>
-                                        <a class="dropdown-item" (click)="actualizarEstadoEstudiante('Espera', estudiante)">Espera</a>
-                                        <a class="dropdown-item" (click)="actualizarEstadoEstudiante('Rechazadoo', estudiante)">Rechazado</a>
-                                    </div>
+                                                    <button type="button" class="btn dropdown-toggle"
+                                                        data-toggle="dropdown" aria-haspopup="true"
+                                                        aria-expanded="false">
+                                                        {{estudiante.estado}}
+                                                    </button>
+                                                    <div class="dropdown-menu animated slideInUp"
+                                                        x-placement="top-start"
+                                                        style="position: absolute; transform: translate3d(0px, -2px, 0px); top: 0px; left: 0px; will-change: transform;">
+                                                        <a class="dropdown-item"
+                                                            (click)="actualizarEstadoEstudiante('Activo', estudiante)">Activo</a>
+                                                        <a class="dropdown-item"
+                                                            (click)="actualizarEstadoEstudiante('Incorporado', estudiante)">Incorporado</a>
+                                                        <a class="dropdown-item"
+                                                            (click)="actualizarEstadoEstudiante('Retirado', estudiante)">Retirado</a>
+                                                        <a class="dropdown-item"
+                                                            (click)="actualizarEstadoEstudiante('Espera', estudiante)">Espera</a>
+                                                        <a class="dropdown-item"
+                                                            (click)="actualizarEstadoEstudiante('Rechazadoo', estudiante)">Rechazado</a>
+                                                    </div>
                                                 </td>
                                                 <td>{{estudiante.nombresApellidos}}</td>
                                                 <td>{{estudiante.cedula}}</td>

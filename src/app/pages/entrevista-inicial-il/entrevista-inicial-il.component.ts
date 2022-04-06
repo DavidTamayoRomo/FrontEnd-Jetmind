@@ -26,13 +26,13 @@ export class EntrevistaInicialILComponent implements OnInit {
 
   public mostraModal: boolean = true;
 
-  public idContrato:string;
+  public idContrato: string;
 
-  public estudiantes: any= [];
+  public estudiantes: any = [];
   public estudiantes1: any = [];
   public estudianteSeleccionado: any;
-  public entrevistaInialCHUKSeleccionada: any=[];
-  
+  public entrevistaInialCHUKSeleccionada: any = [];
+
   entrevistaInialCHUKModel = new EntrevistaInicialIL();
 
   public arrayDocentesHorararios: any = [];
@@ -93,9 +93,9 @@ export class EntrevistaInicialILComponent implements OnInit {
       allowSearchFilter: true,
     };
   }
-  
 
-  
+
+
   recuperarDatosPersonas() {
     this.personaService.getAllPersonasSinLimite().subscribe((resp: any) => {
       let nombrePersonas: any = [];
@@ -172,14 +172,14 @@ export class EntrevistaInicialILComponent implements OnInit {
                     ]
                   }]);
 
-                  
+
 
                 }
               });
             })
           });
-          
-          
+
+
         });
       });
     }
@@ -194,11 +194,30 @@ export class EntrevistaInicialILComponent implements OnInit {
 
 
     //if (this.entrevistaInialCHUKSeleccionada) {
+
+    /* //actualizar
+    this.CiudadModel = this.registerForm.value;
+    if (this.registerForm.invalid) {
+      //Formulario invalido
+      const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener('mouseenter', Swal.stopTimer)
+          toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+      })
+      Toast.fire({
+        icon: 'error',
+        title: 'Verificar campos invalidos \n Indicados con el color rojo'
+      })
+      return;
+    } else {
       
-      /* //actualizar
-      this.CiudadModel = this.registerForm.value;
-      if (this.registerForm.invalid) {
-        //Formulario invalido
+      this.ciudadService.updateCiudad(this.ciudadSeleccionada._id, this.CiudadModel).subscribe((resp: any) => {
         const Toast = Swal.mixin({
           toast: true,
           position: 'top-end',
@@ -211,63 +230,77 @@ export class EntrevistaInicialILComponent implements OnInit {
           }
         })
         Toast.fire({
-          icon: 'error',
-          title: 'Verificar campos invalidos \n Indicados con el color rojo'
+          icon: 'success',
+          title: 'Se actualizo correctamente'
         })
-        return;
-      } else {
-        
-        this.ciudadService.updateCiudad(this.ciudadSeleccionada._id, this.CiudadModel).subscribe((resp: any) => {
-          const Toast = Swal.mixin({
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-              toast.addEventListener('mouseenter', Swal.stopTimer)
-              toast.addEventListener('mouseleave', Swal.resumeTimer)
-            }
-          })
-          Toast.fire({
-            icon: 'success',
-            title: 'Se actualizo correctamente'
-          })
-          this.router.navigateByUrl('/listaciudades');
-        }, (err: any) => {
+        this.router.navigateByUrl('/listaciudades');
+      }, (err: any) => {
 
-          console.warn(err.error.message);
+        console.warn(err.error.message);
 
-          const Toast = Swal.mixin({
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-              toast.addEventListener('mouseenter', Swal.stopTimer)
-              toast.addEventListener('mouseleave', Swal.resumeTimer)
-            }
-          })
-
-          //TODO: Mostrar error cuando es administrador. Dato que muestra el error completo=  err.error.message
-          Toast.fire({
-            icon: 'error',
-            title: 'ERROR: ' + err.error.statusCode + '\nContactese con su proveedor de software '
-          })
-        });
-      } */
-    //}else{
-      //crear
-
-      this.entrevistaInialCHUKModel = this.registerForm.value;
-      this.entrevistaInialCHUKModel.idContrato = this.idContrato;
-      if (this.registerForm.invalid) {
         const Toast = Swal.mixin({
           toast: true,
           position: 'top-end',
           showConfirmButton: false,
-          timer: 6000,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+          }
+        })
+
+        //TODO: Mostrar error cuando es administrador. Dato que muestra el error completo=  err.error.message
+        Toast.fire({
+          icon: 'error',
+          title: 'ERROR: ' + err.error.statusCode + '\nContactese con su proveedor de software '
+        })
+      });
+    } */
+    //}else{
+    //crear
+
+    this.entrevistaInialCHUKModel = this.registerForm.value;
+    this.entrevistaInialCHUKModel.idContrato = this.idContrato;
+    if (this.registerForm.invalid) {
+      const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 6000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener('mouseenter', Swal.stopTimer)
+          toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+      })
+      Toast.fire({
+        icon: 'error',
+        title: '- Campos con asterisco son obligatorios\n - Verificar campos invalidos, \n indicados con el color rojo  '
+      })
+      return;
+    } else {
+      this.entrevistaInicialILService.crearEntrevista(this.entrevistaInialCHUKModel).subscribe((resp) => {
+
+
+        //actualizar datos del contrato
+        this.contratoService.obtenerContratoById(this.entrevistaInialCHUKModel.idContrato).subscribe((resp: any) => {
+          let datos = resp.data;
+          if (datos.entrevistaInicial) {
+            datos.entrevistaInicial.push({ marca: 'Ilvem' });
+          } else {
+            datos.entrevistaInicial = [{ marca: 'Ilvem' }];
+          }
+          this.contratoService.updatecontrato(this.entrevistaInialCHUKModel.idContrato, datos).subscribe((resp: any) => {
+            console.log(resp);
+          });
+        });
+
+        const Toast = Swal.mixin({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 3000,
           timerProgressBar: true,
           didOpen: (toast) => {
             toast.addEventListener('mouseenter', Swal.stopTimer)
@@ -275,53 +308,35 @@ export class EntrevistaInicialILComponent implements OnInit {
           }
         })
         Toast.fire({
-          icon: 'error',
-          title: '- Campos con asterisco son obligatorios\n - Verificar campos invalidos, \n indicados con el color rojo  '
+          icon: 'success',
+          title: 'Guardado correctamente'
         })
-        return;
-      }else{
-        this.entrevistaInicialILService.crearEntrevista(this.entrevistaInialCHUKModel).subscribe((resp) => {
-          const Toast = Swal.mixin({
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-              toast.addEventListener('mouseenter', Swal.stopTimer)
-              toast.addEventListener('mouseleave', Swal.resumeTimer)
-            }
-          })
-          Toast.fire({
-            icon: 'success',
-            title: 'Guardado correctamente'
-          })
 
-          this.router.navigateByUrl('/listaentrevistainicialil');
-        }, (err: any) => {
+        this.router.navigateByUrl('/listaentrevistainicialil');
+      }, (err: any) => {
 
-          console.warn(err.error.message);
+        console.warn(err.error.message);
 
-          const Toast = Swal.mixin({
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-              toast.addEventListener('mouseenter', Swal.stopTimer)
-              toast.addEventListener('mouseleave', Swal.resumeTimer)
-            }
-          })
+        const Toast = Swal.mixin({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+          }
+        })
 
-          //TODO: Mostrar error cuando es administrador. Dato que muestra el error completo=  err.error.message
-          Toast.fire({
-            icon: 'error',
-            title: 'ERROR: ' + err.error.statusCode + '\nContactese con su proveedor de software '
-          })
-        });
-      }
-      
+        //TODO: Mostrar error cuando es administrador. Dato que muestra el error completo=  err.error.message
+        Toast.fire({
+          icon: 'error',
+          title: 'ERROR: ' + err.error.statusCode + '\nContactese con su proveedor de software '
+        })
+      });
+    }
+
     //}
 
 
@@ -336,7 +351,7 @@ export class EntrevistaInicialILComponent implements OnInit {
     pregunta4: [null],
     pregunta5: [null],
     pregunta6: [null],
-    estudiantes1:[this.estudiantes1]
+    estudiantes1: [this.estudiantes1]
   });
 
   public registerForm1 = this.fb.group({
@@ -371,7 +386,7 @@ export class EntrevistaInicialILComponent implements OnInit {
         idHorario: [null],
       }
     ));
-   
+
   }
 
 
@@ -380,7 +395,7 @@ export class EntrevistaInicialILComponent implements OnInit {
   }
 
 
-  abrirModal(estudiante: any, index:any) {
+  abrirModal(estudiante: any, index: any) {
     this.mostraModal = false;
     this.estudianteSeleccionado = estudiante;
     this.posicion = index;
@@ -393,14 +408,14 @@ export class EntrevistaInicialILComponent implements OnInit {
 
   agregar() {
     this.estudiantes1.push(this.registerForm1.value);
-    let formArray:any = this.registerForm1.value;
+    let formArray: any = this.registerForm1.value;
     console.log(formArray.estudiantes);
-    this.arrayDocentesHorararios[this.posicion]=formArray.estudiantes;
+    this.arrayDocentesHorararios[this.posicion] = formArray.estudiantes;
     console.log(this.arrayDocentesHorararios);
-    
+
     this.cerrarModal();
-    
-    
+
+
   }
 
   limpiarArrayCampos() {
@@ -409,7 +424,7 @@ export class EntrevistaInicialILComponent implements OnInit {
     this.limpiarCampos();
   }
 
-  limpiarCampos() { 
+  limpiarCampos() {
     this.registerForm1.reset();
   }
 
@@ -478,5 +493,5 @@ export class EntrevistaInicialILComponent implements OnInit {
     this.horario = items;
   }
 
-  
+
 }

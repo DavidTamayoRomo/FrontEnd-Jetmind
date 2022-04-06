@@ -437,6 +437,19 @@ export class Peea18ilvemComponent implements OnInit {
         
         this.Peea18ilvemModel.pregunta9= this.peeas;
 
+        //actualizar datos del contrato
+        this.contratoService.obtenerContratoById(this.Peea18ilvemModel.idContrato).subscribe((resp: any) => {
+          let datos = resp.data;
+          if (datos.pea) {
+            datos.pea.push({ nombreEstudiante: this.estudiante[0].nombre, marca: 'ILVEM', nombrePea: 'PEEA 18 ILVEM' });
+          } else {
+            datos.pea = [{ nombreEstudiante: this.estudiante[0].nombre, marca: 'ILVEM', nombrePea: 'PEEA 18 ILVEM' }];
+          }
+          this.contratoService.updatecontrato(this.Peea18ilvemModel.idContrato, datos).subscribe((resp: any) => {
+            console.log(resp);
+          });
+        });
+
         setTimeout(() => {
           this.peea18ilvemService.crearPeea18ilvem(this.Peea18ilvemModel).subscribe((resp) => {
             const Toast = Swal.mixin({
