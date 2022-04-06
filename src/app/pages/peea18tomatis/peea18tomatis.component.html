@@ -1,6 +1,18 @@
 <div class="card-body">
     <form (ngSubmit)="crearPeea18()" autocomplete="off" [formGroup]="registerForm">
         <h3>DATOS DEL ESTUDIANTE</h3>
+        <div class="row p-t-20">
+            <div class="col-md-12">
+            <div class="form-group">
+                <label for="exampleInputuname">Estudiante *</label>
+                <ng-multiselect-dropdown [placeholder]="'Seleccione Estudiante'" [settings]="dropdownSettingsSingle"
+                    [data]="dropdownListEstudiantes" (onSelect)="onItemSelectEstudiante($event)"
+                    (onSelectAll)="onSelectAllEstudiante($event)" (onDeSelect)="onDeSelectEstudiante($event)"
+                    (onDeSelectAll)="onDeSelectAllEstudiante($event)" formControlName="idEstudiante">
+                </ng-multiselect-dropdown>
+            </div>
+            </div>
+        </div>
         <div class="row">
             <div class="col-md-4">
                 <label for="direccion">Lugar de nacimiento</label>

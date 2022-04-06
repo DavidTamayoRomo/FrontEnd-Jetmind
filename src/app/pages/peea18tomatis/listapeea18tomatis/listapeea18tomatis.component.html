@@ -41,7 +41,9 @@
                     <table class="table full-color-table full-inverse-table hover-table">
                         <thead>
                             <tr>
+                                <th class="w100">Reporte PDF</th>
                                 <th class="w100">Contrato</th>
+                                <th class="w100">Nombre Estudiante</th>
                                 <th class="w100">Pregunta 1</th>
                                 <th class="w100">Pregunta 2</th>
                                 <th class="w100">Pregunta 3</th>
@@ -53,19 +55,18 @@
                         </thead>
                         <tbody>
                             <tr *ngFor="let pea of peeas">
-
-                                <td>{{pea?.idContrato?.codigo}}</td>
-                                <td>{{pea.pregunta1}}</td>
-                                <td>{{pea.pregunta2}}</td>
-                                <td>{{pea.pregunta3}}</td>
-                                <td>{{pea.pregunta4}}</td>
-                                <td><div *ngFor="let item of pea.pregunta5">{{item}}</div></td>
-
                                 <td>
                                     <button (click)="reporte(pea)" type="button" class="btn btn-info btn-circle btn-lg">
                                         <i class="fa fa-file-pdf-o"></i></button>
                                 </td>
+                                <td>{{pea?.idContrato?.codigo}}</td>
+                                <td>{{pea?.idEstudiante?.nombresApellidos}}</td>
+                                <td>{{pea.pregunta1}}</td>
+                                <td>{{pea.pregunta2}}</td>
+                                <td>{{pea.pregunta3}}</td>
+                                <td>{{pea.pregunta4}}</td>
 
+                                
                                 <td class="text-nowrap">
                                     <a [routerLink]="['/peea-18-tomatis',pea._id,pea.idContrato._id]" data-toggle="tooltip"
                                         data-original-title="Editar"> <i class="ti-pencil"></i> </a>

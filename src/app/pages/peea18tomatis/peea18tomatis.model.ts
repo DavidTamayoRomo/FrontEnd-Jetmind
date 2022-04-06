@@ -46,6 +46,7 @@ export class Peea18tomatis {
         public pregunta41?:any,
         public pregunta42?:any,
         public pregunta43?:any,
+        public idEstudiante?:any,
 
         public addedUser?:any,
         public modifiedUser?:any

@@ -58,8 +58,8 @@ export class ReportePeea18tomatisComponent implements OnInit {
         this.contrato = resp.data;
         this.representanteService.obtenerRepresentanteById(resp.data.idRepresentante).subscribe((resp: any) => {
           this.representante = resp.data;
-          this.estudianteService.getAllEstudiantesByIdRepresentante(resp.data._id).subscribe((resp: any) => {
-            this.estudiante = resp.data[0];
+          this.estudianteService.obtenerEstudianteById(this.peea18?.idEstudiante).subscribe((resp: any) => {
+            this.estudiante = resp.data;
             this.createPDF(this.estudiante, this.representante, this.contrato, this.peea18);
           });
         });

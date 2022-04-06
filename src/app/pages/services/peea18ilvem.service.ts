@@ -67,7 +67,7 @@ export class Peea18ilvemService {
               peea18ilvem?.pregunta23, peea18ilvem?.pregunta24, peea18ilvem?.pregunta25, peea18ilvem?.pregunta26,
               peea18ilvem?.pregunta27, peea18ilvem?.pregunta28, peea18ilvem?.pregunta29, peea18ilvem?.pregunta30,
               peea18ilvem?.pregunta31, peea18ilvem?.pregunta32, peea18ilvem?.pregunta33, peea18ilvem?.pregunta34,
-              peea18ilvem?.pregunta35, peea18ilvem?.pregunta36, peea18ilvem?.pregunta37, 
+              peea18ilvem?.pregunta35, peea18ilvem?.pregunta36, peea18ilvem?.pregunta37, peea18ilvem?.idEstudiante,
               peea18ilvem?.addedUser, peea18ilvem?.modifiedUser
               ));
 

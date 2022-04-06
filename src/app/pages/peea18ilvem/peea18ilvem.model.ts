@@ -41,6 +41,7 @@ export class Peea18ilvem {
         public pregunta36?:any,
         public pregunta37?:any,
         public pregunta38?:any,
+        public idEstudiante?:any,
         public addedUser?:any,
         public modifiedUser?:any
     ){}

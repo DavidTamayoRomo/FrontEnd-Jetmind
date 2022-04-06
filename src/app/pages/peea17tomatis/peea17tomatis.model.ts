@@ -103,6 +103,7 @@ export class Peea17tomatis {
         public pregunta98?:any,
         public pregunta99?:any,
         public pregunta100?:any,
+        public idEstudiante?:any,
 
         public addedUser?:any,
         public modifiedUser?:any
