@@ -82,6 +82,7 @@ export class Peea17ilvem {
         public pregunta77?:string,
         public pregunta78?:string,
         public pregunta79?:string,
+        public idEstudiante?:string,
 
         public addedUser?:string,
         public modifiedUser?:string

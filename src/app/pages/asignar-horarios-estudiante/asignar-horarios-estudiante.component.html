@@ -33,7 +33,7 @@
             
             <div class="form-group">
                 <label for="exampleInputuname">Estudiantes *</label>
-                <ng-multiselect-dropdown [placeholder]="'Seleccione Docente'" [settings]="dropdownSettings"
+                <ng-multiselect-dropdown [placeholder]="'Seleccione Estudiantes'" [settings]="dropdownSettings"
                     [data]="dropdownListEstudiantes" (onSelect)="onItemSelectEstudiante($event)"
                     (onSelectAll)="onSelectAllEstudiante($event)" (onDeSelect)="onDeSelectEstudiante($event)"
                     (onDeSelectAll)="onDeSelectAllEstudiante($event)" formControlName="idEstudiantes">

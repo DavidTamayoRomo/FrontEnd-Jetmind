@@ -5,6 +5,9 @@ import { Peea17ilvem } from './peea17ilvem.model';
 import { Peea17ilvemService } from '../services/peea17ilvem.service';
 
 import Swal from 'sweetalert2';
+import { IDropdownSettings } from 'ng-multiselect-dropdown';
+import { ContratoService } from '../services/contrato.service';
+import { EstudianteService } from '../services/estudiante.service';
 
 
 @Component({
@@ -14,6 +17,12 @@ import Swal from 'sweetalert2';
   ]
 })
 export class Peea17ilvemComponent implements OnInit {
+
+  public estudiante: any = [];
+
+  public dropdownListEstudiantes: any = [];
+  public selectedItems: any = [];
+  public dropdownSettingsSingle: IDropdownSettings = {};
 
   public peeas: any = [];
 
@@ -50,6 +59,8 @@ export class Peea17ilvemComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private peea17ilvemService:Peea17ilvemService,
+    private contratoService: ContratoService,
+    private estudianteService: EstudianteService,
     private activatedRoute: ActivatedRoute,
     private router: Router
   ) { }
@@ -57,7 +68,29 @@ export class Peea17ilvemComponent implements OnInit {
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(({ id, idContrato }) => {
       this.cargaPeea17byId(id);
+      this.cargarEstudianteContrato(idContrato);
     });
+
+    this.dropdownSettingsSingle = {
+      singleSelection: true,
+      idField: 'item_id',
+      textField: 'nombre',
+      selectAllText: 'Select All',
+      unSelectAllText: 'UnSelect All',
+      allowSearchFilter: true,
+    };
+  }
+
+  cargarEstudianteContrato(idContrato: any) {
+    this.contratoService.obtenerContratoById(idContrato).subscribe((resp: any) => {
+      this.estudianteService.getAllEstudiantesByIdRepresentante(resp.data.idRepresentante).subscribe((resp: any) => {
+        let nombreEstudiantes: any = [];
+        resp.data.forEach((element: any) => {
+          nombreEstudiantes.push({ item_id: element._id, nombre: element.nombresApellidos });
+        });
+        this.dropdownListEstudiantes = nombreEstudiantes;
+      })
+    })
   }
 
   async cargaPeea17byId(id: string) {
@@ -154,6 +187,7 @@ export class Peea17ilvemComponent implements OnInit {
     pregunta77: [''],
     pregunta78: [''],
     pregunta79: [''],
+    idEstudiante: [null],
     
   });
 
@@ -590,6 +624,8 @@ export class Peea17ilvemComponent implements OnInit {
         this.Peea17ilvemModel = this.registerForm.value;
         this.Peea17ilvemModel.idContrato = this.activatedRoute.snapshot.paramMap.get('idContrato')?.toString();
         
+        this.Peea17ilvemModel.idEstudiante = this.estudiante[0].item_id;
+
         this.Peea17ilvemModel.pregunta10={
           respuesta: this.registerForm.get('pregunta10')?.value,
           observacion: this.supletorios?.nativeElement.value
@@ -741,4 +777,25 @@ export class Peea17ilvemComponent implements OnInit {
   habilitarCampos(campo1:any, campo2:any){
     
   }
+
+
+  /** estudiante */
+  /** Item Seleccionado */
+  onItemSelectEstudiante(item: any) {
+    this.estudiante = [item];
+  }
+  /** Todos los items Seleccionados */
+  onSelectAllEstudiante(items: any) {
+    this.estudiante = items;
+  }
+  /** Deselccionar item */
+  onDeSelectEstudiante(item: any) {
+    /** Borrar elemento del array  */
+    this.estudiante = [];
+  }
+  /** Deselccionar todos los items */
+  onDeSelectAllEstudiante(items: any) {
+    this.estudiante = items;
+  }
+
 }

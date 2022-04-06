@@ -58,8 +58,8 @@ export class ReportePeea18charlotteComponent implements OnInit {
         this.contrato = resp.data;
         this.representanteService.obtenerRepresentanteById(resp.data.idRepresentante).subscribe((resp: any) => {
           this.representante = resp.data;
-          this.estudianteService.getAllEstudiantesByIdRepresentante(resp.data._id).subscribe((resp: any) => {
-            this.estudiante = resp.data[0];
+          this.estudianteService.obtenerEstudianteById(this.peea18?.idEstudiante).subscribe((resp: any) => {
+            this.estudiante = resp.data;
             this.createPDF(this.estudiante, this.representante, this.contrato, this.peea18);
           });
         });
@@ -191,9 +191,9 @@ export class ReportePeea18charlotteComponent implements OnInit {
           table: {
             body: [
               ['PREGUNTA', 'RESPUESTA', 'OBSERVACIONES'],
-              ['¿Tiene alguna dificultad visual? ', `${peea?.pregunta8.respuesta}`, `${peea?.pregunta8?.observacion}`],
-              ['¿Se ha practicado alguna vez exámenes auditivos? ', `${peea?.pregunta9.respuesta}`, `${peea?.pregunta9?.observacion}`],
-              ['¿Se ha practicado alguna vez exámenes visuales? ', `${peea?.pregunta10.respuesta}`, `${peea?.pregunta10?.observacion}`],
+              ['¿Tiene alguna dificultad visual? ', `${peea?.pregunta8?.respuesta}`, `${peea?.pregunta8?.observacion}`],
+              ['¿Se ha practicado alguna vez exámenes auditivos? ', `${peea?.pregunta9?.respuesta}`, `${peea?.pregunta9?.observacion}`],
+              ['¿Se ha practicado alguna vez exámenes visuales? ', `${peea?.pregunta10?.respuesta}`, `${peea?.pregunta10?.observacion}`],
                        
             ]
           }

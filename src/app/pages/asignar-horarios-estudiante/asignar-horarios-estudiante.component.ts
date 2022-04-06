@@ -43,7 +43,6 @@ export class AsignarHorariosEstudianteComponent implements OnInit {
     private horariosService: HorarioService,
     private activatedRoute: ActivatedRoute,
     private router: Router
-
   ) { }
 
   ngOnInit(): void {

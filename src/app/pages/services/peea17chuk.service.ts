@@ -63,7 +63,7 @@ export class Peea17chukService {
               peea17chuk?.pregunta6, peea17chuk?.pregunta7, peea17chuk?.pregunta8, peea17chuk?.pregunta9,
               peea17chuk?.pregunta10, peea17chuk?.pregunta11, peea17chuk?.pregunta12, peea17chuk?.pregunta13,
               peea17chuk?.pregunta14, peea17chuk?.pregunta15, peea17chuk?.pregunta16, peea17chuk?.pregunta17,
-              peea17chuk?.pregunta18, peea17chuk?.addedUser, peea17chuk?.modifiedUser
+              peea17chuk?.pregunta18, peea17chuk?.idEstudiante, peea17chuk?.addedUser, peea17chuk?.modifiedUser
               ));
 
           return {

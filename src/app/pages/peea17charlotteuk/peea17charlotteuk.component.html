@@ -8,6 +8,19 @@
             <h6 class="card-subtitle">Ingrese todos los datos solicitados</h6>
 
             <div class="row p-t-20">
+                <div class="col-md-12">
+                <div class="form-group">
+                    <label for="exampleInputuname">Estudiante *</label>
+                    <ng-multiselect-dropdown [placeholder]="'Seleccione Estudiante'" [settings]="dropdownSettingsSingle"
+                        [data]="dropdownListEstudiantes" (onSelect)="onItemSelectEstudiante($event)"
+                        (onSelectAll)="onSelectAllEstudiante($event)" (onDeSelect)="onDeSelectEstudiante($event)"
+                        (onDeSelectAll)="onDeSelectAllEstudiante($event)" formControlName="idEstudiante">
+                    </ng-multiselect-dropdown>
+                </div>
+                </div>
+            </div>
+            
+            <div class="row p-t-20">
                 <div class="col-md-6">
                     <label for="direccion">Lugar de nacimiento</label>
                     <div class="input-group">

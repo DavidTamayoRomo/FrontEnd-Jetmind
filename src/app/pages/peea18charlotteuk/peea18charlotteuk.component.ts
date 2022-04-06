@@ -5,6 +5,9 @@ import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Peea18chukService } from '../services/peea18chuk.service';
 import Swal from 'sweetalert2';
+import { IDropdownSettings } from 'ng-multiselect-dropdown';
+import { ContratoService } from '../services/contrato.service';
+import { EstudianteService } from '../services/estudiante.service';
 
 @Component({
   selector: 'app-peea18charlotteuk',
@@ -13,6 +16,12 @@ import Swal from 'sweetalert2';
   ]
 })
 export class Peea18charlotteukComponent implements OnInit {
+
+  public estudiante: any = [];
+
+  public dropdownListEstudiantes: any = [];
+  public selectedItems: any = [];
+  public dropdownSettingsSingle: IDropdownSettings = {};
 
   public pea18chukSeleccionada: any;
   public peeas: any = [];
@@ -44,6 +53,8 @@ export class Peea18charlotteukComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private peea18chukService: Peea18chukService,
+    private contratoService: ContratoService,
+    private estudianteService: EstudianteService,
     private activatedRoute: ActivatedRoute,
     private router: Router
   ) { }
@@ -51,7 +62,29 @@ export class Peea18charlotteukComponent implements OnInit {
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(({ id, idContrato }) => {
       this.cargaPeea18chukbyId(id);
+      this.cargarEstudianteContrato(idContrato);
     });
+
+    this.dropdownSettingsSingle = {
+      singleSelection: true,
+      idField: 'item_id',
+      textField: 'nombre',
+      selectAllText: 'Select All',
+      unSelectAllText: 'UnSelect All',
+      allowSearchFilter: true,
+    };
+  }
+
+  cargarEstudianteContrato(idContrato: any) {
+    this.contratoService.obtenerContratoById(idContrato).subscribe((resp: any) => {
+      this.estudianteService.getAllEstudiantesByIdRepresentante(resp.data.idRepresentante).subscribe((resp: any) => {
+        let nombreEstudiantes: any = [];
+        resp.data.forEach((element: any) => {
+          nombreEstudiantes.push({ item_id: element._id, nombre: element.nombresApellidos });
+        });
+        this.dropdownListEstudiantes = nombreEstudiantes;
+      })
+    })
   }
 
   async cargaPeea18chukbyId(id: string) {
@@ -147,7 +180,8 @@ export class Peea18charlotteukComponent implements OnInit {
     pregunta10: [null],
     pregunta11: [null],
     pregunta12: [''],
-    pregunta13: ['']
+    pregunta13: [''],
+    idEstudiante: [null],
   });
 
   campoNoValido(campo: any): boolean {
@@ -284,6 +318,7 @@ export class Peea18charlotteukComponent implements OnInit {
       } else {
         this.Peea18chukModel = this.registerForm.value;
         this.Peea18chukModel.idContrato = this.activatedRoute.snapshot.paramMap.get('idContrato')?.toString();
+        this.Peea18chukModel.idEstudiante = this.estudiante[0].item_id;
         if (this.visual.nativeElement.value != '') {
           console.log(this.visual.nativeElement.value);
           this.Peea18chukModel.pregunta8 = {
@@ -423,6 +458,26 @@ export class Peea18charlotteukComponent implements OnInit {
     
     
 
+  }
+
+
+  /** estudiante */
+  /** Item Seleccionado */
+  onItemSelectEstudiante(item: any) {
+    this.estudiante = [item];
+  }
+  /** Todos los items Seleccionados */
+  onSelectAllEstudiante(items: any) {
+    this.estudiante = items;
+  }
+  /** Deselccionar item */
+  onDeSelectEstudiante(item: any) {
+    /** Borrar elemento del array  */
+    this.estudiante = [];
+  }
+  /** Deselccionar todos los items */
+  onDeSelectAllEstudiante(items: any) {
+    this.estudiante = items;
   }
 
 }

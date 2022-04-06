@@ -41,24 +41,30 @@
                     <table class="table full-color-table full-inverse-table hover-table">
                         <thead>
                             <tr>
+                                <th class="w100">Descargar PDF</th>
                                 <th class="w100">Contrato</th>
+                                <th class="w100">Nombre del estudiante</th>
                                 <th class="w100">Pregunta 1</th>
                                 <th class="w100">Pregunta 2</th>
                                 <th class="w100">Pregunta 3</th>
                                 <th class="w100">Pregunta 4</th>
                                 <th class="w100">Estado</th>
                                 <th class="text-nowrap w100">Action</th>
-                                <th class="w100">Descargar PDF</th>
+                                
                             </tr>
                         </thead>
                         <tbody>
                             <tr *ngFor="let pea of peeas">
-
+                                <td>
+                                    <button (click)="reporte(pea)" type="button" class="btn btn-info btn-circle btn-lg">
+                                        <i class="fa fa-file-pdf-o"></i></button>
+                                </td>
                                 <td>{{pea?.idContrato?.codigo}}</td>
-                                <td>{{pea.pregunta1}}</td>
-                                <td>{{pea.pregunta2}}</td>
-                                <td>{{pea.pregunta3}}</td>
-                                <td>{{pea.pregunta4}}</td>
+                                <td>{{pea?.idEstudiante?.nombresApellidos}}</td>
+                                <td>{{pea?.pregunta1}}</td>
+                                <td>{{pea?.pregunta2}}</td>
+                                <td>{{pea?.pregunta3}}</td>
+                                <td>{{pea?.pregunta4}}</td>
                                 <td><div *ngFor="let item of pea.pregunta5">{{item}}</div></td>
 
                                 <td class="text-nowrap">
@@ -69,10 +75,7 @@
                                         <i class=" ti-trash"></i>
                                     </a>
                                 </td>
-                                <td>
-                                    <button (click)="reporte(pea)" type="button" class="btn btn-info btn-circle btn-lg">
-                                        <i class="fa fa-file-pdf-o"></i></button>
-                                </td>
+                                
                             </tr>
 
 

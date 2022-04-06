@@ -16,6 +16,7 @@ export class Peea18chuk {
         public pregunta11?:string,
         public pregunta12?:string,
         public pregunta13?:string,
+        public idEstudiante?:string,
         
         public addedUser?:string,
         public modifiedUser?:string
