@@ -17,7 +17,7 @@ import {
 import { Subject } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { map } from 'rxjs/operators';
-import { FormBuilder, FormArray } from '@angular/forms';
+import { FormBuilder, FormArray, Validators } from '@angular/forms';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { EstudianteService } from '../services/estudiante.service';
 import { PersonaService } from '../persona/persona.service';
@@ -31,6 +31,10 @@ import {
 } from 'angular-calendar';
 
 import Swal from 'sweetalert2';
+import { CiudadService } from '../services/ciudad.service';
+import { SucursalService } from '../services/sucursal.service';
+import { MarcaService } from '../services/marca.service';
+import { Location } from '@angular/common';
 
 const colors: any = {
   red: {
@@ -63,16 +67,27 @@ export class AgendaEntregaInformesComponent implements OnInit {
   public agendaEntregaInformes: any = [];
   public arrayCalendario: any = [];
 
+  public dropdownListCiudades: any = [];
+  public dropdownListSucursales: any = [];
+  public dropdownListMarcas: any = [];
+  public ciudad: any = [];
+  public sucursal: any = [];
+  public marca: any = [];
+
   constructor(
     private fb: FormBuilder,
     private estudiantesService: EstudianteService,
     private personaService: PersonaService,
+    private ciudadService: CiudadService,
+    private sucursalService: SucursalService,
+    private marcaService: MarcaService,
     private agendaService: AgendaEntregaInformesService,
     private router: Router,
+    private location: Location
   ) { }
 
   ngOnInit(): void {
-    
+
     this.recuperarDatosEstudiantes();
     this.dropdownSettings = {
       singleSelection: true,
@@ -84,9 +99,55 @@ export class AgendaEntregaInformesComponent implements OnInit {
     };
     this.eliminar();
     this.cargarListaDeAgendaEntregaInformes();
+
+    /** Servicio que me devuelva las CIUDADES de la base de datos */
+    this.recuperarDatosCiudad();
+    /** Servicio que me devuelva las SUCURSALES de la base de datos */
+    this.recuperarDatosSucursales();
+    /** Servicio que me devuelva las MARCAS de la base de datos */
+    this.recuperarDatosMarcas();
   }
 
+  public registerForm2 = this.fb.group({
+    idMarca: [null, Validators.required],
+    idCiudad: [null, Validators.required],
+    idSucursal: [null, Validators.required],
+  });
 
+  recuperarDatosCiudad() {
+    this.ciudadService.getAllCiudades().subscribe((resp: any) => {
+      let nombreciudades: any = [];
+      resp.data.forEach((element: any) => {
+        nombreciudades.push({ item_id: element._id, nombre: element.nombre });
+      });
+      this.dropdownListCiudades = nombreciudades;
+
+
+    });
+
+  }
+  recuperarDatosSucursales() {
+    this.sucursalService.getAllSucursales().subscribe((resp: any) => {
+      let nombreSucursal: any = [];
+      resp.data.forEach((element: any) => {
+        nombreSucursal.push({ item_id: element._id, nombre: element.nombre });
+      });
+      this.dropdownListSucursales = nombreSucursal;
+
+    });
+
+  }
+  recuperarDatosMarcas() {
+    this.marcaService.getAllMarcas().subscribe((resp: any) => {
+      let nombremarcas: any = [];
+      resp.data.forEach((element: any) => {
+        nombremarcas.push({ item_id: element._id, nombre: element.nombre });
+      });
+      this.dropdownListMarcas = nombremarcas;
+
+    });
+
+  }
 
 
   @ViewChild('modalContent', { static: true }) modalContent: TemplateRef<any>;
@@ -206,7 +267,7 @@ export class AgendaEntregaInformesComponent implements OnInit {
     this.events = this.arrayCalendario;
     //guardar en la base de datos
     this.agendaService.crearagenda(this.registerForm1.get('agenda')?.value[index]).subscribe((resp: any) => {
-      //this.router.navigateByUrl('/agenda-entrega-informes');
+      
     });
   }
 
@@ -249,7 +310,7 @@ export class AgendaEntregaInformesComponent implements OnInit {
       }
     ));
   }
-  agregarAgenda2(inicio:any, fin:any, estudiante:any, docente:any) {
+  agregarAgenda2(inicio: any, fin: any, estudiante: any, docente: any) {
     const agendaForm = <FormArray>this.registerForm1.controls['agenda'];
     agendaForm.push(this.fb.group(
       {
@@ -261,6 +322,39 @@ export class AgendaEntregaInformesComponent implements OnInit {
     ));
   }
 
+  editar(index: number) {
+    const pruebaForm = <FormArray>this.registerForm1.controls['agenda'];
+    this.agendaEntregaInformes[index].fechaInicio = this.registerForm1.get('agenda')?.value[index].fechaInicio;
+    this.agendaEntregaInformes[index].fechaFin = this.registerForm1.get('agenda')?.value[index].fechaFin;
+
+    setTimeout(() => {
+      this.agendaService.updateagenda(this.agendaEntregaInformes[index]._id, this.agendaEntregaInformes[index]).subscribe((resp: any) => {
+
+       this.router.navigateByUrl("/dashboard", { skipLocationChange: true }).then(() => {
+          console.log(decodeURI(this.location.path()));
+          this.router.navigate([decodeURI(this.location.path())]);
+        });
+
+        const Toast = Swal.mixin({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 6000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+          }
+        })
+        Toast.fire({
+          icon: 'success',
+          title: 'Estudiante actualizado de agenda de entrega de informes'
+        })
+      });
+    }, 500);
+
+  }
+
   eliminarCamposArray(index: number) {
     const pruebaForm = <FormArray>this.registerForm1.controls['agenda'];
     pruebaForm.removeAt(index);
@@ -268,6 +362,12 @@ export class AgendaEntregaInformesComponent implements OnInit {
     console.log('Elimina el campo', this.agendaEntregaInformes[index]);
     setTimeout(() => {
       this.agendaService.eliminaragenda(this.agendaEntregaInformes[index]).subscribe((resp: any) => {
+
+        this.router.navigateByUrl("/dashboard", { skipLocationChange: true }).then(() => {
+          console.log(decodeURI(this.location.path()));
+          this.router.navigate([decodeURI(this.location.path())]);
+        });
+
         const Toast = Swal.mixin({
           toast: true,
           position: 'top-end',
@@ -285,10 +385,10 @@ export class AgendaEntregaInformesComponent implements OnInit {
         })
 
         //TODO:Actualizar el calendario
-        
+
       });
     }, 500);
-    
+
   }
 
   recuperarDatosEstudiantes() {
@@ -312,6 +412,56 @@ export class AgendaEntregaInformesComponent implements OnInit {
     });
   }
 
+  eliminar() {
+    const pruebaForm = <FormArray>this.registerForm1.controls['agenda'];
+    pruebaForm.clear();
+
+    /* this.router.navigateByUrl("/dashboard", { skipLocationChange: true }).then(() => {
+      console.log(decodeURI(this.location.path()));
+      this.router.navigate([decodeURI(this.location.path())]);
+    }); */
+
+    
+  }
+
+  buscar() {
+    /* let ciudad = this.registerForm1.get('ciudad')?.value;
+    let sucursal = this.registerForm1.get('sucursal')?.value;
+    let marca = this.registerForm1.get('marca')?.value; */
+    this.events = [];
+    this.arrayCalendario = [];
+    this.eliminar();
+    setTimeout(() => {
+      this.agendaService.allCiudadSucursalMarca(this.ciudad[0].item_id, this.sucursal[0].item_id, this.marca[0].item_id).subscribe((resp: any) => {
+        console.log('Respuesta del servicio', resp);
+        this.agendaEntregaInformes = resp.data;
+        this.agendaEntregaInformes.map((item: any) => {
+
+          let fechaInicio = new Date(item.fechaInicio);
+          let fechaFin = new Date(item.fechaFin);
+
+          this.agregarAgenda2(
+            new Date(item.fechaInicio)
+            , new Date(item.fechaFin)
+            , item.idEstudiantes
+            , item.idDocente
+          );
+
+          this.arrayCalendario.push({
+            start: new Date(item.fechaInicio),
+            end: new Date(item.fechaFin),
+            title: `${item.idEstudiantes[0].nombre}`,
+            color: colors.blue,
+            id: item._id,
+          });
+        })
+
+        this.events = this.arrayCalendario;
+      });
+    }, 500);
+
+  }
+
   /** estudiante */
   /** Item Seleccionado */
   onItemSelectEstudiante(item: any) {
@@ -331,9 +481,64 @@ export class AgendaEntregaInformesComponent implements OnInit {
     this.estudiante = items;
   }
 
-  eliminar(){
-   const pruebaForm = <FormArray>this.registerForm1.controls['agenda'];
-    pruebaForm.clear();
+
+
+
+  /** CIUDAD */
+  /** Item Seleccionado */
+  onItemSelect(item: any) {
+    this.ciudad = [item];
+  }
+  /** Todos los items Seleccionados */
+  onSelectAll(items: any) {
+    this.ciudad = items;
+  }
+  /** Deselccionar item */
+
+  onDeSelect(item: any) {
+    this.ciudad = [];
+  }
+  /** Deselccionar todos los items */
+  onDeSelectAll(items: any) {
+    this.ciudad = items;
+  }
+
+  /** SUCRUSAL */
+  /** Item Seleccionado */
+  onItemSelectsucursal(item: any) {
+    this.sucursal = [item];
+  }
+  /** Todos los items Seleccionados */
+  onSelectAllsucursal(items: any) {
+    this.sucursal = items;
+  }
+  /** Deselccionar item */
+
+  onDeSelectsucursal(item: any) {
+    this.sucursal = [];
+  }
+  /** Deselccionar todos los items */
+  onDeSelectAllsucursal(items: any) {
+    this.sucursal = items;
+  }
+
+  /** MARCA */
+  /** Item Seleccionado */
+  onItemSelectmarca(item: any) {
+    this.marca = [item];
+  }
+  /** Todos los items Seleccionados */
+  onSelectAllmarca(items: any) {
+    this.marca = items;
+  }
+  /** Deselccionar item */
+  onDeSelectmarca(item: any) {
+    /** Borrar elemento del array  */
+    this.marca = [];
+  }
+  /** Deselccionar todos los items */
+  onDeSelectAllmarca(items: any) {
+    this.marca = items;
   }
 
 }

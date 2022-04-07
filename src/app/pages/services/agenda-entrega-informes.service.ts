@@ -48,6 +48,11 @@ export class AgendaEntregaInformesService {
     const headers = this.retornarHeader();
     return this.http.delete(`${base_url}/agenda/${agenda._id}`, { headers: headers });
   }
+  
+  allCiudadSucursalMarca( ciudad:any, sucursal:any, marca:any){
+    const headers = this.retornarHeader();
+    return this.http.get(`${base_url}/agenda/busqueda/${ciudad}/${sucursal}/${marca}`, { headers: headers });
+  }
 
 
   cargarAgendas (skip: number = 0){
