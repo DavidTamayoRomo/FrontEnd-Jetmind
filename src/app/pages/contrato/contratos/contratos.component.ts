@@ -243,7 +243,7 @@ export class ContratosComponent implements OnInit {
 
     this.router.navigate(['/reporte-contrato/', this.contratoSeleccionado._id]);
     setTimeout(() => {
-      this.router.navigate(['/listacontratos']);
+      this.router.navigate(['/asignardirector']);
     }, 10);
   }
 

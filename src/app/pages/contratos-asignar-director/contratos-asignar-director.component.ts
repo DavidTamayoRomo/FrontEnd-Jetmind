@@ -110,6 +110,13 @@ export class ContratosAsignarDirectorComponent implements OnInit {
     
   }
 
+  generarPDF() {
+
+    this.router.navigate(['/reporte-contrato/', this.contratoSeleccionado._id]);
+    setTimeout(() => {
+      this.router.navigate(['/listacontratos']);
+    }, 10);
+  }
 
   recuperarDatosPersonas() {
     //TODO: Para cada marca cambia los datos y para cada ciudad || obtener los datos de las persona loggeada = Datos se obtiene de (this.personaService.persona)
