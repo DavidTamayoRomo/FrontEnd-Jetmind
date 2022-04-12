@@ -1,3 +1,52 @@
+<div class="card">
+    <form autocomplete="off" [formGroup]="registerForm">
+        <div class="col-12">
+
+
+            <div class="row p-t-20">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="exampleInputuname">Ciudades *</label>
+                        <ng-multiselect-dropdown [placeholder]="'Seleccione Ciudades'" [settings]="dropdownSettings"
+                            [data]="dropdownListCiudades" (onSelect)="onItemSelect($event)"
+                            (onSelectAll)="onSelectAll($event)" (onDeSelect)="onDeSelect($event)"
+                            (onDeSelectAll)="onDeSelectAll($event)" formControlName="idCiudad">
+                        </ng-multiselect-dropdown>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="exampleInputuname">Sucursales *</label>
+                        <ng-multiselect-dropdown [placeholder]="'Seleccione Sucursal'" [settings]="dropdownSettings"
+                            [data]="dropdownListSucursales" (onSelect)="onItemSelectsucursal($event)"
+                            (onSelectAll)="onSelectAllsucursal($event)" (onDeSelect)="onDeSelectsucursal($event)"
+                            (onDeSelectAll)="onDeSelectAllsucursal($event)" formControlName="idSucursal">
+                        </ng-multiselect-dropdown>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row p-t-20">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="exampleInputuname">Marcas *</label>
+                        <ng-multiselect-dropdown [placeholder]="'Seleccione Marca'" [settings]="dropdownSettings"
+                            [data]="dropdownListMarcas" (onSelect)="onItemSelectmarca($event)"
+                            (onSelectAll)="onSelectAllmarca($event)" (onDeSelect)="onDeSelectmarca($event)"
+                            (onDeSelectAll)="onDeSelectAllmarca($event)" formControlName="idMarca">
+                        </ng-multiselect-dropdown>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <button (click)="buscar()">Buscar</button>
+                </div>
+            </div>
+
+
+        </div>
+    </form>
+</div>
 
 <div class="card">
     <div class="card-body">
@@ -15,7 +64,7 @@
                 <tbody>
                     <tr *ngFor="let dato of respuesta; let index=index">
                         <td>{{index+1}}</td>
-                        <td>{{dato?.idEstudiante?.nombresApellidos}}</td>
+                        <td>{{dato?.idEstudiante[0]?.nombresApellidos}}</td>
                         <td>{{dato?.idCiudad[0]?.nombre}}</td>
                         <td>{{dato?.idMarca[0]?.nombre}}</td>
                         <td>{{dato?.idSucursal[0]?.nombre}}</td>
@@ -25,4 +74,3 @@
         </div>
     </div>
 </div>
-
