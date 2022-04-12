@@ -1,0 +1,84 @@
+<div class="card">
+    <form autocomplete="off" [formGroup]="registerForm">
+        <div class="col-12">
+            <div class="row">
+
+                <div class="col-9">
+                    <div class="panel-body">
+                        <input class="form-control" type="text" mwlFlatpickr [altInput]="true"
+                            [convertModelValue]="false" [enableTime]="true" dateFormat="Y-m-d H:i"
+                            altFormat="F j, Y H:i" [inline]="false" mode="range" formControlName="rangoFechas">
+                    </div>
+                </div>
+                <div class="col-3">
+                    <button (click)="valorRangoFechas()">Buscar</button>
+                </div>
+
+            </div>
+
+        </div>
+    </form>
+</div>
+
+
+<div class="card">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Codigo Contrato</th>
+                        <th>cobranza</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let dato of data; let index=index">
+                        <td>{{index+1}}</td>
+                        <td>{{dato.contrato[0]?.codigo}}</td>
+                        <td>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Fecha Acuerdo</th>
+                                        <th>Fecha Pago</th>
+                                        <th>Valor</th>
+                                        <th>Estado</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let verificacion of dato.datos">
+                                        <td *ngIf="verificacion?.cobranza?.estado == 'Pagado'">{{verificacion?.cobranza?.fechaAcuerdo | date:"dd/MM/yyyy"}}</td>
+                                        <td *ngIf="verificacion?.cobranza?.estado == 'Pagado'">{{verificacion?.cobranza?.fechaPago | date:"dd/MM/yyyy"}}</td>
+                                        <td *ngIf="verificacion?.cobranza?.estado == 'Pagado'">{{verificacion?.cobranza?.valor}}</td>
+                                        <td *ngIf="verificacion?.cobranza?.estado == 'Pagado'">{{verificacion?.cobranza?.estado}}</td>
+                                    </tr>
+                                    
+                                    <tr *ngFor="let verificacion of dato.datos">
+                                        <td *ngIf="verificacion?.cobranza?.estado == 'No pagado'">{{verificacion?.cobranza?.fechaAcuerdo | date:"dd/MM/yyyy"}}</td>
+                                        <td *ngIf="verificacion?.cobranza?.estado == 'No pagado'">{{verificacion?.cobranza?.fechaPago | date:"dd/MM/yyyy"}}</td>
+                                        <td *ngIf="verificacion?.cobranza?.estado == 'No pagado'">{{verificacion?.cobranza?.valor}}</td>
+                                        <td *ngIf="verificacion?.cobranza?.estado == 'No pagado'">{{verificacion?.cobranza?.estado}}</td>
+                                    </tr>
+                                    
+                                    
+                                </tbody>
+                            </table>  
+                        </td>
+                        <td ><span class="label label-info">Detalle</span> </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Total Pagado</td>
+                        <td>{{totalPagado}}</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Total No pagado</td>
+                        <td>{{totalNoPagado}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -94,6 +94,7 @@
                 </div>
             </div>
         </div>
+        
         <div class="row p-t-20">
             <div class="col-md-6">
                 <div class="form-group" *ngIf="mostraAbono">
@@ -169,7 +170,9 @@
                     </div>
                     <div class="align-self-center">
                         <h6 class="text-muted m-t-10 m-b-0">Calculadora</h6>
-                        <h2 class="m-t-0">{{deuda}}</h2>
+                        <h3 class="m-t-0">Cuotas mesuales: {{deuda}}</h3>
+                        <h3 class="m-t-0">Valor total menos matricula: {{diferenciaValorTotalMatricula}}</h3>
+                        <h3 class="m-t-0">Valor total mas 15%: {{registerForm.get('valorTotal').value*1.15}}</h3>
                     </div>
                 </div>
             </div>

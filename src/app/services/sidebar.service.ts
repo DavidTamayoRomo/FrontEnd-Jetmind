@@ -114,6 +114,7 @@ export class SidebarService {
       icono: 'mdi mdi-verified',
       submenu: [
         { titulo: 'Lista verificacion', url: '/listaverificacion' },
+        { titulo: 'Reporte verificacion', url: '/reporteVerificacion' },
       ]
     },
     {

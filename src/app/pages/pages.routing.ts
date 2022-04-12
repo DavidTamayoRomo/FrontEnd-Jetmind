@@ -92,6 +92,7 @@ import { ReporteAsistenciaComponent } from './estudiante/reporte-asistencia/repo
 import { DocenteReporteComponent } from './persona/docente/docente-reporte/docente-reporte.component';
 import { AsistenciaTomatisComponent } from './asistencia/asistencia-tomatis/asistencia-tomatis.component';
 import { AsistenciaRecuperacionComponent } from './asistencia/asistencia-recuperacion/asistencia-recuperacion.component';
+import { ReporteComponent } from './verificacion/reporte/reporte.component';
 
 
 
@@ -164,6 +165,7 @@ const routes: Routes = [
             { path: 'verificacion/:id', component:VerificacionComponent , data:{titulo:'Verificacion'} },
             { path: 'listaverificacion', component:VerificacionesComponent , data:{titulo:'Lista de verificacion'} },
             { path: 'aceptacionverificacion/:id', component:EnviarVerificacionComponent , data:{titulo:'Aceptar verificacion'} },
+            { path: 'reporteVerificacion', component:ReporteComponent , data:{titulo:'Reporte Verificacion'} },
 
             { path: 'horario/:id', component:HorarioComponent , data:{titulo:'Horario'} },
             { path: 'listahorarios', component:HorariosComponent , data:{titulo:'Lista de Horarios'} },

@@ -39,7 +39,7 @@
     <div class="col-lg-6 col-xlg-12">
         <div class="card">
             <div class="card-body little-profile text-center">
-                
+
 
                 <div class="row">
                     <div class="col-lg-6">
@@ -62,7 +62,8 @@
                             <div class="card-body">
                                 <div class="d-flex no-block">
                                     <div class="m-r-20 align-self-center"><span class="lstick m-r-20"></span>
-                                        <i class="ti-money"></i></div>
+                                        <i class="ti-money"></i>
+                                    </div>
                                     <div class="align-self-center">
                                         <h6 class="text-muted m-t-10 m-b-0">Total Deuda</h6>
                                         <h2 class="m-t-0">{{totalDeuda}}</h2>
@@ -99,7 +100,9 @@
                                 <th>Estado</th>
                                 <th>Fecha de Pago</th>
                                 <th>Numero comprobante</th>
+                                <th>Abonos</th>
                                 <th>Accion</th>
+
 
                             </tr>
                         </thead>
@@ -113,15 +116,23 @@
                                 </td>
                                 <td>{{cobranza?.fechaPago | date:'dd-MM-yyyy'}}</td>
                                 <td>{{cobranza?.numeroComprobante}}</td>
+                                <td>
+                                    <div *ngFor="let abo of cobranza?.abono">
+                                        {{abo?.valor}}
+                                    </div>
+                                </td>
                                 <td><button type="button" (click)="abrirModalEsatdoPago(index)"
                                         class="btn btn-info btn-circle btn-lg"><i class="fa fa-plus">
-                                        </i></button></td>
+                                        </i></button>
+                                    <button (click)="abrirModalAbono(index)" type="button"
+                                        class="btn waves-effect waves-light btn-rounded btn-warning">Abono</button>
+                                </td>
                             </tr>
 
                         </tbody>
                     </table>
 
-                    
+
 
                 </div>
             </div>
@@ -190,5 +201,85 @@
 
             </div>
         </div>
+    </div>
+</div>
+
+
+
+<div class="fondo-modal-imagen animated fadeIn fast" [class.oculto]="mostraModal2">
+    <div id="responsive-modal" class="modal fade show" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+        style="display: block;padding-right: 17px; overflow-y: initial">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Abonos</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                        (click)="cerrarModal2()">×</button>
+                </div>
+
+                <div class="card-body">
+
+                    <div class="form-group">
+                        <label for="exampleInputuname">Fecha de pago</label>
+                        <div class="input-group">
+                            <div class="input-group-addon"><i class="ti-user"></i></div>
+                            <input type="date" name="fechaPago1" id="" #fechaPago1>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="exampleInputuname">Numero Comprobante</label>
+                        <div class="input-group">
+                            <div class="input-group-addon"><i class="ti-user"></i></div>
+                            <input type="number" name="numeroComprobante1" id="" #numeroComprobante1>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="exampleInputuname">Valor</label>
+                        <div class="input-group">
+                            <div class="input-group-addon"><i class="ti-user"></i></div>
+                            <input type="number" name="valor1" id="" #valor1>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default waves-effect" data-dismiss="modal"
+                        (click)="cerrarModal2()">Close</button>
+                    <button type="button" (click)="agregarAbono()"
+                        class="btn btn-success waves-effect waves-light">Agregar</button>
+                </div>
+
+                <div>
+                    <table class="table vm no-th-brd pro-of-month">
+                        <thead>
+                            <tr>
+                                <th>Fecha</th>
+                                <th>Valor</th>
+                                <th>Comprobante</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let abono of abonos1">
+                                <td>{{abono?.fecha | date:'dd-MM-yyyy'}}</td>
+                                <td>{{abono?.valor}}</td>
+                                <td>{{abono?.numeroComprobante}}</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>Total Abonos</td>
+                                <td>{{sumaAbono}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+
+        
+
     </div>
 </div>

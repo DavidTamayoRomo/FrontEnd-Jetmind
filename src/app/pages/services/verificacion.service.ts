@@ -49,6 +49,10 @@ export class VerificacionService {
     return this.http.delete(`${base_url}/verificacion/${verificacion._id}`, { headers: headers });
   }
 
+  reporteVerificacion(datos:any) {
+    const headers = this.retornarHeader();
+    return this.http.post(`${base_url}/verificacion/verificacion-reporte`, datos,{ headers: headers });
+  }
 
   cargarVerificaciones(skip: number = 0) {
     const headers = this.retornarHeader();

@@ -41,6 +41,9 @@ export class ContratoFormComponent implements OnInit, OnChanges {
   public index1:any;
 
 
+  public diferenciaValorTotalMatricula:any =0;
+
+
   @Input() executeNext: any;
   @Input() executeEnter: any;
   @Output() sendFormData: EventEmitter<any> = new EventEmitter();
@@ -155,6 +158,7 @@ export class ContratoFormComponent implements OnInit, OnChanges {
   }
 
   calculadora() {
+    this.diferenciaValorTotalMatricula = this.registerForm.get('valorTotal')?.value - this.registerForm.get('valorMatricula')?.value;
     //calcular la deuda existente, deuda de contado y plan 
     if (this.registerForm.get('tipoPago')?.value == 'Contado') {
       setTimeout(() => {

@@ -23,10 +23,18 @@ export class VerificacionComponent implements OnInit {
   public totalDeuda:any;
 
   public mostraModal: boolean = true;
+  public mostraModal2: boolean = true;
 
   @ViewChild('numeroComprobante') numeroComprobante: ElementRef;
   @ViewChild('estado') estado: ElementRef;
   @ViewChild('fechaPago') fechaPago: ElementRef;
+  
+  @ViewChild('numeroComprobante1') numeroComprobante1: ElementRef;
+  @ViewChild('fechaPago1') fechaPago1: ElementRef;
+  @ViewChild('valor1') valor1: ElementRef;
+
+  public abonos1:any;
+  public sumaAbono:any;
 
   constructor(
     private verificacionService: VerificacionService,
@@ -97,6 +105,35 @@ export class VerificacionComponent implements OnInit {
       this.cargarVerificacionbyId(this.verificacionesSeleccionadas._id);
     }
     );
+  }
+
+  agregarAbono(){
+    let fecha = this.fechaPago1.nativeElement.value;
+    let valor = this.valor1.nativeElement.value;
+    let comprobante = this.numeroComprobante1.nativeElement.value;
+    this.verificacionesSeleccionadas.cobranza[this.indexG].abono.push({'fecha':fecha,'valor':valor,'numeroComprobante':comprobante});
+    this.verificacionService.updateVerificacion(this.verificacionesSeleccionadas._id, this.verificacionesSeleccionadas).subscribe((resp: any) => {
+      this.cerrarModal2();
+      this.cargarVerificacionbyId(this.verificacionesSeleccionadas._id);
+    }
+    );
+    
+  }
+
+  cerrarModal2() {
+    this.mostraModal2 = true;
+    
+  }
+
+  abrirModalAbono(index:any){
+    this.mostraModal2 = false;
+    this.indexG = index;
+    let suma=0;
+    this.abonos1 = this.verificacionesSeleccionadas.cobranza[this.indexG].abono;
+    this.abonos1.map((item:any)=>{
+      suma=suma+Number(item.valor);
+    });
+    this.sumaAbono = suma;
   }
 
 }
