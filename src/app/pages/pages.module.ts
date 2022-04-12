@@ -115,6 +115,7 @@ import { DocenteReporteComponent } from './persona/docente/docente-reporte/docen
 import { AsistenciaTomatisComponent } from './asistencia/asistencia-tomatis/asistencia-tomatis.component';
 import { AsistenciaRecuperacionComponent } from './asistencia/asistencia-recuperacion/asistencia-recuperacion.component';
 import { ReporteComponent } from './verificacion/reporte/reporte.component';
+import { ReporteEstudiantesComponent } from './estudiante/reporte-estudiantes/reporte-estudiantes.component';
 
 
 
@@ -218,7 +219,8 @@ const ngWizardConfig: NgWizardConfig = {
     DocenteReporteComponent,
     AsistenciaTomatisComponent,
     AsistenciaRecuperacionComponent,
-    ReporteComponent
+    ReporteComponent,
+    ReporteEstudiantesComponent
     
   ],
   exports:[

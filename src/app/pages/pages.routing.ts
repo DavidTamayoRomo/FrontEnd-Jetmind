@@ -93,6 +93,7 @@ import { DocenteReporteComponent } from './persona/docente/docente-reporte/docen
 import { AsistenciaTomatisComponent } from './asistencia/asistencia-tomatis/asistencia-tomatis.component';
 import { AsistenciaRecuperacionComponent } from './asistencia/asistencia-recuperacion/asistencia-recuperacion.component';
 import { ReporteComponent } from './verificacion/reporte/reporte.component';
+import { ReporteEstudiantesComponent } from './estudiante/reporte-estudiantes/reporte-estudiantes.component';
 
 
 
@@ -111,6 +112,7 @@ const routes: Routes = [
             { path: 'persona/:id', component: PersonaComponent, data:{titulo:'Actualizar Persona'} },
             { path: 'listapersonas', component: ListaPersonasComponent, data:{titulo:'Lista Personas'} },
             { path: 'reporte-docente-horarios', component: DocenteReporteComponent, data:{titulo:'Reporte de docentes horarios'} },
+            
 
             { path: 'ciudad/:id', component: CiudadComponent, data:{titulo:'Ciudad'} },
             { path: 'listaciudades', component: CiudadesComponent, data:{titulo:'Lista de ciudades'} },
@@ -127,6 +129,7 @@ const routes: Routes = [
             { path: 'estudiante/:id', component: EstudianteComponent, data:{titulo:'Estudiante'} },
             { path: 'listaestudiantes', component:EstudiantesComponent , data:{titulo:'Lista de estudiantes'} },
             { path: 'reporte-asistencia-estudiante/:id', component:ReporteAsistenciaComponent , data:{titulo:'Asistencia del estudiante'} },
+            { path: 'reporte-estudiantes', component: ReporteEstudiantesComponent, data:{titulo:'Reporte de Estudaintes'} },
 
             
             { path: 'nombrePrograma/:id', component: NombreProgramaComponent, data:{titulo:'Nombre Programa'} },

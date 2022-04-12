@@ -68,18 +68,19 @@ export class HorarioComponent implements OnInit {
       allowSearchFilter: true,
     };
 
-    this.Lunes1.nativeElement.checked = false;
-    this.Martes.nativeElement.checked = false;
-    this.Miercoles.nativeElement.checked = false;
-    this.Jueves.nativeElement.checked = false;
-    this.Viernes.nativeElement.checked = false;
-    this.Sabado.nativeElement.checked = false;
-    this.Domingo.nativeElement.checked = false;
+
   }
 
   async cargarHorariosbyId(id: string) {
-    
+
     if (id === 'nuevo') {
+      this.Lunes1.nativeElement.checked = false;
+      this.Martes.nativeElement.checked = false;
+      this.Miercoles.nativeElement.checked = false;
+      this.Jueves.nativeElement.checked = false;
+      this.Viernes.nativeElement.checked = false;
+      this.Sabado.nativeElement.checked = false;
+      this.Domingo.nativeElement.checked = false;
       return;
     }
 

@@ -54,6 +54,11 @@ export class ProgramaService {
     const headers = this.retornarHeader();
     return this.http.delete(`${base_url}/programa/${programa._id}`, { headers: headers });
   }
+  
+  allByCiudadMarcaSucursalNombreprograma(datos: any) {
+    const headers = this.retornarHeader();
+    return this.http.post(`${base_url}/programa/reporte-estudiante`, datos, { headers: headers });
+  }
 
 
   cargarPrograma(skip: number = 0) {

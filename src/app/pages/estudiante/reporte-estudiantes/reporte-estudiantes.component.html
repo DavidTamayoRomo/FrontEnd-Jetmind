@@ -1,0 +1,28 @@
+
+<div class="card">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Estudiante</th>
+                        <th>Ciudad</th>
+                        <th>Marca</th>
+                        <th>Sucrusal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let dato of respuesta; let index=index">
+                        <td>{{index+1}}</td>
+                        <td>{{dato?.idEstudiante?.nombresApellidos}}</td>
+                        <td>{{dato?.idCiudad[0]?.nombre}}</td>
+                        <td>{{dato?.idMarca[0]?.nombre}}</td>
+                        <td>{{dato?.idSucursal[0]?.nombre}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+

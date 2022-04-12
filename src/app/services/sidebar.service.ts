@@ -88,6 +88,7 @@ export class SidebarService {
       submenu: [
         { titulo: 'Estudiante', url: '/estudiante/nuevo' },
         { titulo: 'Lista estudiantes', url: '/listaestudiantes' },
+        { titulo: 'Reporte estudiantes', url: '/reporte-estudiantes' },
       ]
     },
     {
