@@ -15,6 +15,14 @@ export class SidebarService {
         /* { titulo: 'Perfil',url: '/perfil' },  */
       ]
     },
+    {
+      titulo: 'Encuesta Padres',
+      icono: 'mdi mdi-home',
+      submenu: [
+        { titulo: 'Encuesta', url: '/encuestapadres' },
+        /* { titulo: 'Perfil',url: '/perfil' },  */
+      ]
+    },
 
     {
       titulo: 'Ciudad',

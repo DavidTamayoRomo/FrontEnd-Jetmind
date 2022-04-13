@@ -1,0 +1,127 @@
+<div class="card">
+
+    <form (ngSubmit)="crear()" autocomplete="off" [formGroup]="registerForm">
+
+        <div class="card-body">
+            <h4 class="card-title">Encuesta</h4>
+            <hr>
+            
+            <div class="form-group">
+                <label for="exampleInputuname">Ciudad *</label>
+                <ng-multiselect-dropdown [placeholder]="'Seleccione Ciudades'" [settings]="dropdownSettings"
+                    [data]="dropdownListCiudades" (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)"
+                    (onDeSelect)="onDeSelect($event)" (onDeSelectAll)="onDeSelectAll($event)" formControlName="idCiudad">
+                </ng-multiselect-dropdown>
+                <div class="text-danger"><p *ngIf="campoNoValido('idCiudad')">Ingrese al menos una ciudad</p></div> 
+            </div>
+
+            <div class="form-group">
+                <label for="exampleInputuname">Marca *</label>
+                <ng-multiselect-dropdown [placeholder]="'Seleccione Marca'" [settings]="dropdownSettings"
+                    [data]="dropdownListMarcas" (onSelect)="onItemSelectmarca($event)"
+                    (onSelectAll)="onSelectAllmarca($event)" (onDeSelect)="onDeSelectmarca($event)"
+                    (onDeSelectAll)="onDeSelectAllmarca($event)" formControlName="idMarca">
+                </ng-multiselect-dropdown>
+                <div class="text-danger"><p *ngIf="campoNoValido('idMarca')">Ingrese al menos una marca</p></div> 
+            </div>
+
+            <div class="form-group">
+                <label for="exampleInputuname">Docente *</label>
+                <ng-multiselect-dropdown [placeholder]="'Seleccione Docente'" [settings]="dropdownSettings"
+                    [data]="dropdownListPersonas" (onSelect)="onItemSelectPersona($event)"
+                    (onSelectAll)="onSelectAllPersona($event)" (onDeSelect)="onDeSelectPersona($event)"
+                    (onDeSelectAll)="onDeSelectAllPersona($event)" formControlName="idDocente">
+                </ng-multiselect-dropdown>
+            </div>
+
+            <div class="form-group">
+                <label for="exampleInputuname">Estudiante *</label>
+                <ng-multiselect-dropdown [placeholder]="'Seleccione Estudiantes'" [settings]="dropdownSettings"
+                    [data]="dropdownListEstudiantes" (onSelect)="onItemSelectEstudiante($event)"
+                    (onSelectAll)="onSelectAllEstudiante($event)" (onDeSelect)="onDeSelectEstudiante($event)"
+                    (onDeSelectAll)="onDeSelectAllEstudiante($event)" formControlName="idEstudiante">
+                </ng-multiselect-dropdown>
+            </div>
+
+            <div class="form-group">
+                <div class="demo-switch-title">¿Como califica el avance de su representado?</div>
+                <select class="form-control custom-select" formControlName="pregunta1">
+                    <option value="Excelente">Excelente</option>
+                    <option value="Muy bueno">Muy bueno</option>
+                    <option value="Bueno">Bueno</option>
+                    <option value="Regular">Regular</option>
+                    <option value="Malo">Malo</option>
+                </select>
+                <small class="form-control-feedback"> Seleccione la respuesta </small>
+            </div>
+            
+            <div class="form-group">
+                <div class="demo-switch-title">¿Como califica en general, la calidad educativa de la institución?</div>
+                <select class="form-control custom-select" formControlName="pregunta2">
+                    <option value="Excelente">Excelente</option>
+                    <option value="Muy bueno">Muy bueno</option>
+                    <option value="Bueno">Bueno</option>
+                    <option value="Regular">Regular</option>
+                    <option value="Malo">Malo</option>
+                </select>
+                <small class="form-control-feedback"> Seleccione la respuesta </small>
+            </div>
+            <div class="form-group">
+                <div class="demo-switch-title">¿Ha recibido información sobre actividades y servicios extra que ofrece el centro?</div>
+                <select class="form-control custom-select" formControlName="pregunta3">
+                    <option value="Siempre">Siempre</option>
+                    <option value="Casi siempre">Casi siempre</option>
+                    <option value="A veces">A veces</option>
+                    <option value="Nunca">Nunca</option>
+                </select>
+                <small class="form-control-feedback"> Seleccione la respuesta </small>
+            </div>
+            <div class="form-group">
+                <div class="demo-switch-title">¿Como califica usted su experiencia con nuestra plataforma educativa online?</div>
+                <select class="form-control custom-select" formControlName="pregunta4">
+                    <option value="Excelente">Excelente</option>
+                    <option value="Muy bueno">Muy bueno</option>
+                    <option value="Bueno">Bueno</option>
+                    <option value="Regular">Regular</option>
+                    <option value="Malo">Malo</option>
+                    <option value="No aplica">No aplica</option>
+                </select>
+                <small class="form-control-feedback"> Seleccione la respuesta </small>
+            </div>
+            <div class="form-group">
+                <div class="demo-switch-title">¿La atención proporcionada por el docente fue?</div>
+                <select class="form-control custom-select" formControlName="pregunta5">
+                    <option value="Excelente">Excelente</option>
+                    <option value="Muy bueno">Muy bueno</option>
+                    <option value="Bueno">Bueno</option>
+                    <option value="Regular">Regular</option>
+                    <option value="Malo">Malo</option>
+                </select>
+                <small class="form-control-feedback"> Seleccione la respuesta </small>
+            </div>
+            <div class="form-group">
+                <div class="demo-switch-title">Mi nivel de satisfacción en esta entrega de reportes en cuanto a la capacitación de mi representado es:</div>
+                <select class="form-control custom-select" formControlName="pregunta6">
+                    <option value="Me siente satisfecho/a">Me siente satisfecho/a</option>
+                    <option value="He notado cambios pero creo que aún le falta">He notado cambios pero creo que aún le falta</option>
+                    <option value="No me siento satisfecho/a con el entrenamiento">No me siento satisfecho/a con el entrenamiento</option>
+                    <option value="Solicito reunión con Dirección Académica">Solicito reunión con Dirección Académica</option>
+                </select>
+                <small class="form-control-feedback"> Seleccione la respuesta </small>
+            </div>
+            <div class="form-group">
+                <div class="demo-switch-title">Opinión
+                    Sus felicitaciones, comentarios y/o sugerencias son muy importantes para nosotros, escríbalas aquí:
+                    </div>
+                <textarea formControlName="pregunta7"></textarea>
+            </div>
+
+            <div>
+                <button type="submit" class="btn btn-success waves-effect waves-light m-r-10">Guardar</button>
+                <a (click)="cancelarGuardado()" class="btn btn-inverse waves-effect waves-light">Cancelar</a>
+            </div>
+
+        </div>
+    </form>
+
+</div>

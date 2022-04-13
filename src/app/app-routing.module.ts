@@ -6,6 +6,7 @@ import { PagesRoutingModule } from './pages/pages.routing';
 import { AuthRoutingModule } from './auth/auth.routing';
 
 import { NopagefoundComponent } from './nopagefound/nopagefound.component';
+import { EncuestaPadresComponent } from './publico/encuesta-padres/encuesta-padres.component';
 
 
 const routes: Routes = [
@@ -13,7 +14,7 @@ const routes: Routes = [
   /** Rutas publicas
    * path: '/dashboard', PagesRouting
    */
-
+  { path: 'encuestapadres', component: EncuestaPadresComponent},
   /** Rutas Protegidas
    * path: '/auth', AuthRouting
    */
