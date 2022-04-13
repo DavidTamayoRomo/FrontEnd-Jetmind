@@ -173,27 +173,27 @@ const routes: Routes = [
             { path: 'horario/:id', component:HorarioComponent , data:{titulo:'Horario'} },
             { path: 'listahorarios', component:HorariosComponent , data:{titulo:'Lista de Horarios'} },
             
-            { path: 'peea-17-ch-uk/:id/:idContrato', component: Peea17charlotteukComponent , data:{titulo:'PEEA 17'} },
+            //{ path: 'peea-17-ch-uk/:id/:idContrato', component: Peea17charlotteukComponent , data:{titulo:'PEEA 17'} },
             { path: 'listapeea-17-ch-uk', component: ListaComponent , data:{titulo:'Lista de PEEA 17'} },
             { path: 'reporte-peea-17-ch-uk/:id', component: ReportePeea17charlotteComponent , data:{titulo:'Lista de PEEA 17'} },
             
-            { path: 'peea-18-ch-uk/:id/:idContrato', component: Peea18charlotteukComponent , data:{titulo:'PEEA 18'} },
+            //{ path: 'peea-18-ch-uk/:id/:idContrato', component: Peea18charlotteukComponent , data:{titulo:'PEEA 18'} },
             { path: 'listapeea-18-ch-uk', component: Listapeea18chukComponent  , data:{titulo:'Lista de PEEA 18'} },
             { path: 'reporte-peea-18-ch-uk/:id', component: ReportePeea18charlotteComponent  , data:{titulo:'Lista de PEEA 18'} },
 
-            { path: 'peea-17-ilvem/:id/:idContrato', component: Peea17ilvemComponent , data:{titulo:'PEEA 17'} },
+            //{ path: 'peea-17-ilvem/:id/:idContrato', component: Peea17ilvemComponent , data:{titulo:'PEEA 17'} },
             { path: 'lista-peea-17-ilvem', component: Listapeea17ilvemComponent , data:{titulo:'Lista de PEEA 17'} },
             { path: 'reporte-peea-17-ilvem/:id', component: ReportePeea17ilvemComponent , data:{titulo:'Reporte Lista de PEEA 17'} },
             
-            { path: 'peea-18-ilvem/:id/:idContrato', component: Peea18ilvemComponent , data:{titulo:'PEEA 18'} },
+            //{ path: 'peea-18-ilvem/:id/:idContrato', component: Peea18ilvemComponent , data:{titulo:'PEEA 18'} },
             { path: 'lista-peea-18-ilvem', component: Listapeea18ilvemComponent , data:{titulo:'Lista de PEEA 18'} },
             { path: 'reporte-peea-18-ilvem/:id', component: ReportePeea18ilvemComponent , data:{titulo:'Reporte de PEEA 18'} },
             
-            { path: 'peea-17-tomatis/:id/:idContrato', component: Peea17tomatisComponent , data:{titulo:'PEEA 17'} },
+            //{ path: 'peea-17-tomatis/:id/:idContrato', component: Peea17tomatisComponent , data:{titulo:'PEEA 17'} },
             { path: 'lista-peea-17-tomatis', component: Listapeea17tomatisComponent , data:{titulo:'Lista de PEEA 17'} },
             { path: 'reporte-peea-17-toamtis/:id', component: ReportePeea17tomatisComponent , data:{titulo:'Reporte de PEEA 17'} },
            
-            { path: 'peea-18-tomatis/:id/:idContrato', component: Peea18tomatisComponent , data:{titulo:'PEEA 18'} },
+            //{ path: 'peea-18-tomatis/:id/:idContrato', component: Peea18tomatisComponent , data:{titulo:'PEEA 18'} },
             { path: 'lista-peea-18-tomatis', component: Listapeea18tomatisComponent , data:{titulo:'Lista de PEEA 18'} },
             { path: 'reporte-peea-18-toamtis/:id', component: ReportePeea18tomatisComponent , data:{titulo:'Reporte de PEEA 18'} },
 
