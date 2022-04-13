@@ -30,6 +30,11 @@ export class EstudianteService {
     const headers = this.retornarHeader();
     return this.http.get(`${base_url}/estudiante`, { headers: headers });
   }
+  
+  getAllEstudiantesEstado(data: any) {
+    const headers = this.retornarHeader();
+    return this.http.post(`${base_url}/programa/estudiante-ciudad-marca-estado`, data,{ headers: headers });
+  }
 
   getAllEstudiantesSinLimite() {
     const headers = this.retornarHeader();

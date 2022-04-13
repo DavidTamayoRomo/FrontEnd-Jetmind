@@ -20,7 +20,7 @@ export class SidebarService {
       icono: 'mdi mdi-home',
       submenu: [
         { titulo: 'Encuesta', url: '/encuestapadres' },
-        /* { titulo: 'Perfil',url: '/perfil' },  */
+        { titulo: 'Lista Encuesta', url: '/lista-encuesta-padres' }
       ]
     },
 

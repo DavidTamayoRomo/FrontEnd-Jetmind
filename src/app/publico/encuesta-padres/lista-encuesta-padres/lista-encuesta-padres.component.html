@@ -1,0 +1,68 @@
+<div class="col">
+
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="text-right">
+                    
+                </div>
+                <div style="height: 10px;"></div>
+               <!--  <input type="text" class="form-control" placeholder="Buscar ciudad" (keyup)="buscar(txtBusqueda.value)"
+                    #txtBusqueda> -->
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" *ngIf="cargando">
+    <div class="col-12">
+        <div class="alert alert-info text-center">
+            <h4 class="alert-heading">Cargando</h4>
+            <i class="fa fa-spin fa-refresh fa-2x"></i>
+            <p class="mb-0">Por favor espere...</p>
+        </div>
+    </div>
+</div>
+<div class="row" *ngIf="!cargando">
+
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Encuestas registrados</h4>
+                <div class="table-responsive">
+                    <table class="table full-color-table full-inverse-table hover-table">
+                        <thead>
+                            <tr>
+                                <th class="w100">Ciudad</th>
+                                <th class="w100">Marca</th>
+                                <th class="w100">Estudiante</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let encuesta of encuestas">
+
+                                <td>{{encuesta.idCiudad.nombre}}</td>
+                                <td>{{encuesta.idMarca.nombre}}</td>
+                                <td>{{encuesta.idEstudiante.nombresApellidos}}</td>
+
+                                
+                            </tr>
+
+
+                        </tbody>
+                    </table>
+                    <div >
+                        <button (click)="paginar(-5)" class="btn btn-secondary">Anterior</button>
+                        &nbsp;
+                        <button (click)="paginar(5)" class="btn btn-secondary">Siguiente</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

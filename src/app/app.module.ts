@@ -11,6 +11,7 @@ import { ModalImagenComponent } from './components/modal-imagen/modal-imagen.com
 import { EncuestaPadresComponent } from './publico/encuesta-padres/encuesta-padres.component';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ListaEncuestaPadresComponent } from './publico/encuesta-padres/lista-encuesta-padres/lista-encuesta-padres.component';
 
 
 
@@ -18,7 +19,8 @@ import { ReactiveFormsModule } from '@angular/forms';
   declarations: [
     AppComponent,
     NopagefoundComponent,
-    EncuestaPadresComponent
+    EncuestaPadresComponent,
+    ListaEncuestaPadresComponent
   ],
   imports: [
     BrowserModule,

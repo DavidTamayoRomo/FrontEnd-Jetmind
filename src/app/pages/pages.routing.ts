@@ -94,6 +94,7 @@ import { AsistenciaTomatisComponent } from './asistencia/asistencia-tomatis/asis
 import { AsistenciaRecuperacionComponent } from './asistencia/asistencia-recuperacion/asistencia-recuperacion.component';
 import { ReporteComponent } from './verificacion/reporte/reporte.component';
 import { ReporteEstudiantesComponent } from './estudiante/reporte-estudiantes/reporte-estudiantes.component';
+import { ListaEncuestaPadresComponent } from '../publico/encuesta-padres/lista-encuesta-padres/lista-encuesta-padres.component';
 
 
 
@@ -239,6 +240,8 @@ const routes: Routes = [
             
             { path: 'evaluacion-charlotte/:id', component: EvaluacionCharlotteComponent , data:{titulo:'Evaluacion Charlotte'} },
             //{ path: 'lista-evaluacion-charlotte', component: ListaPlataformaIlvemComponent , data:{titulo:'Lista Plataforma Ilvem'} },
+
+            { path: 'lista-encuesta-padres', component: ListaEncuestaPadresComponent , data:{titulo:'Lista Plataforma Ilvem'} },
         ]
     },
 ];
