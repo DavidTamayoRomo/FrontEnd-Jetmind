@@ -120,6 +120,8 @@ import { ReporteEstudiantesComponent } from './estudiante/reporte-estudiantes/re
 
 
 
+
+
 const ngWizardConfig: NgWizardConfig = {
   theme: THEME.default
 };

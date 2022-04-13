@@ -65,9 +65,21 @@
                     <tr *ngFor="let dato of respuesta; let index=index">
                         <td>{{index+1}}</td>
                         <td>{{dato?.idEstudiante[0]?.nombresApellidos}}</td>
-                        <td>{{dato?.idCiudad[0]?.nombre}}</td>
-                        <td>{{dato?.idMarca[0]?.nombre}}</td>
-                        <td>{{dato?.idSucursal[0]?.nombre}}</td>
+                        <td>
+                            <div *ngFor="let ciudad of dato?.idCiudad">
+                                {{ciudad?.nombre}}
+                            </div>
+                        </td>
+                        <td>
+                            <div *ngFor="let marca of dato?.idMarca">
+                                {{marca?.nombre}}
+                            </div>
+                        </td>
+                        <td>
+                            <div *ngFor="let sucursal of dato?.idSucursal">
+                                {{sucursal?.nombre}}
+                            </div>
+                        </td>
                     </tr>
                 </tbody>
             </table>
