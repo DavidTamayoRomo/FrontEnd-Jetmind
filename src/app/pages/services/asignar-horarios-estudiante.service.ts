@@ -42,6 +42,10 @@ export class AsignarHorariosEstudianteService {
     const headers = this.retornarHeader();
     return this.http.post(`${base_url}/asignarhorarioestudiante`, formData, { headers: headers });
   }
+  buscarbyCiudadMarcaDocenteActivo(formData: any) {
+    const headers = this.retornarHeader();
+    return this.http.post(`${base_url}/asignarhorarioestudiante/docente-activo`, formData, { headers: headers });
+  }
 
   updateasignarhorarioestudiante(id:string, asignarhorarioestudiante:AsignarHorarioEstudiante){
     const headers = this.retornarHeader();

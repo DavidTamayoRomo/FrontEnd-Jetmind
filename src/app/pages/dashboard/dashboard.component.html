@@ -132,59 +132,54 @@
             <div class="card">
                 <div class="card-body">
                     <div class="d-flex no-block">
-                        <div class="m-r-20 align-self-center"><span class="lstick m-r-20"></span><img
-                                src="../assets/images/icon/income.png" alt="Income"></div>
+                        
                         <div class="align-self-center">
-                            <h6 class="text-muted m-t-10 m-b-0">Total Estudiantes Activos</h6>
-                            <h2 class="m-t-0">{{totalEstudiantesActivos}}</h2>
+                            <h6 class="text-muted m-t-10 m-b-0">Horarios Activos</h6>
+                            <h2 class="m-t-0">Total: {{totalHorariosActivos}}</h2>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-lg-4">
-            <div class="card">
-                <div class="card-body">
-                    <div class="card-body">
-                        <div class="d-flex no-block">
-                            <div class="m-r-20 align-self-center"><span class="lstick m-r-20"></span><img
-                                    src="../assets/images/icon/income.png" alt="Income"></div>
-                            <div class="align-self-center">
-                                <h6 class="text-muted m-t-10 m-b-0">Total Estudiantes Congelado</h6>
-                                <h2 class="m-t-0">{{totalEstudiantesCongelado}}</h2>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-4">
-            <div class="card">
-                <div class="card-body">
-                    <div class="d-flex no-block">
-                        <div class="m-r-20 align-self-center"><span class="lstick m-r-20"></span><img
-                                src="../assets/images/icon/assets.png" alt="Income"></div>
-                        <div class="align-self-center">
-                            <h6 class="text-muted m-t-10 m-b-0">Total Estudiantes Incorporados</h6>
-                            <h2 class="m-t-0">{{totalEstudiantesIncorporado}}</h2>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-4">
-            <div class="card">
-                <div class="card-body">
-                    <div class="d-flex no-block">
-                        <div class="m-r-20 align-self-center"><span class="lstick m-r-20"></span><img
-                                src="../assets/images/icon/assets.png" alt="Income"></div>
-                        <div class="align-self-center">
-                            <h6 class="text-muted m-t-10 m-b-0">Total Estudiantes Retirados </h6>
-                            <h2 class="m-t-0">{{totalEstudiantesRetirado}}</h2>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+               
     </div>
+
+    <h3>Horarios asignados</h3>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex no-block">
+                        
+                        <div class="align-self-center">
+                            <h2 class="m-t-0">Total: {{totalHorariosActivos}}</h2>
+
+                            <table class="table full-color-table full-inverse-table hover-table">
+                                <thead>
+                                    <tr>
+                                        <th>Nombre</th>
+                                        <th>Modalidad</th>
+                                        <th>Dias</th>
+                                        <th>Hora Inicio</th>
+                                        <th>Hora Fin</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let datos of horariosDocente">
+                                        <td>{{datos?.horario[0]?.nombre}}</td>
+                                        <td>{{datos?.horario[0]?.modalidad}}</td>
+                                        <td>{{datos?.horario[0]?.dias}}</td>
+                                        <td>{{datos?.horario[0]?.horaInicio}}</td>
+                                        <td>{{datos?.horario[0]?.horaFin}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
 </div>

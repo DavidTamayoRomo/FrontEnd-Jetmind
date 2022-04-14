@@ -33,6 +33,11 @@ export class HorarioService {
     return this.http.get(`${base_url}/horario/${id}`, { headers: headers })
   }
 
+  obtenerHorarioByCiudadMarcaEstado(formData: any) {
+    const headers = this.retornarHeader();
+    return this.http.post(`${base_url}/horario/ciudad-marca-estado`, formData, { headers: headers });
+  }
+
   crearHorario(formData: any) {
     const headers = this.retornarHeader();
     return this.http.post(`${base_url}/horario`, formData, { headers: headers });
