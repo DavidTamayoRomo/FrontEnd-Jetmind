@@ -125,6 +125,7 @@ export class AsistenciaComponent implements OnInit {
     idDocente: [null],
     idHorario: [null],
     temaTratado: [null],
+    observaciones: [null],
     fecha: [new Date()],
     /* ausentes: [this.listaEstudiantesAusentes],
     presentes: [this.listaEstudiantesPresentes], */

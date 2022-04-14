@@ -61,7 +61,7 @@ export class AsistenciaService {
       tap( (resp:any) => {
         
         const asistencias = resp.data.map((asistencia:any) => new Asistencia(asistencia._id, asistencia.idDocente, asistencia.idHorario, asistencia.temaTratado
-            ,asistencia.fecha,asistencia.ausentes,asistencia.presentes,asistencia.prueba)
+            ,asistencia.fecha,asistencia.ausentes,asistencia.presentes,asistencia.prueba,asistencia.observaciones)
         );
         
         return{

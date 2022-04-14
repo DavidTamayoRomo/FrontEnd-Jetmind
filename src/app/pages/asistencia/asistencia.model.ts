@@ -8,6 +8,7 @@ export class Asistencia {
         public ausentes?:any,
         public presentes?:any,
         public prueba?:any,
+        public observaciones?:any,
         public addedUser?:string,
         public modifiedUser?:string
     ){}
