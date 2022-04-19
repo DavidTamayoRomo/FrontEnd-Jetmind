@@ -44,6 +44,7 @@
                     <table class="table full-color-table full-inverse-table hover-table">
                         <thead>
                             <tr>
+                                <th class="w100">Estado</th>
                                 <th class="w100">Ciudad</th>
                                 <th class="w100">Marcas</th>
                                 <th class="w100">Nombre</th>
@@ -57,6 +58,14 @@
                         <tbody>
                             <tr *ngFor="let horario of horarios">
                         
+                                <td>
+                                    <div class="switch">
+                                        <label>
+                                            <input type="checkbox" [checked]="horario?.estado" (click)="actualizarEstado(horario)"><span
+                                                class="lever switch-col-cyan"></span>
+                                        </label>
+                                    </div>
+                                </td>
                                 <td>{{horario?.idCiudad?.nombre}}</td>
                                 <td>{{horario?.idMarca?.nombre}}</td>
                                 <td>{{horario?.nombre}}</td>

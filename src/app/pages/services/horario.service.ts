@@ -62,7 +62,7 @@ export class HorarioService {
         
         const horarios = resp.data.map((horario:any) => 
         new Horario(horario?._id, horario?.idCiudad, horario?.idMarca, horario?.nombre, horario?.dias, 
-          horario?.modalidad, horario?.horaInicio, horario?.horaFin ));
+          horario?.modalidad, horario?.horaInicio, horario?.horaFin, horario?.estado ));
       
         return{
           total:resp.totalHorario,

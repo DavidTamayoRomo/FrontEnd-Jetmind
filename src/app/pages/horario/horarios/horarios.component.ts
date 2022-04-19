@@ -95,4 +95,21 @@ export class HorariosComponent implements OnInit {
     })
   }
 
+
+  actualizarEstado(horario:any){
+    if (horario.estado) {
+      horario.estado = false;
+    }else{
+      horario.estado = true;
+    }
+    this.horarioService.updateHorario(horario._id,horario).subscribe(resp=>{
+      Swal.fire(
+        'Actualizado!',
+        `Horario actualizado con éxito.`,
+        'success'
+      )
+    });
+  }
+
+
 }

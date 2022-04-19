@@ -40,6 +40,7 @@
                     <table class="table full-color-table full-inverse-table hover-table">
                         <thead>
                             <tr>
+                                <th class="w100">Estado</th>
                                 <th class="w100">Docente</th>
                                 <th class="w100">Horario</th>
                                 <th class="w100">Estudiantes</th>
@@ -49,7 +50,14 @@
                         </thead>
                         <tbody>
                             <tr *ngFor="let asignar of asignarHorariosEstudiantes">
-
+                                <td>
+                                    <div class="switch">
+                                        <label>
+                                            <input type="checkbox" [checked]="asignar?.estado" (click)="actualizarEstado(asignar)"><span
+                                                class="lever switch-col-cyan"></span>
+                                        </label>
+                                    </div>
+                                </td>
                                 <td>{{asignar.idDocente.nombresApellidos}}</td>
                                 <td>{{asignar.idHorario.nombre}}-{{asignar.idHorario.modalidad}}-{{asignar.idHorario.horaInicio}}-{{asignar.idHorario.horaFin}}</td>
                                 <td><div *ngFor="let estudiante of asignar.idEstudiantes">{{estudiante.nombresApellidos}}</div></td>

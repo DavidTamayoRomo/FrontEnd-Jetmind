@@ -10,6 +10,7 @@ export class Horario {
         public modalidad?:string,
         public horaInicio?:string,
         public horaFin?:string,
+        public estado?:boolean,
         public addedUser?:string,
         public modifiedUser?:string
     ){}

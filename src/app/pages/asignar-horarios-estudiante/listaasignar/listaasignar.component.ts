@@ -87,4 +87,20 @@ export class ListaasignarComponent implements OnInit {
     })
   }
 
+
+  actualizarEstado(asignar:any){
+    if (asignar.estado) {
+      asignar.estado = false;
+    }else{
+      asignar.estado = true;
+    }
+    this.asignarHorarioEstudianteService.updateasignarhorarioestudiante(asignar._id,asignar).subscribe(resp=>{
+      Swal.fire(
+        'Actualizado!',
+        `Asignar horario actualizado con éxito.`,
+        'success'
+      )
+    });
+  }
+
 }

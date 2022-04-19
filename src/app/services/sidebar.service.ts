@@ -15,14 +15,7 @@ export class SidebarService {
         /* { titulo: 'Perfil',url: '/perfil' },  */
       ]
     },
-    {
-      titulo: 'Encuesta Padres',
-      icono: 'mdi mdi-home',
-      submenu: [
-        { titulo: 'Encuesta', url: '/encuestapadres' },
-        { titulo: 'Lista Encuesta', url: '/lista-encuesta-padres' }
-      ]
-    },
+    
 
     {
       titulo: 'Ciudad',
@@ -211,6 +204,14 @@ export class SidebarService {
       submenu: [
         { titulo: 'Crear', url: '/entregalibros/nuevo' },
         { titulo: 'Lista', url: '/entregalibros' },
+      ]
+    },
+    {
+      titulo: 'Encuesta Padres',
+      icono: 'mdi mdi-notification-clear-all',
+      submenu: [
+        { titulo: 'Encuesta', url: '/encuestapadres' },
+        { titulo: 'Lista Encuesta', url: '/lista-encuesta-padres' }
       ]
     },
     {

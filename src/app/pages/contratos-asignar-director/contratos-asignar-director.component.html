@@ -97,12 +97,12 @@
                                             (click)="actualizarEstadoPrograma('No pagado', contrato)">No pagado</a>
                                     </div>
                                 </td>
-                                <td >
+                                <td (click)="mostrarDatosModal(contrato)">
                                     <div *ngFor="let dato of contrato?.pea">
                                         {{dato.nombrePea}} realizado: {{dato.marca}}
                                     </div>
                                 </td>
-                                <td>
+                                <td (click)="mostrarDatosModal(contrato)">
                                     <div *ngFor="let dato of contrato?.entrevistaInicial">
                                         {{dato.marca}}
                                     </div>
@@ -110,7 +110,13 @@
                                 <td>
                                     <button type="button" (click)="entrevistaInicial(contrato)"
                                         class="btn btn-rounded btn-block btn-outline-secondary">Realizar entrevista
-                                        Incial</button>
+                                        Incial CH</button>
+                                    <button type="button" (click)="entrevistaInicialIL(contrato)"
+                                        class="btn btn-rounded btn-block btn-outline-secondary">Realizar entrevista
+                                        Incial IL</button>
+                                    <button type="button" (click)="entrevistaInicialTM(contrato)"
+                                        class="btn btn-rounded btn-block btn-outline-secondary">Realizar entrevista
+                                        Incial TM</button>
                                 </td>
 
                                 <td (click)="mostrarDatosModal(contrato)">{{contrato?.createdAt}}</td>
