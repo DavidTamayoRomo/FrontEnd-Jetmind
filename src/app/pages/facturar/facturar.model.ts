@@ -11,6 +11,7 @@ export class Facturar {
         public total?:string,
         public tarjetaCredito?:string,
         public voucher?:Array<string>,
+        public estado?:boolean,
         public addedUser?:string,
         public modifiedUser?:string
     ){}

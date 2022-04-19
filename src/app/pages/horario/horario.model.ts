@@ -11,6 +11,7 @@ export class Horario {
         public horaInicio?:string,
         public horaFin?:string,
         public estado?:boolean,
+        public modulo_nivel?:string,
         public addedUser?:string,
         public modifiedUser?:string
     ){}

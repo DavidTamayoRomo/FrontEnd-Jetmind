@@ -27,6 +27,11 @@ export class SucursalService {
     const headers = this.retornarHeader();
     return this.http.get(`${base_url}/sucursal`, { headers: headers });
   }
+  
+  getAllSucursalesSinLimite(){
+    const headers = this.retornarHeader();
+    return this.http.get(`${base_url}/sucursal/all`, { headers: headers });
+  }
 
   
   obtenerSucursalById(id: string) {

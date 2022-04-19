@@ -95,6 +95,7 @@ import { AsistenciaRecuperacionComponent } from './asistencia/asistencia-recuper
 import { ReporteComponent } from './verificacion/reporte/reporte.component';
 import { ReporteEstudiantesComponent } from './estudiante/reporte-estudiantes/reporte-estudiantes.component';
 import { ListaEncuestaPadresComponent } from '../publico/encuesta-padres/lista-encuesta-padres/lista-encuesta-padres.component';
+import { EstadoEstudianteComponent } from './estudiante/estado-estudiante/estado-estudiante.component';
 
 
 
@@ -129,6 +130,7 @@ const routes: Routes = [
             
             { path: 'estudiante/:id', component: EstudianteComponent, data:{titulo:'Estudiante'} },
             { path: 'listaestudiantes', component:EstudiantesComponent , data:{titulo:'Lista de estudiantes'} },
+            { path: 'estado-estudiante', component:EstadoEstudianteComponent , data:{titulo:'Cambiar estado del estudiantes'} },
             { path: 'reporte-asistencia-estudiante/:id', component:ReporteAsistenciaComponent , data:{titulo:'Asistencia del estudiante'} },
             { path: 'reporte-estudiantes', component: ReporteEstudiantesComponent, data:{titulo:'Reporte de Estudaintes'} },
 

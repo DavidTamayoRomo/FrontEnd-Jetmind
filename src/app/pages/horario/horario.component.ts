@@ -125,7 +125,8 @@ export class HorarioComponent implements OnInit {
     dias: [this.listaDias],
     modalidad: [null, Validators.required],
     horaInicio: [null],
-    horaFin: [null]
+    horaFin: [null],
+    modulo_nivel: [null, Validators.required],
   });
 
   campoNoValido(campo: any): boolean {

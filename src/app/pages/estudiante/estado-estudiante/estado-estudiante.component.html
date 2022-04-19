@@ -1,0 +1,64 @@
+<div class="card">
+
+    <form (ngSubmit)="crearEstudiante()" autocomplete="off" [formGroup]="registerForm">
+
+
+        <div class="card-body">
+            <h4 class="card-title">Estado del estudiante</h4>
+            <h6 class="card-subtitle">Ingrese todos los datos solicitados</h6>
+
+
+            <div class="row p-t-20">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <div class="demo-switch-title">Estado</div>
+                        <select class="form-control custom-select" formControlName="estado">
+                            <option value="Activo">Activo</option>
+                            <option value="Espera">Espera</option>
+                            <option value="Congelado">Congelado</option>
+                            <option value="Incorporado">Incorporado</option>
+                            <option value="Retirado">Retirado</option>
+                            <option value="Rechazado">Rechazado</option>
+                        </select>
+                        <small class="form-control-feedback"> Seleccione el estado </small>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="exampleInputuname">Estudiante *</label>
+                        <ng-multiselect-dropdown [placeholder]="'Seleccione Estudiante'" [settings]="dropdownSettings"
+                            [data]="dropdownListEstudiantes" (onSelect)="onItemSelectEstudiante($event)"
+                            (onSelectAll)="onSelectAllEstudiante($event)" (onDeSelect)="onDeSelectEstudiante($event)"
+                            (onDeSelectAll)="onDeSelectAllEstudiante($event)" formControlName="idEstudiantes">
+                        </ng-multiselect-dropdown>
+                    </div>
+                </div>
+            </div>
+            <div class="row p-t-20">
+                <div class="col-6" *ngIf="registerForm.get('estado').value == 'Congelado'">
+                    <div class="panel-body">
+                        <label for="exampleInputuname">Fechas de congelacion </label>
+                        <input class="form-control" type="text" mwlFlatpickr [altInput]="true"
+                            [convertModelValue]="false" [enableTime]="false" dateFormat="Y-m-d H:i"
+                            altFormat="F j, Y" [inline]="false" mode="range" formControlName="rangoFechas">
+                    </div>
+                </div>
+                <div class="col-6" *ngIf="registerForm.get('estado').value == 'Incorporado'">
+                    <div class="panel-body">
+                        <label for="exampleInputuname">Fecha de incorporacion </label>
+                        <input class="form-control" type="text" mwlFlatpickr [altInput]="true"
+                            [convertModelValue]="false" [enableTime]="false" dateFormat="Y-m-d H:i"
+                            altFormat="F j, Y" [inline]="false" formControlName="rangoFechas">
+                    </div>
+                </div>
+            </div>
+            <div style="height: 35px;"></div>
+            
+            
+            <button  type="submit" class="btn btn-success waves-effect waves-light m-r-10">Guardar</button>
+            <a  (click)="cancelarGuardado()"  class="btn btn-inverse waves-effect waves-light">Cancelar</a>
+        </div>
+    </form>
+
+</div>
+

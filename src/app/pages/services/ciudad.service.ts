@@ -29,6 +29,11 @@ export class CiudadService {
     const headers = this.retornarHeader();
     return this.http.get(`${base_url}/ciudad`, { headers: headers });
   }
+  
+  getAllCiudadesSinLimite(){
+    const headers = this.retornarHeader();
+    return this.http.get(`${base_url}/ciudad/all`, { headers: headers });
+  }
 
   obtenerCiudadById(id:string){
     const headers = this.retornarHeader();

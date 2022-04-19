@@ -25,6 +25,7 @@ export class DashboardComponent implements OnInit {
   public totalEstudiantesCongelado: number = 0;
   public totalEstudiantesIncorporado: number = 0;
   public totalEstudiantesRetirado: number = 0;
+  public totalEstudiantes: number = 0;
 
   public totalHorariosActivos: number = 0;
 
@@ -91,9 +92,10 @@ export class DashboardComponent implements OnInit {
     let data4 = {
       "idCiudad": this.persona.idCiudad,
       "idMarca": this.persona.idMarca,
-      "estado": "true"
+      "estado": true
     };
     this.horarioService.obtenerHorarioByCiudadMarcaEstado(data4).subscribe((resp: any) => {
+      console.log('respuesta horarios',resp.data);
       this.totalHorariosActivos = resp.data.length;
     });
 
@@ -104,9 +106,14 @@ export class DashboardComponent implements OnInit {
       "estado": true
     };
     this.asignarHorarioService.buscarbyCiudadMarcaDocenteActivo(data5).subscribe((resp: any) => {
-      console.log(resp.data);
+      console.log('respuesta horarios 2',resp.data);
       this.horariosDocente = resp.data;
     });
+
+    this.estudiantesService.getAllEstudiantesSinLimite().subscribe((resp: any) => {
+      console.log('respuesta estudiantes',resp.data);
+      this.totalEstudiantes = resp.data.length;
+    })
 
 
   }

@@ -59,7 +59,8 @@ export class FacturarService {
         
         const facturas = resp.data.map((facturar:any) => 
         new Facturar(facturar?._id, facturar?.idContrato, facturar?.programa, facturar?.nombre, facturar?.cedula_ruc, 
-          facturar?.telefono, facturar?.correo, facturar?.direccion, facturar?.total, facturar?.tarjetaCredito, facturar?.voucher ));
+          facturar?.telefono, facturar?.correo, facturar?.direccion, facturar?.total, facturar?.tarjetaCredito, facturar?.voucher, 
+          facturar?.estado ));
         
         
         return{

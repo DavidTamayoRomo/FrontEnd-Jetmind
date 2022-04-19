@@ -88,6 +88,7 @@ export class SidebarService {
       icono: 'mdi mdi-account-settings',
       submenu: [
         { titulo: 'Estudiante', url: '/estudiante/nuevo' },
+        { titulo: 'Estado Estudiante', url: '/estado-estudiante' },
         { titulo: 'Lista estudiantes', url: '/listaestudiantes' },
         { titulo: 'Reporte estudiantes', url: '/reporte-estudiantes' },
       ]
