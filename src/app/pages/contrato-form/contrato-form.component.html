@@ -32,6 +32,24 @@
                 </div>
             </div>
         </div>
+        <div class="row p-t-20">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="fecha">Origen de venta *</label>
+                    <ng-multiselect-dropdown [placeholder]="'Seleccione Origen'" [settings]="dropdownSettings"
+                        [data]="dropdownList" (onSelect)="onItemSelect($event)"
+                        (onSelectAll)="onSelectAll($event)" (onDeSelect)="onDeSelect($event)"
+                        (onDeSelectAll)="onDeSelectAll($event)" formControlName="campania">
+                    </ng-multiselect-dropdown>
+                    <div class="text-danger">
+                        <p *ngIf="campoNoValido('campania')">El origen de la venta es obligatorio</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+
+            </div>
+        </div>
 
 
         <div class="row p-t-20">
@@ -94,7 +112,7 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="row p-t-20">
             <div class="col-md-6">
                 <div class="form-group" *ngIf="mostraAbono">
@@ -103,7 +121,7 @@
                             class="fa fa-plus"></i> </button>
                     <!-- Crear una tabla con dos atributos -->
                     <div>Lista de estudiantes</div>
-                    <table class="table table-bordered" >
+                    <table class="table table-bordered">
                         <thead>
                             <tr>
                                 <th>Valor</th>
@@ -119,12 +137,10 @@
                                 <td>{{abon.monto}}</td>
                                 <td>{{abon.fechaPago | date:"dd-MM-yyyy"}}</td>
                                 <td>{{abon.estado}}</td>
-                                <td><a data-toggle="tooltip" data-original-title="Editar"
-                                        (click)="cargar(index)">
+                                <td><a data-toggle="tooltip" data-original-title="Editar" (click)="cargar(index)">
                                         <i class="ti-pencil"></i>
                                     </a></td>
-                                <td><a data-toggle="tooltip" data-original-title="Eliminar"
-                                        (click)="eliminar(index)">
+                                <td><a data-toggle="tooltip" data-original-title="Eliminar" (click)="eliminar(index)">
                                         <i class="ti-trash"></i>
                                     </a></td>
                             </tr>

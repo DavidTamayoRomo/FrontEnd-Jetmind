@@ -38,6 +38,29 @@
                     </div>
                 </div>
 
+                <div class="col-12">
+                    <div class="form-group">
+                        <label for="exampleInputuname">Asesor *</label>
+                        <ng-multiselect-dropdown [placeholder]="'Seleccione Asesor'"
+                            [settings]="dropdownSettings" [data]="dropdownListPersonas"
+                            (onSelect)="onItemSelectPersona($event)" (onSelectAll)="onSelectAllPersona($event)"
+                            (onDeSelect)="onDeSelectPersona($event)" (onDeSelectAll)="onDeSelectAllPersona($event)"
+                            formControlName="asesor">
+                        </ng-multiselect-dropdown>
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <div class="form-group">
+                        <label for="fecha">Origen de venta *</label>
+                        <ng-multiselect-dropdown [placeholder]="'Seleccione Origen'" [settings]="dropdownSettings"
+                            [data]="dropdownList" (onSelect)="onItemSelect($event)"
+                            (onSelectAll)="onSelectAll($event)" (onDeSelect)="onDeSelect($event)"
+                            (onDeSelectAll)="onDeSelectAll($event)" formControlName="campania">
+                        </ng-multiselect-dropdown>
+                    </div>
+                </div>
+
             </div>
         </div>
     </form>

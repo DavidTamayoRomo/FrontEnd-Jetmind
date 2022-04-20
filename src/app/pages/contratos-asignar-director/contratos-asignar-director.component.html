@@ -38,6 +38,7 @@
                                 
                                 <th class="w101">Director asignado</th>
                                 <th class="w100">Estado</th>
+                                <th class="w100">Marcas</th>
                                 <th>PEEA</th>
                                 <th>Datos Entrevista inicial</th>
                                 <th class="w100">Entrevista Inicial</th>
@@ -96,6 +97,11 @@
                                         <a class="dropdown-item"
                                             (click)="actualizarEstadoPrograma('No pagado', contrato)">No pagado</a>
                                     </div>
+                                </td>
+                                <td (click)="mostrarDatosModal(contrato)">
+                                    <div *ngFor="let marcas of contrato?.marcasVendidas">
+                                        {{marcas?.nombre}}
+                                    </div> 
                                 </td>
                                 <td (click)="mostrarDatosModal(contrato)">
                                     <div *ngFor="let dato of contrato?.pea">

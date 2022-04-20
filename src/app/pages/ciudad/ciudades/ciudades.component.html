@@ -53,7 +53,14 @@
 
                                 <td>{{ciudad.nombre}}</td>
                                 <td>{{ciudad.email}}</td>
-                                <td>{{ciudad.estado}}</td>
+                                <td>
+                                    <div class="switch">
+                                        <label>
+                                            <input type="checkbox" [checked]="ciudad?.estado" (click)="actualizarEstado(ciudad)"><span
+                                                class="lever switch-col-cyan"></span>
+                                        </label>
+                                    </div>
+                                </td>
 
                                 <td class="text-nowrap">
                                     <a [routerLink]="['/ciudad',ciudad._id]" data-toggle="tooltip"

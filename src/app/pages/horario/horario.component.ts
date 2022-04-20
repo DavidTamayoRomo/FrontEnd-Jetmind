@@ -118,7 +118,7 @@ export class HorarioComponent implements OnInit {
   }
 
   public registerForm = this.fb.group({
-    estado: [null],
+    estado: [true],
     idCiudad: [null, Validators.required],
     idMarca: [null, Validators.required],
     nombre: [null, Validators.required],
@@ -324,7 +324,7 @@ export class HorarioComponent implements OnInit {
   }
 
   recuperarDatosCiudad() {
-    this.ciudadService.getAllCiudades().subscribe((resp: any) => {
+    this.ciudadService.getAllCiudadesSinLimite().subscribe((resp: any) => {
       let nombreciudades: any = [];
       resp.data.forEach((element: any) => {
         nombreciudades.push({ item_id: element._id, nombre: element.nombre });
@@ -350,7 +350,7 @@ export class HorarioComponent implements OnInit {
   }
 
   recuperarDatosMarcas() {
-    this.marcaService.getAllMarcas().subscribe((resp: any) => {
+    this.marcaService.getAllMarcasSinLimite().subscribe((resp: any) => {
       let nombremarcas: any = [];
       resp.data.forEach((element: any) => {
         nombremarcas.push({ item_id: element._id, nombre: element.nombre });

@@ -21,6 +21,7 @@ export class Contrato {
         public marcasVendidas?:any,
         public pea?:any,
         public entrevistaInicial?:any,
+        public campania?:any,
         public addedUser?:string,
         public modifiedUser?:string
     ){}

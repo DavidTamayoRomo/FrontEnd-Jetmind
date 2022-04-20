@@ -27,6 +27,11 @@ export class RepresentanteService {
     const headers = this.retornarHeader();
     return this.http.get(`${base_url}/representante`, { headers: headers });
   }
+  
+  getAllRepresentantesSinLimite() {
+    const headers = this.retornarHeader();
+    return this.http.get(`${base_url}/representante/all`, { headers: headers });
+  }
 
 
   obtenerRepresentanteById(id: string) {

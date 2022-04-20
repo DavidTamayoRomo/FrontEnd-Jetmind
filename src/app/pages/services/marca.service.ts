@@ -26,6 +26,11 @@ export class MarcaService {
     const headers = this.retornarHeader();
     return this.http.get(`${base_url}/marca`, { headers: headers });
   }
+  
+  getAllMarcasSinLimite() {
+    const headers = this.retornarHeader();
+    return this.http.get(`${base_url}/marca/all`, { headers: headers });
+  }
 
 
   obtenerMarcaById(id: string) {

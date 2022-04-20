@@ -98,7 +98,7 @@ export class EstudianteComponent implements OnInit, OnChanges {
   }
 
   recuperarDatosRepresentantes() {
-    this.representanteService.getAllRepresentantes().subscribe((resp: any) => {
+    this.representanteService.getAllRepresentantesSinLimite().subscribe((resp: any) => {
       let nombrerepresentantes: any = [];
       resp.data.forEach((element: any) => {
         nombrerepresentantes.push({

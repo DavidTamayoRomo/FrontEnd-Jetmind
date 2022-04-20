@@ -48,7 +48,7 @@
                             <tr>
                                 <th class="w100">Estado</th>
                                 <th class="w100">Abono</th>
-                                <th class="w100">Persona Responsable</th>
+                                <th class="w100">Marcas Vendidas</th>
                                 <th class="w100">Fecha contrato</th>
                                 <th class="w100">Codigo</th>
                                 <th class="w100">Representante</th>
@@ -97,7 +97,10 @@
                                         Editar Abono</button>
                                 </td>
 
-                                <td (click)="mostrarDatosModal(contrato)">{{contrato?.personaAprueba?.nombresApellidos}}
+                                <td (click)="mostrarDatosModal(contrato)">
+                                    <div *ngFor="let marcas of contrato?.marcasVendidas">
+                                        {{marcas?.nombre}}
+                                    </div> 
                                 </td>
                                 <td (click)="mostrarDatosModal(contrato)">{{contrato?.createdAt}}</td>
                                 <td (click)="mostrarDatosModal(contrato)">{{contrato?.codigo}}</td>

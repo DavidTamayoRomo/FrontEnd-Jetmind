@@ -81,7 +81,7 @@ export class ContratoService {
           contrato.estado, contrato.idRepresentante, contrato.tipoPago,contrato.estadoVenta,contrato.abono
           ,contrato.valorMatricula,contrato.valorTotal,contrato.numeroCuotas,contrato.formaPago,contrato.comentario,
           contrato.directorAsignado,contrato.fechaAprobacion, contrato.voucher, contrato.personaAprueba, contrato.codigo
-          , contrato.marcasVendidas));
+          , contrato.marcasVendidas, contrato.pea, contrato.entrevistaInicial, contrato.campania));
         
         return{
           total:resp.totalContratos,

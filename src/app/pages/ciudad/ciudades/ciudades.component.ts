@@ -87,4 +87,21 @@ export class CiudadesComponent implements OnInit {
     })
   }
 
+
+  
+  actualizarEstado(ciudad:any){
+    if (ciudad.estado) {
+      ciudad.estado = false;
+    }else{
+      ciudad.estado = true;
+    }
+    this.ciudadService.updateCiudad(ciudad._id,ciudad).subscribe(resp=>{
+      Swal.fire(
+        'Actualizado!',
+        `Ciudad actualizada con éxito.`,
+        'success'
+      )
+    });
+  }
+
 }

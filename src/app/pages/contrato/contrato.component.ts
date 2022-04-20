@@ -390,6 +390,9 @@ export class ContratoComponent implements OnInit {
                                         listaMarcasContratos = listaMarcasContratos.filter(o => hash[o.item_id] ? false : hash[o.item_id] = true);
                                         this.ContratoModel.marcasVendidas = listaMarcasContratos;
 
+                                        //
+                                        //this.ContratoModel.campania = this.campania[0].item_id;
+
                                         let respuestaContrato: any;
                                         this.contratoService.crearContrato(this.ContratoModel).subscribe((resp: any) => {
                                           console.log(resp);
@@ -883,10 +886,14 @@ export class ContratoComponent implements OnInit {
   setDataFormContrato(event: any) {
     //TODO> Revizar el guardado de esta funcion
     this.dataContrato = event;
-    localStorage.setItem(
-      'contrato',
-      JSON.stringify(this.dataContrato)
-    );
+    console.log(this.dataContrato);
+    this.dataContrato.campania = event.campania[0].item_id;
+    setTimeout(() => {
+      localStorage.setItem(
+        'contrato',
+        JSON.stringify(this.dataContrato)
+      );
+    }, 200);
   }
 
   setDataFormFacturacion(event: any) {
@@ -1127,7 +1134,7 @@ export class ContratoComponent implements OnInit {
     });
   }
   recuperarDatosMarcas() {
-    this.marcaService.getAllMarcas().subscribe((resp: any) => {
+    this.marcaService.getAllMarcasSinLimite().subscribe((resp: any) => {
       let nombremarcas: any = [];
       resp.data.forEach((element: any) => {
         nombremarcas.push({ item_id: element._id, nombre: element.nombre });

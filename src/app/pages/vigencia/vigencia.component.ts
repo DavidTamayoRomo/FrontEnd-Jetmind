@@ -255,7 +255,7 @@ export class VigenciaComponent implements OnInit {
 
 
   recuperarDatosCiudad() {
-    this.ciudadService.getAllCiudades().subscribe((resp: any) => {
+    this.ciudadService.getAllCiudadesSinLimite().subscribe((resp: any) => {
       let nombreciudades: any = [];
       resp.data.forEach((element: any) => {
         nombreciudades.push({ item_id: element._id, nombre: element.nombre });

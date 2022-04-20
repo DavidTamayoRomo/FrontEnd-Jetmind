@@ -53,11 +53,11 @@
                         <tbody>
                             <tr *ngFor="let campania of campanias">
 
-                                <td>{{campania.estado}}</td>
-                                <td>{{campania.idMarca}}</td>
-                                <td>{{campania.nombre}}</td>
-                                <td>{{campania.fecha_activacion | date:'MM/dd/yyyy'}}</td>
-                                <td>{{campania.fecha_finalizacion | date:'MM/dd/yyyy'}}</td>
+                                <td>{{campania?.estado}}</td>
+                                <td>{{campania?.idMarca?.nombre}}</td>
+                                <td>{{campania?.nombre}}</td>
+                                <td>{{campania?.fecha_activacion | date:'MM/dd/yyyy'}}</td>
+                                <td>{{campania?.fecha_finalizacion | date:'MM/dd/yyyy'}}</td>
 
                                 <td class="text-nowrap">
                                     <a [routerLink]="['/campania',campania._id]" data-toggle="tooltip"

@@ -238,7 +238,7 @@ export class ModalImagenComponent implements OnInit {
    */
 
   recuperarDatosCiudad() {
-    this.ciudadService.getAllCiudades().subscribe((resp: any) => {
+    this.ciudadService.getAllCiudadesSinLimite().subscribe((resp: any) => {
       let nombreciudades: any = [];
       resp.data.forEach((element: any) => {
         nombreciudades.push({ item_id: element._id, nombre: element.nombre });
@@ -247,7 +247,7 @@ export class ModalImagenComponent implements OnInit {
     });
   }
   recuperarDatosSucursales() {
-    this.sucursalService.getAllSucursales().subscribe((resp: any) => {
+    this.sucursalService.getAllSucursalesSinLimite().subscribe((resp: any) => {
       let nombreSucursal: any = [];
       resp.data.forEach((element: any) => {
         nombreSucursal.push({ item_id: element._id, nombre: element.nombre });
@@ -256,7 +256,7 @@ export class ModalImagenComponent implements OnInit {
     });
   }
   recuperarDatosMarcas() {
-    this.marcaService.getAllMarcas().subscribe((resp: any) => {
+    this.marcaService.getAllMarcasSinLimite().subscribe((resp: any) => {
       let nombremarcas: any = [];
       resp.data.forEach((element: any) => {
         nombremarcas.push({ item_id: element._id, nombre: element.nombre });
