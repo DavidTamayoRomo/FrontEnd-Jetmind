@@ -28,11 +28,16 @@ export class AsistenciaService {
     return this.http.get(`${base_url}/asistencia`, { headers: headers });
   }
 
+
   obtenerAsistenciaById(id:string){
     const headers = this.retornarHeader();
     return this.http.get(`${base_url}/asistencia/${id}`, { headers: headers })
   }
 
+  findbyCiudadSucursalMarca(formData: any) {
+    const headers = this.retornarHeader();
+    return this.http.post(`${base_url}/asistencia/findby-ciudad-sucursal-marca`, formData, { headers: headers });
+  }
   crearAsistencia(formData: any) {
     const headers = this.retornarHeader();
     return this.http.post(`${base_url}/asistencia`, formData, { headers: headers });

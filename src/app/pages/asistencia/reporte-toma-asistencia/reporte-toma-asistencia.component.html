@@ -1,0 +1,57 @@
+<div class="card">
+    <form autocomplete="off" [formGroup]="registerForm">
+        <div class="col-12">
+
+            <div class="col-12">
+                <div class="panel-body">
+                    <input class="form-control" type="text" mwlFlatpickr [altInput]="true"
+                        [convertModelValue]="false" [enableTime]="true" dateFormat="Y-m-d H:i"
+                        altFormat="F j, Y H:i" [inline]="false" mode="range" formControlName="rangoFechas">
+                </div>
+            </div>
+            <div class="row p-t-20">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="exampleInputuname">Ciudades *</label>
+                        <ng-multiselect-dropdown [placeholder]="'Seleccione Ciudades'" [settings]="dropdownSettings"
+                            [data]="dropdownListCiudades" (onSelect)="onItemSelect($event)"
+                            (onSelectAll)="onSelectAll($event)" (onDeSelect)="onDeSelect($event)"
+                            (onDeSelectAll)="onDeSelectAll($event)" formControlName="idCiudad">
+                        </ng-multiselect-dropdown>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="exampleInputuname">Sucursales *</label>
+                        <ng-multiselect-dropdown [placeholder]="'Seleccione Sucursal'" [settings]="dropdownSettings"
+                            [data]="dropdownListSucursales" (onSelect)="onItemSelectsucursal($event)"
+                            (onSelectAll)="onSelectAllsucursal($event)" (onDeSelect)="onDeSelectsucursal($event)"
+                            (onDeSelectAll)="onDeSelectAllsucursal($event)" formControlName="idSucursal">
+                        </ng-multiselect-dropdown>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row p-t-20">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="exampleInputuname">Marcas *</label>
+                        <ng-multiselect-dropdown [placeholder]="'Seleccione Marca'" [settings]="dropdownSettings"
+                            [data]="dropdownListMarcas" (onSelect)="onItemSelectmarca($event)"
+                            (onSelectAll)="onSelectAllmarca($event)" (onDeSelect)="onDeSelectmarca($event)"
+                            (onDeSelectAll)="onDeSelectAllmarca($event)" formControlName="idMarca">
+                        </ng-multiselect-dropdown>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <button (click)="buscar()">Buscar</button>
+                </div>
+            </div>
+
+
+        </div>
+    </form>
+</div>
+
+

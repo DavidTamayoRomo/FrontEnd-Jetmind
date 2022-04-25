@@ -155,7 +155,7 @@ export class AsistenciaComponent implements OnInit {
 
   }
   recuperarDatosHorarios() {
-    this.horariosService.getAllHorario().subscribe((resp: any) => {
+    this.horariosService.getAllHorarioSinLimite().subscribe((resp: any) => {
       let nombreHorarios: any = [];
       resp.data.forEach((element: any) => {
         nombreHorarios.push({ item_id: element._id, nombre: `${element.nombre}-${element.modalidad}-${element.dias}-${element.horaInicio}-${element.horaFin}` });

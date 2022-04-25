@@ -96,6 +96,8 @@ import { ReporteComponent } from './verificacion/reporte/reporte.component';
 import { ReporteEstudiantesComponent } from './estudiante/reporte-estudiantes/reporte-estudiantes.component';
 import { ListaEncuestaPadresComponent } from '../publico/encuesta-padres/lista-encuesta-padres/lista-encuesta-padres.component';
 import { EstadoEstudianteComponent } from './estudiante/estado-estudiante/estado-estudiante.component';
+import { VistaAsesorComponent } from './contrato/vista-asesor/vista-asesor.component';
+import { ReporteTomaAsistenciaComponent } from './asistencia/reporte-toma-asistencia/reporte-toma-asistencia.component';
 
 
 
@@ -140,6 +142,7 @@ const routes: Routes = [
 
             { path: 'contrato/:id', component: ContratoComponent, data:{titulo:'Contrato'} },
             { path: 'listacontratos', component:ContratosComponent , data:{titulo:'Lista de los contratos'} },
+            { path: 'listacontratos-asesores', component:VistaAsesorComponent , data:{titulo:'Lista de los contratos'} },
             { path: 'reporte-contrato/:id', component:ReporteContratoComponent , data:{titulo:'contratos'} },
             { path: 'reporte-venta-contrato', component:ReporteVentasContratoComponent , data:{titulo:'Reporte ventas'} },
             
@@ -207,6 +210,7 @@ const routes: Routes = [
             { path: 'asistencia-tomatis/:id', component: AsistenciaTomatisComponent , data:{titulo:'Asistencia'} },
             { path: 'asistencia-recuperacion/:id', component: AsistenciaRecuperacionComponent , data:{titulo:'Asistencia Recuperacion'} },
             { path: 'asistencias', component: ListaAsistenciaComponent , data:{titulo:'Lista Asistencia'} },
+            { path: 'reporte-asistencia-docente', component: ReporteTomaAsistenciaComponent , data:{titulo:'Reporte Asistencia'} },
             
             { path: 'entrevistainicialchuk/:id/:idContrato', component: EntrevistaInicialCHUKComponent , data:{titulo:'Entrvista Inicial CH UK'} },
             { path: 'listaentrevistainicialchuk', component: ListaEntrevistaCHUKComponent , data:{titulo:'Lista de entrevista incial'} },

@@ -1,0 +1,466 @@
+<div class="col">
+
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div style="height: 10px;"></div>
+                <input type="text" class="form-control" placeholder="Buscar contrato"
+                    (keyup)="buscar(txtBusqueda.value)" #txtBusqueda>
+            </div>
+            <div class="card-body">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="exampleInputuname">Campos de busqueda </label>
+                        <ng-multiselect-dropdown [placeholder]="'Seleccione Contrato'" [settings]="dropdownSettings"
+                            [data]="dropdownListContratos" (onSelect)="onItemSelectContrato($event)"
+                            (onSelectAll)="onSelectAllContrato($event)" (onDeSelect)="onDeSelectContrato($event)"
+                            (onDeSelectAll)="onDeSelectAllContrato($event)">
+                        </ng-multiselect-dropdown>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" *ngIf="cargando">
+    <div class="col-12">
+        <div class="alert alert-info text-center">
+            <h4 class="alert-heading">Cargando</h4>
+            <i class="fa fa-spin fa-refresh fa-2x"></i>
+            <p class="mb-0">Por favor espere...</p>
+        </div>
+    </div>
+</div>
+<div class="row" *ngIf="!cargando">
+
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Contratos Digitales</h4>
+                <h6 class="card-subtitle">Lista de todos los contratos existentes en el sistema</h6>
+                <h6 class="card-subtitle">Total de contratos: {{totalcontratos}}</h6>
+                <div class="table-responsive">
+                    <table class="table full-color-table full-inverse-table hover-table">
+                        <thead>
+                            <tr>
+                                <th class="w100">Estado</th>
+                                <th class="w100">Marcas Vendidas</th>
+                                <th class="w100">Fecha contrato</th>
+                                <th class="w100">Codigo</th>
+                                <th class="w100">Representante</th>
+                                <th class="w100">Cedula Representante</th>
+                                <th class="w100">Asesor</th>
+                                <th class="w100">Valor Abonos</th>
+                                <th class="w100">Valor Matricula</th>
+                                <th class="w100">Valor Total</th>
+                                <th class="w100">Forma de pago</th>
+                                <th class="w100">Fecha Aprobacion</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let contrato of contratos">
+                                <td (click)="mostrarDatosModal(contrato)">{{contrato.estado}}</td>
+                                
+                                <td (click)="mostrarDatosModal(contrato)">
+                                    <div *ngFor="let marcas of contrato?.marcasVendidas">
+                                        {{marcas?.nombre}}
+                                    </div> 
+                                </td>
+                                <td (click)="mostrarDatosModal(contrato)">{{contrato?.createdAt}}</td>
+                                <td (click)="mostrarDatosModal(contrato)">{{contrato?.codigo}}</td>
+                                <td (click)="mostrarDatosModal(contrato)">
+                                    {{contrato?.idRepresentante?.nombresApellidos}}</td>
+                                <td (click)="mostrarDatosModal(contrato)">{{contrato?.idRepresentante?.cedula}}</td>
+                                <td (click)="mostrarDatosModal(contrato)">{{contrato?.addedUser?.nombresApellidos}}</td>
+                                <td (click)="mostrarDatosModal(contrato)">
+                                    <div *ngFor="let monto of contrato?.abono">
+                                        <span
+                                            [ngClass]="{'label label-rounded label-success': monto.estado === 'Pagado','label label-rounded label-danger': monto.estado === 'No pagado'}">{{monto.monto}}</span>
+                                    </div>
+
+                                </td>
+                                <td (click)="mostrarDatosModal(contrato)">{{contrato?.valorMatricula}}</td>
+                                <td (click)="mostrarDatosModal(contrato)">{{contrato?.valorTotal}}</td>
+                                <td (click)="mostrarDatosModal(contrato)">{{contrato?.formaPago}}</td>
+                        
+                                <td *ngIf="contrato?.fechaAprobacion != '1989-12-31'"
+                                    (click)="mostrarDatosModal(contrato)">{{contrato?.fechaAprobacion}}</td>
+                                <td *ngIf="contrato?.fechaAprobacion == '1989-12-31'"
+                                    (click)="mostrarDatosModal(contrato)">Pendiente</td>
+
+
+                            </tr>
+
+
+                        </tbody>
+                    </table>
+                    <div *ngIf="txtBusqueda.value.length === 0">
+                        <button (click)="paginar(-5)" class="btn btn-secondary">Anterior</button>
+                        &nbsp;
+                        <button (click)="paginar(5)" class="btn btn-secondary">Siguiente</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para ver los datos del contrato -->
+<div class="fondo-modal-imagen animated fadeIn fast" [class.oculto]="mostraModal">
+    <div id="responsive-modal" class="modal fade show" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+        style="display: block;padding-right: 17px; overflow-y: initial">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Datos Contrato</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                        (click)="cerrarModal()">×</button>
+                </div>
+
+                <div class="card-body">
+                    <h4 class="card-title">Acciones</h4>
+                    <h6 class="card-subtitle">Datos del contrato</h6>
+                    <div class="row button-group">
+                        <div class="col-md-4">
+                            <button type="button" (click)="generarPDF()" class="btn btn-block btn-outline-success"><i
+                                    class="fa fa-file-pdf-o"></i> PDF</button>
+                        </div>
+                        
+                        <div class="col-md-4">
+                        </div>
+                        <div class="col-md-6">
+                            <button (click)="pea17chuk()" type="button" class="btn btn-block btn-outline-primary"><i
+                                    class="fa fa-check-square" ></i> PEEA 17 CH-UK</button>
+                        </div>
+                        <div class="col-md-6">
+                            <button (click)="pea18chuk()" type="button" class="btn btn-block btn-outline-primary"><i
+                                    class="fa fa-check-square"></i> PEEA 18 CH-UK</button>
+                        </div>
+                        <div class="col-md-6">
+                            <button (click)="pea17il()" type="button" class="btn btn-block btn-outline-primary"><i
+                                    class="fa fa-check-square"></i> PEEA 17 Ilvem</button>
+                        </div>
+                        <div class="col-md-6">
+                            <button (click)="pea18il()" type="button" class="btn btn-block btn-outline-primary"><i
+                                    class="fa fa-check-square"></i> PEEA 18 Ilvem</button>
+                        </div>
+                        <div class="col-md-6">
+                            <button (click)="pea17tm()" type="button" class="btn btn-block btn-outline-primary"><i
+                                    class="fa fa-check-square"></i> PEEA 17 Tomatis</button>
+                        </div>
+                        <div class="col-md-6">
+                            <button (click)="pea18tm()" type="button" class="btn btn-block btn-outline-primary"><i
+                                    class="fa fa-check-square"></i> PEEA 18 Tomatis</button>
+                        </div>
+                        <div class="col-md-6">
+                            <button (click)="abrirModalVoucher()" type="button" class="btn btn-block btn-outline-info"><i
+                                    class="fa fa-plus"></i> Agregar Voucher</button>
+                        </div>
+                        
+                    </div>
+
+                    <ng-image-slider [images]="imageObject" [imagePopup]="false" 
+                    [imageSize]="{width: '400px', height: '300px', space: 4}"
+                    #nav></ng-image-slider>
+                    
+
+                    <div class="row p-t-20">
+                        <div class="col-md-6">
+                            <table class="table .color-table .dark-table">
+
+                                <tr *ngFor="let nombreatributo of atributostablaContrato?.nombreAtributos">
+                                    <td>{{nombreatributo}}</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="col-md-6">
+                            <table class="table .color-table .dark-table">
+
+                                <tr *ngFor="let idatributo of atributostablaContrato?.idAtributos ">
+                                    <td *ngIf="idatributo==null">--</td>
+                                    <td *ngIf="idatributo!=null">{{idatributo}}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+
+                    <div class="row p-t-20">
+                        <div class="card-body">
+                            <h4 class="card-title"> Datos Representante</h4>
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div style="height: 10px;"></div>
+                                            <div class="table-responsive">
+                                                <table class="table table-bordered">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Nombre</th>
+                                                            <th>Cedula</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>{{datosRepresentante?.nombresApellidos}}</td>
+                                                            <td>{{datosRepresentante?.cedula}}</td>
+                                                            
+
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="row p-t-20">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title"> Datos Estudiantes</h4>
+                                <div style="height: 10px;"></div>
+                                <div class="table-responsive">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Nombre</th>
+                                                <th>Cedula</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let estudiante of datosEstudiantes;let indice=index">
+                                                <td>{{estudiante.nombresApellidos}}</td>
+                                                <td>{{estudiante.cedula}}</td>
+                                                
+
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+
+                            </div>
+                        </div>
+
+                    </div>
+
+
+
+
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal para agregar Abonos -->
+
+<div class="fondo-modal-imagen animated fadeIn fast" [class.oculto]="mostraModalAbono">
+    <div id="responsive-modal" class="modal fade show" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+        style="display: block;padding-right: 17px; overflow-y: initial">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Agregar abono</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                        (click)="cerrarModalAbono()">×</button>
+                </div>
+
+                <div class="card-body">
+                    <h4 class="card-title">Abono</h4>
+                    <h6 class="card-subtitle">Agregar abono</h6>
+                    <br>
+                    <div class="form-group">
+                        <label for="exampleInputuname">Fecha</label>
+                        <div class="input-group">
+                            <div class="input-group-addon"><i class="ti-user"></i></div>
+                            <input type="date" name="fechaAbono" id="" #fechaAbono>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputuname">Monto</label>
+                        <div class="input-group">
+                            <div class="input-group-addon"><i class="ti-user"></i></div>
+                            <input type="number" name="monto" id="" #montoAbono>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputuname">Estado</label>
+                        <div class="input-group">
+                            <div class="input-group-addon"><i class="ti-user"></i></div>
+                            <select class="form-control custom-select" #estadoAbono>
+
+                                <option value="Pagado">Pagado</option>
+                                <option value="No pagado">No pagado</option>
+                            </select>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default waves-effect" data-dismiss="modal"
+                        (click)="cerrarModalAbono()">Close</button>
+                    <button type="button" (click)="agregarAbono()"
+                        class="btn btn-success waves-effect waves-light">Agregar</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal para agregar Editar Abonos -->
+
+<div class="fondo-modal-imagen animated fadeIn fast" [class.oculto]="mostraModalEditarAbono">
+    <div id="responsive-modal" class="modal fade show" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+        style="display: block;padding-right: 17px; overflow-y: initial">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Editar abonos</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                        (click)="cerrarModalEditarAbono()">×</button>
+                </div>
+
+                <div class="card-body">
+                    <h4 class="card-title">Abono</h4>
+                    <h6 class="card-subtitle">Editar abonos</h6>
+                    <div class="card">
+                        <div class="card-body">
+                            <div>Datos del contrato</div>
+                            <div>Tipo de pago: {{contratoSeleccionado?.tipoPago}}</div>
+                            <div>Estado de la venta: {{contratoSeleccionado?.estadoVenta}}</div>
+                            <div>Valor Total del Contrato: {{contratoSeleccionado?.valorTotal}}</div>
+                            <div>Valor de Matricula: {{contratoSeleccionado?.valorMatricula}}</div>
+                        </div>
+                    </div>
+
+                    <div class="row p-t-20">
+                        <div class="card">
+                            <div class="card-body">
+
+                                <div style="height: 10px;"></div>
+                                <div class="table-responsive">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Abono</th>
+                                                <th>Fecha</th>
+                                                <th>Estado</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let contrato of contratoSeleccionado?.abono;let indice=index">
+                                                <td>{{contrato?.monto}}</td>
+                                                <td>{{contrato?.fechaPago | date:"dd-MM-yyyy"}}</td>
+                                                <td>
+                                                    <button type="button"
+                                                        [ngClass]="{'btn-warning': contrato.estado == 'Espera', 'btn-success': contrato.estado == 'Pagado', 'btn-danger':contrato.estado == 'No pagado'}"
+                                                        class="btn dropdown-toggle" data-toggle="dropdown"
+                                                        aria-haspopup="true" aria-expanded="false">{{contrato?.estado}}
+                                                    </button>
+                                                    <div class="dropdown-menu animated slideInUp"
+                                                        x-placement="top-start"
+                                                        style="position: absolute; transform: translate3d(0px, -2px, 0px); top: 0px; left: 0px; will-change: transform;">
+
+                                                        <a class="dropdown-item"
+                                                            (click)="actualizarEstadoAbono(contrato,'Pagado',indice)">Pagado</a>
+                                                        <a class="dropdown-item"
+                                                            (click)="actualizarEstadoAbono(contrato,'No pagado',indice)">No
+                                                            pagado</a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                        <tr>
+                                            <td></td>
+                                            <td>Total Abonos Pagados</td>
+                                            <td>{{totalAbonosPagados}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td>Total Deuda</td>
+                                            <td>{{totalAbonosDeuda}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td>Total</td>
+                                            <td>{{totalAbonos}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td>Deuda Matricula</td>
+                                            <td>{{deudaMatricula}}</td>
+                                        </tr>
+
+                                    </table>
+                                </div>
+
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default waves-effect" data-dismiss="modal"
+                        (click)="cerrarModalEditarAbono()">Close</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal voucher -->
+
+<div class="fondo-modal-imagen animated fadeIn fast" [class.oculto]="mostraModalVoucher">
+    <div id="responsive-modal" class="modal fade show" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+        style="display: block;padding-right: 17px; overflow-y: initial">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Subir voucher</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                        (click)="cerrarModalVoucher()">×</button>
+                </div>
+
+                <div class="card-body">
+                    <div class="card">
+                        <div class="card-body">
+                            
+                            <app-uploads></app-uploads>
+                            
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default waves-effect" data-dismiss="modal"
+                        (click)="cerrarModalVoucher()">Close</button>
+                    <button type="button" 
+                        (click)="crearVoucher()" class="btn btn-success waves-effect waves-light">Subir</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

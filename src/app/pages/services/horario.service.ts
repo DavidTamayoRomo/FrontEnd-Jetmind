@@ -27,6 +27,11 @@ export class HorarioService {
     const headers = this.retornarHeader();
     return this.http.get(`${base_url}/horario`, { headers: headers });
   }
+  
+  getAllHorarioSinLimite(){
+    const headers = this.retornarHeader();
+    return this.http.get(`${base_url}/horario/all`, { headers: headers });
+  }
 
   obtenerHorarioById(id:string){
     const headers = this.retornarHeader();

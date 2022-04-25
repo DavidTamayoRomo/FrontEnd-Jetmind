@@ -121,11 +121,13 @@ export class ReporteVentasContratoComponent implements OnInit {
   valorRangoFechas() {
     this.sumaTotal = 0;
     this.sumaMatriculas = 0;
+    
     //obtener el valor de rangoFechas
     let rangoFechas = this.registerForm.get('rangoFechas').value;
     let separarFecha = rangoFechas.split(' to ');
     this.fechaInicio = new Date(separarFecha[0]);
     this.fechaFin = new Date(separarFecha[1]);
+
     let tipopago: any = [];
     this.TipoPago.map((resp: any) => {
       tipopago.push(resp.nombre);

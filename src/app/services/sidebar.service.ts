@@ -108,6 +108,7 @@ export class SidebarService {
       submenu: [
         { titulo: 'Contrato', url: '/contrato/nuevo' },
         { titulo: 'Lista Contratos', url: '/listacontratos' },
+        { titulo: 'Contratos asesores', url: '/listacontratos-asesores' },
         { titulo: 'Reporte Contratos', url: '/reporte-venta-contrato' },
         /* { titulo: 'Contratos 1',url: '/contrato1/nuevo' }, */
       ]
@@ -182,6 +183,7 @@ export class SidebarService {
         { titulo: 'Crear tomatis', url: '/asistencia-tomatis/nuevo' },
         { titulo: 'Recuperacion', url: '/asistencia-recuperacion/nuevo' },
         { titulo: 'Lista', url: '/asistencias' },
+        { titulo: 'Reporte asistencia Docente', url: '/reporte-asistencia-docente' },
       ]
     },
     {

@@ -23,7 +23,6 @@ export class BusquedasService {
     return this.http.get(url).pipe(
       map( (resp:any) => {
         return resp.data;
-        console.log(resp.data);
       })
     )
   }
@@ -33,7 +32,6 @@ export class BusquedasService {
     return this.http.get(url).pipe(
       map( (resp:any) => {
         return resp.data;
-        console.log(resp.data);
       })
     )
   }
