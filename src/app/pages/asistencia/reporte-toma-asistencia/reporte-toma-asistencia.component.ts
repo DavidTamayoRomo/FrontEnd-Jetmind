@@ -15,7 +15,10 @@ import { SucursalService } from '../../services/sucursal.service';
 })
 export class ReporteTomaAsistenciaComponent implements OnInit {
 
-  public informacion:any;
+  public informacion: any;
+  public DocenteObjeto: any;
+  public RespuestaFinal: any;
+
   public dropdownListCiudades: any = [];
   public dropdownListSucursales: any = [];
   public dropdownListMarcas: any = [];
@@ -32,7 +35,7 @@ export class ReporteTomaAsistenciaComponent implements OnInit {
     private ciudadService: CiudadService,
     private sucursalService: SucursalService,
     private marcaService: MarcaService,
-    private asistenciaService:AsistenciaService,
+    private asistenciaService: AsistenciaService,
     private fb: FormBuilder,
   ) { }
 
@@ -105,7 +108,7 @@ export class ReporteTomaAsistenciaComponent implements OnInit {
   }
 
   buscar() {
-    
+
     this.rangoFechas();
 
     let datos = this.registerForm.value;
@@ -118,20 +121,147 @@ export class ReporteTomaAsistenciaComponent implements OnInit {
     datos.idMarca = this.marca.map((resp: any) => {
       return resp.item_id;
     });
-    
+
     datos.fechaInicio = this.fechaInicio;
     datos.fechaFin = this.fechaFin;
-  
+
     console.log(datos);
 
     setTimeout(() => {
       this.asistenciaService.findbyCiudadSucursalMarca(datos).subscribe((resp: any) => {
         console.log(resp);
         this.informacion = resp.data;
+        this.recorrerDatosInformacion(resp.data)
       });
     }, 200);
-    
 
+
+  }
+
+
+  recorrerDatosInformacion(item: any) {
+    //recorremos docente
+    let objetoDocente: any = [];
+    item.map((resp: any) => {
+      //obtener el numero de horarios asignados en el dia
+      //recorremos horario asignado
+      let listaDiasAsignados: any = [];
+      resp.horariosAsigandos1.map((horarioAsig: any) => {
+        //Ver los dias de la semana que tiene horarios
+        horarioAsig.idHorario[0].dias.map((dia: any) => {
+          //recorremos los dias de la semana
+          if (dia == 'Lunes') {
+            listaDiasAsignados.push(1);
+          }
+          if (dia == 'Martes') {
+            listaDiasAsignados.push(2);
+          }
+          if (dia == 'Miercoles') {
+            listaDiasAsignados.push(3);
+          }
+          if (dia == 'Jueves') {
+            listaDiasAsignados.push(4);
+          }
+          if (dia == 'Viernes') {
+            listaDiasAsignados.push(5);
+          }
+          if (dia == 'Sabado') {
+            listaDiasAsignados.push(6);
+          }
+        })
+      });
+
+      //contar numeros repetidos de la lista listaDiasAsignados
+      let repetidos = {};
+      listaDiasAsignados.forEach((numero: any) => {
+        repetidos[numero] = (repetidos[numero] || 0) + 1;
+      });
+
+      objetoDocente.push({
+        nombre: resp.horariosAsigandos1[0]?.idDocente[0]?.nombresApellidos,
+        dias: repetidos,
+        asistencia: resp.asistencia1
+      });
+    });
+
+    this.DocenteObjeto = objetoDocente;
+    console.log(objetoDocente);
+    this.numeroDias();
+  }
+
+  numeroDias() {
+    //numero de dias entre fechas 
+    let fechaInicio = this.fechaInicio;
+    let fechaFin = this.fechaFin;
+    let diferencia = fechaFin.getTime() - fechaInicio.getTime();
+    let dias = Math.floor(diferencia / (1000 * 60 * 60 * 24));
+    let arrayFechas = [];
+    arrayFechas.push(`${fechaInicio.getFullYear()}-${fechaInicio.getMonth() + 1}-${fechaInicio.getDate()}`);
+    for (let index = 0; index < dias; index++) {
+      //sumar un dia a la fecha
+      fechaInicio.setDate(fechaInicio.getDate() + 1)
+      arrayFechas.push(`${fechaInicio.getFullYear()}-${fechaInicio.getMonth() + 1}-${fechaInicio.getDate()}`);
+    }
+
+    console.log(arrayFechas);
+    this.recorrerNumeroDias(arrayFechas);
+  }
+
+  recorrerNumeroDias(arrayFechas: any) {
+
+    let objetoDocenteFinal: any = [];
+    this.DocenteObjeto.map((resp: any) => {
+      let respuestaxDocente: any = [];
+      arrayFechas.map((fecha: any) => {
+        let fecha1 = new Date(fecha);
+
+        let contardor = 0;
+        //iterar asistencias
+        resp.asistencia.map((asistencia: any) => {
+          let fechaCreacion = new Date(asistencia.createdAt); 
+          if (`${fechaCreacion.getFullYear()}-${fechaCreacion.getMonth() + 1}-${fechaCreacion.getDate()}` == `${fecha1.getFullYear()}-${fecha1.getMonth() + 1}-${fecha1.getDate()}`) {
+            contardor++;
+          }
+        })
+        
+        if (fecha1.getDay() == 1) {
+          if (resp.dias[1]) {
+            respuestaxDocente.push({ dia:'Lunes', fecha:  `${fecha1.getFullYear()}-${fecha1.getMonth() + 1}-${fecha1.getDate()}`, cantidad: resp.dias[1], asistencia: contardor });
+          }
+        }
+        if (fecha1.getDay() == 2) {
+          if (resp.dias[2]) {
+            respuestaxDocente.push({ dia:'Martes', fecha: `${fecha1.getFullYear()}-${fecha1.getMonth() + 1}-${fecha1.getDate()}`, cantidad: resp.dias[2], asistencia: contardor });
+          }
+        }
+        if (fecha1.getDay() == 3) {
+          if (resp.dias[3]) {
+            respuestaxDocente.push({ dia:'Miercoles', fecha:  `${fecha1.getFullYear()}-${fecha1.getMonth() + 1}-${fecha1.getDate()}`, cantidad: resp.dias[3], asistencia: contardor });
+          }
+        }
+        if (fecha1.getDay() == 4) {
+          if (resp.dias[4]) {
+            respuestaxDocente.push({ dia:'Jueves', fecha:  `${fecha1.getFullYear()}-${fecha1.getMonth() + 1}-${fecha1.getDate()}`, cantidad: resp.dias[4], asistencia: contardor });
+          }
+        }
+        if (fecha1.getDay() == 5) {
+          if (resp.dias[5]) {
+            respuestaxDocente.push({ dia:'Viernes', fecha:  `${fecha1.getFullYear()}-${fecha1.getMonth() + 1}-${fecha1.getDate()}`, cantidad: resp.dias[5], asistencia: contardor });
+          }
+        }
+        if (fecha1.getDay() == 6) {
+          if (resp.dias[6]) {
+            respuestaxDocente.push({ dia:'Sabado', fecha:  `${fecha1.getFullYear()}-${fecha1.getMonth() + 1}-${fecha1.getDate()}`, cantidad: resp.dias[6], asistencia: contardor });
+          }
+        }
+      });
+
+      objetoDocenteFinal.push({nombre: resp.nombre, datos: respuestaxDocente});
+
+    });
+
+    console.log(objetoDocenteFinal);
+    this.RespuestaFinal = objetoDocenteFinal;
   }
 
 

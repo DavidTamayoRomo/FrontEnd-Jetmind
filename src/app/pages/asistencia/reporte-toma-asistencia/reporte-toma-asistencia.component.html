@@ -55,3 +55,28 @@
 </div>
 
 
+
+<div class="card">
+    <div class="card-body">
+        <div class="row" *ngFor="let respuesta of RespuestaFinal">
+           <h2>{{respuesta.nombre}}</h2> 
+            <div class="col-1" *ngFor="let dato of respuesta.datos">
+                <table border="1">
+                    <tr>
+                        <th colspan="2">{{dato.dia}}</th>
+                    </tr>
+                    <tr>
+                        <th colspan="2">{{dato.fecha}}</th>
+                    </tr>
+                    <tr>
+                        <td>{{dato.cantidad}}</td>
+                        <td>{{dato.asistencia}}</td>
+                    </tr>
+                </table>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+
