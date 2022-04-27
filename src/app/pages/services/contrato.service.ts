@@ -59,6 +59,10 @@ export class ContratoService {
     const headers = this.retornarHeader();
     return this.http.put(`${base_url}/contrato/vouchercontrato/${id}`, contrato, { headers: headers });
   }
+  updateVouchersContrato2(id:string, contrato:Contrato){
+    const headers = this.retornarHeader();
+    return this.http.put(`${base_url}/contrato/vouchercontrato2/${id}`, contrato, { headers: headers });
+  }
 
   eliminarcontrato( contrato:Contrato){
     const headers = this.retornarHeader();

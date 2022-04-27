@@ -1,4 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Location } from '@angular/common';
 import { Router } from '@angular/router';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { BusquedasService } from 'src/app/services/busquedas.service';
@@ -68,7 +69,8 @@ export class VistaAsesorComponent implements OnInit {
     private representanteService: RepresentanteService,
     private estudianteService: EstudianteService,
     private verificacionService: VerificacionService,
-    private router: Router
+    private router: Router,
+    public _location: Location
   ) { }
 
   ngOnInit(): void {
@@ -85,7 +87,7 @@ export class VistaAsesorComponent implements OnInit {
     this.recuperarAtributosContratos();
   }
 
-  
+
   cargarContratos() {
     this.cargando = true;
     this.contratoService.cargarContratos(this.desde).subscribe((resp: any) => {
@@ -99,7 +101,7 @@ export class VistaAsesorComponent implements OnInit {
   }
 
   imageObject: Array<object> = [
-    
+
   ];
 
   paginar(valor: number) {
@@ -249,26 +251,26 @@ export class VistaAsesorComponent implements OnInit {
     this.mostraModal = false;
     this.contratoSeleccionado = contrato;
     this.imageObject = [];
-    console.log('este es el q impr',this.contratoSeleccionado?.voucher);
+    console.log('este es el q impr', this.contratoSeleccionado?.voucher);
     if (this.contratoSeleccionado?.voucher.length < 1) {
       console.log('no hay voucher');
       this.imageObject.push({
         image: ``,
-        thumbImage: `` ,
+        thumbImage: ``,
         title: 'Voucher'
       });;
-    }else{
+    } else {
       console.log('voucher');
-      this.contratoSeleccionado?.voucher.map((resp:any)=>{
+      this.contratoSeleccionado?.voucher.map((resp: any) => {
         this.imageObject.push({
           image: `${environment.base_url}/utils/uploads/contratos/${resp}`,
-          thumbImage: `${environment.base_url}/utils/uploads/contratos/${resp}` ,
+          thumbImage: `${environment.base_url}/utils/uploads/contratos/${resp}`,
           title: 'Voucher'
         });
       });
     }
-    
-    
+
+
 
 
     this.atributostablaContrato = {
@@ -491,11 +493,18 @@ export class VistaAsesorComponent implements OnInit {
   }
 
   crearVoucher() {
-    /* let voucher = JSON.parse(localStorage.getItem('files') as string);
-
-    this.contratoService.updateVouchersContrato(this.contratoSeleccionado._id, respuestaContrato).subscribe((resp: any) => {
+    let voucher = JSON.parse(localStorage.getItem('files') as string);
+    this.contratoSeleccionado.voucher = voucher;
+    this.contratoService.updateVouchersContrato2(this.contratoSeleccionado._id, this.contratoSeleccionado).subscribe((resp: any) => {
       console.log(resp);
-    }); */
+      //eliminar local storage
+      localStorage.removeItem('files');
+      //actualizar pagina
+      this.router.navigateByUrl("/dashboard", { skipLocationChange: true }).then(() => {
+        this.router.navigate([decodeURI(this._location.path())]);
+      });
+
+    });
 
   }
 
@@ -565,6 +574,6 @@ export class VistaAsesorComponent implements OnInit {
 
     }
   }
-  
+
 
 }
