@@ -67,7 +67,10 @@
                         <div class="input-group">
                             <div class="input-group-addon"><i class=" ti-id-badge"></i></div>
                             <input type="number" class="form-control" id="cedula" placeholder="Ingrese cedula"
-                                formControlName="cedula">
+                                formControlName="cedula" (keyup)="validadorDeCedula()">
+                        </div>
+                        <div class="text-danger">
+                            <p *ngIf="!validador">Cedula Invalida | {{mensajeCedula}}</p>
                         </div>
                         <div class="text-danger">
                             <p *ngIf="campoNoValido('cedula')">La cedula es obligatoria</p>
