@@ -24,7 +24,7 @@ export class HorarioComponent implements OnInit {
 
   public listaDias: any = [];
 
-  @ViewChild('Lunes') Lunes1: ElementRef;
+  @ViewChild('Lunes') Lunes: ElementRef;
   @ViewChild('Martes') Martes: ElementRef;
   @ViewChild('Miercoles') Miercoles: ElementRef;
   @ViewChild('Jueves') Jueves: ElementRef;
@@ -59,7 +59,7 @@ export class HorarioComponent implements OnInit {
     this.recuperarDatosMarcas();
 
     this.dropdownSettings = {
-      singleSelection: false,
+      singleSelection: true,
       idField: 'item_id',
       textField: 'nombre',
       selectAllText: 'Select All',
@@ -74,13 +74,13 @@ export class HorarioComponent implements OnInit {
   async cargarHorariosbyId(id: string) {
 
     if (id === 'nuevo') {
-      this.Lunes1.nativeElement.checked = false;
+      /* this.Lunes.nativeElement.checked = true;
       this.Martes.nativeElement.checked = false;
       this.Miercoles.nativeElement.checked = false;
       this.Jueves.nativeElement.checked = false;
       this.Viernes.nativeElement.checked = false;
       this.Sabado.nativeElement.checked = false;
-      this.Domingo.nativeElement.checked = false;
+      this.Domingo.nativeElement.checked = false; */
       return;
     }
 
@@ -101,7 +101,8 @@ export class HorarioComponent implements OnInit {
       modalidad,
       horaInicio,
       horaFin,
-      estado
+      estado,
+      modulo_nivel
     } = resp.data;
     this.horarioSeleccionada = resp.data;
     console.log(this.horarioSeleccionada);
@@ -113,8 +114,31 @@ export class HorarioComponent implements OnInit {
       modalidad,
       horaInicio,
       horaFin,
-      estado
+      estado,
+      modulo_nivel
     });
+    this.listaDias = dias;
+    dias.map((dia: any) => {
+      if (dia == 'Lunes') {
+        this.Lunes.nativeElement.checked = true;
+      }
+      if (dia == 'Martes') {
+        this.Martes.nativeElement.checked = true;
+      }
+      if (dia == 'Miercoles') {
+        this.Miercoles.nativeElement.checked = true;
+      } 
+      if (dia == 'Jueves') {
+        this.Jueves.nativeElement.checked = true;
+      }
+      if (dia == 'Viernes') {
+        this.Viernes.nativeElement.checked = true;
+      }
+      if (dia == 'Sabado') {
+        this.Sabado.nativeElement.checked = true;
+      } 
+    });
+    
   }
 
   public registerForm = this.fb.group({
@@ -331,20 +355,17 @@ export class HorarioComponent implements OnInit {
       });
       this.dropdownListCiudades = nombreciudades;
       if (this.horarioSeleccionada) {
-
-        this.onItemSelect(this.horarioSeleccionada.idCiudad);
-
-        /* this.horarioSeleccionada.idCiudad.map((c: any) => {
-          const findCiudadPersona = this.dropdownListCiudades.find(
-            (item: any) => {
-              return item.item_id === c;
-            }
-          );
-          if (findCiudadPersona) {
-            this.onItemSelect(this.horarioSeleccionada.idCiudad);
-            this.registerForm.get('idCiudad')?.setValue(this.ciudad);
+        
+        const findCiudadPersona = this.dropdownListCiudades.find(
+          (item: any) => {
+            return item.item_id === this.horarioSeleccionada.idCiudad;
           }
-        }); */
+        );
+        if (findCiudadPersona) {
+          this.onItemSelect(findCiudadPersona);
+          this.registerForm.get('idCiudad')?.setValue(this.ciudad);
+        }
+        
       }
     });
   }
@@ -357,16 +378,13 @@ export class HorarioComponent implements OnInit {
       });
       this.dropdownListMarcas = nombremarcas;
       if (this.horarioSeleccionada) {
-        this.onItemSelectmarca(this.horarioSeleccionada.idMarca);
-        /* this.horarioSeleccionada.idMarca.map((m: any) => {
-          const findMarcaPersona = this.dropdownListMarcas.find(
-            (item: any) => item.item_id === m
-          );
-          if (findMarcaPersona) {
-            this.onItemSelectmarca(findMarcaPersona);
-            this.registerForm.get('idMarca')?.setValue(this.marca);
-          }
-        }); */
+        const findMarcaPersona = this.dropdownListMarcas.find(
+          (item: any) => item.item_id === this.horarioSeleccionada.idMarca
+        );
+        if (findMarcaPersona) {
+          this.onItemSelectmarca(findMarcaPersona);
+          this.registerForm.get('idMarca')?.setValue(this.marca);
+        }
       }
     });
   }
@@ -383,83 +401,41 @@ export class HorarioComponent implements OnInit {
   /** CIUDAD */
   /** Item Seleccionado */
   onItemSelect(item: any) {
-    this.ciudad.push(item);
-    console.log(this.ciudad);
+    this.ciudad=[item];
   }
   /** Todos los items Seleccionados */
   onSelectAll(items: any) {
     this.ciudad = items;
-    console.log(this.ciudad);
   }
   /** Deselccionar item */
-  findByItemIdIndexCiudad(id: any) {
-    return this.ciudad.findIndex((resp: any) => {
-      return resp.item_id === id;
-    });
-  }
   onDeSelect(item: any) {
     //verificar esto no se queda asi
-    console.log(item);
-    console.log('entre');
-    if (item.item_id) {
-      console.log('entre 1');
-      const index = this.findByItemIdIndexCiudad(item.item_id);
-      const newArray =
-        index > -1
-          ? [...this.ciudad.slice(0, index), ...this.ciudad.slice(index + 1)]
-          : this.ciudad;
-      this.ciudad = newArray;
-      console.log(this.ciudad);
-    } else {
-      console.log('entre 2');
-      const index = this.ciudad.indexOf(item);
-      const newArray =
-        index > -1
-          ? [...this.ciudad.slice(0, index), ...this.ciudad.slice(index + 1)]
-          : this.ciudad;
-      this.ciudad = newArray;
-      console.log(this.ciudad);
-    }
+    this.ciudad = [];
   }
 
   /** Deselccionar todos los items */
   onDeSelectAll(items: any) {
     this.ciudad = items;
-    console.log(this.ciudad);
   }
 
 
   /** MARCA */
   /** Item Seleccionado */
   onItemSelectmarca(item: any) {
-    this.marca.push(item);
-    console.log(this.marca);
+    this.marca=[item];
   }
   /** Todos los items Seleccionados */
   onSelectAllmarca(items: any) {
     this.marca = items;
-    console.log(this.marca);
   }
   /** Deselccionar item */
-  findByItemIdIndexMarca(id: any) {
-    return this.marca.findIndex((resp: any) => {
-      return resp.item_id === id;
-    });
-  }
   onDeSelectmarca(item: any) {
     /** Borrar elemento del array  */
-    const index = this.findByItemIdIndexMarca(item.item_id);
-    const newArray =
-      index > -1
-        ? [...this.marca.slice(0, index), ...this.marca.slice(index + 1)]
-        : this.marca;
-    this.marca = newArray;
-    console.log(this.marca);
+    this.marca = [];
   }
   /** Deselccionar todos los items */
   onDeSelectAllmarca(items: any) {
     this.marca = items;
-    console.log(this.marca);
   }
 
 }

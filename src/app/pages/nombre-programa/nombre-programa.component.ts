@@ -392,34 +392,20 @@ export class NombreProgramaComponent implements OnInit {
   /** MARCA */
   /** Item Seleccionado */
   onItemSelectmarca(item: any) {
-    this.marca.push(item);
-    console.log(this.marca);
+    this.marca =[item];
   }
   /** Todos los items Seleccionados */
   onSelectAllmarca(items: any) {
     this.marca = items;
-    console.log(this.marca);
   }
   /** Deselccionar item */
-  findByItemIdIndexMarca(id: any) {
-    return this.marca.findIndex((resp: any) => {
-      return resp.item_id === id;
-    })
-  }
   onDeSelectmarca(item: any) {
     /** Borrar elemento del array  */
-    const index = this.findByItemIdIndexMarca(item.item_id);
-    const newArray = (index > -1) ? [
-      ...this.marca.slice(0, index),
-      ...this.marca.slice(index + 1)
-    ] : this.marca;
-    this.marca = newArray;
-    console.log(this.marca);
+    this.marca = [];
   }
   /** Deselccionar todos los items */
   onDeSelectAllmarca(items: any) {
     this.marca = items;
-    console.log(this.marca);
   }
 
 }
