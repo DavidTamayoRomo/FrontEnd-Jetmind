@@ -267,7 +267,22 @@ export class AgendaEntregaInformesComponent implements OnInit {
     this.events = this.arrayCalendario;
     //guardar en la base de datos
     this.agendaService.crearagenda(this.registerForm1.get('agenda')?.value[index]).subscribe((resp: any) => {
-      
+      //notificacion de que se agreggo correctamente
+      const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 6000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener('mouseenter', Swal.stopTimer)
+          toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+      })
+      Toast.fire({
+        icon: 'success',
+        title: 'Se agendó la entrega de informes'
+      })
     });
   }
 

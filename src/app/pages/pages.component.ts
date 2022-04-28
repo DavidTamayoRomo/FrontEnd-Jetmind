@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SidebarService } from '../services/sidebar.service';
 
 // @ts-ignore
 declare function init_pugings();
@@ -11,10 +12,13 @@ declare function init_pugings();
 })
 export class PagesComponent implements OnInit {
   year = new Date().getFullYear();
-  constructor() { }
+  constructor(
+    private sidebarService: SidebarService
+  ) { }
 
   ngOnInit(): void {
     init_pugings();
+    this.sidebarService.cargarMenu();
   }
 
 }

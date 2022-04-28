@@ -119,6 +119,8 @@ export class PersonaService {
       .pipe(
         tap((resp: any) => {
           localStorage.setItem('token', resp.meta.token);
+          console.log(resp.menuFrontEnd);
+          localStorage.setItem('menu', JSON.stringify(resp.menuFrontEnd) );
         })
       );
   }

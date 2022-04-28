@@ -5,14 +5,15 @@ import { Injectable } from '@angular/core';
 })
 export class SidebarService {
 
+  public menu: any = [];
 
-  menu: any = [
+ /*  menu: any = [
     {
       titulo: 'Home',
       icono: 'mdi mdi-home',
       submenu: [
         { titulo: 'Main', url: '/' },
-        /* { titulo: 'Perfil',url: '/perfil' },  */
+        // { titulo: 'Perfil',url: '/perfil' },
       ]
     },
     
@@ -110,7 +111,7 @@ export class SidebarService {
         { titulo: 'Lista Contratos', url: '/listacontratos' },
         { titulo: 'Contratos asesores', url: '/listacontratos-asesores' },
         { titulo: 'Reporte Contratos', url: '/reporte-venta-contrato' },
-        /* { titulo: 'Contratos 1',url: '/contrato1/nuevo' }, */
+        // { titulo: 'Contratos 1',url: '/contrato1/nuevo' },
       ]
     },
     {
@@ -328,7 +329,9 @@ export class SidebarService {
     
     
 
-  ]
+  ] */
 
-  constructor() { }
+  cargarMenu() {
+    this.menu = JSON.parse(localStorage.getItem('menu'));
+  }
 }

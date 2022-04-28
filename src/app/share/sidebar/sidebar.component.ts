@@ -12,11 +12,11 @@ import { Persona } from '../../models/persona.model';
 export class SidebarComponent implements OnInit {
   public persona:Persona = new Persona();
   public imagenPerfil:any = '';
-  menuItems:any[];
+  //menuItems:any[];
 
-  constructor(private sidebarService:SidebarService, private personaService:PersonaService) {
+  constructor(public sidebarService:SidebarService, private personaService:PersonaService) {
     /**MENU */
-    this.menuItems = sidebarService.menu;
+    //this.menuItems = sidebarService.menu;
     /**Imagen de perfil */
     this.persona = personaService.persona;
   }
