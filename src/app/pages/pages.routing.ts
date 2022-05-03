@@ -98,8 +98,6 @@ import { ListaEncuestaPadresComponent } from '../publico/encuesta-padres/lista-e
 import { EstadoEstudianteComponent } from './estudiante/estado-estudiante/estado-estudiante.component';
 import { VistaAsesorComponent } from './contrato/vista-asesor/vista-asesor.component';
 import { ReporteTomaAsistenciaComponent } from './asistencia/reporte-toma-asistencia/reporte-toma-asistencia.component';
-import { AdminVentasRoleGuard } from '../guards/admin-ventas-role.guard';
-import { UserVentasRoleGuard } from '../guards/user-ventas-role.guard';
 import { AclGuard } from '../guards/acl.guard';
 
 
@@ -118,170 +116,170 @@ const routes: Routes = [
             //{ path: 'persona', component: PersonaComponent, data:{titulo:'Persona'} },
 
             /**Personas */
-            { path: 'persona/:id', component: PersonaComponent, data: { titulo: 'Actualizar Persona' } },
-            { path: 'listapersonas', component: ListaPersonasComponent, data: { titulo: 'Lista Personas' } },
-            { path: 'reporte-docente-horarios', component: DocenteReporteComponent, data: { titulo: 'Reporte de docentes horarios' } },
+            { path: 'persona/:id', canActivate:[AclGuard],component: PersonaComponent, data: { titulo: 'Actualizar Persona' } },
+            { path: 'listapersonas', canActivate:[AclGuard], component: ListaPersonasComponent, data: { titulo: 'Lista Personas' } },
+            { path: 'reporte-docente-horarios', canActivate:[AclGuard], component: DocenteReporteComponent, data: { titulo: 'Reporte de docentes horarios' } },
 
             /**Ciudad */
-            { path: 'ciudad/:id', component: CiudadComponent, data: { titulo: 'Ciudad' } },
+            { path: 'ciudad/:id', canActivate:[AclGuard], component: CiudadComponent, data: { titulo: 'Ciudad' } },
             { path: 'listaciudades', component: CiudadesComponent, data: { titulo: 'Lista de ciudades' } },
 
             /**Marca */
-            { path: 'marca/:id', component: MarcaComponent, data: { titulo: 'Marca' } },
-            { path: 'listamarcas', component: MarcasComponent, data: { titulo: 'Lista de marcas' } },
+            { path: 'marca/:id', canActivate:[AclGuard], component: MarcaComponent, data: { titulo: 'Marca' } },
+            { path: 'listamarcas', canActivate:[AclGuard], component: MarcasComponent, data: { titulo: 'Lista de marcas' } },
 
             /**Sucursal */
-            { path: 'sucursal/:id', component: SucursalComponent, data: { titulo: 'Sucursal' } },
-            { path: 'listasucursales', component: SucursalesComponent, data: { titulo: 'Lista de sucursales' } },
+            { path: 'sucursal/:id', canActivate:[AclGuard], component: SucursalComponent, data: { titulo: 'Sucursal' } },
+            { path: 'listasucursales', canActivate:[AclGuard], component: SucursalesComponent, data: { titulo: 'Lista de sucursales' } },
 
             /**Representantes */
-            { path: 'representante/:id', canActivate: [AclGuard], component: RepresentanteComponent, data: { titulo: 'Representante' } },
-            { path: 'listarepresentantes', canActivate: [AclGuard], component: RepresentantesComponent, data: { titulo: 'Lista de representantes' } },
+            { path: 'representante/:id', canActivate:[AclGuard], component: RepresentanteComponent, data: { titulo: 'Representante' } },
+            { path: 'listarepresentantes', canActivate:[AclGuard], component: RepresentantesComponent, data: { titulo: 'Lista de representantes' } },
 
             /** Estudiantes */
-            { path: 'estudiante/:id', component: EstudianteComponent, data: { titulo: 'Estudiante' } },
-            { path: 'listaestudiantes', component: EstudiantesComponent, data: { titulo: 'Lista de estudiantes' } },
-            { path: 'estado-estudiante', component: EstadoEstudianteComponent, data: { titulo: 'Cambiar estado del estudiantes' } },
-            { path: 'reporte-asistencia-estudiante/:id', component: ReporteAsistenciaComponent, data: { titulo: 'Asistencia del estudiantes' } },
-            { path: 'reporte-estudiantes', component: ReporteEstudiantesComponent, data: { titulo: 'Reporte de Estudiantes' } },
+            { path: 'estudiante/:id', canActivate:[AclGuard], component: EstudianteComponent, data: { titulo: 'Estudiante' } },
+            { path: 'listaestudiantes', canActivate:[AclGuard], component: EstudiantesComponent, data: { titulo: 'Lista de estudiantes' } },
+            { path: 'estado-estudiante', canActivate:[AclGuard], component: EstadoEstudianteComponent, data: { titulo: 'Cambiar estado del estudiantes' } },
+            { path: 'reporte-asistencia-estudiante/:id', canActivate:[AclGuard], component: ReporteAsistenciaComponent, data: { titulo: 'Asistencia del estudiantes' } },
+            { path: 'reporte-estudiantes', canActivate:[AclGuard], component: ReporteEstudiantesComponent, data: { titulo: 'Reporte de Estudiantes' } },
 
 
             /**Contratos */
-            { path: 'contrato/:id', component: ContratoComponent, canActivate: [AclGuard], data: { titulo: 'Contrato' } },
-            { path: 'listacontratos', component: ContratosComponent, canActivate: [AclGuard], data: { titulo: 'Lista de los contratos' } },
-            { path: 'listacontratos-asesores', component: VistaAsesorComponent, canActivate: [AclGuard], data: { titulo: 'Lista de los contratos' } },
-            { path: 'reporte-contrato/:id', component: ReporteContratoComponent, canActivate: [AclGuard], data: { titulo: 'contratos' } },
-            { path: 'reporte-venta-contrato', component: ReporteVentasContratoComponent, canActivate: [AclGuard], data: { titulo: 'Reporte ventas' } },
+            { path: 'contrato/:id', canActivate:[AclGuard], component: ContratoComponent, data: { titulo: 'Contrato' } },
+            { path: 'listacontratos', canActivate:[AclGuard], component: ContratosComponent, data: { titulo: 'Lista de los contratos' } },
+            { path: 'listacontratos-asesores', canActivate:[AclGuard], component: VistaAsesorComponent, data: { titulo: 'Lista de los contratos' } },
+            { path: 'reporte-contrato/:id', canActivate:[AclGuard], component: ReporteContratoComponent, data: { titulo: 'contratos' } },
+            { path: 'reporte-venta-contrato', canActivate:[AclGuard], component: ReporteVentasContratoComponent, data: { titulo: 'Reporte ventas' } },
 
-            { path: 'contrato1/:id', component: ContratoFormComponent, data: { titulo: 'Contrato' } },
+            { path: 'contrato1/:id', canActivate:[AclGuard], component: ContratoFormComponent, data: { titulo: 'Contrato' } },
             //{ path: 'listacontratos', component: , data:{titulo:'Lista de contratos'} },
 
             /**Factura */
-            { path: 'facturar/:id', component: FacturarComponent, data: { titulo: 'Facturar' } },
-            { path: 'listafacturar', component: FacturasComponent, data: { titulo: 'Lista de las facturas' } },
+            { path: 'facturar/:id', canActivate:[AclGuard], component: FacturarComponent, data: { titulo: 'Facturar' } },
+            { path: 'listafacturar', canActivate:[AclGuard], component: FacturasComponent, data: { titulo: 'Lista de las facturas' } },
 
             /**Nombre programa */
-            { path: 'nombrePrograma/:id', component: NombreProgramaComponent, data: { titulo: 'Nombre Programa' } },
-            { path: 'listanombreprogramas', component: NombreProgramasComponent, data: { titulo: 'Lista de los programas' } },
+            { path: 'nombrePrograma/:id', canActivate:[AclGuard], component: NombreProgramaComponent, data: { titulo: 'Nombre Programa' } },
+            { path: 'listanombreprogramas', canActivate:[AclGuard], component: NombreProgramasComponent, data: { titulo: 'Lista de los programas' } },
 
             /**Programa */
-            { path: 'programa/:id', component: ProgramaComponent, data: { titulo: 'Programa' } },
-            { path: 'listaprogramas', component: ProgramasComponent, data: { titulo: 'Lista de los programas' } },
+            { path: 'programa/:id', canActivate:[AclGuard], component: ProgramaComponent, data: { titulo: 'Programa' } },
+            { path: 'listaprogramas', canActivate:[AclGuard], component: ProgramasComponent, data: { titulo: 'Lista de los programas' } },
 
             /**Home */
             { path: 'perfil', component: PerfilComponent, data: { titulo: 'Perfil' } },
             { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
 
             /**Academico */
-            { path: 'asignardirector', component: ContratosAsignarDirectorComponent, data: { titulo: 'Lista para asignar contratos a director' } },
+            { path: 'asignardirector', canActivate:[AclGuard], component: ContratosAsignarDirectorComponent, data: { titulo: 'Lista para asignar contratos a director' } },
 
 
             /**Telemarketing */
-            { path: 'citasTelemarketing/:id', component: CitasTelemarketingComponent, data: { titulo: 'Crear Citas Telemarketing' } },
-            { path: 'listacitas', component: ListaCitasComponent, data: { titulo: 'Lista Citas Telemarketing' } },
-            { path: 'citasTelemarketing-reporte', component: ReporteCitasTelemarketingComponent, data: { titulo: 'Lista Citas Telemarketing' } },
-            { path: 'control-calidad-telemarketing/:id/:idCita', component: ControlCalidadTelemarketingComponent, data: { titulo: 'Control de calidad Citas Telemarketing' } },
-            { path: 'lista-control-calidad-telemarketing', component: ListaControlCalidadTelemarketingComponent, data: { titulo: 'Lista Control de calidad Citas Telemarketing' } },
-            { path: 'calendario', component: CalendarioComponent, data: { titulo: 'Calendario' } },
+            { path: 'citasTelemarketing/:id', canActivate:[AclGuard], component: CitasTelemarketingComponent, data: { titulo: 'Crear Citas Telemarketing' } },
+            { path: 'listacitas', canActivate:[AclGuard], component: ListaCitasComponent, data: { titulo: 'Lista Citas Telemarketing' } },
+            { path: 'citasTelemarketing-reporte', canActivate:[AclGuard], component: ReporteCitasTelemarketingComponent, data: { titulo: 'Lista Citas Telemarketing' } },
+            { path: 'control-calidad-telemarketing/:id/:idCita', canActivate:[AclGuard], component: ControlCalidadTelemarketingComponent, data: { titulo: 'Control de calidad Citas Telemarketing' } },
+            { path: 'lista-control-calidad-telemarketing', canActivate:[AclGuard], component: ListaControlCalidadTelemarketingComponent, data: { titulo: 'Lista Control de calidad Citas Telemarketing' } },
+            { path: 'calendario', canActivate:[AclGuard], component: CalendarioComponent, data: { titulo: 'Calendario' } },
 
             /**Vigencia */
-            { path: 'vigencia/:id', component: VigenciaComponent, data: { titulo: 'Vigencia' } },
-            { path: 'listavigencias', component: VigenciasComponent, data: { titulo: 'Lista de vigencias' } },
+            { path: 'vigencia/:id', canActivate:[AclGuard], component: VigenciaComponent, data: { titulo: 'Vigencia' } },
+            { path: 'listavigencias', canActivate:[AclGuard], component: VigenciasComponent, data: { titulo: 'Lista de vigencias' } },
 
             /**Verificacion */
-            { path: 'verificacion/:id', component: VerificacionComponent, data: { titulo: 'Verificacion' } },
-            { path: 'listaverificacion', component: VerificacionesComponent, data: { titulo: 'Lista de verificacion' } },
-            { path: 'aceptacionverificacion/:id', component: EnviarVerificacionComponent, data: { titulo: 'Aceptar verificacion' } },
-            { path: 'reporteVerificacion', component: ReporteComponent, data: { titulo: 'Reporte Verificacion' } },
+            { path: 'verificacion/:id', canActivate:[AclGuard], component: VerificacionComponent, data: { titulo: 'Verificacion' } },
+            { path: 'listaverificacion', canActivate:[AclGuard], component: VerificacionesComponent, data: { titulo: 'Lista de verificacion' } },
+            { path: 'aceptacionverificacion/:id', canActivate:[AclGuard], component: EnviarVerificacionComponent, data: { titulo: 'Aceptar verificacion' } },
+            { path: 'reporteVerificacion', canActivate:[AclGuard], component: ReporteComponent, data: { titulo: 'Reporte Verificacion' } },
 
             /**Horario */
-            { path: 'horario/:id', component: HorarioComponent, data: { titulo: 'Horario' } },
-            { path: 'listahorarios', component: HorariosComponent, data: { titulo: 'Lista de Horarios' } },
+            { path: 'horario/:id', canActivate:[AclGuard], component: HorarioComponent, data: { titulo: 'Horario' } },
+            { path: 'listahorarios', canActivate:[AclGuard], component: HorariosComponent, data: { titulo: 'Lista de Horarios' } },
 
             /**PEAA */
             //{ path: 'peea-17-ch-uk/:id/:idContrato', component: Peea17charlotteukComponent , data:{titulo:'PEEA 17'} },
-            { path: 'listapeea-17-ch-uk', component: ListaComponent, data: { titulo: 'Lista de PEEA 17' } },
-            { path: 'reporte-peea-17-ch-uk/:id', component: ReportePeea17charlotteComponent, data: { titulo: 'Lista de PEEA 17' } },
+            { path: 'listapeea-17-ch-uk', canActivate:[AclGuard], component: ListaComponent, data: { titulo: 'Lista de PEEA 17' } },
+            { path: 'reporte-peea-17-ch-uk/:id', canActivate:[AclGuard], component: ReportePeea17charlotteComponent, data: { titulo: 'Lista de PEEA 17' } },
 
             //{ path: 'peea-18-ch-uk/:id/:idContrato', component: Peea18charlotteukComponent , data:{titulo:'PEEA 18'} },
-            { path: 'listapeea-18-ch-uk', component: Listapeea18chukComponent, data: { titulo: 'Lista de PEEA 18' } },
-            { path: 'reporte-peea-18-ch-uk/:id', component: ReportePeea18charlotteComponent, data: { titulo: 'Lista de PEEA 18' } },
+            { path: 'listapeea-18-ch-uk', canActivate:[AclGuard], component: Listapeea18chukComponent, data: { titulo: 'Lista de PEEA 18' } },
+            { path: 'reporte-peea-18-ch-uk/:id', canActivate:[AclGuard], component: ReportePeea18charlotteComponent, data: { titulo: 'Lista de PEEA 18' } },
 
             //{ path: 'peea-17-ilvem/:id/:idContrato', component: Peea17ilvemComponent , data:{titulo:'PEEA 17'} },
-            { path: 'lista-peea-17-ilvem', component: Listapeea17ilvemComponent, data: { titulo: 'Lista de PEEA 17' } },
-            { path: 'reporte-peea-17-ilvem/:id', component: ReportePeea17ilvemComponent, data: { titulo: 'Reporte Lista de PEEA 17' } },
+            { path: 'lista-peea-17-ilvem', canActivate:[AclGuard], component: Listapeea17ilvemComponent, data: { titulo: 'Lista de PEEA 17' } },
+            { path: 'reporte-peea-17-ilvem/:id', canActivate:[AclGuard], component: ReportePeea17ilvemComponent, data: { titulo: 'Reporte Lista de PEEA 17' } },
 
             //{ path: 'peea-18-ilvem/:id/:idContrato', component: Peea18ilvemComponent , data:{titulo:'PEEA 18'} },
-            { path: 'lista-peea-18-ilvem', component: Listapeea18ilvemComponent, data: { titulo: 'Lista de PEEA 18' } },
-            { path: 'reporte-peea-18-ilvem/:id', component: ReportePeea18ilvemComponent, data: { titulo: 'Reporte de PEEA 18' } },
+            { path: 'lista-peea-18-ilvem', canActivate:[AclGuard], component: Listapeea18ilvemComponent, data: { titulo: 'Lista de PEEA 18' } },
+            { path: 'reporte-peea-18-ilvem/:id', canActivate:[AclGuard], component: ReportePeea18ilvemComponent, data: { titulo: 'Reporte de PEEA 18' } },
 
             //{ path: 'peea-17-tomatis/:id/:idContrato', component: Peea17tomatisComponent , data:{titulo:'PEEA 17'} },
-            { path: 'lista-peea-17-tomatis', component: Listapeea17tomatisComponent, data: { titulo: 'Lista de PEEA 17' } },
-            { path: 'reporte-peea-17-toamtis/:id', component: ReportePeea17tomatisComponent, data: { titulo: 'Reporte de PEEA 17' } },
+            { path: 'lista-peea-17-tomatis', canActivate:[AclGuard], component: Listapeea17tomatisComponent, data: { titulo: 'Lista de PEEA 17' } },
+            { path: 'reporte-peea-17-toamtis/:id', canActivate:[AclGuard], component: ReportePeea17tomatisComponent, data: { titulo: 'Reporte de PEEA 17' } },
 
             //{ path: 'peea-18-tomatis/:id/:idContrato', component: Peea18tomatisComponent , data:{titulo:'PEEA 18'} },
-            { path: 'lista-peea-18-tomatis', component: Listapeea18tomatisComponent, data: { titulo: 'Lista de PEEA 18' } },
-            { path: 'reporte-peea-18-toamtis/:id', component: ReportePeea18tomatisComponent, data: { titulo: 'Reporte de PEEA 18' } },
+            { path: 'lista-peea-18-tomatis', canActivate:[AclGuard], component: Listapeea18tomatisComponent, data: { titulo: 'Lista de PEEA 18' } },
+            { path: 'reporte-peea-18-toamtis/:id', canActivate:[AclGuard], component: ReportePeea18tomatisComponent, data: { titulo: 'Reporte de PEEA 18' } },
 
 
             /**Asignar Horario */
-            { path: 'asignarhorarioestudiante/:id', component: AsignarHorariosEstudianteComponent, data: { titulo: 'Asignar Horario Estudiante' } },
-            { path: 'asignarhorariosestudiantes', component: ListaasignarComponent, data: { titulo: 'Lista de Asignar Horario Estudiante' } },
+            { path: 'asignarhorarioestudiante/:id', canActivate:[AclGuard], component: AsignarHorariosEstudianteComponent, data: { titulo: 'Asignar Horario Estudiante' } },
+            { path: 'asignarhorariosestudiantes', canActivate:[AclGuard], component: ListaasignarComponent, data: { titulo: 'Lista de Asignar Horario Estudiante' } },
 
             /**Asistencia */
-            { path: 'asistencia/:id', component: AsistenciaComponent, data: { titulo: 'Asistencia' } },
-            { path: 'asistencia-tomatis/:id', component: AsistenciaTomatisComponent, data: { titulo: 'Asistencia' } },
-            { path: 'asistencia-recuperacion/:id', component: AsistenciaRecuperacionComponent, data: { titulo: 'Asistencia Recuperacion' } },
-            { path: 'asistencias', component: ListaAsistenciaComponent, data: { titulo: 'Lista Asistencia' } },
-            { path: 'reporte-asistencia-docente', component: ReporteTomaAsistenciaComponent, data: { titulo: 'Reporte Asistencia' } },
+            { path: 'asistencia/:id', canActivate:[AclGuard], component: AsistenciaComponent, data: { titulo: 'Asistencia' } },
+            { path: 'asistencia-tomatis/:id', canActivate:[AclGuard], component: AsistenciaTomatisComponent, data: { titulo: 'Asistencia' } },
+            { path: 'asistencia-recuperacion/:id', canActivate:[AclGuard], component: AsistenciaRecuperacionComponent, data: { titulo: 'Asistencia Recuperacion' } },
+            { path: 'asistencias', canActivate:[AclGuard], component: ListaAsistenciaComponent, data: { titulo: 'Lista Asistencia' } },
+            { path: 'reporte-asistencia-docente', canActivate:[AclGuard], component: ReporteTomaAsistenciaComponent, data: { titulo: 'Reporte Asistencia' } },
 
 
             /**Entrevista inicial */
-            { path: 'entrevistainicialchuk/:id/:idContrato', component: EntrevistaInicialCHUKComponent, data: { titulo: 'Entrvista Inicial CH UK' } },
-            { path: 'listaentrevistainicialchuk', component: ListaEntrevistaCHUKComponent, data: { titulo: 'Lista de entrevista incial' } },
-            { path: 'reporte-entrevistainicialchuk/:id', component: ReproteEntrevistaInicialChukComponent, data: { titulo: 'Entrevista' } },
+            { path: 'entrevistainicialchuk/:id/:idContrato', canActivate:[AclGuard], component: EntrevistaInicialCHUKComponent, data: { titulo: 'Entrvista Inicial CH UK' } },
+            { path: 'listaentrevistainicialchuk', canActivate:[AclGuard], component: ListaEntrevistaCHUKComponent, data: { titulo: 'Lista de entrevista incial' } },
+            { path: 'reporte-entrevistainicialchuk/:id', canActivate:[AclGuard], component: ReproteEntrevistaInicialChukComponent, data: { titulo: 'Entrevista' } },
 
-            { path: 'entrevistainicialil/:id/:idContrato', component: EntrevistaInicialILComponent, data: { titulo: 'Entrvista Inicial IL' } },
-            { path: 'listaentrevistainicialil', component: ListaEntrevistaILComponent, data: { titulo: 'Lista de entrevista incial' } },
+            { path: 'entrevistainicialil/:id/:idContrato', canActivate:[AclGuard], component: EntrevistaInicialILComponent, data: { titulo: 'Entrvista Inicial IL' } },
+            { path: 'listaentrevistainicialil', canActivate:[AclGuard], component: ListaEntrevistaILComponent, data: { titulo: 'Lista de entrevista incial' } },
             { path: 'reporte-entrevistainicialil/:id', component: ReporteEntrevistaInicialIlComponent, data: { titulo: 'Entrevista IL' } },
 
-            { path: 'entrevistainicialtm/:id/:idContrato', component: EntrevistaInicialTmComponent, data: { titulo: 'Entrvista Inicial Tomatis' } },
-            { path: 'listaentrevistainicialtm', component: ListaEntrevistaTmComponent, data: { titulo: 'Lista de entrevista incial' } },
-            { path: 'reporte-entrevistainicialtm/:id', component: ReporteEntrevistaTmComponent, data: { titulo: 'Entrevista IL' } },
+            { path: 'entrevistainicialtm/:id/:idContrato', canActivate:[AclGuard], component: EntrevistaInicialTmComponent, data: { titulo: 'Entrvista Inicial Tomatis' } },
+            { path: 'listaentrevistainicialtm', canActivate:[AclGuard], component: ListaEntrevistaTmComponent, data: { titulo: 'Lista de entrevista incial' } },
+            { path: 'reporte-entrevistainicialtm/:id', canActivate:[AclGuard], component: ReporteEntrevistaTmComponent, data: { titulo: 'Entrevista IL' } },
 
             /**Cambio Horario */
-            { path: 'cambiohorario-agregar/:id', component: AgregarEstudianteComponent, data: { titulo: 'Agregar - Retirar estudiantes' } },
-            { path: 'cambiohorario-cambiar/:id', component: CambiarEstudianteComponent, data: { titulo: 'Cambiar estudiantes' } },
+            { path: 'cambiohorario-agregar/:id', canActivate:[AclGuard], component: AgregarEstudianteComponent, data: { titulo: 'Agregar - Retirar estudiantes' } },
+            { path: 'cambiohorario-cambiar/:id', canActivate:[AclGuard], component: CambiarEstudianteComponent, data: { titulo: 'Cambiar estudiantes' } },
 
             /**Agenda de netrega de informes */
-            { path: 'agenda-entrega-informes', component: AgendaEntregaInformesComponent, data: { titulo: 'Agenda de entrega de informes' } },
+            { path: 'agenda-entrega-informes', canActivate:[AclGuard], component: AgendaEntregaInformesComponent, data: { titulo: 'Agenda de entrega de informes' } },
 
             /**Campañias */
-            { path: 'campania/:id', component: CampaniaComponent, data: { titulo: 'Campaña' } },
-            { path: 'listacampania', component: ListaCampaniaComponent, data: { titulo: 'Lista Campañas' } },
+            { path: 'campania/:id', canActivate:[AclGuard], component: CampaniaComponent, data: { titulo: 'Campaña' } },
+            { path: 'listacampania', canActivate:[AclGuard], component: ListaCampaniaComponent, data: { titulo: 'Lista Campañas' } },
 
             /**Registro llamadas */
-            { path: 'registrollamada/:id', component: RegistroLlamadasComponent, data: { titulo: 'Registro llamadas' } },
-            { path: 'registrollamadas', component: ListaRegistroLlamadasComponent, data: { titulo: 'Lista registro llamadas' } },
+            { path: 'registrollamada/:id', canActivate:[AclGuard], component: RegistroLlamadasComponent, data: { titulo: 'Registro llamadas' } },
+            { path: 'registrollamadas', canActivate:[AclGuard], component: ListaRegistroLlamadasComponent, data: { titulo: 'Lista registro llamadas' } },
 
             /**Entrega libros */
-            { path: 'entregalibros/:id', component: EntregaLibrosComponent, data: { titulo: 'Entrega libros' } },
-            { path: 'entregalibros', component: ListaEntregaLibrosComponent, data: { titulo: 'Lista entrega libros' } },
+            { path: 'entregalibros/:id', canActivate:[AclGuard], component: EntregaLibrosComponent, data: { titulo: 'Entrega libros' } },
+            { path: 'entregalibros', canActivate:[AclGuard], component: ListaEntregaLibrosComponent, data: { titulo: 'Lista entrega libros' } },
 
             /**Plataforma Charloote */
-            { path: 'platafoma-charlotte/:id', component: PlataformaCharlotteComponent, data: { titulo: 'Plataforma Charlotte' } },
-            { path: 'lista-platafoma-charlotte', component: ListaPlataformaCharlotteComponent, data: { titulo: 'Lista Plataforma Charlotte' } },
+            { path: 'platafoma-charlotte/:id', canActivate:[AclGuard], component: PlataformaCharlotteComponent, data: { titulo: 'Plataforma Charlotte' } },
+            { path: 'lista-platafoma-charlotte', canActivate:[AclGuard], component: ListaPlataformaCharlotteComponent, data: { titulo: 'Lista Plataforma Charlotte' } },
 
             /**Plataforma Ilvem */
-            { path: 'platafoma-ilvem/:id', component: PlataformaIlvemComponent, data: { titulo: 'Plataforma Ilvem' } },
-            { path: 'lista-platafoma-ilvem', component: ListaPlataformaIlvemComponent, data: { titulo: 'Lista Plataforma Ilvem' } },
+            { path: 'platafoma-ilvem/:id', canActivate:[AclGuard], component: PlataformaIlvemComponent, data: { titulo: 'Plataforma Ilvem' } },
+            { path: 'lista-platafoma-ilvem', canActivate:[AclGuard], component: ListaPlataformaIlvemComponent, data: { titulo: 'Lista Plataforma Ilvem' } },
 
             /**Evaluacion Charlotte */
-            { path: 'evaluacion-charlotte/:id', component: EvaluacionCharlotteComponent, data: { titulo: 'Evaluacion Charlotte' } },
+            { path: 'evaluacion-charlotte/:id', canActivate:[AclGuard], component: EvaluacionCharlotteComponent, data: { titulo: 'Evaluacion Charlotte' } },
             //{ path: 'lista-evaluacion-charlotte', component: ListaPlataformaIlvemComponent , data:{titulo:'Lista Plataforma Ilvem'} },
 
             /**Encuesta para padres */
-            { path: 'lista-encuesta-padres', component: ListaEncuestaPadresComponent, data: { titulo: 'Lista Plataforma Ilvem' } },
+            { path: 'lista-encuesta-padres', canActivate:[AclGuard], component: ListaEncuestaPadresComponent, data: { titulo: 'Lista Plataforma Ilvem' } },
         ]
     },
 ];
