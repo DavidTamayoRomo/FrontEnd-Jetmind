@@ -119,6 +119,7 @@ import { ReporteEstudiantesComponent } from './estudiante/reporte-estudiantes/re
 import { EstadoEstudianteComponent } from './estudiante/estado-estudiante/estado-estudiante.component';
 import { VistaAsesorComponent } from './contrato/vista-asesor/vista-asesor.component';
 import { ReporteTomaAsistenciaComponent } from './asistencia/reporte-toma-asistencia/reporte-toma-asistencia.component';
+import { HasRoleDirective } from '../has-role.directive';
 
 
 
@@ -131,6 +132,7 @@ const ngWizardConfig: NgWizardConfig = {
 
 @NgModule({
   declarations: [
+    HasRoleDirective,
     DashboardComponent,
     PagesComponent,
     RxjsComponent,
@@ -228,7 +230,7 @@ const ngWizardConfig: NgWizardConfig = {
     ReporteEstudiantesComponent,
     EstadoEstudianteComponent,
     VistaAsesorComponent,
-    ReporteTomaAsistenciaComponent
+    ReporteTomaAsistenciaComponent,
     
   ],
   exports:[

@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 
 import { Persona } from '../../models/persona.model';
 import { PersonaInterface } from '../../interfaces/persona.interface';
+import { RoleService } from '../services/role.service';
 
 
 
@@ -20,9 +21,16 @@ const base_url = environment.base_url;
 })
 export class PersonaService {
 
-  constructor(private http: HttpClient, private router:Router) { }
+  constructor(
+    private roleService:RoleService,
+    private http: HttpClient, 
+    private router:Router) { }
 
   public persona:Persona = new Persona();
+
+   get  role (): any {
+    return this.persona.tipo[0];
+  }
 
   retornarHeader(){
     const token = localStorage.getItem('token') || '';
@@ -119,6 +127,7 @@ export class PersonaService {
       .pipe(
         tap((resp: any) => {
           localStorage.setItem('token', resp.meta.token);
+          localStorage.setItem('rl', resp.role);
           console.log(resp.menuFrontEnd);
           localStorage.setItem('menu', JSON.stringify(resp.menuFrontEnd) );
         })
@@ -127,6 +136,7 @@ export class PersonaService {
 
   logout(){
     localStorage.removeItem('token');
+    localStorage.removeItem('rl');
     this.router.navigateByUrl('/login');
   }
 

@@ -13,6 +13,7 @@ import { EncuestaPadresComponent } from './publico/encuesta-padres/encuesta-padr
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ListaEncuestaPadresComponent } from './publico/encuesta-padres/lista-encuesta-padres/lista-encuesta-padres.component';
+import { HasRoleDirective } from './has-role.directive';
 
 
 
@@ -23,7 +24,8 @@ import { ListaEncuestaPadresComponent } from './publico/encuesta-padres/lista-en
     AppComponent,
     NopagefoundComponent,
     EncuestaPadresComponent,
-    ListaEncuestaPadresComponent
+    ListaEncuestaPadresComponent,
+    //HasRoleDirective
   ],
   imports: [
     BrowserModule,
