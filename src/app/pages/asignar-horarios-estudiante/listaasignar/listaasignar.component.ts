@@ -37,6 +37,7 @@ export class ListaasignarComponent implements OnInit {
       this.asignar1 = resp.data;
       this.asignarTemporales = resp.data;
       this.totalAsignar = resp.totalAsignar;
+      console.log(resp.data);
     });
   }
 

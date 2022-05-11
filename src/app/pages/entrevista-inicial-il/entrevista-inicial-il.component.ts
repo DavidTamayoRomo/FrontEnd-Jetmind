@@ -8,8 +8,7 @@ import { HorarioService } from '../services/horario.service';
 import { EntrevistaInicialIL } from './entrevista-inicial-il.model';
 import { entrevistainicialilvemService } from '../services/entrevista-inicial-il.service';
 
-import { marcas } from "src/environments/environment";
-const variableMarcas = marcas;
+
 
 import Swal from 'sweetalert2';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
@@ -152,7 +151,7 @@ export class EntrevistaInicialILComponent implements OnInit {
             resp.data[0].idNombrePrograma.map((progra: any) => {
               this.marcaService.obtenerMarcaById(progra.idMarca).subscribe((resp: any) => {
                 console.log(resp.data.nombre);
-                if (resp.data.nombre == variableMarcas.marca2) {
+                if (resp.data.nombre == 'ILVEM') {
                   //CHARLOTTE O UK
                   this.estudiantes.push(estudiante);
                   this.arrayDocentesHorararios.push([{

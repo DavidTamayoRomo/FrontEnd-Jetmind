@@ -9,8 +9,7 @@ import { MarcaService } from '../../services/marca.service';
 import { ProgramaService } from '../../services/programa.service';
 import { RepresentanteService } from '../../services/representante.service';
 
-import { marcas } from "src/environments/environment";
-const variableMarcas = marcas;
+
 
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
@@ -131,7 +130,7 @@ export class ReporteContratoComponent implements OnInit {
   createPDF(contrato: any, representante: any, estudiantes: any) {
 
     contrato.marcasVendidas.map((marca: any) => {
-      if (marca.nombre == variableMarcas.marca1) {
+      if (marca.nombre == 'CHARLOTTE') {
         //CHARLOTTE
         this.segundaCH = 'SEGUNDA: ILVEM & CHARLOTTE CIA. LTDA. es un prestador de servicios de un tercer idioma como es el inglés que puede ser de forma presencial y online. Cuenta con un entrenamiento de prácticas; a través de la Plataforma CHARLOTTE, en la cual el estudiante de CHARLOTTE tiene un acceso ilimitado durante el entrenamiento.';
         this.terceraCH = 'TERCERA: AUTORIZACIÓN, COMPROMISO Y RESPONSABILIDAD FRENTE A LA INSTITUCIÓN.- \n El CLIENTE Y/O USUARIO autoriza expresamente lo siguiente: a) Autorizo a ILVEM & CHARLOTTE CIA. LTDA ;  a la captación de imágenes del o los estudiantes usuarios de este contrato, su reproducción y difusión, ya sea a través de medios físicos (flyers, revistas, prensa escrita, gigantografías, volantes) y/o medios digitales (página web, redes sociales como Facebook, Youtube e Instagram entre otros) exclusivamente para fines relacionados a la promoción y difusión publicitaria.';
@@ -145,7 +144,7 @@ export class ReporteContratoComponent implements OnInit {
         this.decimosegundaCH = 'DÉCIMO  SEGUNDA: NOTIFICACIONES.- Toda y cualquier notificación que requiera realizarse en relación con el presente contrato será por escrito a las siguientes direcciones de correo electrónico:      dpto.legal@grupojetmind.com   -  cio@grupojetmind.com \n\nLas partes aceptan todas y cada una de las estipulaciones que anteceden e incorporan a este contrato las disposiciones legales que fueren aplicables, firmando para constancia en dos ejemplares de igual tenor y valor.';
 
       }
-      if (marca.nombre == variableMarcas.marca2) {
+      if (marca.nombre == 'ILVEM') {
         //ILVEM
         this.segundaIL = 'SEGUNDA: ILVEM & CHARLOTTE CIA. LTDA. es un prestador de servicios de Entrenamiento en Técnicas y Métodos de Estudio de forma presencial y online. Cuenta con un entrenamiento de prácticas; a través de la Plataforma VIRTUAL, en la cual el estudiante de ILVEM tiene un acceso ilimitado durante el entrenamiento.';
         this.terceraIL = 'TERCERA: AUTORIZACIÓN, COMPROMISO Y RESPONSABILIDAD FRENTE A LA INSTITUCIÓN. -\nEl CLIENTE Y/O USUARIO autoriza expresamente lo siguiente: a) Autorizo a ILVEM & CHARLOTTE CIA. LTDA; a la captación de imágenes del o los estudiantes usuarios de este contrato, su reproducción y difusión, ya sea a través de medios físicos (flyers, revistas, prensa escrita, gigantografías, volantes) y/o medios digitales (página web, redes sociales como Facebook, Youtube e Instagram entre otros) exclusivamente para fines relacionados a la promoción y difusión publicitaria.';
@@ -159,7 +158,7 @@ export class ReporteContratoComponent implements OnInit {
         this.decimosegundaIL = 'Las partes aceptan todas y cada una de las estipulaciones que anteceden e incorporan a este contrato las disposiciones legales que fueren aplicables, firmando para constancia en dos ejemplares de igual tenor y valor.';
       } 
       
-      if (marca.nombre == variableMarcas.marca3) {
+      if (marca.nombre == 'TOMATIS') {
         //TOMATIS
         this.segundaTM = 'SEGUNDA: ECUTOMATIS. CIA. LTDA. Es un prestador de servicios de Estimulación auditiva  neurosensorial de forma presencial (Escucha) y online (Integración). Cuenta con un entrenamiento de prácticas; a través de las clases on-line, en la cual el estudiante tiene un entrenamiento personalizado.';
         this.terceraTM = 'TERCERA: AUTORIZACIÓN, COMPROMISO Y RESPONSABILIDAD FRENTE A LA INSTITUCIÓN.- El BENEFICIARIO Y/O REPRESENTANTE autoriza expresamente lo siguiente: a) Autorizo ECUTOMATIS CIA. LTDA. A la captación de imágenes del o los estudiantes beneficiarios de este contrato, su reproducción y difusión, ya sea mediante medios físicos (flyers, revistas, prensa escrita, gigantografías, volantes) y/o digital (página web, redes sociales como Facebook, Youtube, Instagram y Tik Tok) exclusivamente para fines relacionados a la promoción y difusión publicitaria. En caso de requerir información acerca de su representado le sugerimos dejarnos su correo electrónico para un mejor proceso. (ESCRIBIR CON LETRAS MAYÚSCULAS E IMPRENTA EL E-MAIL).';
@@ -175,7 +174,7 @@ export class ReporteContratoComponent implements OnInit {
         this.decimocuartaTM = 'DÉCIMO CUARTA: NOTIFICACIONES.- Toda y cualquier notificación que requiera realizarse en relación con el presente contrato será por escrito a las siguientes direcciones de correo electrónico: dpto.legal@grupojetmind.com - cio@grupojetmind.com Las partes aceptan todas y cada una de las estipulaciones que anteceden e incorporan a este contrato las disposiciones legales que fueran aplicables, firmando para constancia en dos ejemplares de igual tenor y valor.\nLas partes aceptan todas y cada una de las estipulaciones que anteceden e incorporan a este contrato las disposiciones legales que fueren aplicables, firmando para constancia en dos ejemplares de igual tenor y valor.';
        
       }
-      if (marca.nombre == variableMarcas.marca4) {
+      if (marca.nombre == 'UK ENGLISH INSTITUTE') {
         //UK ENGLISH INSTITUTE
         this.segundaUK = 'SEGUNDA: JETMINDCIA. LTDA. es un prestador de servicios de un tercer idioma como es el inglés que es únicamente de forma online. Cuenta con un entrenamiento de prácticas; a través de la Plataforma UK INSTITUTE, en la cual el estudiante de UK INSTITUTE tiene un acceso ilimitado durante el entrenamiento.';
         this.terceraUK = 'TERCERA: AUTORIZACIÓN, COMPROMISO Y RESPONSABILIDAD FRENTE A LA INSTITUCIÓN. -\nEl CLIENTE Y/O USUARIO autoriza expresamente lo siguiente: a) Autorizo a JETMIND CIA. LTDA ;  a la captación de imágenes del o los estudiantes usuarios de este contrato, su reproducción y difusión, ya sea a través de medios físicos (flyers, revistas, prensa escrita, gigantografías, volantes) y/o medios digitales (página web, redes sociales como Facebook, Youtube e Instagram entre otros) exclusivamente para fines relacionados a la promoción y difusión publicitaria.';
@@ -211,7 +210,7 @@ export class ReporteContratoComponent implements OnInit {
             console.log(resp.data.nombre);
 
 
-            if (resp.data.nombre == variableMarcas.marca1) {
+            if (resp.data.nombre == 'CHARLOTTE') {
               //CHARLOTTE
               this.cuartaCH[0] = '\n\n\n\n CLAUSULAS CHARLOTTE\n\n\n\n';
               this.cuartaCH[1] = this.segundaCH + '\n\n';
@@ -227,7 +226,7 @@ export class ReporteContratoComponent implements OnInit {
               this.cuartaCH[11] = this.decimorprimeraCH + '\n\n';
               this.cuartaCH[12] = this.decimosegundaCH + '\n\n';
             }
-            if (resp.data.nombre == variableMarcas.marca2) {
+            if (resp.data.nombre == 'ILVEM') {
               //ILVEM
               this.cuartaIL[0] = '\n\n\n\n CLAUSULAS ILVEM\n\n\n\n';
               this.cuartaIL[1] = this.segundaIL + '\n\n';
@@ -243,7 +242,7 @@ export class ReporteContratoComponent implements OnInit {
               this.cuartaIL[11] = this.decimorprimeraIL + '\n\n';
               this.cuartaIL[12] = this.decimosegundaIL + '\n\n';
             } 
-            if (resp.data.nombre == variableMarcas.marca3) {
+            if (resp.data.nombre == 'TOMATIS') {
               //TOMATIS
 
               this.cuartaTM[0] = '\n\n\n\n CLAUSULAS TOMATIS\n\n\n\n';
@@ -262,7 +261,7 @@ export class ReporteContratoComponent implements OnInit {
               this.cuartaTM[13] = this.decimoterceraTM + '\n\n';
               this.cuartaTM[14] = this.decimocuartaTM + '\n\n';
             }
-            if (resp.data.nombre == variableMarcas.marca4) {
+            if (resp.data.nombre == 'UK ENGLISH INSTITUTE') {
               //UK ENGLISH INSTITUTE
 
               this.cuartaUK[0] = '\n\n\n\n CLAUSULAS UK ENGLISH INSTITUTE\n\n\n\n';

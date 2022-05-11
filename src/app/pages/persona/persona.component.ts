@@ -12,9 +12,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { pipe } from 'rxjs';
 import { RoleService } from '../services/role.service';
-import { claves } from 'src/environments/environment';
-
-const clave = claves.clavePersonaPrimeraVez;
 
 @Component({
   selector: 'app-persona',
@@ -84,7 +81,7 @@ export class PersonaComponent implements OnInit {
     idMarca: [null, Validators.required],
     nombresApellidos: [null, Validators.required],
     email: [null, [Validators.required, Validators.email]],
-    password: { value: clave, disabled: true },
+    password: { value: 'DavidHack1', disabled: true },
     cedula: [null, Validators.required],
     telefono: [null],
     telefonoDomicilio: [null],
@@ -265,7 +262,7 @@ export class PersonaComponent implements OnInit {
           roleLista.push(element.item_id);
         });
         this.PersonaModel.tipo = roleLista;
-        this.PersonaModel.password = clave;
+        this.PersonaModel.password = 'DavidHack1';
 
         console.log(this.PersonaModel.tipo);
         this.personaService.crearPersona(this.PersonaModel).subscribe(

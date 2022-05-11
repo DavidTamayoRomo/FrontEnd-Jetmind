@@ -14,8 +14,7 @@ import { EntrevistaInicialTM } from './entrevista-inicial-tm.model';
 
 import Swal from 'sweetalert2';
 
-import { marcas } from "src/environments/environment";
-const variableMarcas = marcas;
+
 
 @Component({
   selector: 'app-entrevista-inicial-tm',
@@ -127,7 +126,7 @@ export class EntrevistaInicialTmComponent implements OnInit {
           this.programaService.obtenerProgramaByIdEstudiante(estudiante._id).subscribe((resp: any) => {
             resp.data[0].idNombrePrograma.map((progra: any) => {
               this.marcaService.obtenerMarcaById(progra.idMarca).subscribe((resp: any) => {
-                if (resp.data.nombre == variableMarcas.marca3) {
+                if (resp.data.nombre == 'TOMATIS') {
                   //Tomatis
                   this.estudiantes.push(estudiante);
                   this.arrayDocentesHorararios.push([{

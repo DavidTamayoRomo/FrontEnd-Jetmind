@@ -11,7 +11,8 @@ import Swal from 'sweetalert2';
 export class LoginComponent implements OnInit {
 
   public loginForm = this.fb.group({
-    email: [localStorage.getItem('email') || '', [Validators.required, Validators.email]],
+    //email: [localStorage.getItem('email') || '', [Validators.required, Validators.email]],
+    email: ['davidtamayoromo@gmail.com', [Validators.required, Validators.email]],
     password: ['123',Validators.required],
     remeber:[false]
   });

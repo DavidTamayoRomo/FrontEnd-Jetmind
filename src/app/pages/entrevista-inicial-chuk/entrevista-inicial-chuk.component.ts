@@ -15,8 +15,7 @@ import { map } from 'rxjs/operators';
 import { ProgramaService } from '../services/programa.service';
 import { MarcaService } from '../services/marca.service';
 
-import { marcas } from "src/environments/environment";
-const variableMarcas = marcas;
+
 
 @Component({
   selector: 'app-entrevista-inicial-chuk',
@@ -152,7 +151,7 @@ export class EntrevistaInicialCHUKComponent implements OnInit {
           this.programaService.obtenerProgramaByIdEstudiante(estudiante._id).subscribe((resp: any) => {
             resp.data[0].idNombrePrograma.map((progra: any) => {
               this.marcaService.obtenerMarcaById(progra.idMarca).subscribe((resp: any) => {
-                if (resp.data.nombre == variableMarcas.marca1 ) {
+                if (resp.data.nombre == 'CHARLOTTE') {
                   //CHARLOTTE O UK
                   this.estudiantes.push(estudiante);
                   this.arrayDocentesHorararios.push([{

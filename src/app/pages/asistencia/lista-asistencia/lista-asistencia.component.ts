@@ -38,6 +38,7 @@ export class ListaAsistenciaComponent implements OnInit {
       this.asistencias1 = resp.data;
       this.asistenciasTemporales = resp.data;
       this.totalAsistencias = resp.totalAsistencias;
+      console.log(resp.data)
     });
   }
 
