@@ -29,6 +29,8 @@ export class ControlCalidadTelemarketingComponent implements OnInit {
 
   public citasTelemarketing: any = null;
 
+  public datosTelemarketing:any;
+
   constructor(
     private fb: FormBuilder,
     private controlCalidadTelemarketing: ControlCalidadTelemarketingService,
@@ -40,6 +42,7 @@ export class ControlCalidadTelemarketingComponent implements OnInit {
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(({ id, idCita }) => {
+      //TODO: para editar control de calidad
       //this.cargarControlCalidadTelemarketingbyId(id);
       this.citasTelemarketing = idCita;
     });
@@ -111,9 +114,9 @@ export class ControlCalidadTelemarketingComponent implements OnInit {
       pregunta2,
       pregunta3
     } = resp.data;
-    this.controlCalidadTelemarketingSeleccionada = resp.data;
+    console.log(resp.data);
+    this.citasTelemarketing = idCitaTelemarketing;
     this.registerForm.setValue({
-      idCitaTelemarketing,
       estado,
       observaciones,
       pregunta1,
@@ -124,6 +127,7 @@ export class ControlCalidadTelemarketingComponent implements OnInit {
 
   public registerForm = this.fb.group({
     idCitaTelemarketing: [null],
+    fecha: [null],
     estado: this.fb.group({
       nombre: [null],
       fecha: [null],
@@ -225,11 +229,20 @@ export class ControlCalidadTelemarketingComponent implements OnInit {
       }
     } else {
       //crear
-
       this.ControlCalidadtelemarketingModel = this.registerForm.value;
       this.ControlCalidadtelemarketingModel.idCitaTelemarketing = this.citasTelemarketing;
+      //actualizar fecha de la cita telemarketing
+      if(this.ControlCalidadtelemarketingModel.estado.nombre == 'Re agendar' || this.ControlCalidadtelemarketingModel.estado.nombre == 'Cliente no atendido'){
+        this.citasTelemarketingService.obtenerCitasTelemarketingById(this.citasTelemarketing).subscribe((resp:any)=>{
+          this.datosTelemarketing = resp.data;
+          this.datosTelemarketing.fechaCita = this.ControlCalidadtelemarketingModel.estado.fecha;
+          this.citasTelemarketingService.updateCitasTelemarketing(this.citasTelemarketing,this.datosTelemarketing).subscribe((resp:any)=>{
+            
+          });
+        });
+      }
 
-      if (this.registerForm.invalid) {
+      /* if (this.registerForm.invalid) {
         const Toast = Swal.mixin({
           toast: true,
           position: 'top-end',
@@ -246,7 +259,7 @@ export class ControlCalidadTelemarketingComponent implements OnInit {
           title: '- Campos con asterisco son obligatorios\n - Verificar campos invalidos, \n indicados con el color rojo  '
         })
         return;
-      } else {
+      } else { */
         this.controlCalidadTelemarketing.crearcontrolCalidadTelemarketing(this.ControlCalidadtelemarketingModel).subscribe((resp) => {
           const Toast = Swal.mixin({
             toast: true,
@@ -289,7 +302,7 @@ export class ControlCalidadTelemarketingComponent implements OnInit {
         });
       }
 
-    }
+   // }
 
 
   }

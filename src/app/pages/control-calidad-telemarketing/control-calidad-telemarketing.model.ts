@@ -1,10 +1,10 @@
 export class ControlCalidadTelemarketing {
     constructor(
         public _id?:string,
-        public idCitaTelemarketing?:string,
+        public idCitaTelemarketing?:any,
         public estado?:any,
-        public fecha?:Date,
-        public observaciones?:string,
+        public fecha?:any,
+        public observaciones?:any,
         public pregunta1?:any,
         public pregunta2?:any,
         public pregunta3?:any,

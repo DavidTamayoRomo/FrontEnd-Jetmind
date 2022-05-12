@@ -37,6 +37,7 @@ export class ListaRegistroLlamadasComponent implements OnInit {
       this.resgistros1 = resp.data;
       this.resgistrosTemporales = resp.data;
       this.totalResgistros = resp.totalResgistros;
+      console.log(resp.data);
     });
   }
 

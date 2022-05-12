@@ -491,6 +491,7 @@ export class ACLServiceService {
     'calendario': [
       'Super_Admin_role',
       'Admin_Telemarketing_role',
+      'User_Telemarketing_role',
     ],
 
 
