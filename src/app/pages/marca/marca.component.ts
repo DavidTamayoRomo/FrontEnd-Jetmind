@@ -39,8 +39,9 @@ export class MarcaComponent implements OnInit {
 
   cambiarImagen(file:any){
     
-    
+    console.log(file);
     this.imagenSubir = file.target.files[0];
+    console.log(this.imagenSubir);
     if(!file){
       this.imgTemp = null;
       return;
@@ -51,7 +52,7 @@ export class MarcaComponent implements OnInit {
     
     reader.onloadend = () => {
       this.imgTemp = reader.result;
-      console.log(reader.result);
+      //console.log(reader.result);
     }
 
   }

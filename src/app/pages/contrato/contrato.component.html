@@ -71,7 +71,7 @@
     </ng-wizard-step>
 
     <ng-wizard-step [title]="'Voucher'" [description]="'Fotos del vaucher'">
-        <app-uploads></app-uploads>
+        <app-uploads (eventoFile)="imagenesContrato($event)"></app-uploads>
     </ng-wizard-step>
 </ng-wizard>
 

@@ -31,6 +31,26 @@ export class FileUploadService {
       return false;
     }
   }
+  
+  async actualizarFotoDigitalOCean(
+    archivo: any,
+    idContrato:any
+    ){
+    try {
+      const url = `${base_url}/utils/uploasDigitalOCean`;
+      const formData = new FormData();
+      formData.append('upload',archivo);
+      formData.append('idContrato',idContrato);
+      const resp = await fetch(url,{
+        method: 'POST',
+        //headers: {  'x-token': localStorage.getItem('token') },
+        body: formData
+      });
+      return resp;
+    } catch (error) {
+      return false;
+    }
+  }
 
 
   /* actualizarVoucher(files:any,id:string){

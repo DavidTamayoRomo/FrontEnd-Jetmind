@@ -52,6 +52,8 @@ export class ContratoComponent implements OnInit {
   public programaSeleccionada: any;
   public estudianteSeleccionado: any;
 
+  public imagenes: any;
+
 
   stepStates = {
     normal: STEP_STATE.normal,
@@ -150,6 +152,11 @@ export class ContratoComponent implements OnInit {
   }
   ngOnChanges(changes: SimpleChanges): void {
     console.log(changes);
+  }
+
+  imagenesContrato(e:Array<File>){
+    console.log('IMAGENES: ',e);
+    this.imagenes = e;
   }
 
   public registerForm = this.fb.group({
@@ -400,9 +407,18 @@ export class ContratoComponent implements OnInit {
                                           //Carga de imagenes al contrato
                                           respuestaContrato = resp.data;
                                           respuestaContrato.voucher = voucher;
-                                          this.contratoService.updateVouchersContrato(respuestaContrato._id, respuestaContrato).subscribe((resp: any) => {
+
+                                          // Quitar esta funcion
+                                          /* this.contratoService.updateVouchersContrato(respuestaContrato._id, respuestaContrato).subscribe((resp: any) => {
                                             console.log(resp);
+                                          }); */
+
+                                          this.imagenes.map((imagen: any) => {
+                                            this.fileuploadService.actualizarFotoDigitalOCean(imagen,respuestaContrato._id).then((resp: any) => {
+                                              console.log('RESPUESTA IMAGEN',resp);
+                                            });
                                           });
+                                          
 
                                           const Toast = Swal.mixin({
                                             toast: true,

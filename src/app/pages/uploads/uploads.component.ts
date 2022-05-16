@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FileUploadService } from '../../services/file-upload.service';
 
 import Swal from 'sweetalert2';
@@ -12,6 +12,8 @@ import { NgxFileDropEntry, FileSystemFileEntry, FileSystemDirectoryEntry } from 
   ]
 })
 export class UploadsComponent implements OnInit {
+
+  @Output() eventoFile = new EventEmitter<any>();
 
   public imagenSubir: any;
   public imgTemp: any;
@@ -108,12 +110,16 @@ export class UploadsComponent implements OnInit {
 
   onSelect(event: any) {
     this.files1.push(...event.addedFiles);
+    console.log(this.files1);//este se debe enviar al servicio
+    localStorage.setItem('files1', JSON.stringify(this.files1) );
     this.guardarImagen(this.files1);
+    this.eventoFile.emit(this.files1);
   }
 
   onRemove(event: any) {
     this.files1.splice(this.files1.indexOf(event), 1);
     this.guardarImagen(this.files1);
+    this.eventoFile.emit(this.files1);
   }
 
 }

@@ -12,6 +12,7 @@ import { EstudianteService } from '../../services/estudiante.service';
 import { RepresentanteService } from '../../services/representante.service';
 import { VerificacionService } from '../../services/verificacion.service';
 import { Verificacion } from '../../verificacion/verificacion.model';
+import { FileUploadService } from 'src/app/services/file-upload.service';
 
 import Swal from 'sweetalert2';
 
@@ -54,6 +55,8 @@ export class VistaAsesorComponent implements OnInit {
 
   public datosEstudiantes: any = [];
   public datosRepresentante: any;
+  
+  public imagenes: any;
 
   public verificacion: Verificacion = new Verificacion();
 
@@ -69,6 +72,7 @@ export class VistaAsesorComponent implements OnInit {
     private representanteService: RepresentanteService,
     private estudianteService: EstudianteService,
     private verificacionService: VerificacionService,
+    private fileuploadService:FileUploadService,
     private router: Router,
     public _location: Location
   ) { }
@@ -87,6 +91,10 @@ export class VistaAsesorComponent implements OnInit {
     this.recuperarAtributosContratos();
   }
 
+  imagenesContrato(e:Array<File>){
+    console.log('IMAGENES: ',e);
+    this.imagenes = e;
+  }
 
   cargarContratos() {
     this.cargando = true;
@@ -263,8 +271,8 @@ export class VistaAsesorComponent implements OnInit {
       console.log('voucher');
       this.contratoSeleccionado?.voucher.map((resp: any) => {
         this.imageObject.push({
-          image: `${environment.base_url}/utils/uploads/contratos/${resp}`,
-          thumbImage: `${environment.base_url}/utils/uploads/contratos/${resp}`,
+          image: `${environment.base_url}/utils/getDigitalOCean/${resp}`,
+          thumbImage: `${environment.base_url}/utils/getDigitalOCean/${resp}`,
           title: 'Voucher'
         });
       });
@@ -493,9 +501,19 @@ export class VistaAsesorComponent implements OnInit {
   }
 
   crearVoucher() {
-    let voucher = JSON.parse(localStorage.getItem('files') as string);
+    /* let voucher = JSON.parse(localStorage.getItem('files') as string);
     this.contratoSeleccionado.voucher = voucher;
-    this.contratoService.updateVouchersContrato2(this.contratoSeleccionado._id, this.contratoSeleccionado).subscribe((resp: any) => {
+    */
+
+    this.imagenes.map((imagen: any) => {
+      this.fileuploadService.actualizarFotoDigitalOCean(imagen,this.contratoSeleccionado._id).then((resp: any) => {
+        console.log('RESPUESTA IMAGEN',resp);
+        this.router.navigateByUrl("/dashboard", { skipLocationChange: true }).then(() => {
+          this.router.navigate([decodeURI(this._location.path())]);
+        });
+      });
+    });
+   /*  this.contratoService.updateVouchersContrato2(this.contratoSeleccionado._id, this.contratoSeleccionado).subscribe((resp: any) => {
       console.log(resp);
       //eliminar local storage
       localStorage.removeItem('files');
@@ -504,7 +522,7 @@ export class VistaAsesorComponent implements OnInit {
         this.router.navigate([decodeURI(this._location.path())]);
       });
 
-    });
+    }); */
 
   }
 

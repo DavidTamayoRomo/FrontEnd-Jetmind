@@ -133,8 +133,8 @@ export class FacturasComponent implements OnInit {
       console.log('voucher');
       factura?.idContrato?.voucher.map((resp: any) => {
         this.imageObject.push({
-          image: `${environment.base_url}/utils/uploads/contratos/${resp}`,
-          thumbImage: `${environment.base_url}/utils/uploads/contratos/${resp}`,
+          image: `${environment.base_url}/utils/getDigitalOCean/${resp}`,
+          thumbImage: `${environment.base_url}/utils/getDigitalOCean/${resp}`,
           title: 'Voucher'
         });
       });
