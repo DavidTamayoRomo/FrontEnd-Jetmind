@@ -46,8 +46,8 @@
                                 <th class="w100">Ciudad</th>
                                 <th class="w100">Sucursal</th>
                                 <th class="w100">Nombre Programa</th>
-                                <th class="w100">Tipo</th>
-                                <th class="w100">Modalidad</th>
+                                <!-- <th class="w100">Tipo</th>
+                                <th class="w100">Modalidad</th> -->
 
                                 <th class="text-nowrap w100">Action</th>
                             </tr>
@@ -71,8 +71,8 @@
                                 <td>
                                     <div *ngFor="let nombrePrograma of programa?.idNombrePrograma">{{nombrePrograma?.nombre}}</div>
                                 </td>
-                                <td>{{programa.tipo}}</td>
-                                <td>{{programa.modalidad}}</td>
+                                <!-- <td>{{programa.tipo}}</td>
+                                <td>{{programa.modalidad}}</td> -->
 
                                 <td class="text-nowrap">
                                     <a [routerLink]="['/programa',programa._id]" data-toggle="tooltip"

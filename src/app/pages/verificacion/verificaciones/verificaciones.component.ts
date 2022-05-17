@@ -38,6 +38,7 @@ export class VerificacionesComponent implements OnInit {
       this.verificaciones1 = resp.data;
       this.verificacionesTemporales = resp.data;
       this.totalVerificaciones = resp.totalVerificaciones;
+      console.log(resp.data);
     });
   }
 
@@ -61,6 +62,7 @@ export class VerificacionesComponent implements OnInit {
       (resp:any)=>{
         console.log(resp);
         this.verificaciones = resp;
+        console.log(this.verificaciones);
       }
     );
   }

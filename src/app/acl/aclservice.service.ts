@@ -69,6 +69,13 @@ export class ACLServiceService {
       'Admin_Tomatis_Academico_role',
       'Admin_UK_Academico_role'
     ],
+    'listanombreprogramas': [
+      'Super_Admin_role',
+      'Admin_Charlotte_Academico_role',
+      'Admin_Ilvem_Academico_role',
+      'Admin_Tomatis_Academico_role',
+      'Admin_UK_Academico_role'
+    ],
     'nombrePrograma/:id': [
       'Super_Admin_role',
       'Admin_Charlotte_Academico_role',

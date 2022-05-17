@@ -37,6 +37,7 @@ export class ProgramasComponent implements OnInit {
       this.programas1 = resp.data;
       this.programasTemporales = resp.data;
       this.totalProgramas = resp.totalPrograma;
+      console.log(resp.data);
     });
   }
 
@@ -59,6 +60,7 @@ export class ProgramasComponent implements OnInit {
     return this.busquedaService.buscar2('programas', busqueda,['nombre']).subscribe(
       (resp: any) => {
         this.programas = resp;
+        console.log(this.programas);
       }
     );
   }
