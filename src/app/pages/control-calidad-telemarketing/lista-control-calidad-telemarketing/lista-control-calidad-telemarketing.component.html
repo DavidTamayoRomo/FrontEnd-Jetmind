@@ -53,13 +53,13 @@
                         <tbody>
                             <tr *ngFor="let control of listaControlCalidad">
 
-                                <td>{{control.estado.nombre}}</td>
-                                <td>{{control.createdAt | date:('dd/MM/yyyy')}}</td>
-                                <td>{{control.idCitaTelemarketing?.asignado[0]?.nombre}}</td>
-                                <td>{{control.idCitaTelemarketing?.nombreApellidoRepresentante}}</td>
-                                <td>{{control.idCitaTelemarketing?.telefono}}</td>
-                                <td>{{control.idCitaTelemarketing?.addedUser?.nombresApellidos}}</td>
-                                <td>{{control.estado.tipoPago}}</td>
+                                <td>{{control?.estado?.nombre}}</td>
+                                <td>{{control?.createdAt | date:('dd/MM/yyyy')}}</td>
+                                <td>{{control?.idCitaTelemarketing?.asignado[0]?.nombre}}</td>
+                                <td>{{control?.idCitaTelemarketing?.nombreApellidoRepresentante}}</td>
+                                <td>{{control?.idCitaTelemarketing?.telefono}}</td>
+                                <td>{{control?.idCitaTelemarketing?.addedUser?.nombresApellidos}}</td>
+                                <td>{{control?.estado.tipoPago}}</td>
 
                                 <td class="text-nowrap">
                                     <a [routerLink]="['/control-calidad-telemarketing','idcita',control._id]" data-toggle="tooltip"

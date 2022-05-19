@@ -58,7 +58,7 @@ export class Listapeea17tomatisComponent implements OnInit {
     if (busqueda.length === 0) {
       return this.peeas = this.peeasTemporales;
     }
-    return this.busquedaService.buscar2('peeas',busqueda,['nombre']).subscribe(
+    return this.busquedaService.buscar2('peeas17tm',busqueda,['nombre']).subscribe(
       (resp:any)=>{
         console.log(resp);
         this.peeas = resp;

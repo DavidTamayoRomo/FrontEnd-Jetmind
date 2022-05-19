@@ -40,6 +40,7 @@ export class ListaEntrevistaCHUKComponent implements OnInit {
       this.entrevistas1 = resp.data;
       this.entrevistasTemporales = resp.data;
       this.totalEntrevistas = resp.totalEntrevistas;
+      console.log(this.entrevistasIniciales);
     });
   }
 
@@ -59,10 +60,11 @@ export class ListaEntrevistaCHUKComponent implements OnInit {
     if (busqueda.length === 0) {
       return this.entrevistasIniciales = this.entrevistasTemporales;
     }
-    return this.busquedaService.buscar2('entrevistas', busqueda, ['nombre']).subscribe(
+    return this.busquedaService.buscar2('entrevistasch', busqueda, ['nombre']).subscribe(
       (resp: any) => {
         console.log(resp);
         this.entrevistasIniciales = resp;
+        console.log(this.entrevistasIniciales);
       }
     );
   }

@@ -57,7 +57,7 @@ export class ListaasignarComponent implements OnInit {
     if (busqueda.length === 0) {
       return this.asignarHorariosEstudiantes = this.asignarTemporales;
     }
-    return this.busquedaService.buscar2('asignar',busqueda,['nombre']).subscribe(
+    return this.busquedaService.buscar2('asignarhorario',busqueda,['nombre']).subscribe(
       (resp:any)=>{
         console.log(resp);
         this.asignarHorariosEstudiantes = resp;

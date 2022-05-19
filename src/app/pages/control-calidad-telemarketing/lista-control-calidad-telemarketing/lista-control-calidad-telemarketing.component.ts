@@ -36,6 +36,7 @@ export class ListaControlCalidadTelemarketingComponent implements OnInit {
       this.listaControlCalidad1 = resp.data;
       this.listaControlCalidadTemporales = resp.data;
       this.totallistaControlCalidad = resp.totallistaControlCalidad;
+      console.log(this.listaControlCalidad);
     });
   }
 
@@ -59,6 +60,7 @@ export class ListaControlCalidadTelemarketingComponent implements OnInit {
       (resp:any)=>{
         console.log(resp);
         this.listaControlCalidad = resp;
+        console.log(this.listaControlCalidad);
       }
     );
   }

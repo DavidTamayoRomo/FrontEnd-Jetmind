@@ -40,8 +40,10 @@
                         <thead>
                             <tr>
 
-                                <th class="w100">Reporte</th>
+                                <th class="w100">PDF</th>
                                 <th class="w100">Fecha</th>
+                                <th class="w100">Codigo</th>
+                                <th class="w100">Representante</th>
                                 <th class="w100">Apoyo RIN</th>
                                 <th class="w100">Evaluaciones continuas </th>
                                 <th class="w100">Certificado</th>
@@ -62,25 +64,26 @@
                                     <button (click)="reporte(entrevista)" type="button" class="btn btn-info btn-circle btn-lg">
                                         <i class="fa fa-file-pdf-o"></i></button>
                                 </td>
-
-                                <td>{{entrevista.nombre}}</td>
-                                <td>{{entrevista.pregunta1}}</td>
-                                <td>{{entrevista.pregunta2}}</td>
-                                <td>{{entrevista.pregunta3}}</td>
-                                <td>{{entrevista.pregunta4}}</td>
-                                <td>{{entrevista.pregunta5}}</td>
-                                <td>{{entrevista.pregunta6}}</td>
-                                <td>{{entrevista.pregunta7}}</td>
-                                <td>{{entrevista.pregunta8}}</td>
-                                <td>{{entrevista.pregunta9}}</td>
+                                <td>{{entrevista?.createdAt}}</td>
+                                <td>{{entrevista?.idContrato?.codigo}}</td>
+                                <td>{{entrevista?.idRepresentante?.nombresApellidos}}</td>
+                                <td>{{entrevista?.pregunta1}}</td>
+                                <td>{{entrevista?.pregunta2}}</td>
+                                <td>{{entrevista?.pregunta3}}</td>
+                                <td>{{entrevista?.pregunta4}}</td>
+                                <td>{{entrevista?.pregunta5}}</td>
+                                <td>{{entrevista?.pregunta6}}</td>
+                                <td>{{entrevista?.pregunta7}}</td>
+                                <td>{{entrevista?.pregunta8}}</td>
+                                <td>{{entrevista?.pregunta9}}</td>
                                 <td>
-                                    <div  *ngFor="let est of entrevista.estudiantes1">
-                                        <div *ngFor="let est1 of est.estudiantes">
+                                    <div  *ngFor="let est of entrevista?.estudiantes1">
+                                        <div *ngFor="let est1 of est?.estudiantes">
                                             <div>
-                                                {{est1.idDocente[0].nombre}}
+                                                {{est1?.idDocente[0]?.nombre}}
                                             </div>
                                             <div>
-                                                {{est1.idHorario[0].nombre}}
+                                                {{est1?.idHorario[0]?.nombre}}
                                             </div>
                                             <hr>
                                         </div>

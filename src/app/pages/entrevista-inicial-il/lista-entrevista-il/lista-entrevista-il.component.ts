@@ -59,7 +59,7 @@ export class ListaEntrevistaILComponent implements OnInit {
     if (busqueda.length === 0) {
       return this.entrevistasIniciales = this.entrevistasTemporales;
     }
-    return this.busquedaService.buscar2('entrevistas', busqueda, ['nombre']).subscribe(
+    return this.busquedaService.buscar2('entrevistasil', busqueda, ['nombre']).subscribe(
       (resp: any) => {
         console.log(resp);
         this.entrevistasIniciales = resp;
