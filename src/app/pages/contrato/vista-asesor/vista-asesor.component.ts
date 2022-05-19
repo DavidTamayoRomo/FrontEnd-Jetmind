@@ -142,7 +142,7 @@ export class VistaAsesorComponent implements OnInit {
       });
       console.log(listaCamposBusqueda);
 
-      return this.busquedaService.buscar2('contratos', busqueda, listaCamposBusqueda).subscribe(
+      return this.busquedaService.buscar2('contratosBusqueda', busqueda, listaCamposBusqueda).subscribe(
         (resp: any) => {
           console.log(resp);
           this.contratos = resp;
@@ -150,7 +150,7 @@ export class VistaAsesorComponent implements OnInit {
       );
     } else {
       console.log('Entre a menos de 0');
-      return this.busquedaService.buscar2('contratos', busqueda, ["codigo"]).subscribe(
+      return this.busquedaService.buscar2('contratosBusqueda', busqueda, ["codigo"]).subscribe(
         (resp: any) => {
           console.log(resp);
           this.contratos = resp;

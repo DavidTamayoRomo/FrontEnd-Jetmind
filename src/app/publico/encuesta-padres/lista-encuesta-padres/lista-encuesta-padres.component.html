@@ -10,8 +10,8 @@
                     
                 </div>
                 <div style="height: 10px;"></div>
-               <!--  <input type="text" class="form-control" placeholder="Buscar ciudad" (keyup)="buscar(txtBusqueda.value)"
-                    #txtBusqueda> -->
+               <input type="text" class="form-control" placeholder="Buscar Encuesta" (keyup)="buscar(txtBusqueda.value)"
+                    #txtBusqueda>
 
             </div>
         </div>
@@ -45,9 +45,9 @@
                         <tbody>
                             <tr *ngFor="let encuesta of encuestas">
 
-                                <td>{{encuesta.idCiudad.nombre}}</td>
-                                <td>{{encuesta.idMarca.nombre}}</td>
-                                <td>{{encuesta.idEstudiante.nombresApellidos}}</td>
+                                <td>{{encuesta?.idCiudad?.nombre}}</td>
+                                <td>{{encuesta?.idMarca?.nombre}}</td>
+                                <td>{{encuesta?.idEstudiante?.nombresApellidos}}</td>
 
                                 
                             </tr>

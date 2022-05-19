@@ -462,7 +462,7 @@ export class ACLServiceService {
     ],
     'lista-platafoma-ilvem': [
       'Super_Admin_role',
-      'Docente_Charlotte_Academico_role',
+      'Docente_Ilvem_Academico_role',
       'Admin_Ilvem_Academico_role'
     ],
     'lista-encuesta-padres': [

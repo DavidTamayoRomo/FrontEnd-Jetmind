@@ -137,20 +137,32 @@ export class ContratosComponent implements OnInit {
       });
       console.log(listaCamposBusqueda);
 
-      return this.busquedaService.buscar2('contratos', busqueda, listaCamposBusqueda).subscribe(
+      return this.busquedaService.buscar2('contratosBusqueda', busqueda,['nombre']).subscribe(
         (resp: any) => {
           console.log(resp);
           this.contratos = resp;
         }
       );
+      /* return this.busquedaService.buscar2('contratos', busqueda, listaCamposBusqueda).subscribe(
+        (resp: any) => {
+          console.log(resp);
+          this.contratos = resp;
+        }
+      ); */
     } else {
       console.log('Entre a menos de 0');
-      return this.busquedaService.buscar2('contratos', busqueda, ["codigo"]).subscribe(
+      return this.busquedaService.buscar2('contratosBusqueda', busqueda,['nombre']).subscribe(
         (resp: any) => {
           console.log(resp);
           this.contratos = resp;
         }
       );
+      /* return this.busquedaService.buscar2('contratos', busqueda, ["codigo"]).subscribe(
+        (resp: any) => {
+          console.log(resp);
+          this.contratos = resp;
+        }
+      ); */
     }
 
 

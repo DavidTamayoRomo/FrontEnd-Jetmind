@@ -50,6 +50,18 @@ export class ListaEncuestaPadresComponent implements OnInit {
     this.cargarEncuestas();
   }
 
+  buscar(busqueda:any){
+    if (busqueda.length === 0) {
+      return this.encuestas = this.encuestasTemporales;
+    }
+    return this.busquedaService.buscar2('encuestapadres',busqueda,['nombre']).subscribe(
+      (resp:any)=>{
+        console.log(resp);
+        this.encuestas = resp;
+      }
+    );
+  }
+
   
 
 }
