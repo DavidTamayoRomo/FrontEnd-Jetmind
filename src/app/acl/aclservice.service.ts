@@ -270,9 +270,13 @@ export class ACLServiceService {
     'asignarhorariosestudiantes': [
       'Super_Admin_role',
       'Admin_Charlotte_Academico_role',
+      'Docente_Charlotte_Academico_role',
       'Admin_Ilvem_Academico_role',
+      'Docente_Ilvem_Academico_role',
       'Admin_Tomatis_Academico_role',
-      'Admin_UK_Academico_role'
+      'Docente_Tomatis_Academico_role',
+      'Admin_UK_Academico_role',
+      'Docente_UK_Academico_role'
     ],
     asistencia: [],
     'asistencia/:id': [

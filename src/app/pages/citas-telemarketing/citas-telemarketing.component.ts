@@ -392,13 +392,14 @@ export class CitasTelemarketingComponent implements OnInit {
   recuperarDatosMarcas() {
 
 
-    this.marcaService.getAllMarcas().subscribe((resp: any) => {
+    this.marcaService.getAllMarcasSinLimite().subscribe((resp: any) => {
       let nombremarcas: any = [];
       resp.data.forEach((element: any) => {
         nombremarcas.push({ item_id: element._id, nombre: element.nombre });
       });
       this.dropdownListMarcas = nombremarcas;
       if (this.citaTelemarketingSeleccionada) {
+        console.log(this.citaTelemarketingSeleccionada);
         this.citaTelemarketingSeleccionada.idMarca.map((m: any) => {
           const findMarcaPersona = this.dropdownListMarcas.find(
             (item: any) => item.item_id === m

@@ -58,7 +58,7 @@ export class MarcaComponent implements OnInit {
   }
 
   subirImagen(){
-    this.fileUploadService.actualizarFoto(this.imagenSubir, 'marcas','logo',this.marcaSeleccionada._id)
+    this.fileUploadService.actualizarFotoDigitalOCean(this.imagenSubir, this.marcaSeleccionada._id)
       .then((resp:any)=>{
         this.cargarMarcabyId(this.marcaSeleccionada._id);
         const Toast = Swal.mixin({
@@ -80,6 +80,28 @@ export class MarcaComponent implements OnInit {
       .catch(resp=>{
         console.log(resp);
       })
+    /* this.fileUploadService.actualizarFoto(this.imagenSubir, 'marcas','logo',this.marcaSeleccionada._id)
+      .then((resp:any)=>{
+        this.cargarMarcabyId(this.marcaSeleccionada._id);
+        const Toast = Swal.mixin({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+          }
+        })
+        Toast.fire({
+          icon: 'success',
+          title: 'La imagen se actualizo correctamente'
+        })
+      })
+      .catch(resp=>{
+        console.log(resp);
+      }) */
   }
 
   async cargarMarcabyId(id: string) {

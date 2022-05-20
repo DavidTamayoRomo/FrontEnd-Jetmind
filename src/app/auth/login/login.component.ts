@@ -55,4 +55,8 @@ export class LoginComponent implements OnInit {
     
   }
 
+  olvido(){
+    this.router.navigateByUrl('/password-recuperar');
+  }
+
 }
