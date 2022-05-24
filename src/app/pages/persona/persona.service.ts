@@ -174,6 +174,11 @@ export class PersonaService {
     const headers = this.retornarHeader();
     return this.http.put(`${base_url}/persona/${id}`, persona, { headers: headers });
   }
+  
+  recuperarPasswordPersona(email:string){
+    const headers = this.retornarHeader();
+    return this.http.get(`${base_url}/persona/recuperar-password/${email}`, { headers: headers });
+  }
 
 }
 
